@@ -40,22 +40,37 @@ script/lua_script_engine/util/lua_script_engine_util.cpp
 
 libmariachi_a_SOURCES = model_viewer.cpp \
 stdafx.cpp \
+debugging/debug_engine.cpp \
+debugging/devices/debug_device.cpp \
+debugging/devices/network_keyboard.cpp \
+devices/device.cpp \
+devices/input/gamepad.cpp \
+devices/input/input_device.cpp \
+devices/input/keyboard.cpp \
+devices/input/mouse.cpp \
+devices/input_output/input_output_device.cpp \
+devices/input_output/network/datagram_network.cpp \
+devices/input_output/network/network_device.cpp \
+devices/input_output/network/packet_network.cpp \
+devices/output/output_device.cpp \
 importers/bmp_loader.cpp \
 importers/md2_importer.cpp \
 importers/model_importer.cpp \
 importers/texture_importer.cpp \
+logging/logger.cpp \
 main/engine.cpp \
 nodes/camera_node.cpp \
 nodes/lens_node.cpp \
 nodes/model_node.cpp \
 nodes/node.cpp \
 nodes/scene_node.cpp \
-tasks/task.cpp \
-tasks/function_caller_task.cpp \
+patterns/observable.cpp \
 render/render_information.cpp \
 render_adapters/direct3d9_adapter.cpp \
 render_adapters/direct3d_adapter.cpp \
 render_adapters/opengl_adapter.cpp \
+render_adapters/opengles1_adapter.cpp \
+render_adapters/opengles_adapter.cpp \
 render_adapters/render_adapter.cpp \
 render_utils/direct3d_win32_window.cpp \
 render_utils/direct3d_window.cpp \
@@ -63,13 +78,20 @@ render_utils/opengl_cocoa_window.cpp \
 render_utils/opengl_glut_window.cpp \
 render_utils/opengl_win32_window.cpp \
 render_utils/opengl_window.cpp \
+render_utils/opengles_uikit_window.cpp \
+render_utils/opengles_window.cpp \
 script/script_engine.cpp \
 stages/dummy_stage.cpp \
 stages/render_stage.cpp \
 stages/stage.cpp \
 stages/stage_runner.cpp \
 structures/oct_tree.cpp \
-structures/texture.cpp
+structures/texture.cpp \
+tasks/function_caller_task.cpp \
+serialization/json_reader.cpp \
+serialization/json_value.cpp \
+serialization/json_writer.cpp \
+tasks/task.cpp
 
 if LINK_LUA
     libmariachi_a_SOURCES += $(lua_sources)
