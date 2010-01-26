@@ -23,13 +23,6 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-{
-    // the default encoding for text
-    "encoding" : "utf-8",
+#pragma once
 
-    // modules loaded at startup
-    "modules" : ["lua", "opengl", "direct3d", "opengles"],
-
-    // the logging support
-    "logging" : { "verbosity" : 3, "file" : false }
-}
+#include "string_util.h"

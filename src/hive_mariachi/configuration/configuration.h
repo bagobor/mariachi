@@ -25,6 +25,9 @@
 
 #pragma once
 
+#include "configuration_list.h"
 #include "configuration_manager.h"
+#include "configuration_map.h"
+#include "configuration_structure.h"
 
 #include "parsers/parsers.h"

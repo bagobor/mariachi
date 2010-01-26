@@ -23,13 +23,33 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-{
-    // the default encoding for text
-    "encoding" : "utf-8",
+#include "stdafx.h"
 
-    // modules loaded at startup
-    "modules" : ["lua", "opengl", "direct3d", "opengles"],
+#include "string_util.h"
 
-    // the logging support
-    "logging" : { "verbosity" : 3, "file" : false }
+using namespace mariachi::util;
+
+StringUtil::StringUtil() {
+}
+
+StringUtil::~StringUtil() {
+}
+
+void StringUtil::tokenize(const std::string &str, std::vector<std::string> &tokens, const std::string &delimiters = " ") {
+    // skips the delimiters at the beggining
+    std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
+
+    // finds the first "non-delimiter"
+    std::string::size_type pos = str.find_first_of(delimiters, lastPos);
+
+    while(std::string::npos != pos || std::string::npos != lastPos) {
+        // Found a token, add it to the vector.
+        tokens.push_back(str.substr(lastPos, pos - lastPos));
+
+        // skips delimiters.  Note the "not_of"
+        lastPos = str.find_first_not_of(delimiters, pos);
+
+        // find next "non-delimiter"
+        pos = str.find_first_of(delimiters, lastPos);
+    }
 }

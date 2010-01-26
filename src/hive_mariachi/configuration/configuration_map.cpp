@@ -25,18 +25,30 @@
 
 #include "stdafx.h"
 
+#include "../util/util.h"
 #include "configuration_map.h"
 
 using namespace mariachi;
+using namespace mariachi::util;
 
-ConfigurationMap::ConfigurationMap() {
+/**
+* Constructor of the class.
+*/
+ConfigurationMap::ConfigurationMap() : ConfigurationStructure() {
 }
 
+/**
+* Destructor of the class.
+*/
 ConfigurationMap::~ConfigurationMap() {
     // cleans the map
     this->cleanMap();
 }
 
+/**
+* Cleans the internal map removing all the memory references
+* in the internal structure.
+*/
 inline void ConfigurationMap::cleanMap() {
     // retrieves the configuration map iterator
     std::map<std::string, ConfigurationValue_t *>::iterator configurationMapIterator = this->configurationMap.begin();
@@ -57,8 +69,69 @@ inline void ConfigurationMap::cleanMap() {
 * @param key The key used to identify the property.
 * @return The property value for the given key.
 */
-ConfigurationValue_t *ConfigurationMap::getProperty(const std::string &key) {
+ConfigurationValue_t *ConfigurationMap::_getProperty(const std::string &key) {
     return this->configurationMap[key];
+}
+
+/**
+* Retrieves a property from configuration using the full qualified name.
+*
+* @param key The key used to identify the property.
+* @return The property value for the given key.
+*/
+ConfigurationValue_t *ConfigurationMap::getProperty(const std::string &key) {
+    // allocates the tokens vector
+    std::vector<std::string> tokens;
+
+    // splits the key in tokens
+    StringUtil::tokenize(key, tokens, "/");
+
+    // retrieves the tokens iterator
+    std::vector<std::string>::iterator tokensIterator = tokens.begin();
+
+    // sets the initial configuration map (this)
+    ConfigurationMap *configurationMap = this;
+
+    // the configuration value used to store the properties
+    ConfigurationValue_t *configurationValue;
+
+    // sets the is first flag
+    bool isFirst = true;
+
+    // iteretas over all the tokens
+    while(tokensIterator != tokens.end()) {
+        // in case it's the first iteration
+        if(isFirst) {
+            // unsets the is first flag
+            isFirst = false;
+        }
+        else {
+            // in case the type of the configuration value is not object
+            if(configurationValue->type != CONFIGURATION_VALUE_OBJECT_TYPE) {
+                return NULL;
+            }
+
+            // sets the new configuration map
+            configurationMap = (ConfigurationMap *) configurationValue->structure.objectValue;
+        }
+
+        // retrieves the current token
+        std::string token = *tokensIterator;
+
+        // retrieves the property
+        configurationValue = configurationMap->_getProperty(token);
+
+        // in case the configuration value is not valid
+        if(!configurationValue) {
+            return NULL;
+        }
+
+        // increments the tokens iterator
+        tokensIterator++;
+    }
+
+    // returns the configuration value
+    return configurationValue;
 }
 
 /**
@@ -76,70 +149,43 @@ void ConfigurationMap::removeProperty(const std::string &key) {
     // retrieves the configuration value
     ConfigurationValue_t *configurationValue = this->configurationMap[key];
 
-    // retrieves the configuration value type
-    ConfigurationValueType_t configurationValueType = configurationValue->type;
+    // removes the configuration value from the configuration map
+    this->configurationMap.erase(key);
 
-    // switches over the configuration value type
-    switch(configurationValueType) {
-        // in case is of type int
-        case CONFIGURATION_VALUE_INT_TYPE:
-            break;
+    // removes the configuration value from the configuration list
+    this->configurationList.remove(configurationValue);
 
-        // in case is of type string
-        case CONFIGURATION_VALUE_STRING_TYPE:
-            // releases the string value
-            free(configurationValue->structure.stringValue);
-            break;
-
-        // in case is of type object
-        case CONFIGURATION_VALUE_OBJECT_TYPE:
-            // deletes the object value
-            delete (ConfigurationMap *) configurationValue->structure.objectValue;
-
-            break;
-    }
-
-    // releases the configuration value memory
-    free(configurationValue);
+    // cleans the configuration value
+    this->cleanConfigurationValue(configurationValue);
 }
 
 void ConfigurationMap::setIntProperty(const std::string &key, int intValue) {
-    // allocates space for a new configuration value
-    ConfigurationValue_t *configurationValue = (ConfigurationValue_t *) malloc(sizeof(ConfigurationValue_t)) ;
-
-    // sets the type in the configuration value
-    configurationValue->type = CONFIGURATION_VALUE_INT_TYPE;
-
-    // sets the int value in the configuration value
-    configurationValue->structure.intValue = intValue;
+    // creates the configuration value for the int value
+    ConfigurationValue_t *configurationValue = this->getIntValue(intValue);
 
     // sets the property
     this->setProperty(key, configurationValue);
 }
 
 void ConfigurationMap::setStringProperty(const std::string &key, const std::string &stringValue) {
-    // allocates space for a new configuration value
-    ConfigurationValue_t *configurationValue = (ConfigurationValue_t *) malloc(sizeof(ConfigurationValue_t)) ;
+    // creates the configuration value for the string value
+    ConfigurationValue_t *configurationValue = this->getStringValue(stringValue);
 
-    // sets the type in the configuration value
-    configurationValue->type = CONFIGURATION_VALUE_STRING_TYPE;
+    // sets the property
+    this->setProperty(key, configurationValue);
+}
 
-    // sets the string value in the configuration value
-    configurationValue->structure.stringValue = new std::string(stringValue);
+void ConfigurationMap::setBooleanProperty(const std::string &key, bool booleanValue) {
+    // creates the configuration value for the boolean value
+    ConfigurationValue_t *configurationValue = this->getBooleanValue(booleanValue);
 
     // sets the property
     this->setProperty(key, configurationValue);
 }
 
 void ConfigurationMap::setObjectProperty(const std::string &key, ConfigurationMap *objectValue) {
-    // allocates space for a new configuration value
-    ConfigurationValue_t *configurationValue = (ConfigurationValue_t *) malloc(sizeof(ConfigurationValue_t)) ;
-
-    // sets the type in the configuration value
-    configurationValue->type = CONFIGURATION_VALUE_OBJECT_TYPE;
-
-    // sets the object value in the configuration value value
-    configurationValue->structure.objectValue = objectValue;
+    // creates the configuration value for the object value
+    ConfigurationValue_t *configurationValue = this->getObjectValue(objectValue);
 
     // sets the property
     this->setProperty(key, configurationValue);

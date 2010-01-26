@@ -95,6 +95,12 @@ void JsonConfigurationParser::parseConfiguration(void *configuration) {
 void JsonConfigurationParser::parseResource(void *resource) {
 }
 
+/**
+* Updates a configuration map with the given json node.
+*
+* @param configurationMap The configuration map to be updated.
+* @param currentNode The node to be used to update the configuration map.
+*/
 void JsonConfigurationParser::updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode) {
     // retrieves the menber names
     Json::Value::Members currentNodeMembers = currentNode.getMemberNames();
@@ -110,66 +116,119 @@ void JsonConfigurationParser::updateConfigurationMap(ConfigurationMap *configura
         // retrieves the property value
         Json::Value propertyValue = currentNode[propertyName];
 
-        // retrieves the property value type
-        Json::ValueType propertyValueType = propertyValue.type();
+        // creates the configuration value
+        ConfigurationValue *configurationValue = this->createConfigurationValue(propertyValue);
 
-        int propertyValueIntValue;
-        std::string propertyValueStringValue;
-
-        switch(propertyValueType) {
-            case Json::nullValue:
-                break;
-
-            case Json::intValue:
-                // retrieves the property value as int
-                propertyValueIntValue = propertyValue.asInt();
-
-                // sets the int property in the configuration manager
-                this->configurationManager->setIntProperty(propertyName, propertyValueIntValue);
-
-                break;
-
-            case Json::uintValue:
-                // retrieves the property value as int
-                propertyValueIntValue = propertyValue.asUInt();
-
-                // sets the int property in the configuration manager
-                this->configurationManager->setIntProperty(propertyName, propertyValueIntValue);
-
-                break;
-
-            case Json::realValue:
-                break;
-
-            case Json::stringValue:
-                // retrieves the property value as string
-                propertyValueStringValue = propertyValue.asString();
-
-                // sets the string property in the configuration manager
-                this->configurationManager->setStringProperty(propertyName, propertyValueStringValue);
-
-                break;
-
-            case Json::booleanValue:
-                break;
-
-            case Json::arrayValue:
-                break;
-
-            case Json::objectValue:
-                // creates a new configuration map
-                ConfigurationMap *configurationMap = new ConfigurationMap();
-
-                // updates the configuration map with the new "current" node
-                this->updateConfigurationMap(configurationMap, propertyValue);
-
-                // sets the object property in the configuration manager
-                this->configurationManager->setObjectProperty(propertyName, configurationMap);
-
-                break;
-        }
+        // sets the propery in the configuration map
+        configurationMap->setProperty(propertyName, configurationValue);
 
         // increments the current node members iterator
         currentNodeMembersIterator++;
     }
+}
+
+/**
+* Updates a configuration list with the given json node.
+*
+* @param configurationList The configuration list to be updated.
+* @param currentNode The node to be used to update the configuration list.
+*/
+void JsonConfigurationParser::updateConfigurationList(ConfigurationList *configurationList, const Json::Value &currentNode) {
+    // retrieves the current node size
+    unsigned int currentNodeSize = currentNode.size();
+
+    // iterates over the child nodes
+    for(unsigned int index = 0; index < currentNodeSize; index++) {
+        // retrieves the property value
+        Json::Value propertyValue = currentNode[index];
+
+        // creates the configuration value
+        ConfigurationValue *configurationValue = this->createConfigurationValue(propertyValue);
+
+        // adds the property to the configuration list
+        configurationList->addProperty(configurationValue);
+    }
+}
+
+ConfigurationValue *JsonConfigurationParser::createConfigurationValue(const Json::Value &propertyValue) {
+    // allocates the configuration value pointer
+    ConfigurationValue *configurationValue;
+
+    // retrieves the property value type
+    Json::ValueType propertyValueType = propertyValue.type();
+
+    // the various property values
+    int propertyValueIntValue;
+    std::string propertyValueStringValue;
+    bool propertyValueBooleanValue;
+
+    // the various composite property values
+    ConfigurationList *configurationList;
+    ConfigurationMap *configurationMap;
+
+    // switches over the property value type
+    switch(propertyValueType) {
+        case Json::nullValue:
+            break;
+
+        case Json::intValue:
+            // retrieves the property value as int
+            propertyValueIntValue = propertyValue.asInt();
+
+            configurationValue = ConfigurationStructure::getIntValue(propertyValueIntValue);
+
+            break;
+
+        case Json::uintValue:
+            // retrieves the property value as int
+            propertyValueIntValue = propertyValue.asUInt();
+
+            configurationValue = ConfigurationStructure::getIntValue(propertyValueIntValue);
+
+            break;
+
+        case Json::realValue:
+            break;
+
+        case Json::stringValue:
+            // retrieves the property value as string
+            propertyValueStringValue = propertyValue.asString();
+
+            configurationValue = ConfigurationStructure::getStringValue(propertyValueStringValue);
+
+            break;
+
+        case Json::booleanValue:
+            // retrieves the property value as boolean
+            propertyValueBooleanValue = propertyValue.asBool();
+
+            configurationValue = ConfigurationStructure::getBooleanValue(propertyValueBooleanValue);
+
+            break;
+
+        case Json::arrayValue:
+            // creates a new configuration list
+            configurationList = new ConfigurationList();
+
+            // updates the configuration list with the new "current" node
+            this->updateConfigurationList(configurationList, propertyValue);
+
+            configurationValue = ConfigurationStructure::getListValue(configurationList);
+
+            break;
+
+        case Json::objectValue:
+            // creates a new configuration map
+            configurationMap = new ConfigurationMap();
+
+            // updates the configuration map with the new "current" node
+            this->updateConfigurationMap(configurationMap, propertyValue);
+
+            configurationValue = ConfigurationStructure::getObjectValue(configurationMap);
+
+            break;
+    }
+
+    // returns the configuration value
+    return configurationValue;
 }

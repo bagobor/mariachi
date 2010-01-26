@@ -23,13 +23,27 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-{
-    // the default encoding for text
-    "encoding" : "utf-8",
+#pragma once
 
-    // modules loaded at startup
-    "modules" : ["lua", "opengl", "direct3d", "opengles"],
+#include "../structures/configuration.h"
+#include "configuration_map.h"
+#include "configuration_structure.h"
 
-    // the logging support
-    "logging" : { "verbosity" : 3, "file" : false }
+namespace mariachi {
+    class ConfigurationList : public ConfigurationStructure {
+        private:
+            std::vector<ConfigurationValue_t *> configurationList;
+            inline void cleanList();
+
+        public:
+            ConfigurationList();
+            ~ConfigurationList();
+            ConfigurationValue_t *getProperty(unsigned int index);
+            void addProperty(ConfigurationValue_t *value);
+            void removeProperty(unsigned int index);
+            void addIntProperty(const std::string &key, int intValue);
+            void addStringProperty(const std::string &key, const std::string &stringValue);
+            void addBooleanProperty(const std::string &key, bool booleanValue);
+            void addObjectProperty(const std::string &key, ConfigurationMap *objectValue);
+    };
 }

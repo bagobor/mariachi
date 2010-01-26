@@ -30,7 +30,7 @@
 using namespace mariachi;
 
 /**
-* The main entry point of the program
+* The main entry point of the program.
 *
 * @param argc The number of arguments sent to the program.
 * @param argv The value of the arguments sent to the program.

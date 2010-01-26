@@ -46,11 +46,11 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the engine from the parameters
     Engine *engine = (Engine *) parameters;
 
-    // starts the logger in the engine
-    engine->startLogger(DEBUG, true);
-
     // starts the configuration manager in the engine
     engine->startConfigurationManager();
+
+    // starts the logger in the engine
+    engine->startLogger(DEBUG, true);
 
     // starts the input devices in the engine
     engine->startInputDevices();
@@ -211,6 +211,8 @@ void Engine::update() {
 * @param pidFile If the process id information should be used for the file.
 */
 void Engine::startLogger(int level, bool pidFile) {
+
+
     // allocates a new string for the current process id string
     std::string currentProcessIdString = std::string();
 
@@ -226,11 +228,17 @@ void Engine::startLogger(int level, bool pidFile) {
     // sets the logging level
     this->logger->setLevel(level);
 
-    // creates a new file handler
-    LoggerFileHandler *fileHandler = new LoggerFileHandler(std::string("service_pid" + currentProcessIdString + ".log"));
+    // retrieves the logging file property
+    ConfigurationValue_t *loggingFileProperty = this->configurationManager->getProperty("logging/file");
 
-    // adds the file handler to the default logger
-    this->logger->addHandler(fileHandler);
+    // in case the a file logger should be used
+    if(loggingFileProperty->structure.booleanValue) {
+        // creates a new file handler
+        LoggerFileHandler *fileHandler = new LoggerFileHandler(std::string("service_pid" + currentProcessIdString + ".log"));
+
+        // adds the file handler to the default logger
+        this->logger->addHandler(fileHandler);
+    }
 }
 
 /**
@@ -470,6 +478,24 @@ void Engine::setDevice(const std::string &deviceName, Device *device) {
     // sets the device in the devices map with
     // the given device name
     this->devicesMap[deviceName] = device;
+}
+
+/**
+* Retrieves the configuration manager.
+*
+* @return The configuration manager.
+*/
+ConfigurationManager *Engine::getConfigurationManager() {
+    return this->configurationManager;
+}
+
+/**
+* Sets the configuration manager.
+*
+* @param configurationManager The configuration manager.
+*/
+void Engine::setConfigurationManager(ConfigurationManager *configurationManager) {
+    this->configurationManager = configurationManager;
 }
 
 /**

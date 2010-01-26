@@ -26,9 +26,10 @@
 #pragma once
 
 #include "../structures/configuration.h"
+#include "configuration_structure.h"
 
 namespace mariachi {
-    class ConfigurationMap {
+    class ConfigurationMap : public ConfigurationStructure {
         private:
             std::map<std::string, ConfigurationValue_t *> configurationMap;
             std::list<ConfigurationValue_t *> configurationList;
@@ -36,12 +37,14 @@ namespace mariachi {
         public:
             ConfigurationMap();
             ~ConfigurationMap();
-            ConfigurationValue_t *getProperty(const std::string &key);
             inline void cleanMap();
+            ConfigurationValue_t *_getProperty(const std::string &key);
+            ConfigurationValue_t *getProperty(const std::string &key);
             void setProperty(const std::string &key, ConfigurationValue_t *value);
             void removeProperty(const std::string &key);
             void setIntProperty(const std::string &key, int intValue);
             void setStringProperty(const std::string &key, const std::string &stringValue);
+            void setBooleanProperty(const std::string &key, bool booleanValue);
             void setObjectProperty(const std::string &key, ConfigurationMap *objectValue);
     };
 }

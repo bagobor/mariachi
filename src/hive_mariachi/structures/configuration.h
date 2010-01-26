@@ -25,21 +25,23 @@
 
 #pragma once
 
-union ConfigurationValue_t;
-
 typedef union ConfigurationValueStructure_t {
     int intValue;
     std::string *stringValue;
+    bool booleanValue;
+    void *listValue;
     void *objectValue;
 } ConfigurationValueStructure;
 
 typedef enum ConfigurationValueType_t {
     CONFIGURATION_VALUE_INT_TYPE = 1,
     CONFIGURATION_VALUE_STRING_TYPE,
+    CONFIGURATION_VALUE_BOOLEAN_TYPE,
+    CONFIGURATION_VALUE_LIST_TYPE,
     CONFIGURATION_VALUE_OBJECT_TYPE
 } ConfigurationValueType;
 
-typedef union ConfigurationValue_t {
+typedef struct ConfigurationValue_t {
     ConfigurationValueStructure_t structure;
     ConfigurationValueType_t type;
 } ConfigurationValue;

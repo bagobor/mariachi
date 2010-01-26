@@ -26,11 +26,16 @@
 #pragma once
 
 #include "../../serialization/json.h"
+#include "../configuration_list.h"
+#include "../configuration_map.h"
 #include "configuration_parser.h"
 
 namespace mariachi {
     class JsonConfigurationParser : public ConfigurationParser {
         private:
+            void updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode);
+            void updateConfigurationList(ConfigurationList *configurationList, const Json::Value &currentNode);
+            ConfigurationValue *createConfigurationValue(const Json::Value &propertyValue);
 
         public:
             JsonConfigurationParser();
@@ -38,6 +43,5 @@ namespace mariachi {
             ~JsonConfigurationParser();
             void parseConfiguration(void *configuration);
             void parseResource(void *resource);
-            void updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode);
     };
 }

@@ -87,6 +87,8 @@ namespace mariachi {
             void getCurrentProcessIdString(std::string &currentProcessIdString);
             Device *getDevice(const std::string &deviceName);
             void setDevice(const std::string &deviceName, Device *device);
+            ConfigurationManager *getConfigurationManager();
+            void setConfigurationManager(ConfigurationManager *configurationManager);
             Logger *getLogger();
             void setLogger(Logger *logger);
             SceneNode *getRender();

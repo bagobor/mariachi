@@ -557,11 +557,19 @@
 				Name="Configuration"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\configuration\configuration_list.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\configuration\configuration_manager.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\configuration\configuration_map.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\configuration\configuration_structure.cpp"
 					>
 				</File>
 				<Filter
@@ -582,6 +590,22 @@
 				>
 				<File
 					RelativePath="..\..\src\hive_mariachi\exceptions\exception.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\string_util.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Algorithms"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\algorithms\a_star_path_finder.cpp"
 					>
 				</File>
 			</Filter>
@@ -1203,11 +1227,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\configuration\configuration_list.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\configuration\configuration_manager.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\configuration\configuration_map.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\configuration\configuration_structure.h"
 					>
 				</File>
 				<Filter
@@ -1236,6 +1268,30 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\exceptions\exceptions.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\string_util.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\util.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Algorithms"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\algorithms\a_star_path_finder.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\algorithms\algorithms.h"
 					>
 				</File>
 			</Filter>

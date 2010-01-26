@@ -25,12 +25,14 @@
 
 #pragma once
 
-#include "devices/devices.h"
-#include "importers/importers.h"
-#include "main/main.h"
+#include "algorithms/algorithms.h"
 #include "configuration/configuration.h"
 #include "debugging/debugging.h"
+#include "devices/devices.h"
+#include "exceptions/exceptions.h"
+#include "importers/importers.h"
 #include "logging/logging.h"
+#include "main/main.h"
 #include "nodes/nodes.h"
 #include "patterns/patterns.h"
 #include "render/render.h"
@@ -42,3 +44,4 @@
 #include "structures/structures.h"
 #include "system/system.h"
 #include "tasks/tasks.h"
+#include "util/util.h"

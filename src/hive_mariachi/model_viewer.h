@@ -28,7 +28,7 @@
 #define DEFAULT_ZOOM_LEVEL 100.0
 
 /**
-* The frame samplign limit, used in
+* The frame sampling limit, used in
 * the frame rate counting.
 */
 #define FRAME_SAMPLING_LIMIT 3.0
