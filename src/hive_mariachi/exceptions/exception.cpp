@@ -23,8 +23,14 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#pragma once
+#include "stdafx.h"
 
-#include "configuration_manager.h"
+#include "exception.h"
 
-#include "parsers/parsers.h"
+using namespace mariachi;
+
+Exception::Exception() {
+}
+
+Exception::~Exception() {
+}

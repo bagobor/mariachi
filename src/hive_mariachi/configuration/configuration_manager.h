@@ -25,12 +25,23 @@
 
 #pragma once
 
+#include "parsers/configuration_parser.h"
+
+/**
+* The default configuration file path.
+*/
+#define DEFAULT_CONFIGURATION_FILE "configuration.json"
+
 namespace mariachi {
     class ConfigurationManager {
         private:
+			std::fstream *configurationFile;
+			std::list<ConfigurationParser *> configurationParserList;
 
         public:
             ConfigurationManager();
             ~ConfigurationManager();
+			void load(void *arguments);
+			void unload(void *arguments);
     };
 }

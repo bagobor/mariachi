@@ -25,6 +25,17 @@
 
 #pragma once
 
-#include "configuration_manager.h"
+namespace mariachi {
+	class ConfigurationParser {
+		private:
+			std::string name;
 
-#include "parsers/parsers.h"
+		public:
+			ConfigurationParser();
+			~ConfigurationParser();
+			virtual void parseConfiguration(void *configuration) {};
+			virtual void parseResource(void *resource) {};
+			virtual std::string &getName() { return this->name; };
+			virtual void setName(const std::string &name) { this->name = name; };
+	};
+}

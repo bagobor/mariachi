@@ -25,6 +25,15 @@
 
 #pragma once
 
-#include "configuration_manager.h"
+namespace mariachi {
+	class Exception {
+		private:
+			std::string message;
 
-#include "parsers/parsers.h"
+		public:
+			Exception();
+			~Exception();
+			std::string &getMessage() { return this->message; };
+			virtual void setMessage(std::string &message) { this->message = message; };
+	};
+}

@@ -23,8 +23,20 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#pragma once
+#include "stdafx.h"
 
-#include "configuration_manager.h"
+#include "configuration_parser.h"
 
-#include "parsers/parsers.h"
+using namespace mariachi;
+
+/**
+* Constructor of the class.
+*/
+ConfigurationParser::ConfigurationParser() {
+}
+
+/**
+* Destructor of the class.
+*/
+ConfigurationParser::~ConfigurationParser() {
+}

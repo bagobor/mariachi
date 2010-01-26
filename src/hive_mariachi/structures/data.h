@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -25,6 +25,9 @@
 
 #pragma once
 
-#include "configuration_manager.h"
-
-#include "parsers/parsers.h"
+namespace mariachi {
+	typedef struct FileData_t {
+        char *data;
+        unsigned int size;
+    } FileData_t;
+};

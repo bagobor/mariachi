@@ -25,6 +25,16 @@
 
 #pragma once
 
-#include "configuration_manager.h"
+#include "configuration_parser.h"
 
-#include "parsers/parsers.h"
+namespace mariachi {
+	class JsonConfigurationParser : public ConfigurationParser {
+		private:
+
+		public:
+			JsonConfigurationParser();
+			~JsonConfigurationParser();
+			void parseConfiguration(void *configuration);
+			void parseResource(void *resource);
+	};
+}

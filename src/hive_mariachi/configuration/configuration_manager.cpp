@@ -25,6 +25,9 @@
 
 #include "stdafx.h"
 
+#include "../structures/structures.h"
+#include "parsers/parsers.h"
+
 #include "configuration_manager.h"
 
 using namespace mariachi;
@@ -39,4 +42,60 @@ ConfigurationManager::ConfigurationManager() {
 * Destructor of the class.
 */
 ConfigurationManager::~ConfigurationManager() {
+
+}
+
+/**
+* Loads the configuration manager with the given arguments.
+*
+* @param arguments The arguments to the load of the configuration manager.
+*/
+void ConfigurationManager::load(void *arguments) {
+	// tem de carregar todos os configuration parsers
+	// para cada um tem de lhes associar regras para activacao
+	// podemos começar apensas pela extensai
+
+	// creates a new json configuration parser
+	JsonConfigurationParser *jsonConfigurationParser = new JsonConfigurationParser();
+
+	// adds the json configuration parser to the configuration parsser list
+	configurationParserList.push_back(jsonConfigurationParser);
+
+    // creates the configuration file to be used
+    this->configurationFile = new std::fstream("config.json", std::fstream::in | std::fstream::binary);
+
+    // in case the opening of the file fails
+    if(this->configurationFile->fail())
+        throw "Problem while loading file";
+
+    // seeks to the end of the file
+    this->configurationFile->seekg (0, std::fstream::end);
+
+    // get length of file:
+    std::streamoff configurationFileLength = this->configurationFile->tellg();
+
+    // seeks to the beginning of the file
+    this->configurationFile->seekg (0, std::fstream::beg);
+
+    // allocates space for the configuration file data
+    char *configurationFileData = (char *) malloc(configurationFileLength);
+
+    // reads the configuration file data
+    this->configurationFile->read(configurationFileData, configurationFileLength);
+
+	// creates the file data
+	FileData_t fileData = { configurationFileData, configurationFileLength };
+
+	// parses the configuration with the json configuration parser
+	jsonConfigurationParser->parseConfiguration(&fileData);
+}
+
+/**
+* Unloads the configuration manager with the given arguments.
+*
+* @param arguments The arguments to the unload of the configuration manager.
+*/
+void ConfigurationManager::unload(void *arguments) {
+	// deletes the configuration file
+	delete this->configurationFile;
 }

@@ -48,6 +48,9 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     // starts the logger in the engine
     engine->startLogger(DEBUG, true);
 
+    // starts the configuration manager in the engine
+    engine->startConfigurationManager();
+
     // starts the input devices in the engine
     engine->startInputDevices();
 
@@ -228,6 +231,31 @@ void Engine::startLogger(int level, bool pidFile) {
     // adds the file handler to the default logger
     this->logger->addHandler(fileHandler);
 }
+
+/**
+* Starts the configuration manager in the engine.
+* Starting the configuration amanger implies booting the necessary
+* structures for data serialization.
+*/
+void Engine::startConfigurationManager() {
+    // creates a configuration manager
+	this->configurationManager = new ConfigurationManager();
+
+	// loads the configuration manager
+	this->configurationManager->load(NULL);
+}
+
+/**
+* Stops the configuration manager in the engine.
+*/
+void Engine::stopConfigurationManager() {
+	// loads the configuration manager
+	this->configurationManager->unload(NULL);
+
+	// deletes the configuration manager
+	delete this->configurationManager;
+}
+
 
 /**
 * Starts the input devices in the engine.

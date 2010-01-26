@@ -103,6 +103,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\..\lib\liblua\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
@@ -558,6 +560,26 @@
 					RelativePath="..\..\src\hive_mariachi\configuration\configuration_manager.cpp"
 					>
 				</File>
+				<Filter
+					Name="Parsers"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\configuration\parsers\configuration_parser.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\configuration\parsers\json_configuration_parser.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Exceptions"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\exceptions\exception.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -734,6 +756,10 @@
 				>
 				<File
 					RelativePath="..\..\src\hive_mariachi\structures\box.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\structures\data.h"
 					>
 				</File>
 				<File
@@ -1178,6 +1204,34 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\configuration\configuration_manager.h"
+					>
+				</File>
+				<Filter
+					Name="Parsers"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\configuration\parsers\configuration_parser.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\configuration\parsers\json_configuration_parser.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\configuration\parsers\parsers.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Exceptions"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\exceptions\exception.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\exceptions\exceptions.h"
 					>
 				</File>
 			</Filter>

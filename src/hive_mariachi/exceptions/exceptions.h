@@ -25,6 +25,4 @@
 
 #pragma once
 
-#include "configuration_manager.h"
-
-#include "parsers/parsers.h"
+#include "exception.h"

@@ -26,6 +26,7 @@
 #pragma once
 
 #include "box.h"
+#include "data.h"
 #include "image.h"
 #include "mesh.h"
 #include "oct_tree.h"
