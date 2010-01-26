@@ -26,7 +26,7 @@
 #pragma once
 
 namespace mariachi {
-    class Exception {
+	class Exception : public std::exception {
         private:
             std::string message;
 
