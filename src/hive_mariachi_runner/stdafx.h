@@ -61,6 +61,7 @@ const char *getBundleDirectory();
 #include <string>
 #include <map>
 #include <list>
+#include <queue>
 #include <vector>
 #include <iostream>
 #include <fstream>
