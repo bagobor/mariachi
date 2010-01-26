@@ -34,7 +34,7 @@ using namespace mariachi;
 /**
 * Constructor of the class.
 */
-JsonConfigurationParser::JsonConfigurationParser() {
+JsonConfigurationParser::JsonConfigurationParser() : ConfigurationParser() {
 }
 
 /**

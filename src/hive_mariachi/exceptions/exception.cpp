@@ -29,7 +29,7 @@
 
 using namespace mariachi;
 
-Exception::Exception() {
+Exception::Exception() : std::exception() {
 }
 
 Exception::~Exception() {
