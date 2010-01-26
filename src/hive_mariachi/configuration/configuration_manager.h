@@ -25,7 +25,8 @@
 
 #pragma once
 
-#include "parsers/configuration_parser.h"
+#include "../main/engine.h"
+#include "configuration_map.h"
 
 /**
 * The default configuration file path.
@@ -33,15 +34,20 @@
 #define DEFAULT_CONFIGURATION_FILE "configuration.json"
 
 namespace mariachi {
-    class ConfigurationManager {
+    class ConfigurationParser;
+
+    class ConfigurationManager : public ConfigurationMap {
         private:
-			std::fstream *configurationFile;
-			std::list<ConfigurationParser *> configurationParserList;
+            Engine *engine;
+            std::fstream *configurationFile;
+            std::list<ConfigurationParser *> configurationParserList;
 
         public:
             ConfigurationManager();
+            ConfigurationManager(Engine *engine);
             ~ConfigurationManager();
-			void load(void *arguments);
-			void unload(void *arguments);
+            inline void initEngine(Engine *engine);
+            void load(void *arguments);
+            void unload(void *arguments);
     };
 }

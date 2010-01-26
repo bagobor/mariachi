@@ -25,12 +25,23 @@
 
 #pragma once
 
-#include "box.h"
-#include "configuration.h"
-#include "data.h"
-#include "image.h"
-#include "mesh.h"
-#include "oct_tree.h"
-#include "position.h"
-#include "size.h"
-#include "texture.h"
+#include "../structures/configuration.h"
+
+namespace mariachi {
+    class ConfigurationMap {
+        private:
+            std::map<std::string, ConfigurationValue_t *> configurationMap;
+            std::list<ConfigurationValue_t *> configurationList;
+
+        public:
+            ConfigurationMap();
+            ~ConfigurationMap();
+            ConfigurationValue_t *getProperty(const std::string &key);
+            inline void cleanMap();
+            void setProperty(const std::string &key, ConfigurationValue_t *value);
+            void removeProperty(const std::string &key);
+            void setIntProperty(const std::string &key, int intValue);
+            void setStringProperty(const std::string &key, const std::string &stringValue);
+            void setObjectProperty(const std::string &key, ConfigurationMap *objectValue);
+    };
+}

@@ -1,51 +1,81 @@
-#ifndef CPPTL_JSON_H_INCLUDED
-# define CPPTL_JSON_H_INCLUDED
+// Hive Mariachi Engine
+// Copyright (C) 2008 Hive Solutions Lda.
+//
+// This file is part of Hive Mariachi Engine.
+//
+// Hive Mariachi Engine is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Hive Mariachi Engine is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-# include "forwards.h"
-# include <string>
-# include <vector>
+// __author__    = João Magalhães <joamag@hive.pt>
+// __version__   = 1.0.0
+// __revision__  = $LastChangedRevision$
+// __date__      = $LastChangedDate$
+// __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
+// __license__   = GNU General Public License (GPL), Version 3
 
-# ifndef JSON_USE_CPPTL_SMALLMAP
-#  include <map>
-# else
-#  include <cpptl/smallmap.h>
-# endif
-# ifdef JSON_USE_CPPTL
-#  include <cpptl/forwards.h>
-# endif
+#pragma once
 
-/** \brief JSON (JavaScript Object Notation).
- */
+#include "forwards.h"
+
 namespace Json {
+   /**
+   * Type of the value held by a Value object.
+   */
+    enum ValueType {
+        // 'null' value
+        nullValue = 0,
 
-   /** \brief Type of the value held by a Value object.
+        // signed integer value
+        intValue,
+
+        // unsigned integer value
+        uintValue,
+
+        // double value
+        realValue,
+
+        // utf-8 string value
+        stringValue,
+
+        // boolean value
+        booleanValue,
+
+        // array value (ordered list)
+        arrayValue,
+
+        // object value (collection of name / value pairs)
+        objectValue
+    };
+
+    /**
+    * The comment placement enumeration, defines the place of the comment
+    * relative to the code position.
     */
-   enum ValueType
-   {
-      nullValue = 0, ///< 'null' value
-      intValue,      ///< signed integer value
-      uintValue,     ///< unsigned integer value
-      realValue,     ///< double value
-      stringValue,   ///< UTF-8 string value
-      booleanValue,  ///< bool value
-      arrayValue,    ///< array value (ordered list)
-      objectValue    ///< object value (collection of name/value pairs).
-   };
+    enum CommentPlacement {
+        // a comment placed on the line before a value
+        commentBefore = 0,
 
-   enum CommentPlacement
-   {
-      commentBefore = 0,        ///< a comment placed on the line before a value
-      commentAfterOnSameLine,   ///< a comment just after a value on the same line
-      commentAfter,             ///< a comment on the line after a value (only make sense for root value)
-      numberOfCommentPlacement
-   };
+        // a comment just after a value on the same line
+        commentAfterOnSameLine,
 
-//# ifdef JSON_USE_CPPTL
-//   typedef CppTL::AnyEnumerator<const char *> EnumMemberNames;
-//   typedef CppTL::AnyEnumerator<const Value &> EnumValues;
-//# endif
+        //  a comment on the line after a value (only make sense for root value)
+        commentAfter,
 
-   /** \brief Lightweight wrapper to tag static string.
+        numberOfCommentPlacement
+    };
+
+    /**
+    * \brief Lightweight wrapper to tag static string.
     *
     * Value constructor and objectValue member assignement takes advantage of the
     * StaticString and avoid the cost of string duplication when storing the
@@ -59,26 +89,15 @@ namespace Json {
     * object[code] = 1234;
     * \endcode
     */
-   class StaticString
-   {
-   public:
-      explicit StaticString( const char *czstring )
-         : str_( czstring )
-      {
-      }
+    class StaticString
+    {
+        public:
+            explicit StaticString(const char *czstring) : str_( czstring ) { }
+            operator const char *() const { return str_; }
+            const char *c_str() const { return str_; }
 
-      operator const char *() const
-      {
-         return str_;
-      }
-
-      const char *c_str() const
-      {
-         return str_;
-      }
-
-   private:
-      const char *str_;
+        private:
+            const char *str_;
    };
 
    /** \brief Represents a <a HREF="http://www.json.org">JSON</a> value.
@@ -87,7 +106,7 @@ namespace Json {
     * - signed integer [range: Value::minInt - Value::maxInt]
     * - unsigned integer (range: 0 - Value::maxUInt)
     * - double
-    * - UTF-8 string
+    * - utf-8 string
     * - boolean
     * - 'null'
     * - an ordered list of Value
@@ -157,11 +176,7 @@ namespace Json {
       };
 
    public:
-#  ifndef JSON_USE_CPPTL_SMALLMAP
       typedef std::map<CZString, Value> ObjectValues;
-#  else
-      typedef CppTL::SmallMap<CZString, Value> ObjectValues;
-#  endif // ifndef JSON_USE_CPPTL_SMALLMAP
 # endif // ifndef JSON_VALUE_USE_INTERNAL_MAP
 #endif // ifndef JSONCPP_DOC_EXCLUDE_IMPLEMENTATION
 
@@ -198,9 +213,7 @@ namespace Json {
        */
       Value( const StaticString &value );
       Value( const std::string &value );
-# ifdef JSON_USE_CPPTL
-      Value( const CppTL::ConstString &value );
-# endif
+
       Value( bool value );
       Value( const Value &other );
       ~Value();
@@ -309,12 +322,7 @@ namespace Json {
        * \endcode
        */
       Value &operator[]( const StaticString &key );
-# ifdef JSON_USE_CPPTL
-      /// Access an object value by name, create a null member if it does not exist.
-      Value &operator[]( const CppTL::ConstString &key );
-      /// Access an object value by name, returns null if there is no member with that name.
-      const Value &operator[]( const CppTL::ConstString &key ) const;
-# endif
+
       /// Return the member named key if it exist, defaultValue otherwise.
       Value get( const char *key,
                  const Value &defaultValue ) const;
@@ -942,9 +950,9 @@ public: // overridden from ValueArrayAllocator
 #endif
    };
 
-   /** \brief Experimental and untested: const iterator for object and array value.
-    *
-    */
+   /**
+   * \brief Experimental and untested: const iterator for object and array value.
+   */
    class ValueConstIterator : public ValueIteratorBase
    {
       friend class Value;
@@ -1063,6 +1071,3 @@ public: // overridden from ValueArrayAllocator
 
 
 } // namespace Json
-
-
-#endif // CPPTL_JSON_H_INCLUDED

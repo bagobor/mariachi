@@ -33,23 +33,20 @@
 #include <stdexcept>
 #include <cstring>
 #include <cassert>
-#ifdef JSON_USE_CPPTL
-# include <cpptl/conststring.h>
-#endif
-#include <cstddef>    // size_t
-#ifndef JSON_USE_SIMPLE_INTERNAL_ALLOCATOR
-# include "json_batchallocator.h"
-#endif // #ifndef JSON_USE_SIMPLE_INTERNAL_ALLOCATOR
 
-#define JSON_ASSERT_UNREACHABLE assert( false )
-#define JSON_ASSERT( condition ) assert( condition );  // @todo <= change this into an exception throw
-#define JSON_ASSERT_MESSAGE( condition, message ) if (!( condition )) throw std::runtime_error( message );
+#include <cstddef>
+
+#include "json_batchallocator.h"
+
+#define JSON_ASSERT_UNREACHABLE assert(false)
+#define JSON_ASSERT(condition) assert(condition);  // @todo <= change this into an exception throw
+#define JSON_ASSERT_MESSAGE(condition, message) if(!( condition )) throw std::runtime_error(message);
 
 namespace Json {
 
 const Value Value::null;
-const Value::Int Value::minInt = Value::Int( ~(Value::UInt(-1)/2) );
-const Value::Int Value::maxInt = Value::Int( Value::UInt(-1)/2 );
+const Value::Int Value::minInt = Value::Int(~(Value::UInt(-1)/2));
+const Value::Int Value::maxInt = Value::Int(Value::UInt(-1)/2 );
 const Value::UInt Value::maxUInt = Value::UInt(-1);
 
 ValueAllocator::~ValueAllocator() {
@@ -57,70 +54,50 @@ ValueAllocator::~ValueAllocator() {
 
 class DefaultValueAllocator : public ValueAllocator
 {
-public:
-   virtual ~DefaultValueAllocator()
-   {
-   }
+    public:
+        virtual ~DefaultValueAllocator() {
+        }
 
-   virtual char *makeMemberName( const char *memberName )
-   {
-      return duplicateStringValue( memberName );
-   }
+        virtual char *makeMemberName(const char *memberName) {
+            return duplicateStringValue(memberName);
+        }
 
-   virtual void releaseMemberName( char *memberName )
-   {
-      releaseStringValue( memberName );
-   }
+        virtual void releaseMemberName(char *memberName ) {
+            releaseStringValue( memberName );
+        }
 
-   virtual char *duplicateStringValue( const char *value,
-                                       unsigned int length = unknown )
-   {
-      //@todo invesgate this old optimization
-      //if ( !value  ||  value[0] == 0 )
-      //   return 0;
+        virtual char *duplicateStringValue(const char *value, unsigned int length = unknown) {
+            // in case the length is unknown
+            if (length == unknown)
+                length = (unsigned int)strlen(value);
 
-      if ( length == unknown )
-         length = (unsigned int)strlen(value);
-      char *newString = static_cast<char *>( malloc( length + 1 ) );
-      memcpy( newString, value, length );
-      newString[length] = 0;
-      return newString;
-   }
+            char *newString = static_cast<char *>( malloc( length + 1 ) );
+            memcpy( newString, value, length );
+            newString[length] = 0;
+            return newString;
+        }
 
-   virtual void releaseStringValue( char *value )
-   {
-      if ( value )
-         free( value );
-   }
+        virtual void releaseStringValue(char *value) {
+            // in case the value is allocated
+            if(value)
+                // releases the value
+                free(value);
+        }
 };
 
-static ValueAllocator *&valueAllocator()
-{
+static ValueAllocator *&valueAllocator() {
    static DefaultValueAllocator defaultAllocator;
    static ValueAllocator *valueAllocator = &defaultAllocator;
    return valueAllocator;
 }
 
 static struct DummyValueAllocatorInitializer {
-   DummyValueAllocatorInitializer()
-   {
-      valueAllocator();      // ensure valueAllocator() statics are initialized before main().
-   }
+    DummyValueAllocatorInitializer() {
+        // ensure value allocator statics are initialized before main
+        valueAllocator();
+    }
 } dummyValueAllocatorInitializer;
 
-
-
-// //////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////
-// ValueInternals...
-// //////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////
-#ifdef JSON_VALUE_USE_INTERNAL_MAP
-# include "json_internalarray.inl"
-# include "json_internalmap.inl"
-#endif // JSON_VALUE_USE_INTERNAL_MAP
 
 # include "json_valueiterator.inl"
 
@@ -134,21 +111,15 @@ static struct DummyValueAllocatorInitializer {
 // //////////////////////////////////////////////////////////////////
 
 
-Value::CommentInfo::CommentInfo()
-   : comment_( 0 )
-{
+Value::CommentInfo::CommentInfo() : comment_(0) {
 }
 
-Value::CommentInfo::~CommentInfo()
-{
-   if ( comment_ )
-      valueAllocator()->releaseStringValue( comment_ );
+Value::CommentInfo::~CommentInfo() {
+    if (comment_)
+        valueAllocator()->releaseStringValue(comment_);
 }
 
-
-void
-Value::CommentInfo::setComment( const char *text )
-{
+void Value::CommentInfo::setComment(const char *text) {
    if ( comment_ )
       valueAllocator()->releaseStringValue( comment_ );
    JSON_ASSERT( text );
@@ -264,90 +235,46 @@ Value::CZString::isStaticString() const
  * memset( this, 0, sizeof(Value) )
  * This optimization is used in ValueInternalMap fast allocator.
  */
-Value::Value( ValueType type )
-   : type_( type )
-   , allocated_( 0 )
-   , comments_( 0 )
-# ifdef JSON_VALUE_USE_INTERNAL_MAP
-   , itemIsUsed_( 0 )
-#endif
-{
-   switch ( type )
-   {
-   case nullValue:
-      break;
-   case intValue:
-   case uintValue:
-      value_.int_ = 0;
-      break;
-   case realValue:
-      value_.real_ = 0.0;
-      break;
-   case stringValue:
-      value_.string_ = 0;
-      break;
-#ifndef JSON_VALUE_USE_INTERNAL_MAP
-   case arrayValue:
-   case objectValue:
-      value_.map_ = new ObjectValues();
-      break;
-#else
-   case arrayValue:
-      value_.array_ = arrayAllocator()->newArray();
-      break;
-   case objectValue:
-      value_.map_ = mapAllocator()->newMap();
-      break;
-#endif
-   case booleanValue:
-      value_.bool_ = false;
-      break;
-   default:
-      JSON_ASSERT_UNREACHABLE;
-   }
+Value::Value(ValueType type) : type_(type), allocated_(0), comments_(0) {
+    switch (type) {
+        case nullValue:
+            break;
+        case intValue:
+        case uintValue:
+            value_.int_ = 0;
+            break;
+        case realValue:
+            value_.real_ = 0.0;
+            break;
+        case stringValue:
+            value_.string_ = 0;
+            break;
+        case arrayValue:
+        case objectValue:
+            value_.map_ = new ObjectValues();
+            break;
+        case booleanValue:
+            value_.bool_ = false;
+            break;
+        default:
+            JSON_ASSERT_UNREACHABLE;
+    }
 }
 
-
-Value::Value( Int value )
-   : type_( intValue )
-   , comments_( 0 )
-# ifdef JSON_VALUE_USE_INTERNAL_MAP
-   , itemIsUsed_( 0 )
-#endif
-{
-   value_.int_ = value;
+Value::Value(Int value) : type_(intValue), comments_(0) {
+    value_.int_ = value;
 }
 
-
-Value::Value( UInt value )
-   : type_( uintValue )
-   , comments_( 0 )
-# ifdef JSON_VALUE_USE_INTERNAL_MAP
-   , itemIsUsed_( 0 )
-#endif
-{
-   value_.uint_ = value;
+Value::Value(UInt value) : type_(uintValue), comments_(0) {
+    value_.uint_ = value;
 }
 
-Value::Value( double value )
-   : type_( realValue )
-   , comments_( 0 )
-# ifdef JSON_VALUE_USE_INTERNAL_MAP
-   , itemIsUsed_( 0 )
-#endif
-{
-   value_.real_ = value;
+Value::Value(double value) : type_(realValue), comments_(0) {
+    value_.real_ = value;
 }
 
-Value::Value( const char *value )
-   : type_( stringValue )
-   , allocated_( true )
-   , comments_( 0 )
-# ifdef JSON_VALUE_USE_INTERNAL_MAP
-   , itemIsUsed_( 0 )
-#endif
-{
-   value_.string_ = valueAllocator()->duplicateStringValue( value );
+Value::Value(const char *value) : type_(stringValue), allocated_(true), comments_(0) {
+    value_.string_ = valueAllocator()->duplicateStringValue(value);
 }
 
 Value::Value( const std::string &value )
@@ -542,7 +469,7 @@ Value::compare( const Value &other )
       JSON_ASSERT_UNREACHABLE;
    }
    */
-   return 0;  // unreachable
+   return 0;
 }
 
 bool
@@ -665,40 +592,47 @@ Value::asCString() const
 }
 
 
-std::string
-Value::asString() const
-{
-   switch ( type_ )
-   {
-   case nullValue:
-      return "";
-   case stringValue:
-      return value_.string_ ? value_.string_ : "";
-   case booleanValue:
-      return value_.bool_ ? "true" : "false";
-   case intValue:
-   case uintValue:
-   case realValue:
-   case arrayValue:
-   case objectValue:
-      JSON_ASSERT_MESSAGE( false, "Type is not convertible to string" );
-   default:
-      JSON_ASSERT_UNREACHABLE;
-   }
-   return ""; // unreachable
+std::string Value::asString() const {
+    // switches over the value type
+    switch(type_) {
+        // in case is of type null
+        case nullValue:
+            return "";
+
+        // in case is of type string
+        case stringValue:
+            return value_.string_ ? value_.string_ : "";
+
+        // in case is of type boolean
+        case booleanValue:
+            return value_.bool_ ? "true" : "false";
+
+        // in case is of type int
+        case intValue:
+
+        // in case is of type uint
+        case uintValue:
+
+        // in case is of type real
+        case realValue:
+
+        // in case is of type real
+        case arrayValue:
+
+        // in case is of type object
+        case objectValue:
+            JSON_ASSERT_MESSAGE(false, "Type is not convertible to string");
+
+        // default case
+        default:
+            JSON_ASSERT_UNREACHABLE;
+    }
+
+    // returns empty string
+    return "";
 }
 
-# ifdef JSON_USE_CPPTL
-CppTL::ConstString
-Value::asConstString() const
-{
-   return CppTL::ConstString( asString().c_str() );
-}
-# endif
-
-Value::Int
-Value::asInt() const
-{
+Value::Int Value::asInt() const {
    switch ( type_ )
    {
    case nullValue:
@@ -801,61 +735,40 @@ Value::asBool() const
 }
 
 
-bool
-Value::isConvertibleTo( ValueType other ) const
-{
-   switch ( type_ )
-   {
-   case nullValue:
-      return true;
-   case intValue:
-      return ( other == nullValue  &&  value_.int_ == 0 )
-             || other == intValue
-             || ( other == uintValue  && value_.int_ >= 0 )
-             || other == realValue
-             || other == stringValue
-             || other == booleanValue;
-   case uintValue:
-      return ( other == nullValue  &&  value_.uint_ == 0 )
-             || ( other == intValue  && value_.uint_ <= (unsigned)maxInt )
-             || other == uintValue
-             || other == realValue
-             || other == stringValue
-             || other == booleanValue;
-   case realValue:
-      return ( other == nullValue  &&  value_.real_ == 0.0 )
-             || ( other == intValue  &&  value_.real_ >= minInt  &&  value_.real_ <= maxInt )
-             || ( other == uintValue  &&  value_.real_ >= 0  &&  value_.real_ <= maxUInt )
-             || other == realValue
-             || other == stringValue
-             || other == booleanValue;
-   case booleanValue:
-      return ( other == nullValue  &&  value_.bool_ == false )
-             || other == intValue
-             || other == uintValue
-             || other == realValue
-             || other == stringValue
-             || other == booleanValue;
-   case stringValue:
-      return other == stringValue
-             || ( other == nullValue  &&  (!value_.string_  ||  value_.string_[0] == 0) );
-   case arrayValue:
-      return other == arrayValue
-             ||  ( other == nullValue  &&  value_.map_->size() == 0 );
-   case objectValue:
-      return other == objectValue
-             ||  ( other == nullValue  &&  value_.map_->size() == 0 );
-   default:
-      JSON_ASSERT_UNREACHABLE;
-   }
-   return false; // unreachable;
+bool Value::isConvertibleTo( ValueType other ) const {
+    switch(type_)
+    {
+        case nullValue:
+            return true;
+        case intValue:
+            return(other == nullValue && value_.int_ == 0 ) || other == intValue || ( other == uintValue && value_.int_ >= 0)
+                || other == realValue || other == stringValue || other == booleanValue;
+        case uintValue:
+          return ( other == nullValue  && value_.uint_ == 0 ) || ( other == intValue  && value_.uint_ <= (unsigned)maxInt)
+              || other == uintValue || other == realValue || other == stringValue || other == booleanValue;
+        case realValue:
+          return (other == nullValue && value_.real_ == 0.0) || (other == intValue && value_.real_ >= minInt && value_.real_ <= maxInt)
+              || (other == uintValue && value_.real_ >= 0 && value_.real_ <= maxUInt) || other == realValue || other == stringValue
+              || other == booleanValue;
+        case booleanValue:
+          return ( other == nullValue  &&  value_.bool_ == false) || other == intValue || other == uintValue || other == realValue || other == stringValue || other == booleanValue;
+        case stringValue:
+          return other == stringValue || (other == nullValue && (!value_.string_ || value_.string_[0] == 0));
+        case arrayValue:
+          return other == arrayValue || (other == nullValue && value_.map_->size() == 0);
+        case objectValue:
+          return other == objectValue || (other == nullValue && value_.map_->size() == 0);
+        default:
+            JSON_ASSERT_UNREACHABLE;
+    }
+
+    // returns false
+    return false;
 }
 
 
 /// Number of values in array or object
-Value::UInt
-Value::size() const
-{
+Value::UInt Value::size() const {
    switch ( type_ )
    {
    case nullValue:
@@ -865,7 +778,6 @@ Value::size() const
    case booleanValue:
    case stringValue:
       return 0;
-#ifndef JSON_VALUE_USE_INTERNAL_MAP
    case arrayValue:  // size of the array is highest index + 1
       if ( !value_.map_->empty() )
       {
@@ -876,12 +788,6 @@ Value::size() const
       return 0;
    case objectValue:
       return Int( value_.map_->size() );
-#else
-   case arrayValue:
-      return Int( value_.array_->size() );
-   case objectValue:
-      return Int( value_.map_->size() );
-#endif
    default:
       JSON_ASSERT_UNREACHABLE;
    }
@@ -1193,127 +1099,63 @@ Value::getMemberNames() const
        return Value::Members();
    Members members;
    members.reserve( value_.map_->size() );
-#ifndef JSON_VALUE_USE_INTERNAL_MAP
+
    ObjectValues::const_iterator it = value_.map_->begin();
    ObjectValues::const_iterator itEnd = value_.map_->end();
    for ( ; it != itEnd; ++it )
       members.push_back( std::string( (*it).first.c_str() ) );
-#else
-   ValueInternalMap::IteratorState it;
-   ValueInternalMap::IteratorState itEnd;
-   value_.map_->makeBeginIterator( it );
-   value_.map_->makeEndIterator( itEnd );
-   for ( ; !ValueInternalMap::equals( it, itEnd ); ValueInternalMap::increment(it) )
-      members.push_back( std::string( ValueInternalMap::key( it ) ) );
-#endif
+
+
    return members;
 }
-//
-//# ifdef JSON_USE_CPPTL
-//EnumMemberNames
-//Value::enumMemberNames() const
-//{
-//   if ( type_ == objectValue )
-//   {
-//      return CppTL::Enum::any(  CppTL::Enum::transform(
-//         CppTL::Enum::keys( *(value_.map_), CppTL::Type<const CZString &>() ),
-//         MemberNamesTransform() ) );
-//   }
-//   return EnumMemberNames();
-//}
-//
-//
-//EnumValues
-//Value::enumValues() const
-//{
-//   if ( type_ == objectValue  ||  type_ == arrayValue )
-//      return CppTL::Enum::anyValues( *(value_.map_),
-//                                     CppTL::Type<const Value &>() );
-//   return EnumValues();
-//}
-//
-//# endif
 
-
-bool
-Value::isNull() const
-{
+bool Value::isNull() const {
    return type_ == nullValue;
 }
 
 
-bool
-Value::isBool() const
-{
+bool Value::isBool() const {
    return type_ == booleanValue;
 }
 
 
-bool
-Value::isInt() const
-{
+bool Value::isInt() const {
    return type_ == intValue;
 }
 
-
-bool
-Value::isUInt() const
-{
+bool Value::isUInt() const {
    return type_ == uintValue;
 }
 
-
-bool
-Value::isIntegral() const
-{
-   return type_ == intValue
-          ||  type_ == uintValue
-          ||  type_ == booleanValue;
+bool Value::isIntegral() const {
+   return type_ == intValue ||  type_ == uintValue ||  type_ == booleanValue;
 }
 
 
-bool
-Value::isDouble() const
-{
+bool Value::isDouble() const {
    return type_ == realValue;
 }
 
-
-bool
-Value::isNumeric() const
-{
+bool Value::isNumeric() const {
    return isIntegral() || isDouble();
 }
 
-
-bool
-Value::isString() const
-{
+bool Value::isString() const {
    return type_ == stringValue;
 }
 
-
-bool
-Value::isArray() const
-{
+bool Value::isArray() const {
    return type_ == nullValue  ||  type_ == arrayValue;
 }
 
-
-bool
-Value::isObject() const
-{
-   return type_ == nullValue  ||  type_ == objectValue;
+bool Value::isObject() const {
+    return type_ == nullValue  ||  type_ == objectValue;
 }
 
-
-void
-Value::setComment( const char *comment,
-                   CommentPlacement placement )
-{
-   if ( !comments_ )
-      comments_ = new CommentInfo[numberOfCommentPlacement];
-   comments_[placement].setComment( comment );
+void Value::setComment(const char *comment, CommentPlacement placement) {
+    if (!comments_)
+        comments_ = new CommentInfo[numberOfCommentPlacement];
+    comments_[placement].setComment( comment );
 }
 
 
@@ -1522,27 +1364,18 @@ PathArgument::PathArgument( const std::string &key )
 // class Path
 // //////////////////////////////////////////////////////////////////
 
-Path::Path( const std::string &path,
-            const PathArgument &a1,
-            const PathArgument &a2,
-            const PathArgument &a3,
-            const PathArgument &a4,
-            const PathArgument &a5 )
-{
-   InArgs in;
-   in.push_back( &a1 );
-   in.push_back( &a2 );
-   in.push_back( &a3 );
-   in.push_back( &a4 );
-   in.push_back( &a5 );
-   makePath( path, in );
+Path::Path(const std::string &path, const PathArgument &a1, const PathArgument &a2, const PathArgument &a3, const PathArgument &a4, const PathArgument &a5) {
+    InArgs in;
+    in.push_back( &a1 );
+    in.push_back( &a2 );
+    in.push_back( &a3 );
+    in.push_back( &a4 );
+    in.push_back( &a5 );
+    makePath( path, in );
 }
 
 
-void
-Path::makePath( const std::string &path,
-                const InArgs &in )
-{
+void Path::makePath( const std::string &path, const InArgs &in) {
    const char *current = path.c_str();
    const char *end = current + path.length();
    InArgs::const_iterator itInArg = in.begin();
@@ -1693,5 +1526,4 @@ Value &Path::make(Value &root) const {
     return *node;
 }
 
-
-} // namespace Json
+}

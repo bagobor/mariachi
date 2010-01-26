@@ -26,14 +26,14 @@
 #pragma once
 
 namespace mariachi {
-	class Exception {
-		private:
-			std::string message;
+    class Exception {
+        private:
+            std::string message;
 
-		public:
-			Exception();
-			~Exception();
-			std::string &getMessage() { return this->message; };
-			virtual void setMessage(std::string &message) { this->message = message; };
-	};
+        public:
+            Exception();
+            ~Exception();
+            std::string &getMessage() { return this->message; };
+            virtual void setMessage(std::string &message) { this->message = message; };
+    };
 }

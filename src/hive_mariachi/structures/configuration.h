@@ -25,12 +25,21 @@
 
 #pragma once
 
-#include "box.h"
-#include "configuration.h"
-#include "data.h"
-#include "image.h"
-#include "mesh.h"
-#include "oct_tree.h"
-#include "position.h"
-#include "size.h"
-#include "texture.h"
+union ConfigurationValue_t;
+
+typedef union ConfigurationValueStructure_t {
+    int intValue;
+    std::string *stringValue;
+    void *objectValue;
+} ConfigurationValueStructure;
+
+typedef enum ConfigurationValueType_t {
+    CONFIGURATION_VALUE_INT_TYPE = 1,
+    CONFIGURATION_VALUE_STRING_TYPE,
+    CONFIGURATION_VALUE_OBJECT_TYPE
+} ConfigurationValueType;
+
+typedef union ConfigurationValue_t {
+    ConfigurationValueStructure_t structure;
+    ConfigurationValueType_t type;
+} ConfigurationValue;

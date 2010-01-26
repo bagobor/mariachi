@@ -36,7 +36,20 @@ ConfigurationParser::ConfigurationParser() {
 }
 
 /**
+* Constructor of the class.
+*
+* @param configurationManager The configuration manager that contains the reference to the configuration parser.
+*/
+ConfigurationParser::ConfigurationParser(ConfigurationManager *configurationManager) {
+    this->initConfigurationManager(configurationManager);
+}
+
+/**
 * Destructor of the class.
 */
 ConfigurationParser::~ConfigurationParser() {
+}
+
+inline void ConfigurationParser::initConfigurationManager(ConfigurationManager *configurationManager) {
+    this->configurationManager = configurationManager;
 }

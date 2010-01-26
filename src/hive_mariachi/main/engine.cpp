@@ -28,6 +28,7 @@
 #include "../devices/devices.h"
 #include "../system/system.h"
 #include "../stages/stages.h"
+#include "../configuration/configuration.h"
 #include "../script/lua_script_engine.h"
 
 #include "engine.h"
@@ -239,23 +240,22 @@ void Engine::startLogger(int level, bool pidFile) {
 */
 void Engine::startConfigurationManager() {
     // creates a configuration manager
-	this->configurationManager = new ConfigurationManager();
+    this->configurationManager = new ConfigurationManager(this);
 
-	// loads the configuration manager
-	this->configurationManager->load(NULL);
+    // loads the configuration manager
+    this->configurationManager->load(NULL);
 }
 
 /**
 * Stops the configuration manager in the engine.
 */
 void Engine::stopConfigurationManager() {
-	// loads the configuration manager
-	this->configurationManager->unload(NULL);
+    // loads the configuration manager
+    this->configurationManager->unload(NULL);
 
-	// deletes the configuration manager
-	delete this->configurationManager;
+    // deletes the configuration manager
+    delete this->configurationManager;
 }
-
 
 /**
 * Starts the input devices in the engine.

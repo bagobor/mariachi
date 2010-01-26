@@ -35,14 +35,26 @@ using namespace mariachi;
 /**
 * Constructor of the class.
 */
-ConfigurationManager::ConfigurationManager() {
+ConfigurationManager::ConfigurationManager() : ConfigurationMap() {
+}
+
+/**
+* Constructor of the class.
+*
+* @param engine The engine that contains the reference to the configuration manager.
+*/
+ConfigurationManager::ConfigurationManager(Engine *engine) : ConfigurationMap() {
+    this->initEngine(engine);
 }
 
 /**
 * Destructor of the class.
 */
 ConfigurationManager::~ConfigurationManager() {
+}
 
+inline void ConfigurationManager::initEngine(Engine *engine) {
+    this->engine = engine;
 }
 
 /**
@@ -51,15 +63,11 @@ ConfigurationManager::~ConfigurationManager() {
 * @param arguments The arguments to the load of the configuration manager.
 */
 void ConfigurationManager::load(void *arguments) {
-	// tem de carregar todos os configuration parsers
-	// para cada um tem de lhes associar regras para activacao
-	// podemos começar apensas pela extensai
+    // creates a new json configuration parser
+    JsonConfigurationParser *jsonConfigurationParser = new JsonConfigurationParser(this);
 
-	// creates a new json configuration parser
-	JsonConfigurationParser *jsonConfigurationParser = new JsonConfigurationParser();
-
-	// adds the json configuration parser to the configuration parsser list
-	configurationParserList.push_back(jsonConfigurationParser);
+    // adds the json configuration parser to the configuration parsser list
+    configurationParserList.push_back(jsonConfigurationParser);
 
     // creates the configuration file to be used
     this->configurationFile = new std::fstream("config.json", std::fstream::in | std::fstream::binary);
@@ -83,11 +91,11 @@ void ConfigurationManager::load(void *arguments) {
     // reads the configuration file data
     this->configurationFile->read(configurationFileData, configurationFileLength);
 
-	// creates the file data
-	FileData_t fileData = { configurationFileData, configurationFileLength };
+    // creates the file data
+    FileData_t fileData = { configurationFileData, configurationFileLength };
 
-	// parses the configuration with the json configuration parser
-	jsonConfigurationParser->parseConfiguration(&fileData);
+    // parses the configuration with the json configuration parser
+    jsonConfigurationParser->parseConfiguration(&fileData);
 }
 
 /**
@@ -96,6 +104,6 @@ void ConfigurationManager::load(void *arguments) {
 * @param arguments The arguments to the unload of the configuration manager.
 */
 void ConfigurationManager::unload(void *arguments) {
-	// deletes the configuration file
-	delete this->configurationFile;
+    // deletes the configuration file
+    delete this->configurationFile;
 }

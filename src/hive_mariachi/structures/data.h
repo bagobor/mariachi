@@ -26,7 +26,7 @@
 #pragma once
 
 namespace mariachi {
-	typedef struct FileData_t {
+    typedef struct FileData_t {
         char *data;
         unsigned int size;
     } FileData_t;

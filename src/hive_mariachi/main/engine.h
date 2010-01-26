@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include "../configuration/configuration_manager.h"
 #include "../system/thread.h"
 #include "../devices/device.h"
 #include "../logging/logger.h"
@@ -43,6 +42,7 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
 THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
 
 namespace mariachi {
+    class ConfigurationManager;
     class Stage;
 
     class Engine {
@@ -51,7 +51,7 @@ namespace mariachi {
             char **argv;
             bool runningFlag;
             Logger *logger;
-			ConfigurationManager *configurationManager;
+            ConfigurationManager *configurationManager;
             SceneNode *render;
             SceneNode *render2d;
             DebugEngine *debugEngine;
@@ -73,8 +73,8 @@ namespace mariachi {
             void stop(void *arguments);
             void update();
             void startLogger(int level, bool pidFile);
-			void startConfigurationManager();
-			void stopConfigurationManager();
+            void startConfigurationManager();
+            void stopConfigurationManager();
             void startInputDevices();
             void startScriptEngines();
             void startStages();

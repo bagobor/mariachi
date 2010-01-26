@@ -26,7 +26,6 @@
 #include "stdafx.h"
 
 #include "../../structures/structures.h"
-#include "../../serialization/json.h"
 
 #include "json_configuration_parser.h"
 
@@ -36,6 +35,14 @@ using namespace mariachi;
 * Constructor of the class.
 */
 JsonConfigurationParser::JsonConfigurationParser() {
+}
+
+/**
+* Constructor of the class.
+*
+* @param configurationManager The configuration manager that contains the reference to the configuration parser.
+*/
+JsonConfigurationParser::JsonConfigurationParser(ConfigurationManager *configurationManager) : ConfigurationParser(configurationManager) {
 }
 
 /**
@@ -50,34 +57,34 @@ JsonConfigurationParser::~JsonConfigurationParser() {
 * @param configuration The configuration to be parsed.
 */
 void JsonConfigurationParser::parseConfiguration(void *configuration) {
-	// root json node
-	Json::Value rootNode;
+    // root json node
+    Json::Value rootNode;
 
-	// creates the json reader
-	Json::Reader reader = Json::Reader(Json::Features());
+    // creates the json reader
+    Json::Reader reader = Json::Reader(Json::Features());
 
-	// retrieves the file data from configuration
-	FileData_t *fileData = (FileData_t *) configuration;
+    // retrieves the file data from configuration
+    FileData_t *fileData = (FileData_t *) configuration;
 
-	// retrieves the reference to the begining of the document
-	const char *beginningDocument = (const char *) fileData->data;
+    // retrieves the reference to the begining of the document
+    const char *beginningDocument = (const char *) fileData->data;
 
-	// retrieves the reference to the end of the document
-	const char *endDocument = (const char *) &fileData[fileData->size];
+    // retrieves the reference to the end of the document
+    const char *endDocument = (const char *) &fileData[fileData->size];
 
-	// parses the json file
-	bool parsingSuccessful = reader.parse(beginningDocument, endDocument, rootNode);
+    // parses the json file
+    bool parsingSuccessful = reader.parse(beginningDocument, endDocument, rootNode);
 
-	// in case the parsing was not succsessful
-	if(!parsingSuccessful) {
-		// retrieves the error message
-		std::string errorMessage = reader.getFormatedErrorMessages();
+    // in case the parsing was not succsessful
+    if(!parsingSuccessful) {
+        // retrieves the error message
+        std::string errorMessage = reader.getFormatedErrorMessages();
 
-		// throws an exception
-		throw "Failed to parse configuration: " + errorMessage;
-	}
+        // throws an exception
+        throw "Failed to parse configuration: " + errorMessage;
+    }
 
-	std::string encoding = rootNode.get("encoding", "UTF-8" ).asString();
+    this->updateConfigurationMap(this->configurationManager, rootNode);
 }
 
 /**
@@ -86,4 +93,83 @@ void JsonConfigurationParser::parseConfiguration(void *configuration) {
 * @param resource The resource to be parsed.
 */
 void JsonConfigurationParser::parseResource(void *resource) {
+}
+
+void JsonConfigurationParser::updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode) {
+    // retrieves the menber names
+    Json::Value::Members currentNodeMembers = currentNode.getMemberNames();
+
+    // retrieves the current node members iterator
+    Json::Value::Members::iterator currentNodeMembersIterator = currentNodeMembers.begin();
+
+    // itearates over all the current node members
+    while(currentNodeMembersIterator != currentNodeMembers.end()) {
+        // retrieves the property name
+        std::string &propertyName = *currentNodeMembersIterator;
+
+        // retrieves the property value
+        Json::Value propertyValue = currentNode[propertyName];
+
+        // retrieves the property value type
+        Json::ValueType propertyValueType = propertyValue.type();
+
+        int propertyValueIntValue;
+        std::string propertyValueStringValue;
+
+        switch(propertyValueType) {
+            case Json::nullValue:
+                break;
+
+            case Json::intValue:
+                // retrieves the property value as int
+                propertyValueIntValue = propertyValue.asInt();
+
+                // sets the int property in the configuration manager
+                this->configurationManager->setIntProperty(propertyName, propertyValueIntValue);
+
+                break;
+
+            case Json::uintValue:
+                // retrieves the property value as int
+                propertyValueIntValue = propertyValue.asUInt();
+
+                // sets the int property in the configuration manager
+                this->configurationManager->setIntProperty(propertyName, propertyValueIntValue);
+
+                break;
+
+            case Json::realValue:
+                break;
+
+            case Json::stringValue:
+                // retrieves the property value as string
+                propertyValueStringValue = propertyValue.asString();
+
+                // sets the string property in the configuration manager
+                this->configurationManager->setStringProperty(propertyName, propertyValueStringValue);
+
+                break;
+
+            case Json::booleanValue:
+                break;
+
+            case Json::arrayValue:
+                break;
+
+            case Json::objectValue:
+                // creates a new configuration map
+                ConfigurationMap *configurationMap = new ConfigurationMap();
+
+                // updates the configuration map with the new "current" node
+                this->updateConfigurationMap(configurationMap, propertyValue);
+
+                // sets the object property in the configuration manager
+                this->configurationManager->setObjectProperty(propertyName, configurationMap);
+
+                break;
+        }
+
+        // increments the current node members iterator
+        currentNodeMembersIterator++;
+    }
 }
