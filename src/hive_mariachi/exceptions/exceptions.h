@@ -26,3 +26,4 @@
 #pragma once
 
 #include "exception.h"
+#include "runtime_exception.h"

@@ -592,6 +592,10 @@
 					RelativePath="..\..\src\hive_mariachi\exceptions\exception.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\exceptions\runtime_exception.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Util"
@@ -1280,6 +1284,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\exceptions\exceptions.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\exceptions\runtime_exception.h"
 					>
 				</File>
 			</Filter>
