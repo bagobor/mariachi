@@ -21,6 +21,8 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
+#pragma warning(disable:4996)
+
 
 /* prefix for open functions in C libraries */
 #define LUA_POF        "luaopen_"

@@ -19,6 +19,8 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
+#pragma warning(disable:4996)
+
 
 static int os_pushresult (lua_State *L, int i, const char *filename) {
   int en = errno;  /* calls to Lua API may change this value */

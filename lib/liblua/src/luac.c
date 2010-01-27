@@ -23,6 +23,8 @@
 #include "lstring.h"
 #include "lundump.h"
 
+#pragma warning(disable:4996)
+
 #define PROGNAME    "luac"        /* default program name */
 #define    OUTPUT        PROGNAME ".out"    /* default output file */
 

@@ -26,6 +26,7 @@
 #include "ltm.h"
 #include "lvm.h"
 
+#pragma warning(disable:4996)
 
 
 /* limit for table tag-method chains (to avoid loops) */

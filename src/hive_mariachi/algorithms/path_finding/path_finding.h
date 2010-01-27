@@ -25,4 +25,5 @@
 
 #pragma once
 
-#include "path_finding/path_finding.h"
+#include "a_star.h"
+#include "path_finder.h"

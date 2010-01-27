@@ -23,6 +23,26 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#pragma once
+#include "stdafx.h"
 
-#include "path_finding/path_finding.h"
+#include "path_finder.h"
+
+using namespace mariachi;
+
+PathFinder::PathFinder() {
+}
+
+PathFinder::PathFinder(PathNodesGraph *nodesGraph) {
+    this->initNodesGraph(nodesGraph);
+}
+
+PathFinder::~PathFinder() {
+}
+
+inline void PathFinder::initNodesGraph(PathNodesGraph *nodesGraph) {
+    this->nodesGraph = nodesGraph;
+}
+
+inline void PathFinder::initDistanceFunction() {
+    this->distanceFunction = NULL;
+}

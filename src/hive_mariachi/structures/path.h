@@ -25,4 +25,11 @@
 
 #pragma once
 
-#include "path_finding/path_finding.h"
+namespace mariachi {
+    typedef struct PathNode_t {
+       void *value;
+       std::map<unsigned int, int> neighboursMap;
+    } PathNode;
+
+    typedef std::map<unsigned int, PathNode_t *> PathNodesGraph;
+}

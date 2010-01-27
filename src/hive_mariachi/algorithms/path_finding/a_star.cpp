@@ -25,9 +25,9 @@
 
 #include "stdafx.h"
 
-#include "../structures/structures.h"
+#include "../../structures/structures.h"
 
-#include "a_star_path_finder.h"
+#include "a_star.h"
 
 using namespace mariachi;
 
@@ -35,6 +35,9 @@ using namespace mariachi;
 * Constructor of the class.
 */
 AStar::AStar() {
+}
+
+AStar::AStar(PathNodesGraph *nodesGraph) : PathFinder(nodesGraph) {
 }
 
 /**
@@ -98,6 +101,8 @@ std::list<unsigned int> AStar::findPath(unsigned int startNodeId, unsigned int e
 
         // iterates through the nodes neighbours
         std::vector<unsigned int> neighbourNodeIds = neighboursMap[currentNodeId];
+
+        // iterates verl all the neighbour node ids
         for(std::vector<unsigned int>::iterator neighbourNodeIdsIterator = neighbourNodeIds.begin();  neighbourNodeIdsIterator != neighbourNodeIds.end(); neighbourNodeIdsIterator++) {
             // retrieves the neighbour's id
             unsigned int neighbourNodeId = (unsigned int) *neighbourNodeIdsIterator;

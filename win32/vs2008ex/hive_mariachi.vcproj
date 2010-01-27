@@ -604,10 +604,18 @@
 			<Filter
 				Name="Algorithms"
 				>
-				<File
-					RelativePath="..\..\src\hive_mariachi\algorithms\a_star_path_finder.cpp"
+				<Filter
+					Name="Path Finding"
 					>
-				</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\path_finding\a_star.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\path_finding\path_finder.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -804,6 +812,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\structures\oct_tree.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\structures\path.h"
 					>
 				</File>
 				<File
@@ -1287,13 +1299,25 @@
 				Name="Algorithms"
 				>
 				<File
-					RelativePath="..\..\src\hive_mariachi\algorithms\a_star_path_finder.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\hive_mariachi\algorithms\algorithms.h"
 					>
 				</File>
+				<Filter
+					Name="Path Finding"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\path_finding\a_star.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\path_finding\path_finder.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\path_finding\path_finding.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

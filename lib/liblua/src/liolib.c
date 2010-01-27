@@ -18,6 +18,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
+#pragma warning(disable:4996)
 
 
 #define IO_INPUT    1

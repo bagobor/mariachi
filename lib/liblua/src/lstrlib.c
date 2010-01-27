@@ -19,6 +19,8 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
+#pragma warning(disable:4996)
+
 
 /* macro to `unsign' a character */
 #define uchar(c)        ((unsigned char)(c))

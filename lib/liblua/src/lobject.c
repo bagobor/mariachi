@@ -22,6 +22,8 @@
 #include "lstring.h"
 #include "lvm.h"
 
+#pragma warning(disable:4996)
+
 
 
 const TValue luaO_nilobject_ = {{NULL}, LUA_TNIL};
