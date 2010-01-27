@@ -59,7 +59,7 @@ bool lua_mariachi_get_reference(lua_State *luaState, void *value) {
     }
 }
 
-bool lua_mariachi_new_Object(lua_State *luaState, SceneNode *value) {
+bool lua_mariachi_new_Object(lua_State *luaState, void *value) {
     bool return_value;
 
     // in case the reference is new

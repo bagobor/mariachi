@@ -23,60 +23,13 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
-#include "node.h"
+#include "../lua_script_engine_mapping.h"
 
-using namespace mariachi;
+#define LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE "_t_CUBE_NODE"
 
-/**
-* Constructor of the class.
-*/
-Node::Node() {
-    this->initRenderable();
-}
+bool lua_mariachi_new_CubeNode(lua_State *luaState, mariachi::CubeNode *value);
 
-Node::Node(const std::string &name) {
-    this->initRenderable();
-    this->name = name;
-}
-
-/**
-* Destructor of the class.
-*/
-Node::~Node() {
-}
-
-inline void Node::initRenderable() {
-    this->renderable = false;
-}
-
-Node *Node::getParent() {
-    return this->parent;
-}
-
-void Node::setParent(Node *parent) {
-    this->parent = parent;
-}
-
-void Node::reparentTo(Node *parent) {
-    parent->addChild(this);
-}
-
-void Node::addChild(Node *child) {
-    this->childrenList.push_back(child);
-    child->setParent(this);
-}
-
-void Node::removeChild(Node *child) {
-    this->childrenList.remove(child);
-    child->setParent(NULL);
-}
-
-std::list<Node *> &Node::getChildrenList() {
-    return this->childrenList;
-}
-
-void Node::setChildrenList(std::list<Node *> &childrenList) {
-    this->childrenList = childrenList;
-}
+int lua_mariachi_cube_node_get_position(lua_State *luaState);
+int lua_mariachi_cube_node_set_position(lua_State *luaState);

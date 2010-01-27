@@ -26,21 +26,17 @@
 #pragma once
 
 #include "../structures/structures.h"
-#include "node.h"
-
-/**
-* The model node type.
-*/
-#define MODEL_NODE_TYPE 3
+#include "cube_node.h"
 
 namespace mariachi {
-    class ModelNode : public Node {
+    class ModelNode : public CubeNode {
         private:
             std::vector<Mesh_t *> *meshList;
             Texture *texture;
 
         public:
             ModelNode();
+            ModelNode(const std::string &name);
             ~ModelNode();
             inline void initRenderable();
             std::vector<Mesh_t *> *getMeshList();

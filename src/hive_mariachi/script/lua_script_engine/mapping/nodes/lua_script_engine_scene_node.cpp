@@ -33,7 +33,7 @@ bool lua_mariachi_new_SceneNode(lua_State *luaState, SceneNode *value) {
     bool return_value;
 
     // in case the reference is new
-    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE, lua_mariachi_new_Node) {
+    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE, lua_mariachi_new_CubeNode) {
         // sets the type of the node
         lua_settype(luaState, LUA_SCRIPT_ENGINE_NODE_TYPE);
     }

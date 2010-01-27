@@ -27,17 +27,13 @@
 
 #include "lens_node.h"
 
-/**
-* The camera node type.
-*/
-#define CAMERA_NODE_TYPE 5
-
 namespace mariachi {
     class CameraNode : LensNode {
         private:
 
         public:
             CameraNode();
+            CameraNode(const std::string &name);
             ~CameraNode();
             virtual inline unsigned int getNodeType() { return CAMERA_NODE_TYPE; };
     };

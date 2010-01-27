@@ -25,58 +25,29 @@
 
 #include "stdafx.h"
 
-#include "node.h"
+#include "square_node.h"
 
 using namespace mariachi;
 
-/**
-* Constructor of the class.
-*/
-Node::Node() {
-    this->initRenderable();
+SquareNode::SquareNode() : Node() {
 }
 
-Node::Node(const std::string &name) {
-    this->initRenderable();
-    this->name = name;
+SquareNode::SquareNode(const std::string &name) : Node(name) {
 }
 
-/**
-* Destructor of the class.
-*/
-Node::~Node() {
+SquareNode::~SquareNode() {
 }
 
-inline void Node::initRenderable() {
-    this->renderable = false;
+Coordinate2d_t &SquareNode::getPosition() {
+    return this->position;
 }
 
-Node *Node::getParent() {
-    return this->parent;
+void SquareNode::setPosition(Coordinate2d_t &position) {
+    this->position = position;
 }
 
-void Node::setParent(Node *parent) {
-    this->parent = parent;
-}
+void SquareNode::setPosition(float x, float y) {
+    Coordinate2d_t position = {x, y};
 
-void Node::reparentTo(Node *parent) {
-    parent->addChild(this);
-}
-
-void Node::addChild(Node *child) {
-    this->childrenList.push_back(child);
-    child->setParent(this);
-}
-
-void Node::removeChild(Node *child) {
-    this->childrenList.remove(child);
-    child->setParent(NULL);
-}
-
-std::list<Node *> &Node::getChildrenList() {
-    return this->childrenList;
-}
-
-void Node::setChildrenList(std::list<Node *> &childrenList) {
-    this->childrenList = childrenList;
+    this->position = position;
 }

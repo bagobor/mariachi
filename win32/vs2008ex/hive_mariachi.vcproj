@@ -197,6 +197,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\cube_node.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\lens_node.cpp"
 					>
 				</File>
@@ -209,7 +213,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\scene2d_node.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\scene_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\square_node.cpp"
 					>
 				</File>
 			</Filter>
@@ -413,6 +425,10 @@
 						<Filter
 							Name="Nodes"
 							>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\nodes\lua_script_engine_cube_node.cpp"
+								>
+							</File>
 							<File
 								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\nodes\lua_script_engine_node.cpp"
 								>
@@ -628,6 +644,10 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="User Interface"
+				>
 			</Filter>
 		</Filter>
 		<Filter
@@ -984,6 +1004,10 @@
 							Name="Nodes"
 							>
 							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\nodes\lua_script_engine_cube_node.h"
+								>
+							</File>
+							<File
 								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\nodes\lua_script_engine_node.h"
 								>
 							</File>
@@ -1143,6 +1167,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\cube_node.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\lens_node.h"
 					>
 				</File>
@@ -1159,7 +1187,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\scene2d_node.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\scene_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\square_node.h"
 					>
 				</File>
 			</Filter>
@@ -1338,6 +1374,18 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="User Interface"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_frame_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\user_interface.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

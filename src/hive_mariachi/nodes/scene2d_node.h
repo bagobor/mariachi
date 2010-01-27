@@ -23,60 +23,17 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
-#include "node.h"
+#include "square_node.h"
 
-using namespace mariachi;
-
-/**
-* Constructor of the class.
-*/
-Node::Node() {
-    this->initRenderable();
-}
-
-Node::Node(const std::string &name) {
-    this->initRenderable();
-    this->name = name;
-}
-
-/**
-* Destructor of the class.
-*/
-Node::~Node() {
-}
-
-inline void Node::initRenderable() {
-    this->renderable = false;
-}
-
-Node *Node::getParent() {
-    return this->parent;
-}
-
-void Node::setParent(Node *parent) {
-    this->parent = parent;
-}
-
-void Node::reparentTo(Node *parent) {
-    parent->addChild(this);
-}
-
-void Node::addChild(Node *child) {
-    this->childrenList.push_back(child);
-    child->setParent(this);
-}
-
-void Node::removeChild(Node *child) {
-    this->childrenList.remove(child);
-    child->setParent(NULL);
-}
-
-std::list<Node *> &Node::getChildrenList() {
-    return this->childrenList;
-}
-
-void Node::setChildrenList(std::list<Node *> &childrenList) {
-    this->childrenList = childrenList;
+namespace mariachi {
+    class Scene2dNode : public SquareNode {
+        private:
+        public:
+            Scene2dNode();
+            Scene2dNode(const std::string &name);
+            ~Scene2dNode();
+            virtual inline unsigned int getNodeType() { return SCENE2D_NODE_TYPE; };
+    };
 }

@@ -25,15 +25,10 @@
 
 #pragma once
 
-#include "node.h"
-
-/**
-* The scene node type.
-*/
-#define SCENE_NODE_TYPE 2
+#include "cube_node.h"
 
 namespace mariachi {
-    class SceneNode : public Node {
+    class SceneNode : public CubeNode {
         private:
         public:
             SceneNode();

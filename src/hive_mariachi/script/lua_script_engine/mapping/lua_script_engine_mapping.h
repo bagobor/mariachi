@@ -30,6 +30,9 @@ extern "C" {
 }
 
 #include "../../../main/main.h"
+#include "../../../nodes/nodes.h"
+#include "../../../structures/structures.h"
+
 #include "../util/lua_script_engine_util.h"
 #include "../../lua_script_engine.h"
 
@@ -41,6 +44,6 @@ extern "C" {
     if((return_value = upper_function(luaState, value)) || (return_value = !lua_hastype(luaState, node_type)))
 
 bool lua_mariachi_get_reference(lua_State *luaState, void *value);
-bool lua_mariachi_new_Object(lua_State *luaState, mariachi::SceneNode *value);
+bool lua_mariachi_new_Object(lua_State *luaState, void *value);
 int lua_mariachi_get_engine(lua_State *luaState);
 mariachi::LuaScriptEngine *lua_getscriptengine(lua_State *luaState);

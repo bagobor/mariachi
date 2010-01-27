@@ -25,58 +25,21 @@
 
 #include "stdafx.h"
 
-#include "node.h"
+#include "scene2d_node.h"
 
 using namespace mariachi;
 
 /**
 * Constructor of the class.
 */
-Node::Node() {
-    this->initRenderable();
+Scene2dNode::Scene2dNode() : SquareNode() {
 }
 
-Node::Node(const std::string &name) {
-    this->initRenderable();
-    this->name = name;
+Scene2dNode::Scene2dNode(const std::string &name) : SquareNode(name) {
 }
 
 /**
 * Destructor of the class.
 */
-Node::~Node() {
-}
-
-inline void Node::initRenderable() {
-    this->renderable = false;
-}
-
-Node *Node::getParent() {
-    return this->parent;
-}
-
-void Node::setParent(Node *parent) {
-    this->parent = parent;
-}
-
-void Node::reparentTo(Node *parent) {
-    parent->addChild(this);
-}
-
-void Node::addChild(Node *child) {
-    this->childrenList.push_back(child);
-    child->setParent(this);
-}
-
-void Node::removeChild(Node *child) {
-    this->childrenList.remove(child);
-    child->setParent(NULL);
-}
-
-std::list<Node *> &Node::getChildrenList() {
-    return this->childrenList;
-}
-
-void Node::setChildrenList(std::list<Node *> &childrenList) {
-    this->childrenList = childrenList;
+Scene2dNode::~Scene2dNode() {
 }

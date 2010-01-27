@@ -29,7 +29,7 @@
 #include "../system/thread.h"
 #include "../devices/device.h"
 #include "../logging/logger.h"
-#include "../nodes/scene_node.h"
+#include "../nodes/nodes.h"
 #include "../tasks/task.h"
 #include "../debugging/debugging.h"
 
@@ -54,7 +54,7 @@ namespace mariachi {
             Logger *logger;
             ConfigurationManager *configurationManager;
             SceneNode *render;
-            SceneNode *render2d;
+            Scene2dNode *render2d;
             DebugEngine *debugEngine;
             MUTEX_HANDLE taskListMutex;
             CONDITION_HANDLE taskListReadyCondition;
@@ -95,6 +95,8 @@ namespace mariachi {
             void setLogger(Logger *logger);
             SceneNode *getRender();
             void setRender(SceneNode *render);
+            Scene2dNode *getRender2d();
+            void setRender2d(Scene2dNode *render2d);
             int getArgc();
             char **getArgv();
     };

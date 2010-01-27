@@ -25,5 +25,6 @@
 
 #pragma once
 
+#include "lua_script_engine_cube_node.h"
 #include "lua_script_engine_node.h"
 #include "lua_script_engine_scene_node.h"

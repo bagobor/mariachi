@@ -25,58 +25,35 @@
 
 #include "stdafx.h"
 
-#include "node.h"
+#include "cube_node.h"
 
 using namespace mariachi;
 
 /**
 * Constructor of the class.
 */
-Node::Node() {
-    this->initRenderable();
+CubeNode::CubeNode() : Node() {
 }
 
-Node::Node(const std::string &name) {
-    this->initRenderable();
-    this->name = name;
+CubeNode::CubeNode(const std::string &name) : Node(name) {
 }
 
 /**
 * Destructor of the class.
 */
-Node::~Node() {
+CubeNode::~CubeNode() {
 }
 
-inline void Node::initRenderable() {
-    this->renderable = false;
+Coordinate3d_t &CubeNode::getPosition() {
+    return this->position;
 }
 
-Node *Node::getParent() {
-    return this->parent;
+void CubeNode::setPosition(Coordinate3d_t &position) {
+    this->position = position;
 }
 
-void Node::setParent(Node *parent) {
-    this->parent = parent;
-}
+void CubeNode::setPosition(float x, float y, float z) {
+    Coordinate3d_t position = {x, y, z};
 
-void Node::reparentTo(Node *parent) {
-    parent->addChild(this);
-}
-
-void Node::addChild(Node *child) {
-    this->childrenList.push_back(child);
-    child->setParent(this);
-}
-
-void Node::removeChild(Node *child) {
-    this->childrenList.remove(child);
-    child->setParent(NULL);
-}
-
-std::list<Node *> &Node::getChildrenList() {
-    return this->childrenList;
-}
-
-void Node::setChildrenList(std::list<Node *> &childrenList) {
-    this->childrenList = childrenList;
+    this->position = position;
 }

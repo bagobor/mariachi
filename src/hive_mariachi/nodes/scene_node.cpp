@@ -32,10 +32,10 @@ using namespace mariachi;
 /**
 * Constructor of the class.
 */
-SceneNode::SceneNode() : Node() {
+SceneNode::SceneNode() : CubeNode() {
 }
 
-SceneNode::SceneNode(const std::string &name) : Node(name) {
+SceneNode::SceneNode(const std::string &name) : CubeNode(name) {
 }
 
 /**

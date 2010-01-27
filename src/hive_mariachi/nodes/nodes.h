@@ -26,7 +26,10 @@
 #pragma once
 
 #include "camera_node.h"
+#include "cube_node.h"
 #include "lens_node.h"
 #include "model_node.h"
 #include "node.h"
 #include "scene_node.h"
+#include "scene2d_node.h"
+#include "square_node.h"

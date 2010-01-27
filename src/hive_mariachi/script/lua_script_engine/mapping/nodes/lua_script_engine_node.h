@@ -29,7 +29,4 @@
 
 #define LUA_SCRIPT_ENGINE_NODE_TYPE "_t_NODE"
 
-bool lua_mariachi_new_Node(lua_State *luaState, mariachi::SceneNode *value);
-
-int lua_mariachi_node_get_position(lua_State *luaState);
-int lua_mariachi_node_set_position(lua_State *luaState);
+bool lua_mariachi_new_Node(lua_State *luaState, mariachi::Node *value);

@@ -23,60 +23,24 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
+#include "../structures/position.h"
 #include "node.h"
 
-using namespace mariachi;
+namespace mariachi {
+    class SquareNode : public Node {
+        private:
+            Coordinate2d_t position;
+            Coordinate2d_t rotation;
 
-/**
-* Constructor of the class.
-*/
-Node::Node() {
-    this->initRenderable();
-}
-
-Node::Node(const std::string &name) {
-    this->initRenderable();
-    this->name = name;
-}
-
-/**
-* Destructor of the class.
-*/
-Node::~Node() {
-}
-
-inline void Node::initRenderable() {
-    this->renderable = false;
-}
-
-Node *Node::getParent() {
-    return this->parent;
-}
-
-void Node::setParent(Node *parent) {
-    this->parent = parent;
-}
-
-void Node::reparentTo(Node *parent) {
-    parent->addChild(this);
-}
-
-void Node::addChild(Node *child) {
-    this->childrenList.push_back(child);
-    child->setParent(this);
-}
-
-void Node::removeChild(Node *child) {
-    this->childrenList.remove(child);
-    child->setParent(NULL);
-}
-
-std::list<Node *> &Node::getChildrenList() {
-    return this->childrenList;
-}
-
-void Node::setChildrenList(std::list<Node *> &childrenList) {
-    this->childrenList = childrenList;
+        public:
+            SquareNode();
+            SquareNode(const std::string &name);
+            ~SquareNode();
+            Coordinate2d_t &getPosition();
+            void setPosition(Coordinate2d_t &position);
+            void setPosition(float x, float y);
+            virtual inline unsigned int getNodeType() { return SQUARE_NODE_TYPE; };
+    };
 }

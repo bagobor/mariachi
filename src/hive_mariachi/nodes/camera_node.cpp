@@ -35,6 +35,9 @@ using namespace mariachi;
 CameraNode::CameraNode() : LensNode() {
 }
 
+CameraNode::CameraNode(const std::string &name) : LensNode(name) {
+}
+
 /**
 * Destructor of the class.
 */

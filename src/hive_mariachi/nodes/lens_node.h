@@ -25,19 +25,15 @@
 
 #pragma once
 
-#include "node.h"
-
-/**
-* The lens node type.
-*/
-#define LENS_NODE_TYPE 4
+#include "cube_node.h"
 
 namespace mariachi {
-    class LensNode : Node {
+    class LensNode : public CubeNode {
         private:
 
         public:
             LensNode();
+            LensNode(const std::string &name);
             ~LensNode();
             virtual inline unsigned int getNodeType() { return LENS_NODE_TYPE; };
     };

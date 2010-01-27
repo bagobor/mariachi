@@ -25,20 +25,22 @@
 
 #pragma once
 
-#include "../structures/position.h"
-
-/**
-* The node type.
-*/
-#define NODE_TYPE 1
+typedef enum BasicNodesType_t {
+    NODE_TYPE = 1000,
+    CUBE_NODE_TYPE,
+    SQUARE_NODE_TYPE,
+    SCENE_NODE_TYPE,
+    SCENE2D_NODE_TYPE,
+    LENS_NODE_TYPE,
+    MODEL_NODE_TYPE,
+    CAMERA_NODE_TYPE
+} BasicNodesType;
 
 namespace mariachi {
     class Node {
         private:
             Node *parent;
             std::list<Node *> childrenList;
-            Coordinate3d_t position;
-            Coordinate3d_t rotation;
 
         public:
             std::string name;
@@ -54,9 +56,6 @@ namespace mariachi {
             void addChild(Node *child);
             void removeChild(Node *child);
             bool isRenderable();
-            Coordinate3d_t &getPosition();
-            void setPosition(Coordinate3d_t &position);
-            void setPosition(float x, float y, float z);
             std::list<Node *> &getChildrenList();
             void setChildrenList(std::list<Node *> &childrenList);
             bool getRenderable();

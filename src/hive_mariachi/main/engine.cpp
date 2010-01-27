@@ -143,7 +143,7 @@ inline void Engine::initRunningFlag() {
 
 inline void Engine::initRenders() {
     this->render = new SceneNode(std::string("render"));
-    this->render2d = new SceneNode(std::string("render2d"));
+    this->render2d = new Scene2dNode(std::string("render2d"));
 }
 
 inline void Engine::initArgs(int argc, char** argv) {
@@ -553,6 +553,14 @@ SceneNode *Engine::getRender() {
 
 void Engine::setRender(SceneNode *render) {
     this->render = render;
+}
+
+Scene2dNode *Engine::getRender2d() {
+    return this->render2d;
+}
+
+void Engine::setRender2d(Scene2dNode *render2d) {
+    this->render2d = render2d;
 }
 
 int Engine::getArgc() {

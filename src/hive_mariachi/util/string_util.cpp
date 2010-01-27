@@ -29,21 +29,21 @@
 
 using namespace mariachi::util;
 
-void StringUtil::tokenize(const std::string &str, std::vector<std::string> &tokens, const std::string &delimiters = " ") {
+void StringUtil::tokenize(const std::string &stringValue, std::vector<std::string> &tokens, const std::string &delimiters = " ") {
     // skips the delimiters at the beggining
-    std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
+    std::string::size_type lastPosition = stringValue.find_first_not_of(delimiters, 0);
 
     // finds the first "non-delimiter"
-    std::string::size_type pos = str.find_first_of(delimiters, lastPos);
+    std::string::size_type position = stringValue.find_first_of(delimiters, lastPosition);
 
-    while(std::string::npos != pos || std::string::npos != lastPos) {
-        // Found a token, add it to the vector.
-        tokens.push_back(str.substr(lastPos, pos - lastPos));
+    while(std::string::npos != position || std::string::npos != lastPosition) {
+        // Found a token, add it to the vector
+        tokens.push_back(stringValue.substr(lastPosition, position - lastPosition));
 
-        // skips delimiters.  Note the "not_of"
-        lastPos = str.find_first_not_of(delimiters, pos);
+        // skips delimiters, note the "not_of"
+        lastPosition = stringValue.find_first_not_of(delimiters, position);
 
         // find next "non-delimiter"
-        pos = str.find_first_of(delimiters, lastPos);
+        position = stringValue.find_first_of(delimiters, lastPosition);
     }
 }

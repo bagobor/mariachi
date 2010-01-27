@@ -29,53 +29,14 @@
 
 using namespace mariachi;
 
-bool lua_mariachi_new_Node(lua_State *luaState, SceneNode *value) {
+bool lua_mariachi_new_Node(lua_State *luaState, Node *value) {
     bool return_value;
 
     // in case the reference is new
     validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_NODE_TYPE, lua_mariachi_new_Object) {
-        // sets the methods
-        lua_setnamefunction(luaState, "get_position", lua_mariachi_node_get_position);
-        lua_setnamefunction(luaState, "set_position", lua_mariachi_node_set_position);
-
         // sets the type of the node
         lua_settype(luaState, LUA_SCRIPT_ENGINE_NODE_TYPE);
     }
 
     return return_value;
-}
-
-int lua_mariachi_node_get_position(lua_State *luaState) {
-    // validates the number of arguments
-    lua_assertargsmethod(luaState, 0);
-
-    // retrieves self
-    Node *self = (Node *) lua_get_self(luaState);
-
-    // retrieves the position
-    Coordinate3d_t position = self->getPosition();
-
-    // creates and loads a coordinate 3d
-    lua_mariachi_new_Coordinate3d_t(luaState, &position);
-
-    // returns the number of return values
-    return 1;
-}
-
-int lua_mariachi_node_set_position(lua_State *luaState) {
-    // validates the number of arguments
-    lua_assertargsmethod(luaState, 3);
-
-    // retrieves self
-    Node *self = (Node *) lua_get_self(luaState);
-
-    float x = (float) lua_tonumber(luaState, 1);
-    float y = (float) lua_tonumber(luaState, 2);
-    float z = (float) lua_tonumber(luaState, 3);
-
-    // sets the position
-    self->setPosition(x, y, z);
-
-    // returns the number of return values
-    return 0;
 }

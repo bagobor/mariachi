@@ -31,7 +31,7 @@ namespace mariachi {
             private:
 
             public:
-                static void tokenize(const std::string &str, std::vector<std::string> &tokens, const std::string &delimiters);
+                static void tokenize(const std::string &stringValue, std::vector<std::string> &tokens, const std::string &delimiters);
         };
     }
 }

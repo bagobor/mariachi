@@ -32,7 +32,10 @@ using namespace mariachi;
 /**
 * Constructor of the class.
 */
-LensNode::LensNode() : Node() {
+LensNode::LensNode() : CubeNode() {
+}
+
+LensNode::LensNode(const std::string &name) : CubeNode(name) {
 }
 
 /**
