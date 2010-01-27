@@ -605,6 +605,10 @@
 				Name="Util"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\util\geometry_util.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\util\string_util.cpp"
 					>
 				</File>
@@ -1298,6 +1302,10 @@
 			<Filter
 				Name="Util"
 				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\geometry_util.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\util\string_util.h"
 					>

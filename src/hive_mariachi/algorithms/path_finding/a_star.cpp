@@ -25,8 +25,6 @@
 
 #include "stdafx.h"
 
-#include "../../structures/structures.h"
-
 #include "a_star.h"
 
 using namespace mariachi;
@@ -34,10 +32,12 @@ using namespace mariachi;
 /**
 * Constructor of the class.
 */
-AStar::AStar() {
+AStar::AStar() : PathFinder() {
+    this->initDistanceFunction();
 }
 
 AStar::AStar(PathNodesGraph *nodesGraph) : PathFinder(nodesGraph) {
+    this->initDistanceFunction();
 }
 
 /**
@@ -46,66 +46,72 @@ AStar::AStar(PathNodesGraph *nodesGraph) : PathFinder(nodesGraph) {
 AStar::~AStar() {
 }
 
-std::list<unsigned int> AStar::findPath(unsigned int startNodeId, unsigned int endNodeId, std::map<unsigned int, Coordinate3d_t *> nodesMap, std::map<unsigned int, std::vector<unsigned int>> neighboursMap) {
-    // the found path
-    std::list<unsigned int> path;
+inline void AStar::initDistanceFunction() {
+    this->distanceFunction = AStar::defaultDistanceFunction;
+}
 
+Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
     // the unexplored nodes ordered by lowest cost
-    std::priority_queue<std::pair<unsigned int, float>, std::vector<std::pair<unsigned int, float>>, AStar> openSetQueue;
+    std::priority_queue<std::pair<unsigned int, float>, std::vector<std::pair<unsigned int, float>>, AStar> unexploredNodes;
 
-    // map indicating if a node was explored or note
+    // map indicating if a node was explored or not
     std::map<unsigned int, bool> exploredMap;
 
     // map associating a node with the lowest cost found to reach it
-    std::map<unsigned int, Cost_t *> costMap;
+    std::map<unsigned int, float> costMap;
+
+    // number nodes used to reach the node via the lowest cost path
+    std::map<unsigned int, unsigned int> numberNodesMap;
 
     // map associating a node with the lowest cost node that was used to reach it
     std::map<unsigned int, unsigned int> previousNodeMap;
 
-    // retrieves the coordinates for the start and end nodes
-    Coordinate3d_t *startNodeCoordinate3d = nodesMap[startNodeId];
-    Coordinate3d_t *endNodeCoordinate3d = nodesMap[endNodeId];
-
-    // stores the costs for the start node
-    Cost_t startNodeCost;
-    startNodeCost.cost = 0;
-    startNodeCost.heuristic = this->calculateDistance(startNodeCoordinate3d, endNodeCoordinate3d);
-    startNodeCost.total = startNodeCost.cost + startNodeCost.heuristic;
-    costMap[startNodeId] = &startNodeCost;
+    // stores the cost for the start node
+    costMap[startNodeId] = 0;
+    numberNodesMap[startNodeId] = 1;
 
     // adds the start node to the open set queue and marks it as unexplored
-    openSetQueue.push(std::pair<unsigned int, float>(startNodeId, startNodeCost.total));
+    unexploredNodes.push(std::pair<unsigned int, float>(startNodeId, this->distanceFunction(startNodeId, endNodeId, this->nodesGraph)));
     exploredMap[startNodeId] = false;
 
     // while the open set is not empty
-    while(openSetQueue.size() > 0) {
+    while(unexploredNodes.size() > 0) {
         // retrieves the node with lowest total cost
-        std::pair<unsigned int, float> currentNodePair = openSetQueue.top();
+        std::pair<unsigned int, float> currentNodePair = unexploredNodes.top();
         unsigned int currentNodeId = currentNodePair.first;
 
         // returns the path in case the goal as been reached
         if (currentNodeId == endNodeId) {
-            // backtracks from the end node storing the nodes in a list
+            // creates a path structure where to store the resulting path
+            unsigned int numberNodes = numberNodesMap[endNodeId];
+            Path_t *path = (Path_t *) malloc(sizeof(Path_t));
+            path->numberPathNodes = numberNodes;
+            path->pathNodes = (unsigned int *) malloc(sizeof(unsigned int) * numberNodes);
+
+            // backtracks from the end node storing the nodes in the path structure
+            unsigned int index = 0;
             while(previousNodeMap.find(currentNodeId) != previousNodeMap.end()) {
-                path.push_front(currentNodeId);
+                path->pathNodes[path->numberPathNodes - 1 - index] = currentNodeId;
                 currentNodeId = previousNodeMap[currentNodeId];
+                index++;
             }
-            path.push_front(currentNodeId);
+
+            // stores the last node in the path nodes list
+            path->pathNodes[path->numberPathNodes - 1 - index] = currentNodeId;
 
             return path;
         }
 
         // removes the node from the open set and marks it as explored
-        openSetQueue.pop();
+        unexploredNodes.pop();
         exploredMap[currentNodeId] = true;
 
-        // iterates through the nodes neighbours
-        std::vector<unsigned int> neighbourNodeIds = neighboursMap[currentNodeId];
-
-        // iterates verl all the neighbour node ids
-        for(std::vector<unsigned int>::iterator neighbourNodeIdsIterator = neighbourNodeIds.begin();  neighbourNodeIdsIterator != neighbourNodeIds.end(); neighbourNodeIdsIterator++) {
-            // retrieves the neighbour's id
-            unsigned int neighbourNodeId = (unsigned int) *neighbourNodeIdsIterator;
+        // iterates through all of the current node's neighbours
+        PathNode_t *currentNode = (*this->nodesGraph)[currentNodeId];
+        for(std::map<unsigned int, float>::const_iterator iterator = currentNode->neighboursMap.begin(); iterator != currentNode->neighboursMap.end(); iterator++) {
+            // retrieves the neighbours' id and cost from the current node
+            unsigned int neighbourNodeId = (*iterator).first;
+            float movementCost = (*iterator).second;
 
             // skips in case the neighbour was already explored
             bool neighbourFirstEncounter = exploredMap.find(neighbourNodeId) == exploredMap.end();
@@ -113,58 +119,54 @@ std::list<unsigned int> AStar::findPath(unsigned int startNodeId, unsigned int e
                 continue;
             }
 
-            // retrieves the current node's coordinates
-            Coordinate3d_t *currentNodeCoordinate3d = nodesMap[currentNodeId];
-
             // calculates the cost between the current node and the neighbour
-            Cost_t *currentNodeCost = costMap[currentNodeId];
-            float cost = currentNodeCost->cost + this->calculateDistance(currentNodeCoordinate3d, endNodeCoordinate3d);
-
-            // @todo: review this
-            // creates a cost structure for the neighbour in case one doesn't exist yet
-            Cost_t *neighbourNodeCost;
-            if(costMap.find(neighbourNodeId) == costMap.end()) {
-                Cost_t neighbourCost;
-                costMap[neighbourNodeId] = &neighbourCost;
-                neighbourNodeCost = &neighbourCost;
+            float newCost = costMap[currentNodeId];
+            if(movementCost == NULL) {
+                newCost += this->getCostFunction()(currentNodeId, neighbourNodeId, this->nodesGraph);
             } else {
-                // otherwise retrieves it
-                neighbourNodeCost = costMap[neighbourNodeId];
+                newCost += movementCost;
             }
 
-            // figures out if this is a better path to the neighbour node
-            bool better = neighbourFirstEncounter || cost < neighbourNodeCost->cost;
-
-            // updates the neighbour's values in case this is a better path to it
-            if(better) {
-                // marks the current node as the best path to the neighbour node
-                previousNodeMap[neighbourNodeId] = currentNodeId;
-
-                // retrieves the neighbour node's coordinates
-                Coordinate3d_t *neighbourNodeCoordinate3d = nodesMap[neighbourNodeId];
-
-                // stores the cost values for the best path to the neighbour node
-                neighbourNodeCost->cost = cost;
-                neighbourNodeCost->heuristic = this->calculateDistance(neighbourNodeCoordinate3d, endNodeCoordinate3d);
-                neighbourNodeCost->total = neighbourNodeCost->cost + neighbourNodeCost->heuristic;
-
-                // adds the node to the open set in case it wasn't added before
-                if(neighbourFirstEncounter) {
-                    std::pair<unsigned int, float> neighbourNodePair = std::pair<unsigned int, float>(neighbourNodeId, neighbourNodeCost->total);
-                    openSetQueue.push(neighbourNodePair);
-                    exploredMap[neighbourNodeId] = false;
+            // skips the iteration in case the cost to travel to the neighbour is higher
+            // than the previously found
+            if(!neighbourFirstEncounter) {
+                // retrieves the cost used to reach the neighbour node previously
+                float neighbourNodeCost = 0.0f;
+                if(costMap.find(neighbourNodeId) != costMap.end()) {
+                    neighbourNodeCost = costMap[neighbourNodeId];
                 }
+
+                // continues in case the new cost is higher
+                if(newCost > neighbourNodeCost) {
+                    continue;
+                }
+            }
+
+            // marks the current node as the best path to the neighbour node
+            previousNodeMap[neighbourNodeId] = currentNodeId;
+
+            // stores the cost values for the best path to the neighbour node
+            costMap[neighbourNodeId] = newCost;
+
+            // stores the number of nodes traversed to reach this node
+            numberNodesMap[neighbourNodeId] = numberNodesMap[currentNodeId] + 1;
+
+            // adds the node to the open set in case it wasn't added before
+            if(neighbourFirstEncounter) {
+                std::pair<unsigned int, float> neighbourNodePair = std::pair<unsigned int, float>(neighbourNodeId, newCost + this->distanceFunction(neighbourNodeId, endNodeId, this->nodesGraph));
+                unexploredNodes.push(neighbourNodePair);
+                exploredMap[neighbourNodeId] = false;
             }
         }
     }
 
-    return path;
+    return NULL;
 }
 
 bool AStar::operator()(std::pair<unsigned int, float> &firstPair, std::pair<unsigned int, float> &secondPair) {
     return firstPair.second > secondPair.second;
 }
 
-float AStar::calculateDistance(Coordinate3d_t *firstCoordinates, Coordinate3d_t *secondCoordinates) {
-    return sqrt(pow(secondCoordinates->x - firstCoordinates->x, 2) + pow(secondCoordinates->y - firstCoordinates->y, 2) + pow(secondCoordinates->z - firstCoordinates->z, 2));
+float AStar::defaultDistanceFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph) {
+    return 0.0;
 }

@@ -28,11 +28,6 @@
 #include "path_finder.h"
 
 namespace mariachi {
-    typedef struct Cost_t {
-        float cost;
-        float heuristic;
-        float total;
-    } Cost;
 
     class AStar : public PathFinder {
         private:
@@ -42,12 +37,11 @@ namespace mariachi {
             AStar();
             AStar(PathNodesGraph *nodesGraph);
             ~AStar();
-            std::list<unsigned int> findPath(unsigned int startNodeId, unsigned int endNodeId, std::map<unsigned int, Coordinate3d_t *> nodesMap, std::map<unsigned int, std::vector<unsigned int>> neighboursMap);
-
-            //void setDistanceFunction(float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *));
-            //float (*getDistanceFunction())(unsigned int, unsigned int, PathNodesGraph *);
-
+            inline void initDistanceFunction();
+            Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId);
+            void setDistanceFunction(float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->distanceFunction = distanceFunction; };
+            float (*getDistanceFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->distanceFunction; };
             bool operator()(std::pair<unsigned int, float> &firstPair, std::pair<unsigned int, float> &secondPair);
-            float calculateDistance(Coordinate3d_t *firstCoordinates, Coordinate3d_t *secondCoordinates);
+            static float defaultDistanceFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph);
     };
 }

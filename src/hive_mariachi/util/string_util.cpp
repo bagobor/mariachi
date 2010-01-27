@@ -29,12 +29,6 @@
 
 using namespace mariachi::util;
 
-StringUtil::StringUtil() {
-}
-
-StringUtil::~StringUtil() {
-}
-
 void StringUtil::tokenize(const std::string &str, std::vector<std::string> &tokens, const std::string &delimiters = " ") {
     // skips the delimiters at the beggining
     std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);

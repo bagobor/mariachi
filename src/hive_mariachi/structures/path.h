@@ -31,5 +31,10 @@ namespace mariachi {
        std::map<unsigned int, float> neighboursMap;
     } PathNode;
 
+    typedef struct Path_t {
+       unsigned int numberPathNodes;
+       unsigned int *pathNodes;
+    } Path;
+
     typedef std::map<unsigned int, PathNode_t *> PathNodesGraph;
 }
