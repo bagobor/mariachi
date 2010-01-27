@@ -28,7 +28,7 @@
 namespace mariachi {
     typedef struct PathNode_t {
        void *value;
-       std::map<unsigned int, int> neighboursMap;
+       std::map<unsigned int, float> neighboursMap;
     } PathNode;
 
     typedef std::map<unsigned int, PathNode_t *> PathNodesGraph;

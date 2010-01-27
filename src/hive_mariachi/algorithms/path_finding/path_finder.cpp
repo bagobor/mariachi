@@ -43,6 +43,10 @@ inline void PathFinder::initNodesGraph(PathNodesGraph *nodesGraph) {
     this->nodesGraph = nodesGraph;
 }
 
-inline void PathFinder::initDistanceFunction() {
-    this->distanceFunction = NULL;
+inline void PathFinder::initCostFunction() {
+    this->costFunction = PathFinder::costFunction;
+}
+
+float defaultCostFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph) {
+    return 0.0;
 }

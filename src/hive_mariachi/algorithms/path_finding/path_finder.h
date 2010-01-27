@@ -31,18 +31,19 @@ namespace mariachi {
     class PathFinder {
         private:
             PathNodesGraph *nodesGraph;
-            int (*distanceFunction)(unsigned int, unsigned int);
+            float (*costFunction)(unsigned int, unsigned int, PathNodesGraph *);
 
         public:
             PathFinder();
             PathFinder(PathNodesGraph *nodesGraph);
             ~PathFinder();
             inline void initNodesGraph(PathNodesGraph *nodesGraph);
-            inline void initDistanceFunction();
+            inline void initCostFunction();
             virtual unsigned int *findPath(unsigned int startNodeId, unsigned int endNodeId) { return NULL; };
             virtual PathNodesGraph *getNodesGraph() { return this->nodesGraph; };
             virtual void setNodesGraph(PathNodesGraph *nodesGraph) { this->nodesGraph = nodesGraph; };
-            virtual void setDistanceFunction(int (*distanceFunction)(unsigned int, unsigned int)) { this->distanceFunction = distanceFunction; };
-            virtual int (*getDistanceFunction())(unsigned int, unsigned int) { return this->distanceFunction; };
+            virtual void setCostFunction(float (*costFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->costFunction = costFunction; };
+            virtual float (*getCostFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->costFunction; };
+            static float defaultCostFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph);
     };
 }
