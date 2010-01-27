@@ -25,6 +25,8 @@
 
 #include "stdafx.h"
 
+#include "../exceptions/exceptions.h"
+
 #include "bmp_loader.h"
 
 using namespace mariachi;
@@ -41,8 +43,10 @@ void BmpLoader::generateImage(const std::string &filePath) {
     std::fstream *bmpFile = new std::fstream(filePath.c_str(), std::fstream::in | std::fstream::binary);
 
     // in case the opening of the file fails
-    if(bmpFile->fail())
-        throw "Problem while loading file";
+    if(bmpFile->fail()) {
+        // throws a runtime exception
+        throw RuntimeException("Problem while loading file");
+    }
 
     // seeks to the end of the file
     bmpFile->seekg (0, std::fstream::end);

@@ -25,6 +25,8 @@
 
 #include "stdafx.h"
 
+#include "../exceptions/exceptions.h"
+
 #include "md2_importer.h"
 
 using namespace mariachi;
@@ -53,8 +55,10 @@ void Md2Importer::generateModel(const std::string &filePath) {
     std::fstream *md2File = new std::fstream(filePath.c_str(), std::fstream::in | std::fstream::binary);
 
     // in case the opening of the file fails
-    if(md2File->fail())
-        throw "Problem while loading file";
+    if(md2File->fail()) {
+        // throws a runtime exception
+        throw RuntimeException("Problem while loading file");
+    }
 
     // seeks to the end of the file
     md2File->seekg (0, std::fstream::end);
@@ -84,8 +88,10 @@ void Md2Importer::generateModel(const std::string &filePath) {
     md2File->close();
 
     // in case the reading of the file fails
-    if(md2File->fail())
-        throw "Problem reading the file";
+    if(md2File->fail()) {
+        // throws a runtime exception
+        throw RuntimeException("Problem reading the file");
+    }
 
     // starts the frame contents pointer
     unsigned int frameContentsPointer = md2Header->offsetFrames - MD2_HEADER_SIZE;

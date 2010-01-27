@@ -32,8 +32,10 @@ namespace mariachi {
 
         public:
             Exception();
+            Exception(const std::string &message);
             ~Exception();
+            inline void initMessage(const std::string &message);
             std::string &getMessage() { return this->message; };
-            virtual void setMessage(std::string &message) { this->message = message; };
+            virtual void setMessage(const std::string &message) { this->message = message; };
     };
 }

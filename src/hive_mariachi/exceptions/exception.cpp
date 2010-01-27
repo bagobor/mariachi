@@ -32,5 +32,13 @@ using namespace mariachi;
 Exception::Exception() : std::exception() {
 }
 
+Exception::Exception(const std::string &message) : std::exception() {
+    this->initMessage(message);
+}
+
 Exception::~Exception() {
+}
+
+inline void Exception::initMessage(const std::string &message) {
+    this->message = message;
 }

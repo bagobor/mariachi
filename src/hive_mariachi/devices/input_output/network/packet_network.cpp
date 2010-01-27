@@ -25,6 +25,7 @@
 
 #include "stdafx.h"
 
+#include "../../../exceptions/exceptions.h"
 #include "../../../system/socket.h"
 #include "packet_network.h"
 
@@ -68,7 +69,8 @@ void PacketNetwork::start(void *arguments) {
         // retrieves the socket error code
         SOCKET_ERROR_CODE socketErrorCode = SOCKET_GET_ERROR_CODE(this->socketHandle);
 
-        throw std::string("Problem creating socket: " + socketErrorCode).c_str();
+        // throws a runtime exception
+        throw RuntimeException("Problem creating socket: " + socketErrorCode);
     }
 }
 
@@ -119,7 +121,8 @@ void PacketNetwork::bindConnection(const std::string &ipAddress, unsigned int po
         // retrieves the binding error code
         SOCKET_ERROR_CODE bindingErrorCode = SOCKET_GET_ERROR_CODE(bindResult);
 
-        throw std::string("Problem binding socket: " + bindingErrorCode).c_str();
+        // throws a runtime exception
+        throw RuntimeException("Problem binding socket: " + bindingErrorCode);
     }
 
     while(1) {
@@ -131,7 +134,8 @@ void PacketNetwork::bindConnection(const std::string &ipAddress, unsigned int po
             // retrieves the listen error code
             SOCKET_ERROR_CODE listenErrorCode = SOCKET_GET_ERROR_CODE(listenResult);
 
-            throw std::string("Problem listing in the socket: " + listenErrorCode).c_str();
+            // throws a runtime exception
+            throw RuntimeException("Problem listing in the socket: " + listenErrorCode);
         }
 
         // accepts the client socket
@@ -142,7 +146,8 @@ void PacketNetwork::bindConnection(const std::string &ipAddress, unsigned int po
             // retrieves the socket error code
             SOCKET_ERROR_CODE socketErrorCode = SOCKET_GET_ERROR_CODE(clientSocketHandle);
 
-            throw std::string("Problem accepting client socket: " + socketErrorCode).c_str();
+            // throws a runtime exception
+            throw RuntimeException("Problem accepting client socket: " + socketErrorCode);
         }
 
         // prints a debug message
@@ -168,7 +173,8 @@ void PacketNetwork::openConnection(const std::string &ipAddress, unsigned int po
         // retrieves the connect error code
         SOCKET_ERROR_CODE connectErrorCode = SOCKET_GET_ERROR_CODE(connectResult);
 
-        throw std::string("Problem connecting in the socket: " + connectErrorCode).c_str();
+        // throws a runtime exception
+        throw RuntimeException("Problem connecting in the socket: " + connectErrorCode);
     }
 
     // prints a debug message

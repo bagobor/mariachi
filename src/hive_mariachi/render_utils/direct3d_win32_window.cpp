@@ -27,6 +27,8 @@
 
 #ifdef MARIACHI_PLATFORM_DIRECT3D
 
+#include "../exceptions/exceptions.h"
+
 #include "direct3d_win32_window.h"
 
 using namespace mariachi;
@@ -117,7 +119,8 @@ void Direct3dWin32Window::createWindow(char* title, int x, int y, int width, int
         windowClassEx.lpszClassName = DIRECT3D_WIN32_WINDOW_CLASS_NAME;
 
         if(!RegisterClassEx(&windowClassEx)) {
-            throw "Cannot register window class";
+            // throws a runtime exception
+            throw RuntimeException("Cannot register window class");
         }
     }
 
@@ -126,7 +129,8 @@ void Direct3dWin32Window::createWindow(char* title, int x, int y, int width, int
 
     // in case the window handler is invalid
     if(handlerWindow == NULL) {
-        throw "Cannot create a window";
+        // throws a runtime exception
+        throw RuntimeException("Cannot create a window");
     }
 
     // sets the window handler

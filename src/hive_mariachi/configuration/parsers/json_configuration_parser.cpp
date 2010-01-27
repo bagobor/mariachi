@@ -25,6 +25,7 @@
 
 #include "stdafx.h"
 
+#include "../../exceptions/exceptions.h"
 #include "../../structures/structures.h"
 
 #include "json_configuration_parser.h"
@@ -80,8 +81,8 @@ void JsonConfigurationParser::parseConfiguration(void *configuration) {
         // retrieves the error message
         std::string errorMessage = reader.getFormatedErrorMessages();
 
-        // throws an exception
-        throw "Failed to parse configuration: " + errorMessage;
+        // throws a runtime exception
+        throw RuntimeException("Failed to parse configuration: " + errorMessage);
     }
 
     this->updateConfigurationMap(this->configurationManager, rootNode);

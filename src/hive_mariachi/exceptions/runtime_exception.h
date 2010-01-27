@@ -33,6 +33,7 @@ namespace mariachi {
 
         public:
             RuntimeException();
+            RuntimeException(const std::string &message);
             ~RuntimeException();
     };
 }

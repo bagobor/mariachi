@@ -25,14 +25,20 @@
 
 #include "stdafx.h"
 
+#include "../../../exceptions/exceptions.h"
+
 #include "lua_script_engine_util.h"
+
+using namespace mariachi;
 
 void lua_assertargs(lua_State *luaState, unsigned int expectedArgc) {
     // retrieves the number of arguments
     int argc = lua_gettop(luaState);
 
-    if(!argc == expectedArgc)
-        throw "invalid number of arguments";
+    if(!argc == expectedArgc) {
+        // throws an exception
+        throw Exception("Invalid number of arguments");
+    }
 }
 
 void lua_assertargsmethod(lua_State *luaState, unsigned int expectedArgc) {

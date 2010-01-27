@@ -25,6 +25,7 @@
 
 #include "stdafx.h"
 
+#include "../exceptions/exceptions.h"
 #include "../structures/structures.h"
 #include "parsers/parsers.h"
 
@@ -73,8 +74,10 @@ void ConfigurationManager::load(void *arguments) {
     this->configurationFile = new std::fstream("config.json", std::fstream::in | std::fstream::binary);
 
     // in case the opening of the file fails
-    if(this->configurationFile->fail())
-        throw "Problem while loading file";
+    if(this->configurationFile->fail()) {
+        // throws a runtime exception
+        throw RuntimeException("Problem while loading file");
+    }
 
     // seeks to the end of the file
     this->configurationFile->seekg (0, std::fstream::end);

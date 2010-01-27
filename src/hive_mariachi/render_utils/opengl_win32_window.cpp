@@ -27,6 +27,7 @@
 
 #ifdef MARIACHI_PLATFORM_WIN32
 
+#include "../exceptions/exceptions.h"
 #include "../devices/input/input.h"
 
 #include "opengl_win32_window.h"
@@ -125,7 +126,8 @@ void OpenglWin32Window::createWindow(char* title, int x, int y, int width, int h
         windowClassEx.lpszClassName = OPENGL_WIN32_WINDOW_CLASS_NAME;
 
         if(!RegisterClassEx(&windowClassEx)) {
-            throw "Cannot register window class";
+            // throws a runtime exception
+            throw RuntimeException("Cannot register window class");
         }
     }
 
@@ -134,7 +136,8 @@ void OpenglWin32Window::createWindow(char* title, int x, int y, int width, int h
 
     // in case the window handler is invalid
     if(handlerWindow == NULL) {
-        throw "Cannot create a window";
+        // throws a runtime exception
+        throw RuntimeException("Cannot create a window");
     }
 
     // sets the window handler
@@ -170,7 +173,8 @@ void OpenglWin32Window::createFullScreen(char *title, int width, int height) {
         windowClassEx.lpszClassName = OPENGL_WIN32_FULLSCREEN_CLASS_NAME;
 
         if(!RegisterClassEx(&windowClassEx)) {
-            throw "Cannot register fullscreen class";
+            // throws a runtime exception
+            throw RuntimeException("Cannot register fullscreen class");
         }
     }
 
@@ -179,7 +183,8 @@ void OpenglWin32Window::createFullScreen(char *title, int width, int height) {
 
     // in case the full screen window handler is invalid
     if(handlerFullScreen == NULL) {
-        throw "Cannot create a window fullscreen";
+        // throws a runtime exception
+        throw RuntimeException("Cannot create a window fullscreen");
     }
 
     // sets the full screen window handler
@@ -218,11 +223,13 @@ void OpenglWin32Window::enableOpengl() {
     pixelfFormat = ChoosePixelFormat(this->handlerDeviceContext, &pixelFormatDescriptor);
 
     if(pixelfFormat == 0) {
-        throw "Cannot find a suitable pixel format";
+        // throws a runtime exception
+        throw RuntimeException("Cannot find a suitable pixel format");
     }
 
     if(SetPixelFormat(this->handlerDeviceContext, pixelfFormat, &pixelFormatDescriptor) == false) {
-        throw "Cannot set the pixel format specified";
+        // throws a runtime exception
+        throw RuntimeException("Cannot set the pixel format specified");
     }
 
     // describes the pixel format
@@ -248,7 +255,8 @@ void OpenglWin32Window::changeDisplayResolution(int width, int height, int color
     deviceModeScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
 
     if(ChangeDisplaySettings(&deviceModeScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL) {
-        throw "Display mode failed";
+        // throws a runtime exception
+        throw RuntimeException("Display mode change failed");
     }
 }
 

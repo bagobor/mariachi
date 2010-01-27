@@ -32,5 +32,8 @@ using namespace mariachi;
 RuntimeException::RuntimeException() : Exception() {
 }
 
+RuntimeException::RuntimeException(const std::string &message) : Exception(message) {
+}
+
 RuntimeException::~RuntimeException() {
 }

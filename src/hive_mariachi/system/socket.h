@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include "../exceptions/exception.h"
+
 #ifdef MARIACHI_PLATFORM_WIN32
 #include <winsock.h>
 #pragma comment(lib, "Ws2_32.lib")
@@ -38,7 +40,7 @@
 #define SOCKET_DATAGRAM_TYPE SOCK_DGRAM
 #define SOCKET_PROTOCOL_TCP IPPROTO_TCP
 #define SOCKET_PROTOCOL_UDP IPPROTO_UDP
-#define SOCKET_INITIALIZE(socketData) if(WSAStartup(MAKEWORD(2, 0), socketData) != 0) { throw "Socket Initialization Error"; }
+#define SOCKET_INITIALIZE(socketData) if(WSAStartup(MAKEWORD(2, 0), socketData) != 0) { throw Exception("Socket Initialization Error"); }
 #define SOCKET_FINISH() WSACleanup()
 #define SOCKET_CREATE(type, streamType, protocolType) socket(type, streamType, protocolType)
 #define SOCKET_BIND(socketHandle, socketAddress) bind(socketHandle, (LPSOCKADDR) &socketAddress, sizeof(SOCKET_ADDRESS))
