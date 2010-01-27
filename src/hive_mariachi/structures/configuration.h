@@ -45,3 +45,7 @@ typedef struct ConfigurationValue_t {
     ConfigurationValueStructure_t structure;
     ConfigurationValueType_t type;
 } ConfigurationValue;
+
+typedef struct ConfigurationArguments_t {
+    std::string filePath;
+} ConfigurationArguments;

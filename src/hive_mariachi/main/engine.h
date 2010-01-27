@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include "../exceptions/exception.h"
 #include "../system/thread.h"
 #include "../devices/device.h"
 #include "../logging/logger.h"
@@ -72,9 +73,10 @@ namespace mariachi {
             void start(void *arguments);
             void stop(void *arguments);
             void update();
-            void startLogger(int level, bool pidFile);
+            void handleException(Exception *exception);
             void startConfigurationManager();
             void stopConfigurationManager();
+            void startLogger(int level, bool pidFile);
             void startInputDevices();
             void startScriptEngines();
             void startStages();

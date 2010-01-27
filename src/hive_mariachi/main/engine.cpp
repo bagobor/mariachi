@@ -46,29 +46,37 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the engine from the parameters
     Engine *engine = (Engine *) parameters;
 
-    // starts the configuration manager in the engine
-    engine->startConfigurationManager();
+    try {
+        // starts the configuration manager in the engine
+        engine->startConfigurationManager();
 
-    // starts the logger in the engine
-    engine->startLogger(DEBUG, true);
+        // starts the logger in the engine
+        engine->startLogger(DEBUG, true);
 
-    // starts the input devices in the engine
-    engine->startInputDevices();
+        // starts the input devices in the engine
+        engine->startInputDevices();
 
-    // starts the script engines in the engine
-    engine->startScriptEngines();
+        // starts the script engines in the engine
+        engine->startScriptEngines();
 
-    // starts the stages in the engine
-    engine->startStages();
+        // starts the stages in the engine
+        engine->startStages();
 
-    // starts the run loop
-    engine->startRunLoop();
+        // starts the run loop
+        engine->startRunLoop();
 
-    // stops the stages in the engine
-    engine->stopStages();
+        // stops the stages in the engine
+        engine->stopStages();
 
-    // returns zero (valid)
-    return 0;
+        // returns zero (valid)
+        return 0;
+    } catch(Exception exception) {
+        // handles the exception
+        engine->handleException(&exception);
+
+        // returns minus one (invalid)
+        return -1;
+    }
 }
 
 /**
@@ -82,14 +90,25 @@ THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the stage from the parameters
     Stage *stage = (Stage *) parameters;
 
-    // creates a new stage runner
-    StageRunner stageRunner = StageRunner(stage);
+    // retrieves the engine from the stage
+    Engine *engine = (Engine *) stage->getEngine();
 
-    // starts the stage runner
-    stageRunner.start(NULL);
+    try {
+        // creates a new stage runner
+        StageRunner stageRunner = StageRunner(stage);
 
-    // returns zero (valid)
-    return 0;
+        // starts the stage runner
+        stageRunner.start(NULL);
+
+        // returns zero (valid)
+        return 0;
+    } catch(Exception exception) {
+        // handles the exception
+        engine->handleException(&exception);
+
+        // returns minus one (invalid)
+        return -1;
+    }
 }
 
 /**
@@ -205,14 +224,50 @@ void Engine::update() {
 }
 
 /**
+* Handles the given exception, taking the necessary measures to
+* minimize damage.
+*
+* @param exception The exception to be handled.
+*/
+void Engine::handleException(Exception *exception) {
+    // prints the exception
+    this->logger->critical("[Exception]: " + exception->getMessage());
+}
+
+/**
+* Starts the configuration manager in the engine.
+* Starting the configuration amanger implies booting the necessary
+* structures for data serialization.
+*/
+void Engine::startConfigurationManager() {
+    // creates a configuration manager
+    this->configurationManager = new ConfigurationManager(this);
+
+    // creates the configuration arguments
+    ConfigurationArguments_t configurationArguments = { "config.json" };
+
+    // loads the configuration manager
+    this->configurationManager->load(&configurationArguments);
+}
+
+/**
+* Stops the configuration manager in the engine.
+*/
+void Engine::stopConfigurationManager() {
+    // loads the configuration manager
+    this->configurationManager->unload(NULL);
+
+    // deletes the configuration manager
+    delete this->configurationManager;
+}
+
+/**
 * Starts the logging system, creating a file and a console handler.
 *
 * @param level The level of debugging to be used in the logging.
 * @param pidFile If the process id information should be used for the file.
 */
 void Engine::startLogger(int level, bool pidFile) {
-
-
     // allocates a new string for the current process id string
     std::string currentProcessIdString = std::string();
 
@@ -239,30 +294,6 @@ void Engine::startLogger(int level, bool pidFile) {
         // adds the file handler to the default logger
         this->logger->addHandler(fileHandler);
     }
-}
-
-/**
-* Starts the configuration manager in the engine.
-* Starting the configuration amanger implies booting the necessary
-* structures for data serialization.
-*/
-void Engine::startConfigurationManager() {
-    // creates a configuration manager
-    this->configurationManager = new ConfigurationManager(this);
-
-    // loads the configuration manager
-    this->configurationManager->load(NULL);
-}
-
-/**
-* Stops the configuration manager in the engine.
-*/
-void Engine::stopConfigurationManager() {
-    // loads the configuration manager
-    this->configurationManager->unload(NULL);
-
-    // deletes the configuration manager
-    delete this->configurationManager;
 }
 
 /**

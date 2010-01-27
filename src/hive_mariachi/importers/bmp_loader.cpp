@@ -45,7 +45,7 @@ void BmpLoader::generateImage(const std::string &filePath) {
     // in case the opening of the file fails
     if(bmpFile->fail()) {
         // throws a runtime exception
-        throw RuntimeException("Problem while loading file");
+        throw RuntimeException("Problem while loading file: " + filePath);
     }
 
     // seeks to the end of the file

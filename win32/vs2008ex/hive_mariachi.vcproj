@@ -146,6 +146,10 @@
 			ReferencedProjectIdentifier="{6D71AE64-3E59-4700-AC73-0323920C0A2B}"
 			RelativePathToProject=".\lib_lua.vcproj"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{346F07F3-B0E0-45A7-9F21-533D706DDE36}"
+			RelativePathToProject=".\lib_bullet.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter

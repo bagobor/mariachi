@@ -31,7 +31,7 @@
 /**
 * The default configuration file path.
 */
-#define DEFAULT_CONFIGURATION_FILE "configuration.json"
+#define DEFAULT_CONFIGURATION_FILE "config.json"
 
 namespace mariachi {
     class ConfigurationParser;

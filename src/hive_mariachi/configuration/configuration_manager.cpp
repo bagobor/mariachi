@@ -64,6 +64,9 @@ inline void ConfigurationManager::initEngine(Engine *engine) {
 * @param arguments The arguments to the load of the configuration manager.
 */
 void ConfigurationManager::load(void *arguments) {
+    // retrieves the configuration arguments
+    ConfigurationArguments_t *configurationArguments = (ConfigurationArguments_t *) arguments;
+
     // creates a new json configuration parser
     JsonConfigurationParser *jsonConfigurationParser = new JsonConfigurationParser(this);
 
@@ -71,12 +74,12 @@ void ConfigurationManager::load(void *arguments) {
     configurationParserList.push_back(jsonConfigurationParser);
 
     // creates the configuration file to be used
-    this->configurationFile = new std::fstream("config.json", std::fstream::in | std::fstream::binary);
+    this->configurationFile = new std::fstream(configurationArguments->filePath.c_str(), std::fstream::in | std::fstream::binary);
 
     // in case the opening of the file fails
     if(this->configurationFile->fail()) {
         // throws a runtime exception
-        throw RuntimeException("Problem while loading file");
+        throw RuntimeException("Problem while loading file: " + configurationArguments->filePath);
     }
 
     // seeks to the end of the file

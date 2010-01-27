@@ -26,6 +26,7 @@
 #include "stdafx.h"
 
 #include "../../hive_mariachi/main/main.h"
+#include "../../hive_mariachi/exceptions/exceptions.h"
 
 using namespace mariachi;
 
@@ -37,11 +38,16 @@ using namespace mariachi;
 * @return The return value of the program.
 */
 int main(int argc, char** argv) {
-    // creates a new engine
-    Engine engine = Engine(argc, argv);
+    try {
+        // creates a new engine
+        Engine engine = Engine(argc, argv);
 
-    // starts the engine
-    engine.start(NULL);
+        // starts the engine
+        engine.start(NULL);
+    } catch(Exception exception) {
+        std::cout << "Exception occurred: ";
+        std::cout << exception.getMessage();
+    }
 
     // returns zero
     return 0;
