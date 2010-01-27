@@ -16,28 +16,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = Tiago Silva <tsilva@hive.pt>
+// __author__    = João Magalhães <joamag@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
-
-#pragma once
-
-namespace mariachi {
-    typedef struct Cost_t {
-        float cost;
-        float heuristic;
-        float total;
-    } Cost;
-
-    class AStarPathFinder {
-        public:
-            AStarPathFinder();
-            ~AStarPathFinder();
-            std::list<unsigned int> findPath(unsigned int startNodeId, unsigned int endNodeId, std::map<unsigned int, Coordinate3d_t *> nodesMap, std::map<unsigned int, std::vector<unsigned int>> neighboursMap);
-            bool operator()(std::pair<unsigned int, float> &firstPair, std::pair<unsigned int, float> &secondPair);
-            float calculateDistance(Coordinate3d_t *firstCoordinates, Coordinate3d_t *secondCoordinates);
-    };
-}

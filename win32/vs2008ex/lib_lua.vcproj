@@ -382,7 +382,7 @@
 			>
 		</Filter>
 		<File
-			RelativePath=".\ReadMe.txt"
+			RelativePath="..\..\lib\liblua\src\ReadMe.txt"
 			>
 		</File>
 	</Files>
