@@ -44,4 +44,5 @@
 #include "structures/structures.h"
 #include "system/system.h"
 #include "tasks/tasks.h"
+#include "user_interface/user_interface.h"
 #include "util/util.h"
