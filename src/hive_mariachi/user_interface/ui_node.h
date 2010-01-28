@@ -25,16 +25,27 @@
 
 #pragma once
 
-#include "lens_node.h"
+#include "../nodes/square_node.h"
+
+typedef enum UiNodesType_t {
+    UI_NODE_TYPE = 2000,
+    UI_COMPONENT_NODE_TYPE,
+    UI_BOX_COMPONENT_NODE_TYPE,
+    UI_VIEW_PORT_NODE_TYPE,
+    UI_CONTAINER_NODE_TYPE,
+    UI_PANEL_NODE_TYPE
+} UiNodesType;
 
 namespace mariachi {
-    class CameraNode : public LensNode {
-        private:
+    namespace ui {
+        class UiNode : public SquareNode {
+            private:
 
-        public:
-            CameraNode();
-            CameraNode(const std::string &name);
-            ~CameraNode();
-            virtual inline unsigned int getNodeType() { return CAMERA_NODE_TYPE; };
+            public:
+                UiNode();
+                UiNode(const std::string &name);
+                ~UiNode();
+                virtual inline unsigned int getNodeType() { return UI_NODE_TYPE; };
+        };
     };
 }

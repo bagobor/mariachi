@@ -25,16 +25,18 @@
 
 #pragma once
 
-#include "lens_node.h"
+#include "ui_box_component_node.h"
 
 namespace mariachi {
-    class CameraNode : public LensNode {
-        private:
+    namespace ui {
+        class ContainerNode : public BoxComponentNode {
+            private:
 
-        public:
-            CameraNode();
-            CameraNode(const std::string &name);
-            ~CameraNode();
-            virtual inline unsigned int getNodeType() { return CAMERA_NODE_TYPE; };
+            public:
+                ContainerNode();
+                ContainerNode(const std::string &name);
+                ~ContainerNode();
+                virtual inline unsigned int getNodeType() { return UI_CONTAINER_NODE_TYPE; };
+        };
     };
 }

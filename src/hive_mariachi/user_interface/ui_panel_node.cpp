@@ -23,18 +23,24 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#pragma once
+#include "stdafx.h"
 
-#include "lens_node.h"
+#include "ui_panel_node.h"
 
-namespace mariachi {
-    class CameraNode : public LensNode {
-        private:
+using namespace mariachi;
+using namespace mariachi::ui;
 
-        public:
-            CameraNode();
-            CameraNode(const std::string &name);
-            ~CameraNode();
-            virtual inline unsigned int getNodeType() { return CAMERA_NODE_TYPE; };
-    };
+/**
+* Constructor of the class.
+*/
+PanelNode::PanelNode() : ContainerNode() {
+}
+
+PanelNode::PanelNode(const std::string &name) : ContainerNode(name) {
+}
+
+/**
+* Destructor of the class.
+*/
+PanelNode::~PanelNode() {
 }

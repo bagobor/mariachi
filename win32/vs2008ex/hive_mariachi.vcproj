@@ -648,6 +648,30 @@
 			<Filter
 				Name="User Interface"
 				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_box_component_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_component_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_container_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_panel_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_view_port_node.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1379,7 +1403,27 @@
 				Name="User Interface"
 				>
 				<File
-					RelativePath="..\..\src\hive_mariachi\user_interface\ui_frame_node.h"
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_box_component_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_component_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_container_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_panel_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_view_port_node.h"
 					>
 				</File>
 				<File
