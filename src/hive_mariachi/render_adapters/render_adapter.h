@@ -35,6 +35,18 @@
 */
 #define FRAME_SAMPLING_LIMIT 3.0
 
+/**
+* The reference width to be used in the
+* 2d orthogonal plane.
+*/
+#define REFERENCE_WIDTH_2D 100.0
+
+/**
+* The reference height to be used in the
+* 2d orthogonal plane.
+*/
+#define REFERENCE_HEIGHT_2D 100.0
+
 namespace mariachi {
     class RenderAdapter {
         private:

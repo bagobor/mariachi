@@ -105,13 +105,13 @@ void OpenglAdapter::init() {
     // enables depth testing
     glEnable(GL_DEPTH_TEST);
 
+	// sets the front face
     glFrontFace(GL_CCW);
 
     // enables blending
     glEnable(GL_BLEND);
 
     // sets the blending function
-    //glBlendFunc(GL_ONE, GL_ONE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // enables the support for 2d textures
@@ -169,6 +169,23 @@ void OpenglAdapter::resizeScene(int windowWidth, int windowHeight) {
 
     // sets the window aspect ratio
     this->windowAspectRatio = (float) this->windowSize.width / (float) this->windowSize.height;
+
+    // calculates the width and height ration
+    this->widthRatio = windowWidth / REFERENCE_WIDTH_2D;
+    this->heightRatio = windowHeight / REFERENCE_HEIGHT_2D;
+
+    // retrieves the lowest ratio of the both
+    this->lowestRatio = this->widthRatio < this->heightRatio ? this->widthRatio : this->heightRatio;
+
+    // retrieves the highest ratio of the both
+    this->highestRatio = this->widthRatio > this->heightRatio ? this->widthRatio : this->heightRatio;
+
+    // calculates the best ratio of the both
+    this->bestRatio = this->highestRatio >  REFERENCE_WIDTH_2D ? REFERENCE_WIDTH_2D : this->highestRatio;
+
+	this->lowestWidthRevertRatio = this->widthRatio / this->lowestRatio;
+
+	this->lowestHeightRevertRatio = this->heightRatio / this->lowestRatio;
 }
 
 void OpenglAdapter::keyPressed(unsigned char key, int x, int y) {
@@ -261,59 +278,10 @@ inline void OpenglAdapter::display2d() {
     // setup the display 2d
     this->setupDisplay2d();
 
-    // retrieves the render 2d (node)
+	// retrieves the render 2d (node)
     Scene2dNode *render2d = this->renderInformation->getRender2d();
 
-    // retrieves the render 2d children list
-    std::list<Node *> render2dChildrenList = render2d->getChildrenList();
-
-    // retrieves the render 2d children list iterator
-    std::list<Node *>::iterator render2dChildrenListIterator = render2dChildrenList.begin();
-
-    // iterates over all the render 2d children
-    while(render2dChildrenListIterator != render2dChildrenList.end()) {
-        // tenho de sacar o no
-        // tenho de desenhar as bounderies
-        // tenho de ver se tem layout se tiver tenho de fazer os devidos calculos
-
-        // retrieves the current node
-        Node *node = *render2dChildrenListIterator;
-
-        // in case the node is renderable
-        if(node->renderable) {
-            // retrieves the node type
-            unsigned int nodeType = node->getNodeType();
-
-            switch(nodeType) {
-                case UI_COMPONENT_NODE_TYPE:
-                    break;
-
-                case UI_BOX_COMPONENT_NODE_TYPE:
-                    break;
-
-                case UI_VIEW_PORT_NODE_TYPE:
-                    this->renderViewPortNode((ViewPortNode *) node);
-
-                    break;
-
-                case UI_CONTAINER_NODE_TYPE:
-                    break;
-
-                case UI_PANEL_NODE_TYPE:
-                    break;
-
-                case UI_BUTTON_NODE_TYPE:
-                    this->renderButtonNode((ButtonNode *) node);
-
-                    break;
-            }
-
-
-        }
-
-        // increments the render 2d children list iterator
-        render2dChildrenListIterator++;
-    }
+	this->renderNode2d(render2d);
 }
 
 inline void OpenglAdapter::display3d() {
@@ -369,21 +337,8 @@ inline void OpenglAdapter::setupDisplay2d() {
     // loads the identity matrix
     glLoadIdentity();
 
-    // calculates the width and height ration
-    float ratioWidth = this->windowSize.width / 100.0;
-    float ratioHeight = this->windowSize.height / 100.0;
-
-    // retrieves the lowest ratio of the both
-    float lowestRatio = ratioWidth < ratioHeight ? ratioWidth : ratioHeight;
-
-    // retrieves the highest ratio of the both
-    float highestRatio = ratioWidth > ratioHeight ? ratioWidth : ratioHeight;
-
-    // calculates the best ratio
-    float ratio = highestRatio >  100.0 ?  100.0 : highestRatio;
-
     // scales the projection
-    glScalef(lowestRatio, lowestRatio, 0.0);
+    glScalef(this->lowestRatio, this->lowestRatio, 0.0);
 }
 
 inline void OpenglAdapter::setupDisplay3d() {
@@ -401,6 +356,114 @@ inline void OpenglAdapter::setupDisplay3d() {
 
     // resets the view
     glLoadIdentity();
+}
+
+inline void OpenglAdapter::renderNode2d(Node *node) {
+    // retrieves the node children list
+    std::list<Node *> nodeChildrenList = node->getChildrenList();
+
+    // retrieves the node children list iterator
+    std::list<Node *>::iterator nodeChildrenListIterator = nodeChildrenList.begin();
+
+    // iterates over all the node children
+    while(nodeChildrenListIterator != nodeChildrenList.end()) {
+        // tenho de sacar o no
+        // tenho de desenhar as bounderies
+        // tenho de ver se tem layout se tiver tenho de fazer os devidos calculos
+
+        // retrieves the current node
+        Node *currentNode = *nodeChildrenListIterator;
+
+		Coordinate2d_t position;
+
+        // in case the node is renderable
+        if(currentNode->renderable) {
+            // retrieves the node type
+            unsigned int nodeType = currentNode->getNodeType();
+
+			// switches over the node type
+            switch(nodeType) {
+				// in case it's a component node type
+                case UI_COMPONENT_NODE_TYPE:
+                    break;
+
+				// in case it's a box component node type
+                case UI_BOX_COMPONENT_NODE_TYPE:
+                    break;
+
+				// in case it's a view port node type
+                case UI_VIEW_PORT_NODE_TYPE:
+					// renders the view port node
+                    this->renderViewPortNode((ViewPortNode *) currentNode, (SquareNode *) node);
+				
+					// retrieves the view port position
+					position = this->getRealPosition2d((ViewPortNode *) currentNode, (SquareNode *) node);
+
+					glPushMatrix();
+
+					glTranslatef(position.x * this->lowestWidthRevertRatio, position.y * this->lowestWidthRevertRatio, 0.0);
+
+					this->renderNode2d(currentNode);
+
+					glPopMatrix();
+
+                    break;
+
+				// in case it's a container node type
+                case UI_CONTAINER_NODE_TYPE:
+                    break;
+
+				// in case it's a panel node type
+                case UI_PANEL_NODE_TYPE:
+					// renders the panel node
+                    this->renderPanelNode((PanelNode *) currentNode, (SquareNode *) node);
+
+					// retrieves the panel position
+					position = this->getRealPosition2d((PanelNode *) currentNode, (SquareNode *) node);
+
+					glPushMatrix();
+
+					glTranslatef(position.x, position.y, 0.0);
+
+					this->renderNode2d(currentNode);
+
+					glPopMatrix();
+
+                    break;
+
+				// in case it's a button node type
+                case UI_BUTTON_NODE_TYPE:
+					// renders the button node
+                    this->renderButtonNode((ButtonNode *) currentNode, (SquareNode *) node);
+
+                    break;
+            }
+        }
+
+        // increments the node children list iterator
+        nodeChildrenListIterator++;
+    }
+}
+
+/**
+* Renders a square with the default mapping coordinates.
+*
+* @param x1 The initial x position.
+* @param y1 The initial y position.
+* @param x2 The final x position.
+* @param y2 The final y position.
+*/
+inline void OpenglAdapter::renderSquare(float x1, float y1, float x2, float y2) {
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0, 1.0);
+        glVertex2f(x1, y1);
+        glTexCoord2f(1.0, 1.0);
+        glVertex2f(x2, y1);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(x2, y2);
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(x1, y2);
+    glEnd();
 }
 
 inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
@@ -486,92 +549,125 @@ inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
     glPopMatrix();
 }
 
-inline void OpenglAdapter::renderViewPortNode(ViewPortNode *viewPortNode) {
-    // retrieves the component size
-    FloatSize2d_t size = viewPortNode->getSize();
-
-    // retrieves the component position
-    Coordinate2d_t position = viewPortNode->getPosition();
-
-    // retrieves the component color
+inline void OpenglAdapter::renderViewPortNode(ViewPortNode *viewPortNode, SquareNode *targetNode) {
+    // retrieves the view port color
     FloatColor_t color = viewPortNode->getColor();
 
-    // retrieves the texture
+    // retrieves the view port texture
     Texture *texture = viewPortNode->getTexture();
 
     // sets the texture
     this->setTexture(texture);
 
+    // retrieves the position
+    Coordinate2d_t position = this->getRealPosition2d(viewPortNode, targetNode);
+	FloatSize2d_t size = this->getRealSize2d(viewPortNode);
 
-    // calculates the width and height ration
-    float ratioWidth = this->windowSize.width / 100.0;
-    float ratioHeight = this->windowSize.height / 100.0;
-
-    // retrieves the lowest ratio of the both
-    float lowestRatio = ratioWidth < ratioHeight ? ratioWidth : ratioHeight;
-
-    float position_x = (position.x / lowestRatio) * ratioWidth;
-    float position_y = (position.y / lowestRatio) * ratioHeight;
-
-    float width = (size.width / lowestRatio) * ratioWidth;
-    float height = (size.height / lowestRatio) * ratioHeight;
-
-    glColor4f(0.0, 0.0, 0.0, 0.0);
-
-    glBegin(GL_QUADS);
-        // sets the texture coordinates of mapping
-        glTexCoord2f(0.0, 1.0);
-        glVertex2f(position_x, position_y);
-        glTexCoord2f(1.0, 1.0);
-        glVertex2f(position_x + width, position_y);
-        glTexCoord2f(1.0, 0.0);
-        glVertex2f(position_x + width, position_y + height);
-        glTexCoord2f(0.0, 0.0);
-        glVertex2f(position_x, position_y + height);
-    glEnd();
+	// renders a square with the texture mapping
+	this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
 }
 
-inline void OpenglAdapter::renderPanelNode(PanelNode *panelNode) {
-
-}
-
-inline void OpenglAdapter::renderButtonNode(ButtonNode *buttonNode) {
+inline void OpenglAdapter::renderPanelNode(PanelNode *panelNode, SquareNode *targetNode) {
     // retrieves the component size
-    FloatSize2d_t size = buttonNode->getSize();
+    FloatSize2d_t size = panelNode->getSize();
 
-    // retrieves the component position
-    Coordinate2d_t position = buttonNode->getPosition();
+    // retrieves the button color
+    FloatColor_t color = panelNode->getColor();
 
-    // retrieves the component color
-    FloatColor_t color = buttonNode->getColor();
+    // retrieves the button texture
+    Texture *texture = panelNode->getTexture();
 
-    // retrieves the texture
-    Texture *texture = buttonNode->getTexture();
+	// retrieves the button position reference
+    PositionReferenceType_t positionReference = panelNode->getPositionReference();
+
+    // retrieves the position
+    Coordinate2d_t position = this->getRealPosition2d(panelNode, targetNode);
 
     // sets the texture
     this->setTexture(texture);
 
-    // calculates the width and height ration
-    float ratioWidth = this->windowSize.width / 100.0;
-    float ratioHeight = this->windowSize.height / 100.0;
+	// renders a square with the texture mapping
+	this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+}
 
-    // retrieves the lowest ratio of the both
-    float lowestRatio = ratioWidth < ratioHeight ? ratioWidth : ratioHeight;
+inline void OpenglAdapter::renderButtonNode(ButtonNode *buttonNode, SquareNode *targetNode) {
+    // retrieves the button size
+    FloatSize2d_t size = buttonNode->getSize();
 
-    float position_x = (position.x / lowestRatio) * ratioWidth;
-    float position_y = (position.y / lowestRatio) * ratioHeight;
+    // retrieves the button color
+    FloatColor_t color = buttonNode->getColor();
 
-    glBegin(GL_QUADS);
-        // sets the texture coordinates of mapping
-        glTexCoord2f(0.0, 1.0);
-        glVertex2f(position_x, position_y);
-        glTexCoord2f(1.0, 1.0);
-        glVertex2f(position_x + size.width, position_y);
-        glTexCoord2f(1.0, 0.0);
-        glVertex2f(position_x + size.width, position_y + size.height);
-        glTexCoord2f(0.0, 0.0);
-        glVertex2f(position_x, position_y + size.height);
-    glEnd();
+    // retrieves the button texture
+    Texture *texture = buttonNode->getTexture();
+
+    // retrieves the position
+    Coordinate2d_t position = this->getRealPosition2d(buttonNode, targetNode);
+
+    // sets the texture
+    this->setTexture(texture);
+
+	// renders a square with the texture mapping
+	this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+}
+
+inline Coordinate2d_t OpenglAdapter::getRealPosition2d(SquareNode *squareNode, SquareNode *targetNode) {
+    // retrieves the square node size
+    FloatSize2d_t size = squareNode->getSize();
+
+    // retrieves the target node position
+    Coordinate2d_t targetPosition = targetNode->getPosition();
+
+    // retrieves the target node size
+    FloatSize2d_t targetSize = targetNode->getSize();
+
+    // retrieves the square node position
+    Coordinate2d_t basePosition = squareNode->getPosition();
+
+	// retrieves the button position reference
+    PositionReferenceType_t positionReference = squareNode->getPositionReference();
+
+	// the position value
+    Coordinate2d_t position;
+
+	float targetPositionX = targetPosition.x <= 100.0 && targetPosition.x >= 0.0 ? targetPosition.x : 0.0;
+	float targetPositionY = targetPosition.y <= 100.0 && targetPosition.y >= 0.0 ? targetPosition.y : 0.0;
+
+	float ratio1Width = targetSize.width <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.width : 100.0;
+	float ratio1Height = targetSize.height <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.height : 100.0;
+
+	float basePosition_x = basePosition.x / ratio1Width + targetPositionX;
+	float basePosition_y = basePosition.y / ratio1Height + targetPositionY;
+
+	// switches over the position reference
+	switch(positionReference) {
+		case TOP_LEFT_REFERENCE_POSITION:
+			position.x = basePosition_x * this->lowestWidthRevertRatio;
+			position.y = basePosition_y * this->lowestHeightRevertRatio;
+
+			break;
+
+		case CENTER_REFERENCE_POSITION:
+			position.x = basePosition_x * this->lowestWidthRevertRatio - size.width / 2.0;
+			position.y = basePosition_y * this->lowestHeightRevertRatio - size.height / 2.0;
+
+			break;
+	}
+
+	// returns the position
+	return position;
+}
+
+inline FloatSize2d_t OpenglAdapter::getRealSize2d(SquareNode *squareNode) {
+	// retrieves the square node size
+    FloatSize2d_t baseSize = squareNode->getSize();
+
+	FloatSize2d_t size;
+
+    size.width = baseSize.width * this->lowestWidthRevertRatio;
+    size.height = baseSize.height * this->lowestHeightRevertRatio;
+
+	// returns the size
+	return size;
 }
 
 #endif

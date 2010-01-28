@@ -133,6 +133,35 @@ void DummyStage::start(void *arguments) {
 
 
 
+
+
+
+
+    BmpLoader *bmpLoader34 = new BmpLoader();
+    bmpLoader34->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/white.bmp"));
+    Texture *panelTexture = bmpLoader34->getTexture();
+
+    // creates a new panel node
+    PanelNode *panelNode = new PanelNode();
+
+	panelNode->setPositionReference(CENTER_REFERENCE_POSITION);
+
+    // sets the viewport node position
+    panelNode->setPosition(50.0, 50.0);
+
+	panelNode->setSize(60.25, 30.00);
+
+	panelNode->setTexture(panelTexture);
+
+	viewPort2Node->addChild(panelNode);
+
+
+
+
+
+
+
+
     BmpLoader *bmpLoader33 = new BmpLoader();
     bmpLoader33->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/logo.bmp"));
     Texture *logoTexture = bmpLoader33->getTexture();
@@ -140,16 +169,17 @@ void DummyStage::start(void *arguments) {
     // creates a new button node
     ButtonNode *imageNode = new ButtonNode();
 
-    // sets the viewport node position
+    // sets the button node position
     imageNode->setPosition(3.13, 2.50);
 
     // sets the size of the image node
-    imageNode->setSize(31.40, 24.06);
+    imageNode->setSize(31.40, 14.06);
 
+	// sets the texture
     imageNode->setTexture(logoTexture);
 
     // adds the view port node to the render
-    render2d->addChild(imageNode);
+    panelNode->addChild(imageNode);
 
 
 
@@ -160,30 +190,28 @@ void DummyStage::start(void *arguments) {
     // creates a new button node
     ButtonNode *buttonNode = new ButtonNode();
 
+	buttonNode->setPositionReference(CENTER_REFERENCE_POSITION);
+
     // sets the viewport node position
-    buttonNode->setPosition(50.0 - 5.0, 50.0 - 5.0);
+    buttonNode->setPosition(50.0, 80.0);
 
     // sets the size of the viewport node
     buttonNode->setSize((float) 21.25, (float) 10.94);
 
+	// sets the texture in the button
     buttonNode->setTexture(buttonTexture);
 
     // adds the view port node to the render
-    render2d->addChild(buttonNode);
+    panelNode->addChild(buttonNode);
 
-
-
-
-
-
-    PacketNetwork *packetNetwork = new PacketNetwork();
+    /*PacketNetwork *packetNetwork = new PacketNetwork();
 
     std::map<std::string, void *> argumentsMap;
 
     argumentsMap["socketType"] = (void *) SOCKET_INTERNET_TYPE;
 
     packetNetwork->start(&argumentsMap);
-    packetNetwork->bindConnection("", 8989);
+    packetNetwork->bindConnection("", 8989);*/
 }
 
 void DummyStage::stop(void *arguments) {

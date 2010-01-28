@@ -53,7 +53,14 @@ namespace mariachi {
             OpenglWindow *window;
             IntSize2d_t windowSize;
             float windowAspectRatio;
-            std::map<Texture *, int> textureTextureIdMap;
+			float widthRatio;
+			float heightRatio;
+			float lowestRatio;
+			float highestRatio;
+			float bestRatio;
+			float lowestWidthRevertRatio;
+			float lowestHeightRevertRatio;
+			std::map<Texture *, int> textureTextureIdMap;
 
             inline time_t clockSeconds();
             inline void updateFrameRate();
@@ -61,10 +68,14 @@ namespace mariachi {
             inline void display3d();
             inline void setupDisplay2d();
             inline void setupDisplay3d();
+			inline void renderNode2d(Node *node);
+			inline void renderSquare(float x1, float y1, float x2, float y2);
             inline void renderModelNode(ModelNode *modelNode);
-            inline void renderViewPortNode(ui::ViewPortNode *viewPortNode);
-            inline void renderPanelNode(ui::PanelNode *panelNode);
-            inline void renderButtonNode(ui::ButtonNode *buttonNode);
+            inline void renderViewPortNode(ui::ViewPortNode *viewPortNode, SquareNode *targetNode);
+            inline void renderPanelNode(ui::PanelNode *panelNode, SquareNode *targetNode);
+            inline void renderButtonNode(ui::ButtonNode *buttonNode, SquareNode *targetNode);
+			inline Coordinate2d_t getRealPosition2d(SquareNode *squareNode, SquareNode *targetNode);
+			inline FloatSize2d_t getRealSize2d(SquareNode *squareNode);
 
         public:
             OpenglAdapter();
