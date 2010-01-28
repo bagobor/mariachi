@@ -31,14 +31,14 @@
 namespace mariachi {
     class Texture {
         private:
-            IntSize_t size;
+            IntSize2d_t size;
             ImageColor_t *imageBuffer;
 
         public:
             Texture();
             ~Texture();
-            IntSize_t getSize();
-            void setSize(IntSize_t size);
+            IntSize2d_t getSize();
+            void setSize(IntSize2d_t size);
             ImageColor_t *getImageBuffer();
             void setImageBuffer(ImageColor_t * imageBuffer);
     };

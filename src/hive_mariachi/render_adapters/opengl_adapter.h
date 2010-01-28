@@ -36,7 +36,9 @@
 #endif
 
 #include "../nodes/nodes.h"
+#include "../user_interface/user_interface.h"
 #include "../structures/texture.h"
+#include "../structures/size.h"
 #include "../render_utils/opengl_window.h"
 #include "render_adapter.h"
 
@@ -49,7 +51,20 @@ namespace mariachi {
     class OpenglAdapter : public RenderAdapter {
         private:
             OpenglWindow *window;
+            IntSize2d_t windowSize;
+            float windowAspectRatio;
             std::map<Texture *, int> textureTextureIdMap;
+
+            inline time_t clockSeconds();
+            inline void updateFrameRate();
+            inline void display2d();
+            inline void display3d();
+            inline void setupDisplay2d();
+            inline void setupDisplay3d();
+            inline void renderModelNode(ModelNode *modelNode);
+            inline void renderViewPortNode(ui::ViewPortNode *viewPortNode);
+            inline void renderPanelNode(ui::PanelNode *panelNode);
+            inline void renderButtonNode(ui::ButtonNode *buttonNode);
 
         public:
             OpenglAdapter();
@@ -62,8 +77,6 @@ namespace mariachi {
             void resizeScene(int windowWidth, int windowHeight);
             void keyPressed(unsigned char key, int x, int y);
             inline void setTexture(Texture *texture);
-            inline time_t clockSeconds();
-            inline void updateFrameRate();
     };
 }
 

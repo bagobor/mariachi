@@ -47,7 +47,21 @@ void SquareNode::setPosition(Coordinate2d_t &position) {
 }
 
 void SquareNode::setPosition(float x, float y) {
-    Coordinate2d_t position = {x, y};
+    Coordinate2d_t position = { x, y } ;
 
     this->position = position;
+}
+
+FloatSize2d_t &SquareNode::getSize() {
+    return this->size;
+}
+
+void SquareNode::setSize(FloatSize2d_t &size) {
+    this->size = size;
+}
+
+void SquareNode::setSize(float width, float height) {
+    FloatSize2d_t size = { width, height };
+
+    this->size = size;
 }

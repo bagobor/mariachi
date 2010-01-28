@@ -25,11 +25,14 @@
 
 #include "stdafx.h"
 
+#include "../structures/structures.h"
 #include "../importers/importers.h"
 #include "../devices/devices.h"
+#include "../user_interface/user_interface.h"
 #include "dummy_stage.h"
 
 using namespace mariachi;
+using namespace mariachi::ui;
 
 DummyStage::DummyStage() : Stage() {
 }
@@ -76,14 +79,14 @@ void DummyStage::start(void *arguments) {
     // retrieves the model node
     ModelNode *modelNode2 = importer2->getModelNode();
 
-    BmpLoader * bmpLoader = new BmpLoader();
+    BmpLoader *bmpLoader = new BmpLoader();
     bmpLoader->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/pallette.bmp"));
     Texture *texture = bmpLoader->getTexture();
 
     // sets the texture in the model node
     modelNode->setTexture(texture);
 
-    BmpLoader * bmpLoader2 = new BmpLoader();
+    BmpLoader *bmpLoader2 = new BmpLoader();
     bmpLoader2->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/light6.bmp"));
     Texture *texture2 = bmpLoader2->getTexture();
 
@@ -94,7 +97,7 @@ void DummyStage::start(void *arguments) {
     modelNode2->setPosition(-25.0, 0.0, 0.0);
 
     // retrieves the render
-    Node *render = this->engine->getRender();
+    SceneNode *render = this->engine->getRender();
 
     // adds the model node to the render
     render->addChild(modelNode);
@@ -105,6 +108,74 @@ void DummyStage::start(void *arguments) {
     // prints an info message
     this->info("Dummy stage started successfully");
 
+    // retrieves the render
+    Scene2dNode *render2d = this->engine->getRender2d();
+
+
+
+    BmpLoader *bmpLoader4 = new BmpLoader();
+    bmpLoader4->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/background.bmp"));
+    Texture *backgroundTexture = bmpLoader4->getTexture();
+
+    // creates a new view port node
+    ViewPortNode *viewPort2Node = new ViewPortNode();
+
+    // sets the viewport node position
+    viewPort2Node->setPosition(0.0, 0.0);
+
+    // sets the size of the viewport node
+    viewPort2Node->setSize((float) 100.0, (float) 100.0);
+
+    viewPort2Node->setTexture(backgroundTexture);
+
+    // adds the view port node to the render
+    render2d->addChild(viewPort2Node);
+
+
+
+    BmpLoader *bmpLoader33 = new BmpLoader();
+    bmpLoader33->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/logo.bmp"));
+    Texture *logoTexture = bmpLoader33->getTexture();
+
+    // creates a new button node
+    ButtonNode *imageNode = new ButtonNode();
+
+    // sets the viewport node position
+    imageNode->setPosition(3.13, 2.50);
+
+    // sets the size of the image node
+    imageNode->setSize(31.40, 24.06);
+
+    imageNode->setTexture(logoTexture);
+
+    // adds the view port node to the render
+    render2d->addChild(imageNode);
+
+
+
+    BmpLoader *bmpLoader3 = new BmpLoader();
+    bmpLoader3->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/about.bmp"));
+    Texture *buttonTexture = bmpLoader3->getTexture();
+
+    // creates a new button node
+    ButtonNode *buttonNode = new ButtonNode();
+
+    // sets the viewport node position
+    buttonNode->setPosition(50.0 - 5.0, 50.0 - 5.0);
+
+    // sets the size of the viewport node
+    buttonNode->setSize((float) 21.25, (float) 10.94);
+
+    buttonNode->setTexture(buttonTexture);
+
+    // adds the view port node to the render
+    render2d->addChild(buttonNode);
+
+
+
+
+
+
     PacketNetwork *packetNetwork = new PacketNetwork();
 
     std::map<std::string, void *> argumentsMap;
@@ -112,7 +183,6 @@ void DummyStage::start(void *arguments) {
     argumentsMap["socketType"] = (void *) SOCKET_INTERNET_TYPE;
 
     packetNetwork->start(&argumentsMap);
-
     packetNetwork->bindConnection("", 8989);
 }
 

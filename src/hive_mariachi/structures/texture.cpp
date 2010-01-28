@@ -35,11 +35,11 @@ Texture::Texture() {
 Texture::~Texture() {
 }
 
-IntSize_t Texture::getSize() {
+IntSize2d_t Texture::getSize() {
     return this->size;
 }
 
-void Texture::setSize(IntSize_t size) {
+void Texture::setSize(IntSize2d_t size) {
     this->size = size;
 }
 

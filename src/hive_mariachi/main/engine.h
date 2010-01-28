@@ -30,6 +30,7 @@
 #include "../devices/device.h"
 #include "../logging/logger.h"
 #include "../nodes/nodes.h"
+#include "../user_interface/user_interface.h"
 #include "../tasks/task.h"
 #include "../debugging/debugging.h"
 

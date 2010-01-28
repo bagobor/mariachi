@@ -38,10 +38,17 @@
 #include "opengl_adapter.h"
 
 using namespace mariachi;
+using namespace mariachi::ui;
 
+/**
+* Constructor of the class.
+*/
 OpenglAdapter::OpenglAdapter() : RenderAdapter() {
 }
 
+/**
+* Destructor of the class.
+*/
 OpenglAdapter::~OpenglAdapter() {
 }
 
@@ -104,6 +111,7 @@ void OpenglAdapter::init() {
     glEnable(GL_BLEND);
 
     // sets the blending function
+    //glBlendFunc(GL_ONE, GL_ONE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // enables the support for 2d textures
@@ -132,120 +140,14 @@ void OpenglAdapter::display() {
     // clears all pixels
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // resets the view
-    glLoadIdentity();
-
-    // moves into the screen
-    glTranslatef(0.0, 0.0, -1 * DEFAULT_ZOOM_LEVEL);
-
-    // rotates the perspective
-    glRotatef(0.0, 1.0, 0.0, 0.0);
-    glRotatef(0.0, 0.0, 1.0, 0.0);
-    glRotatef(0.0, 0.0, 0.0, 1.0);
-
     // waits for the render information mutex
     MUTEX_LOCK(this->renderInformation->getMutex());
 
-    // retrieves the render (node)
-    SceneNode *render = this->renderInformation->getRender();
+    // displays the 3d scene
+    this->display3d();
 
-    std::list<Node *> renderChildrenList = render->getChildrenList();
-
-    std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
-
-    while(renderChildrenListIterator != renderChildrenList.end()) {
-        Node *node = *renderChildrenListIterator;
-
-        // in case the node is renderable
-        if(node->renderable) {
-            // casts the node as model node
-            ModelNode *modelNode = (ModelNode *) node;
-
-            // retrieves the mesh list
-            std::vector<Mesh_t *> *meshList = modelNode->getMeshList();
-
-            // retrieves the texture
-            Texture *texture = modelNode->getTexture();
-
-            // retrieves the position
-            Coordinate3d_t &position = modelNode->getPosition();
-
-            // retrieves the mesh list size
-            size_t meshListSize = meshList->size();
-
-            // sets the texture
-            this->setTexture(texture);
-
-            // pushes the transformation matrix
-            glPushMatrix();
-
-            // puts the element in the screen
-            glTranslatef(position.x, position.y, position.z);
-
-            // iterates over all the meshes
-            for(unsigned int index = 0; index < meshListSize; index++) {
-                // retrieves the current mesh
-                Mesh_t *mesh = (*meshList)[index];
-
-                // retrieves the position
-                Coordinate3d_t position = mesh->position;
-
-                // retrieves the vertex list
-                float *vertexList = mesh->vertexList;
-
-                // retrieves the texture vertex list
-                float *textureVertexList = mesh->textureVertexList;
-
-                // retrieves the number of vertices
-                unsigned int numberVertices = mesh->numberVertices;
-
-                // switches over the mesh type
-                switch(mesh->type) {
-                    case TRIANGLE:
-                        break;
-                    case TRIANGLE_STRIP:
-                        glBegin(GL_TRIANGLE_STRIP);
-                        break;
-                    case TRIANGLE_FAN:
-                        glBegin(GL_TRIANGLE_FAN);
-                        break;
-                }
-
-                // iterates over all the vertices
-                for(unsigned int index = 0; index < numberVertices; index++) {
-                    // retrieves the texture vertex
-                    float *textureVertex = &textureVertexList[index * 2];
-
-                    // retrieves the texture vertex coordinates
-                    float textureVertexX = textureVertex[0];
-                    float textureVertexY = textureVertex[1];
-
-                    // retrieves the vertex
-                    float *vertex = &vertexList[index * 3];
-
-                    // retrieves the vertex coordinates
-                    float vertexX = vertex[0];
-                    float vertexY = vertex[1];
-                    float vertexZ = vertex[2];
-
-                    // sets the texture coordinates of mapping
-                    glTexCoord2f(textureVertexX, textureVertexY);
-
-                    // sets the vertex coordinates
-                    glVertex3f(vertexX, vertexY, vertexZ);
-                }
-
-                // ends the gl drawing
-                glEnd();
-            }
-
-            // pops the matrix
-            glPopMatrix();
-        }
-
-        // increments the render children list iterator
-        renderChildrenListIterator++;
-    }
+    // displays the 2d scene
+    this->display2d();
 
     // releases the render information mutex
     MUTEX_UNLOCK(this->renderInformation->getMutex());
@@ -261,17 +163,12 @@ void OpenglAdapter::resizeScene(int windowWidth, int windowHeight) {
     // resets the current viewport and perspective transformation
     glViewport(0, 0, windowWidth, windowHeight);
 
-    // sets the matrix mode to projection
-    glMatrixMode(GL_PROJECTION);
+    // sets the window size
+    this->windowSize.width = windowWidth;
+    this->windowSize.height = windowHeight;
 
-    // loads the identity matrix
-    glLoadIdentity();
-
-    // recalculates the glu perspective
-    gluPerspective(45.0, float(windowWidth) / float(windowHeight), 0.3, 1000.0);
-
-    // sets the matrix mode to model view
-    glMatrixMode(GL_MODELVIEW);
+    // sets the window aspect ratio
+    this->windowAspectRatio = (float) this->windowSize.width / (float) this->windowSize.height;
 }
 
 void OpenglAdapter::keyPressed(unsigned char key, int x, int y) {
@@ -284,7 +181,7 @@ inline void OpenglAdapter::setTexture(Texture *texture) {
     // in case the texture is already rendered in open gl
     if(!(textureId = this->textureTextureIdMap[texture])) {
         // retrieves the texture sizes
-        IntSize_t textureSize = texture->getSize();
+        IntSize2d_t textureSize = texture->getSize();
 
         // retrieves the image buffer
         ImageColor_t *imageBuffer = texture->getImageBuffer();
@@ -299,7 +196,7 @@ inline void OpenglAdapter::setTexture(Texture *texture) {
         glPixelStorei(GL_PACK_ALIGNMENT, 1);
 
         // loads the texture
-        glTexImage2D(GL_TEXTURE_2D, 0, 3, textureSize.width, textureSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char *) imageBuffer);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureSize.width, textureSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char *) imageBuffer);
 
         // sets some texture parameters
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -310,7 +207,7 @@ inline void OpenglAdapter::setTexture(Texture *texture) {
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
         // sets the texture id for the current texture in the texture
         // texture id map
@@ -358,6 +255,323 @@ inline void OpenglAdapter::updateFrameRate() {
         // sets the base clock as the current clock
         this->baseClock = currentClock;
     }
+}
+
+inline void OpenglAdapter::display2d() {
+    // setup the display 2d
+    this->setupDisplay2d();
+
+    // retrieves the render 2d (node)
+    Scene2dNode *render2d = this->renderInformation->getRender2d();
+
+    // retrieves the render 2d children list
+    std::list<Node *> render2dChildrenList = render2d->getChildrenList();
+
+    // retrieves the render 2d children list iterator
+    std::list<Node *>::iterator render2dChildrenListIterator = render2dChildrenList.begin();
+
+    // iterates over all the render 2d children
+    while(render2dChildrenListIterator != render2dChildrenList.end()) {
+        // tenho de sacar o no
+        // tenho de desenhar as bounderies
+        // tenho de ver se tem layout se tiver tenho de fazer os devidos calculos
+
+        // retrieves the current node
+        Node *node = *render2dChildrenListIterator;
+
+        // in case the node is renderable
+        if(node->renderable) {
+            // retrieves the node type
+            unsigned int nodeType = node->getNodeType();
+
+            switch(nodeType) {
+                case UI_COMPONENT_NODE_TYPE:
+                    break;
+
+                case UI_BOX_COMPONENT_NODE_TYPE:
+                    break;
+
+                case UI_VIEW_PORT_NODE_TYPE:
+                    this->renderViewPortNode((ViewPortNode *) node);
+
+                    break;
+
+                case UI_CONTAINER_NODE_TYPE:
+                    break;
+
+                case UI_PANEL_NODE_TYPE:
+                    break;
+
+                case UI_BUTTON_NODE_TYPE:
+                    this->renderButtonNode((ButtonNode *) node);
+
+                    break;
+            }
+
+
+        }
+
+        // increments the render 2d children list iterator
+        render2dChildrenListIterator++;
+    }
+}
+
+inline void OpenglAdapter::display3d() {
+    // setup the display 3d
+    this->setupDisplay3d();
+
+    // moves into the screen
+    glTranslatef(0.0, 0.0, -1 * DEFAULT_ZOOM_LEVEL);
+
+    // rotates the perspective
+    glRotatef(0.0, 1.0, 0.0, 0.0);
+    glRotatef(0.0, 0.0, 1.0, 0.0);
+    glRotatef(0.0, 0.0, 0.0, 1.0);
+
+    // retrieves the render (node)
+    SceneNode *render = this->renderInformation->getRender();
+
+    std::list<Node *> renderChildrenList = render->getChildrenList();
+
+    std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
+
+    while(renderChildrenListIterator != renderChildrenList.end()) {
+        Node *node = *renderChildrenListIterator;
+
+        // in case the node is renderable
+        if(node->renderable) {
+            // @todo change this harcode and make it a switch statement
+            // casts the node as model node
+            ModelNode *modelNode = (ModelNode *) node;
+
+            // renders the model node
+            this->renderModelNode(modelNode);
+        }
+
+        // increments the render children list iterator
+        renderChildrenListIterator++;
+    }
+}
+
+inline void OpenglAdapter::setupDisplay2d() {
+    // sets the matrix mode to projection
+    glMatrixMode(GL_PROJECTION);
+
+    // loads the identity matrix
+    glLoadIdentity();
+
+    // setup the orthogonal perspective
+    glOrtho(0, (float) this->windowSize.width, (float) this->windowSize.height, 0, -1, 1);
+
+    // sets the matrix mode to model view
+    glMatrixMode(GL_MODELVIEW);
+
+    // loads the identity matrix
+    glLoadIdentity();
+
+    // calculates the width and height ration
+    float ratioWidth = this->windowSize.width / 100.0;
+    float ratioHeight = this->windowSize.height / 100.0;
+
+    // retrieves the lowest ratio of the both
+    float lowestRatio = ratioWidth < ratioHeight ? ratioWidth : ratioHeight;
+
+    // retrieves the highest ratio of the both
+    float highestRatio = ratioWidth > ratioHeight ? ratioWidth : ratioHeight;
+
+    // calculates the best ratio
+    float ratio = highestRatio >  100.0 ?  100.0 : highestRatio;
+
+    // scales the projection
+    glScalef(lowestRatio, lowestRatio, 0.0);
+}
+
+inline void OpenglAdapter::setupDisplay3d() {
+    // sets the matrix mode to projection
+    glMatrixMode(GL_PROJECTION);
+
+    // loads the identity matrix
+    glLoadIdentity();
+
+    // recalculates the glu perspective
+    gluPerspective(45.0, this->windowAspectRatio, 0.3, 1000.0);
+
+    // sets the matrix mode to model view
+    glMatrixMode(GL_MODELVIEW);
+
+    // resets the view
+    glLoadIdentity();
+}
+
+inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
+    // retrieves the mesh list
+    std::vector<Mesh_t *> *meshList = modelNode->getMeshList();
+
+    // retrieves the texture
+    Texture *texture = modelNode->getTexture();
+
+    // retrieves the position
+    Coordinate3d_t &position = modelNode->getPosition();
+
+    // retrieves the mesh list size
+    size_t meshListSize = meshList->size();
+
+    // sets the texture
+    this->setTexture(texture);
+
+    // pushes the transformation matrix
+    glPushMatrix();
+
+    // puts the element in the screen
+    glTranslatef(position.x, position.y, position.z);
+
+    // iterates over all the meshes
+    for(unsigned int index = 0; index < meshListSize; index++) {
+        // retrieves the current mesh
+        Mesh_t *mesh = (*meshList)[index];
+
+        // retrieves the position
+        Coordinate3d_t position = mesh->position;
+
+        // retrieves the vertex list
+        float *vertexList = mesh->vertexList;
+
+        // retrieves the texture vertex list
+        float *textureVertexList = mesh->textureVertexList;
+
+        // retrieves the number of vertices
+        unsigned int numberVertices = mesh->numberVertices;
+
+        // switches over the mesh type
+        switch(mesh->type) {
+            case TRIANGLE:
+                break;
+            case TRIANGLE_STRIP:
+                glBegin(GL_TRIANGLE_STRIP);
+                break;
+            case TRIANGLE_FAN:
+                glBegin(GL_TRIANGLE_FAN);
+                break;
+        }
+
+        // iterates over all the vertices
+        for(unsigned int index = 0; index < numberVertices; index++) {
+            // retrieves the texture vertex
+            float *textureVertex = &textureVertexList[index * 2];
+
+            // retrieves the texture vertex coordinates
+            float textureVertexX = textureVertex[0];
+            float textureVertexY = textureVertex[1];
+
+            // retrieves the vertex
+            float *vertex = &vertexList[index * 3];
+
+            // retrieves the vertex coordinates
+            float vertexX = vertex[0];
+            float vertexY = vertex[1];
+            float vertexZ = vertex[2];
+
+            // sets the texture coordinates of mapping
+            glTexCoord2f(textureVertexX, textureVertexY);
+
+            // sets the vertex coordinates
+            glVertex3f(vertexX, vertexY, vertexZ);
+        }
+
+        // ends the gl drawing
+        glEnd();
+    }
+
+    // pops the matrix
+    glPopMatrix();
+}
+
+inline void OpenglAdapter::renderViewPortNode(ViewPortNode *viewPortNode) {
+    // retrieves the component size
+    FloatSize2d_t size = viewPortNode->getSize();
+
+    // retrieves the component position
+    Coordinate2d_t position = viewPortNode->getPosition();
+
+    // retrieves the component color
+    FloatColor_t color = viewPortNode->getColor();
+
+    // retrieves the texture
+    Texture *texture = viewPortNode->getTexture();
+
+    // sets the texture
+    this->setTexture(texture);
+
+
+    // calculates the width and height ration
+    float ratioWidth = this->windowSize.width / 100.0;
+    float ratioHeight = this->windowSize.height / 100.0;
+
+    // retrieves the lowest ratio of the both
+    float lowestRatio = ratioWidth < ratioHeight ? ratioWidth : ratioHeight;
+
+    float position_x = (position.x / lowestRatio) * ratioWidth;
+    float position_y = (position.y / lowestRatio) * ratioHeight;
+
+    float width = (size.width / lowestRatio) * ratioWidth;
+    float height = (size.height / lowestRatio) * ratioHeight;
+
+    glColor4f(0.0, 0.0, 0.0, 0.0);
+
+    glBegin(GL_QUADS);
+        // sets the texture coordinates of mapping
+        glTexCoord2f(0.0, 1.0);
+        glVertex2f(position_x, position_y);
+        glTexCoord2f(1.0, 1.0);
+        glVertex2f(position_x + width, position_y);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(position_x + width, position_y + height);
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(position_x, position_y + height);
+    glEnd();
+}
+
+inline void OpenglAdapter::renderPanelNode(PanelNode *panelNode) {
+
+}
+
+inline void OpenglAdapter::renderButtonNode(ButtonNode *buttonNode) {
+    // retrieves the component size
+    FloatSize2d_t size = buttonNode->getSize();
+
+    // retrieves the component position
+    Coordinate2d_t position = buttonNode->getPosition();
+
+    // retrieves the component color
+    FloatColor_t color = buttonNode->getColor();
+
+    // retrieves the texture
+    Texture *texture = buttonNode->getTexture();
+
+    // sets the texture
+    this->setTexture(texture);
+
+    // calculates the width and height ration
+    float ratioWidth = this->windowSize.width / 100.0;
+    float ratioHeight = this->windowSize.height / 100.0;
+
+    // retrieves the lowest ratio of the both
+    float lowestRatio = ratioWidth < ratioHeight ? ratioWidth : ratioHeight;
+
+    float position_x = (position.x / lowestRatio) * ratioWidth;
+    float position_y = (position.y / lowestRatio) * ratioHeight;
+
+    glBegin(GL_QUADS);
+        // sets the texture coordinates of mapping
+        glTexCoord2f(0.0, 1.0);
+        glVertex2f(position_x, position_y);
+        glTexCoord2f(1.0, 1.0);
+        glVertex2f(position_x + size.width, position_y);
+        glTexCoord2f(1.0, 0.0);
+        glVertex2f(position_x + size.width, position_y + size.height);
+        glTexCoord2f(0.0, 0.0);
+        glVertex2f(position_x, position_y + size.height);
+    glEnd();
 }
 
 #endif

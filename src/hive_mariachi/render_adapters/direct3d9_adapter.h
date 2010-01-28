@@ -57,6 +57,9 @@ namespace mariachi {
             */
             LPDIRECT3DVERTEXBUFFER9 triangleVertexBuffer;
 
+            inline time_t clockSeconds();
+            inline void updateFrameRate();
+
         public:
             Direct3d9Adapter();
             ~Direct3d9Adapter();
@@ -67,8 +70,6 @@ namespace mariachi {
             void display();
             void resizeScene(int windowWidth, int windowHeight);
             void keyPressed(unsigned char key, int x, int y);
-            inline time_t clockSeconds();
-            inline void updateFrameRate();
     };
 }
 

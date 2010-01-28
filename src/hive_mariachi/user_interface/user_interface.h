@@ -26,8 +26,9 @@
 #pragma once
 
 #include "ui_box_component_node.h"
+#include "ui_button_node.h"
 #include "ui_component_node.h"
 #include "ui_container_node.h"
-#include "ui_frame_node.h"
+#include "ui_panel_node.h"
 #include "ui_node.h"
 #include "ui_view_port_node.h"

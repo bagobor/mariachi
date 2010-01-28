@@ -34,15 +34,15 @@ namespace mariachi {
         private:
             MUTEX_HANDLE mutex;
             SceneNode *render;
-            SceneNode *render2d;
+            Scene2dNode *render2d;
 
         public:
             RenderInformation();
             ~RenderInformation();
             void setRender(SceneNode *render);
             SceneNode *getRender();
-            void setRender2d(SceneNode *render2d);
-            SceneNode *getRender2d();
+            void setRender2d(Scene2dNode *render2d);
+            Scene2dNode *getRender2d();
             MUTEX_HANDLE getMutex();
             void setMutex(MUTEX_HANDLE mutex);
     };

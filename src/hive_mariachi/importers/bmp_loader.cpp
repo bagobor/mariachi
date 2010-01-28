@@ -110,11 +110,18 @@ void BmpLoader::generateImage(const std::string &filePath) {
         bitmapData[index].rgba.green = bitmapRawData[currentBytePointer + 1];
         bitmapData[index].rgba.blue = bitmapRawData[currentBytePointer + 0];
 
-        // sets the alpha color to the maximum
-        bitmapData[index].rgba.alpha = 255;
+        // in case the bitmap contains alpha
+        if(bytesPerPixel == 4) {
+            // sets the alpha color
+            bitmapData[index].rgba.alpha = bitmapRawData[currentBytePointer + 3];
+        }
+        else {
+            // sets the alpha color to the maximum
+            bitmapData[index].rgba.alpha = BMP_MAXIMUM_ALPHA_VALUE;
+        }
 
         // increments the current byte pointer
-        currentBytePointer += 3;
+        currentBytePointer += bytesPerPixel;
     }
 
     // closes the file
@@ -139,7 +146,7 @@ void BmpLoader::generateImage(const std::string &filePath) {
 Texture *BmpLoader::getTexture() {
     Texture *texture = new Texture();
 
-    IntSize_t size;
+    IntSize2d_t size;
     size.height = this->bitmapSize.height;
     size.width = this->bitmapSize.width;
 

@@ -53,11 +53,11 @@ SceneNode *RenderInformation::getRender() {
     return this->render;
 }
 
-void RenderInformation::setRender2d(SceneNode *render2d) {
+void RenderInformation::setRender2d(Scene2dNode *render2d) {
     this->render2d = render2d;
 }
 
-SceneNode *RenderInformation::getRender2d() {
+Scene2dNode *RenderInformation::getRender2d() {
     return this->render2d;
 }
 

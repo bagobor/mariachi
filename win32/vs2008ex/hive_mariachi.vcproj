@@ -653,6 +653,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_button_node.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\user_interface\ui_component_node.cpp"
 					>
 				</File>
@@ -848,6 +852,10 @@
 				>
 				<File
 					RelativePath="..\..\src\hive_mariachi\structures\box.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\structures\color.h"
 					>
 				</File>
 				<File
@@ -1404,6 +1412,10 @@
 				>
 				<File
 					RelativePath="..\..\src\hive_mariachi\user_interface\ui_box_component_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\user_interface\ui_button_node.h"
 					>
 				</File>
 				<File

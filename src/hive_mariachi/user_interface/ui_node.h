@@ -33,7 +33,8 @@ typedef enum UiNodesType_t {
     UI_BOX_COMPONENT_NODE_TYPE,
     UI_VIEW_PORT_NODE_TYPE,
     UI_CONTAINER_NODE_TYPE,
-    UI_PANEL_NODE_TYPE
+    UI_PANEL_NODE_TYPE,
+    UI_BUTTON_NODE_TYPE
 } UiNodesType;
 
 namespace mariachi {
@@ -47,5 +48,5 @@ namespace mariachi {
                 ~UiNode();
                 virtual inline unsigned int getNodeType() { return UI_NODE_TYPE; };
         };
-    };
+    }
 }

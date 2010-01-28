@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include "../structures/size.h"
 #include "../structures/position.h"
 #include "node.h"
 
@@ -33,6 +34,7 @@ namespace mariachi {
         private:
             Coordinate2d_t position;
             Coordinate2d_t rotation;
+            FloatSize2d_t size;
 
         public:
             SquareNode();
@@ -41,6 +43,9 @@ namespace mariachi {
             Coordinate2d_t &getPosition();
             void setPosition(Coordinate2d_t &position);
             void setPosition(float x, float y);
+            FloatSize2d_t &getSize();
+            void setSize(FloatSize2d_t &size);
+            void setSize(float width, float height);
             virtual inline unsigned int getNodeType() { return SQUARE_NODE_TYPE; };
     };
 }

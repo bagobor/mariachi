@@ -42,6 +42,11 @@
 */
 #define BMP_DIB_V3_HEADER_SIZE 40
 
+/**
+* The bmp maximum alpha value.
+*/
+#define BMP_MAXIMUM_ALPHA_VALUE 255
+
 namespace mariachi {
     typedef struct BmpMagic_t {
         unsigned char magicNumber[2];

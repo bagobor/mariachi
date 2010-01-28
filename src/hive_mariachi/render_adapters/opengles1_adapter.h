@@ -44,6 +44,9 @@ namespace mariachi {
             OpenglesWindow *window;
             std::map<Texture *, int> textureTextureIdMap;
 
+            inline time_t clockSeconds();
+            inline void updateFrameRate();
+
         public:
             Opengles1Adapter();
             ~Opengles1Adapter();
@@ -55,8 +58,6 @@ namespace mariachi {
             void resizeScene(int windowWidth, int windowHeight);
             void keyPressed(unsigned char key, int x, int y);
             inline void setTexture(Texture *texture);
-            inline time_t clockSeconds();
-            inline void updateFrameRate();
     };
 }
 

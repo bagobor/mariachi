@@ -38,5 +38,5 @@ namespace mariachi {
                 ~BoxComponentNode();
                 virtual inline unsigned int getNodeType() { return UI_BOX_COMPONENT_NODE_TYPE; };
         };
-    };
+    }
 }

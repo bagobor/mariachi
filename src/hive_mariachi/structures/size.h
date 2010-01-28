@@ -26,13 +26,25 @@
 #pragma once
 
 namespace mariachi {
-    typedef struct IntSize_t {
+    typedef struct IntSize2d_t {
         unsigned int width;
         unsigned int height;
-    } IntSize;
+    } IntSize2d;
 
-    typedef struct FloatSize_t {
+    typedef struct FloatSize2d_t {
         float width;
         float height;
-    } FloatSize;
+    } FloatSize2d;
+
+    typedef struct IntSize3d_t {
+        unsigned int width;
+        unsigned int height;
+        unsigned int depth;
+    } IntSize3d;
+
+    typedef struct FloatSize3d_t {
+        float width;
+        float height;
+        float depth;
+    } FloatSize3d;
 }

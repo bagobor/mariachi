@@ -293,7 +293,7 @@ inline void Opengles1Adapter::setTexture(Texture *texture) {
     // in case the texture is already rendered in open gl
     if(!(textureId = this->textureTextureIdMap[texture])) {
         // retrieves the texture sizes
-        IntSize_t textureSize = texture->getSize();
+        IntSize2d_t textureSize = texture->getSize();
 
         // retrieves the image buffer
         ImageColor_t *imageBuffer = texture->getImageBuffer();

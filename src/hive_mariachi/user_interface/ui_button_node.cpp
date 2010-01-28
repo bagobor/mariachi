@@ -25,7 +25,7 @@
 
 #include "stdafx.h"
 
-#include "ui_component_node.h"
+#include "ui_button_node.h"
 
 using namespace mariachi;
 using namespace mariachi::ui;
@@ -33,56 +33,14 @@ using namespace mariachi::ui;
 /**
 * Constructor of the class.
 */
-ComponentNode::ComponentNode() : UiNode() {
-    this->initRenderable();
+ButtonNode::ButtonNode() : ComponentNode() {
 }
 
-ComponentNode::ComponentNode(const std::string &name) : UiNode(name) {
-    this->initRenderable();
+ButtonNode::ButtonNode(const std::string &name) : ComponentNode(name) {
 }
 
 /**
 * Destructor of the class.
 */
-ComponentNode::~ComponentNode() {
-}
-
-inline void ComponentNode::initRenderable() {
-    this->renderable = true;
-}
-
-/**
-* Retrieves the color.
-*
-* @return The color.
-*/
-FloatColor_t &ComponentNode::getColor() {
-    return this->color;
-}
-
-/**
-* Sets the color.
-*
-* @param The color.
-*/
-void ComponentNode::setColor(const FloatColor_t &color) {
-    this->color = color;
-}
-
-/**
-* Retrieves the texture.
-*
-* @return The texture.
-*/
-Texture *ComponentNode::getTexture() {
-    return this->texture;
-}
-
-/**
-* Sets the texture.
-*
-* @param The texture.
-*/
-void ComponentNode::setTexture(Texture *texture) {
-    this->texture = texture;
+ButtonNode::~ButtonNode() {
 }

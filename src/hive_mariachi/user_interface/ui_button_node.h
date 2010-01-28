@@ -23,66 +23,20 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
 #include "ui_component_node.h"
 
-using namespace mariachi;
-using namespace mariachi::ui;
+namespace mariachi {
+    namespace ui {
+        class ButtonNode : public ComponentNode {
+            private:
 
-/**
-* Constructor of the class.
-*/
-ComponentNode::ComponentNode() : UiNode() {
-    this->initRenderable();
-}
-
-ComponentNode::ComponentNode(const std::string &name) : UiNode(name) {
-    this->initRenderable();
-}
-
-/**
-* Destructor of the class.
-*/
-ComponentNode::~ComponentNode() {
-}
-
-inline void ComponentNode::initRenderable() {
-    this->renderable = true;
-}
-
-/**
-* Retrieves the color.
-*
-* @return The color.
-*/
-FloatColor_t &ComponentNode::getColor() {
-    return this->color;
-}
-
-/**
-* Sets the color.
-*
-* @param The color.
-*/
-void ComponentNode::setColor(const FloatColor_t &color) {
-    this->color = color;
-}
-
-/**
-* Retrieves the texture.
-*
-* @return The texture.
-*/
-Texture *ComponentNode::getTexture() {
-    return this->texture;
-}
-
-/**
-* Sets the texture.
-*
-* @param The texture.
-*/
-void ComponentNode::setTexture(Texture *texture) {
-    this->texture = texture;
+            public:
+                ButtonNode();
+                ButtonNode(const std::string &name);
+                ~ButtonNode();
+                virtual inline unsigned int getNodeType() { return UI_BUTTON_NODE_TYPE; };
+        };
+    }
 }

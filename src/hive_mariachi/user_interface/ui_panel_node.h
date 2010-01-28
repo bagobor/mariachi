@@ -38,5 +38,5 @@ namespace mariachi {
                 ~PanelNode();
                 virtual inline unsigned int getNodeType() { return UI_PANEL_NODE_TYPE; };
         };
-    };
+    }
 }

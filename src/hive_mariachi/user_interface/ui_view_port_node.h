@@ -38,5 +38,5 @@ namespace mariachi {
                 ~ViewPortNode();
                 virtual inline unsigned int getNodeType() { return UI_VIEW_PORT_NODE_TYPE; };
         };
-    };
+    }
 }

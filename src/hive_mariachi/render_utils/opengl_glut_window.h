@@ -36,9 +36,9 @@
 #include "opengl_window.h"
 #include "../render_adapters/opengl_adapter.h"
 
-#define DEFAULT_OPENGL_GLUT_WINDOW_WIDTH 640
+#define DEFAULT_OPENGL_GLUT_WINDOW_WIDTH 480
 
-#define DEFAULT_OPENGL_GLUT_WINDOW_HEIGHT 480
+#define DEFAULT_OPENGL_GLUT_WINDOW_HEIGHT 320
 
 #define DEFAULT_OPENGL_GLUT_WINDOW_X 10
 
