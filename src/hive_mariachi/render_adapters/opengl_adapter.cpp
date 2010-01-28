@@ -641,14 +641,14 @@ inline Coordinate2d_t OpenglAdapter::getRealPosition2d(SquareNode *squareNode, S
 	// switches over the position reference
 	switch(positionReference) {
 		case TOP_LEFT_REFERENCE_POSITION:
-			position.x = basePosition_x * this->lowestWidthRevertRatio;
-			position.y = basePosition_y * this->lowestHeightRevertRatio;
+			position.x = basePosition.x * this->lowestWidthRevertRatio;
+			position.y = basePosition.y * this->lowestHeightRevertRatio;
 
 			break;
 
 		case CENTER_REFERENCE_POSITION:
-			position.x = basePosition_x * this->lowestWidthRevertRatio - size.width / 2.0;
-			position.y = basePosition_y * this->lowestHeightRevertRatio - size.height / 2.0;
+			position.x = basePosition.x * this->lowestWidthRevertRatio - size.width / 2.0;
+			position.y = basePosition.y * this->lowestHeightRevertRatio - size.height / 2.0;
 
 			break;
 	}

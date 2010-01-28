@@ -193,7 +193,7 @@ void DummyStage::start(void *arguments) {
 	buttonNode->setPositionReference(CENTER_REFERENCE_POSITION);
 
     // sets the viewport node position
-    buttonNode->setPosition(50.0, 80.0);
+    buttonNode->setPosition(50.0, 30.0);
 
     // sets the size of the viewport node
     buttonNode->setSize((float) 21.25, (float) 10.94);
