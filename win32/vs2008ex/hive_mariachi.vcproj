@@ -1214,6 +1214,10 @@
 					RelativePath="..\..\src\hive_mariachi\tasks\task.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\tasks\tasks.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Patterns"
@@ -1431,6 +1435,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\serialization\serialization.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\serialization\value.h"
 					>
 				</File>
@@ -1634,6 +1642,10 @@
 						</File>
 						<File
 							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_sphere_solid.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\collision.h"
 							>
 						</File>
 					</Filter>

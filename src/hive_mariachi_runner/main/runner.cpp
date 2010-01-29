@@ -25,8 +25,7 @@
 
 #include "stdafx.h"
 
-#include "../../hive_mariachi/main/main.h"
-#include "../../hive_mariachi/exceptions/exceptions.h"
+#include "../../hive_mariachi/mariachi.h"
 
 using namespace mariachi;
 

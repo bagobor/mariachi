@@ -28,4 +28,5 @@
 #include "bullet_physics_engine.h"
 
 #include "bullet_physics_engine/_bullet_physics_engine.h"
+#include "collision/collision.h"
 #include "constraints/constraints.h"

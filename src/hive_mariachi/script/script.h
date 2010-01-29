@@ -28,5 +28,4 @@
 #include "lua_script_engine.h"
 #include "script_engine.h"
 
-#include "mapping/mapping.h"
-#include "util/util.h"
+#include "lua_script_engine/_lua_script_engine.h"

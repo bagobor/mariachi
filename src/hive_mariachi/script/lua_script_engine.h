@@ -30,9 +30,9 @@
 #endif
 
 extern "C" {
-    #include <lua.h>
-    #include <lualib.h>
-    #include <lauxlib.h>
+    #include "../../../lib/liblua/src/lua.h"
+    #include "../../../lib/liblua/src/lualib.h"
+    #include "../../../lib/liblua/src/lauxlib.h"
 }
 
 #include "script_engine.h"
