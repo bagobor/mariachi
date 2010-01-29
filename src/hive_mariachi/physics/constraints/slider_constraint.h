@@ -29,7 +29,7 @@
 
 namespace mariachi {
     namespace physics {
-        class SliderConstraint : Constraint {
+        class SliderConstraint : public Constraint {
             private:
 
             public:

@@ -26,6 +26,7 @@
 #pragma once
 
 #include "../../../lib/libbullet/src/btBulletDynamicsCommon.h"
+#include "../nodes/physical_node.h"
 
 #include "physics_engine.h"
 
@@ -33,7 +34,18 @@ namespace mariachi {
     namespace physics {
         class BulletPhysicsEngine : public PhysicsEngine {
             private:
+                /**
+                * The bullet engine world representation object.
+                */
                 btDiscreteDynamicsWorld *dynamicsWorld;
+
+                /**
+                * The map associating the physical nodes with the bullet engine
+                * rigid body structures.
+                */
+                std::map<CubeNode *, btRigidBody *> physicalNodeRigidBodyMap;
+
+                btRigidBody *getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode = NULL);
 
             public:
                 BulletPhysicsEngine();
@@ -41,6 +53,9 @@ namespace mariachi {
                 ~BulletPhysicsEngine();
                 void load(void *arguments);
                 void unload(void *arguments);
+                void registerCollision(CollisionNode *collisionNode, void *arguments);
+                CubeSolid *createCubeSolid();
+                SphereSolid *createSphereSolid();
         };
     }
 }

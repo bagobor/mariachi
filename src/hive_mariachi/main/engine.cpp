@@ -29,11 +29,13 @@
 #include "../system/system.h"
 #include "../stages/stages.h"
 #include "../configuration/configuration.h"
-#include "../script/lua_script_engine.h"
+#include "../script/script.h"
+#include "../physics/physics.h"
 
 #include "engine.h"
 
 using namespace mariachi;
+using namespace mariachi::physics;
 
 /**
 * Thread that handles the main engine workload.
@@ -58,6 +60,9 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         // starts the script engines in the engine
         engine->startScriptEngines();
+
+        // starts the physics engines in the engine
+        engine->startPhysicsEngines();
 
         // starts the stages in the engine
         engine->startStages();
@@ -332,6 +337,21 @@ void Engine::startScriptEngines() {
 }
 
 /**
+* Starts the physics engines in the engine.
+* Starting the physics engines implies loading them.
+*/
+void Engine::startPhysicsEngines() {
+    // creates a new bullet physics engine
+    BulletPhysicsEngine *bulletPhysicsEngine = new BulletPhysicsEngine(this);
+
+    // loads the bullet physics engine
+    bulletPhysicsEngine->load(NULL);
+
+    // sets the bullet physics engine as the active physics engine
+    this->setActivePhysicsEngine(bulletPhysicsEngine);
+}
+
+/**
 * Starts the stages in the engine.
 * Starting the stages implies loading them and creating new threads
 * for the ones than require a new thread to be created.
@@ -561,6 +581,14 @@ Scene2dNode *Engine::getRender2d() {
 
 void Engine::setRender2d(Scene2dNode *render2d) {
     this->render2d = render2d;
+}
+
+PhysicsEngine *Engine::getActivePhysicsEngine() {
+    return this->activePhysicsEngine;
+}
+
+void Engine::setActivePhysicsEngine(PhysicsEngine *activePhysicsEngine) {
+    this->activePhysicsEngine = activePhysicsEngine;
 }
 
 int Engine::getArgc() {

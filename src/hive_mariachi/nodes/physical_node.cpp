@@ -51,3 +51,19 @@ void PhysicalNode::addImpulse(const Coordinate3d_t &impulse) {
 
 void PhysicalNode::addTorque(const Coordinate3d_t &torque) {
 }
+
+float PhysicalNode::getMass() {
+    return this->mass;
+}
+
+void PhysicalNode::setMass(float mass) {
+    this->mass = mass;
+}
+
+Coordinate3d_t &PhysicalNode::getInertia() {
+    return this->inertia;
+}
+
+void PhysicalNode::setInertia(const Coordinate3d_t &inertia) {
+    this->inertia = inertia;
+}

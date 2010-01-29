@@ -25,26 +25,26 @@
 
 #include "../../../../lib/libbullet/src/btDynamicsWorld.h"
 
-#include "../../nodes/cube_node.h"
+#include "../../nodes/physical_node.h"
 
 namespace mariachi {
     namespace physics {
-        class CubeNodeMotionState : public btMotionState {
+        class PhysicalNodeMotionState : public btMotionState {
             private:
-                CubeNode *cubeNode;
+                PhysicalNode *physicalNode;
                 btTransform worldTransform;
 
                 inline void initWorldTransform(const btTransform &worldTransform);
-                inline void initCubeNode(CubeNode *cubeNode);
+                inline void initPhysicalNode(PhysicalNode *physicalNode);
 
             public:
-                CubeNodeMotionState(const btTransform &worldTransform);
-                CubeNodeMotionState(const btTransform &worldTransform, CubeNode *cubeNode);
-                ~CubeNodeMotionState();
-                virtual void getWorldTransform(btTransform &worldTransform);
+                PhysicalNodeMotionState(const btTransform &worldTransform);
+                PhysicalNodeMotionState(const btTransform &worldTransform, PhysicalNode *physicalNode);
+                ~PhysicalNodeMotionState();
+                void getWorldTransform(btTransform &worldTransform) const;
                 void setWorldTransform(const btTransform &worldTransform);
-                CubeNode *getCubeNode();
-                void setCubeNode(CubeNode *cubeNode);
+                PhysicalNode *getPhysicalNode();
+                void setPhysicalNode(PhysicalNode *physicalNode);
         };
     }
 }

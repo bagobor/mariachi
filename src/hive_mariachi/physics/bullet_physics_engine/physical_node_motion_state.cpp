@@ -25,38 +25,38 @@
 
 #include "stdafx.h"
 
-#include "cube_node_motion_state.h"
+#include "physical_node_motion_state.h"
 
 using namespace mariachi;
 using namespace mariachi::physics;
 
-CubeNodeMotionState::CubeNodeMotionState(const btTransform &worldTransform) {
+PhysicalNodeMotionState::PhysicalNodeMotionState(const btTransform &worldTransform) {
     this->initWorldTransform(worldTransform);
 }
 
-CubeNodeMotionState::CubeNodeMotionState(const btTransform &worldTransform, CubeNode *cubeNode) {
+PhysicalNodeMotionState::PhysicalNodeMotionState(const btTransform &worldTransform, PhysicalNode *physicalNode) {
     this->initWorldTransform(worldTransform);
-    this->initCubeNode(cubeNode);
+    this->initPhysicalNode(physicalNode);
 }
 
-CubeNodeMotionState::~CubeNodeMotionState() {
+PhysicalNodeMotionState::~PhysicalNodeMotionState() {
 }
 
-inline void CubeNodeMotionState::initWorldTransform(const btTransform &worldTransform) {
+inline void PhysicalNodeMotionState::initWorldTransform(const btTransform &worldTransform) {
     this->worldTransform = worldTransform;
 }
 
-inline void CubeNodeMotionState::initCubeNode(CubeNode *cubeNode) {
-    this->cubeNode = cubeNode;
+inline void PhysicalNodeMotionState::initPhysicalNode(PhysicalNode *physicalNode) {
+    this->physicalNode = physicalNode;
 }
 
-void CubeNodeMotionState::getWorldTransform(btTransform &worldTransform) {
+void PhysicalNodeMotionState::getWorldTransform(btTransform &worldTransform) const {
     worldTransform = this->worldTransform;
 }
 
-void CubeNodeMotionState::setWorldTransform(const btTransform &worldTransform) {
+void PhysicalNodeMotionState::setWorldTransform(const btTransform &worldTransform) {
     // returns silently if node not set
-    if(this->cubeNode == NULL) {
+    if(this->physicalNode == NULL) {
         return;
     }
 
@@ -82,16 +82,16 @@ void CubeNodeMotionState::setWorldTransform(const btTransform &worldTransform) {
     Rotation3d_t orientation = { angle, normalizedX, normalizedY, normalizedZ };
 
     // sets the position in the cube node
-    this->cubeNode->setPosition(position);
+    this->physicalNode->setPosition(position);
 
     // sets the orientation in the cube node
-    this->cubeNode->setOrientation(orientation);
+    this->physicalNode->setOrientation(orientation);
 }
 
-CubeNode *CubeNodeMotionState::getCubeNode() {
-    return this->cubeNode;
+PhysicalNode *PhysicalNodeMotionState::getPhysicalNode() {
+    return this->physicalNode;
 }
 
-void CubeNodeMotionState::setCubeNode(CubeNode *cubeNode) {
-    this->cubeNode = cubeNode;
+void PhysicalNodeMotionState::setPhysicalNode(PhysicalNode *physicalNode) {
+    this->physicalNode = physicalNode;
 }

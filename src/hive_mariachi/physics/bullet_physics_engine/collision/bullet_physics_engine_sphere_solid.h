@@ -29,7 +29,7 @@
 
 namespace mariachi {
     namespace physics {
-        class BulletPhysicsEngineSphereSolid : BulletPhysicsEngineCollisionSolid, SphereSolid {
+        class BulletPhysicsEngineSphereSolid : public BulletPhysicsEngineCollisionSolid, public SphereSolid {
             private:
 
             public:

@@ -25,6 +25,6 @@
 
 #pragma once
 
-#include "cube_node_motion_state.h"
+#include "physical_node_motion_state.h"
 
 #include "collision/collision.h"

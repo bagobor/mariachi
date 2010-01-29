@@ -28,6 +28,7 @@
 #include "collision_node.h"
 
 using namespace mariachi;
+using namespace mariachi::physics;
 
 /**
 * Constructor of the class.
@@ -42,4 +43,33 @@ CollisionNode::CollisionNode(const std::string &name) : CubeNode(name) {
 * Destructor of the class.
 */
 CollisionNode::~CollisionNode() {
+}
+
+/**
+* Starts the collision capture system, with the given
+* arguments.
+*
+* @param arguments The arguments to start the collision capture system.
+*/
+void CollisionNode::startCollision(void *arguments) {
+    // precisamos de por a flag activa
+    // precisamos de chamar o adapter para bullet para registar la as coisa
+}
+
+/**
+* Stops the collision capture system, with the given
+* arguments.
+*
+* @param arguments The arguments to stop the collision capture system.
+*/
+void CollisionNode::stopCollision(void *arguments) {
+
+}
+
+CollisionSolid *CollisionNode::getCollisionSolid() {
+    return this->collisionSolid;
+}
+
+void CollisionNode::setCollisionSolid(physics::CollisionSolid *collisionSolid) {
+    this->collisionSolid = collisionSolid;
 }

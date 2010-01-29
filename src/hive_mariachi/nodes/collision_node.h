@@ -38,6 +38,8 @@ namespace mariachi {
             CollisionNode();
             CollisionNode(const std::string &name);
             ~CollisionNode();
+            void startCollision(void *arguments);
+            void stopCollision(void *arguments);
             physics::CollisionSolid *getCollisionSolid();
             void setCollisionSolid(physics::CollisionSolid *collisionSolid);
             virtual inline unsigned int getNodeType() { return COLLISION_NODE_TYPE; };

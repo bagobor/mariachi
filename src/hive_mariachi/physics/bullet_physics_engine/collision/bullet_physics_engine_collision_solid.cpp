@@ -35,3 +35,11 @@ BulletPhysicsEngineCollisionSolid::BulletPhysicsEngineCollisionSolid() : Collisi
 
 BulletPhysicsEngineCollisionSolid::~BulletPhysicsEngineCollisionSolid() {
 }
+
+btCollisionShape *BulletPhysicsEngineCollisionSolid::getCollisionShape() {
+    return this->collisionShape;
+}
+
+void BulletPhysicsEngineCollisionSolid::setCollisionShape(btCollisionShape *collisionShape) {
+    this->collisionShape = collisionShape;
+}

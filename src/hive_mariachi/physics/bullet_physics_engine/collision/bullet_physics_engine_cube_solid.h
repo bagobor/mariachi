@@ -29,12 +29,13 @@
 
 namespace mariachi {
     namespace physics {
-        class BulletPhysicsEngineCubeSolid : BulletPhysicsEngineCollisionSolid, CubeSolid {
+        class BulletPhysicsEngineCubeSolid : public BulletPhysicsEngineCollisionSolid, public CubeSolid {
             private:
 
             public:
                 BulletPhysicsEngineCubeSolid();
                 ~BulletPhysicsEngineCubeSolid();
+                void setBoundingBox(Box3d_t &boundingBox);
         };
     }
 }

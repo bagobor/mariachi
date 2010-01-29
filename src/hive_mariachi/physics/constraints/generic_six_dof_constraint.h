@@ -29,7 +29,7 @@
 
 namespace mariachi {
     namespace physics {
-        class GenericSixDofConstraint : Constraint {
+        class GenericSixDofConstraint : public Constraint {
             private:
 
             public:

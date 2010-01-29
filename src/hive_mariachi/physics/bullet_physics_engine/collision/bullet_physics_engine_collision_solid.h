@@ -25,16 +25,23 @@
 
 #pragma once
 
+#include "../../../../../lib/libbullet/src/btBulletDynamicsCommon.h"
+
 #include "../../collision/collision.h"
 
 namespace mariachi {
     namespace physics {
-        class BulletPhysicsEngineCollisionSolid : CollisionSolid {
+        class BulletPhysicsEngineCollisionSolid : public CollisionSolid {
             private:
+
+            protected:
+                btCollisionShape *collisionShape;
 
             public:
                 BulletPhysicsEngineCollisionSolid();
                 ~BulletPhysicsEngineCollisionSolid();
+                btCollisionShape *getCollisionShape();
+                void setCollisionShape(btCollisionShape *collisionShape);
         };
     }
 }

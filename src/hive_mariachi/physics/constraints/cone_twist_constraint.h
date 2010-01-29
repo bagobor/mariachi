@@ -29,7 +29,7 @@
 
 namespace mariachi {
     namespace physics {
-        class ConeTwistConstraint : Constraint {
+        class ConeTwistConstraint : public Constraint {
             private:
 
             public:

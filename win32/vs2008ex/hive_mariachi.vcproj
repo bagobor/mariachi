@@ -724,7 +724,7 @@
 					Name="Bullet Physics Engine"
 					>
 					<File
-						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\cube_node_motion_state.cpp"
+						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\physical_node_motion_state.cpp"
 						>
 					</File>
 					<Filter
@@ -1626,7 +1626,7 @@
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\cube_node_motion_state.h"
+						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\physical_node_motion_state.h"
 						>
 					</File>
 					<Filter

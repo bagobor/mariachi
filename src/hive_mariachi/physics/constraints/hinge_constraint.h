@@ -29,7 +29,7 @@
 
 namespace mariachi {
     namespace physics {
-        class HingeConstraint : Constraint {
+        class HingeConstraint : public Constraint {
             private:
 
             public:

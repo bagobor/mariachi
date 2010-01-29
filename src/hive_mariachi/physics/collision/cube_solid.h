@@ -38,8 +38,8 @@ namespace mariachi {
             public:
                 CubeSolid();
                 ~CubeSolid();
-                Box3d_t &getBoundingBox();
-                void setBoundingBox(Box3d_t &boundingBox);
+                virtual Box3d_t &getBoundingBox();
+                virtual void setBoundingBox(Box3d_t &boundingBox);
         };
     }
 }

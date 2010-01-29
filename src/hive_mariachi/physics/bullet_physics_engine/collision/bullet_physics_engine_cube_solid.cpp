@@ -31,7 +31,20 @@ using namespace mariachi;
 using namespace mariachi::physics;
 
 BulletPhysicsEngineCubeSolid::BulletPhysicsEngineCubeSolid() : BulletPhysicsEngineCollisionSolid(), CubeSolid() {
+
 }
 
 BulletPhysicsEngineCubeSolid::~BulletPhysicsEngineCubeSolid() {
+}
+
+void BulletPhysicsEngineCubeSolid::setBoundingBox(Box3d_t &boundingBox) {
+    CubeSolid::setBoundingBox(boundingBox);
+
+    btScalar width = fabs(boundingBox.x2 - boundingBox.x1);
+    btScalar height = fabs(boundingBox.y2 - boundingBox.y1);
+    btScalar depth = fabs(boundingBox.z2 - boundingBox.z1);
+
+    btVector3 boxExtents = btVector3(width, height, depth);
+
+    this->collisionShape = new btBoxShape(boxExtents);
 }

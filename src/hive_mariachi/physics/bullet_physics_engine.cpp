@@ -25,6 +25,8 @@
 
 #include "stdafx.h"
 
+#include "bullet_physics_engine/_bullet_physics_engine.h"
+
 #include "bullet_physics_engine.h"
 
 using namespace mariachi;
@@ -44,7 +46,7 @@ void BulletPhysicsEngine::load(void *arguments) {
     btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();
 
     // creates the default collision dispatcher
-    btCollisionDispatcher *dispatcher = new    btCollisionDispatcher(collisionConfiguration);
+    btCollisionDispatcher *dispatcher = new btCollisionDispatcher(collisionConfiguration);
 
     // creates a broad phase as a general purpose broadphase
     btBroadphaseInterface *overlappingPairCache = new btDbvtBroadphase();
@@ -60,4 +62,84 @@ void BulletPhysicsEngine::load(void *arguments) {
 }
 
 void BulletPhysicsEngine::unload(void *arguments) {
+}
+
+void BulletPhysicsEngine::registerCollision(CollisionNode *collisionNode, void *arguments) {
+
+    // retrieves the physical node
+    PhysicalNode *physicalNode = (PhysicalNode *) collisionNode->getParent();
+
+
+
+
+    this->getRigidBody(physicalNode, collisionNode);
+
+
+    //this->dynamicsWorld
+}
+
+CubeSolid *BulletPhysicsEngine::createCubeSolid() {
+    return new BulletPhysicsEngineCubeSolid();
+}
+
+SphereSolid *BulletPhysicsEngine::createSphereSolid() {
+    return new BulletPhysicsEngineSphereSolid();
+}
+
+btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode) {
+    // the physical node rigid body reference
+    btRigidBody *physicalNodeRigidBody;
+
+    if(physicalNodeRigidBody = this->physicalNodeRigidBodyMap[physicalNode]) {
+        return physicalNodeRigidBody;
+    }
+
+    // the collision shape reference
+    btCollisionShape *collisionShape;
+
+    // in case a collision node is defined
+    if(collisionNode) {
+        // retrieves the bulled physics collision solid
+        BulletPhysicsEngineCollisionSolid *bulletPhysicsEngineCollisionSolid = (BulletPhysicsEngineCollisionSolid *) collisionNode->getCollisionSolid();
+
+        // retrieves the bullet collision shape
+        collisionShape = bulletPhysicsEngineCollisionSolid->getCollisionShape();
+    } else {
+        // sets the collision shape as null (invalid)
+        collisionShape = NULL;
+    }
+
+    // retrieves the physical node position
+    Coordinate3d_t &physicalNodePosition = physicalNode->getPosition();
+
+    // converts the physical node position
+    btVector3 physicalNodePositionVector = btVector3(physicalNodePosition.x, physicalNodePosition.y, physicalNodePosition.z);
+
+    // initializes the physical node transform
+    btTransform physicalNodeTransform;
+    physicalNodeTransform.setIdentity();
+    physicalNodeTransform.setOrigin(physicalNodePositionVector);
+
+    // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+    PhysicalNodeMotionState *physicalNodeMotionState = new PhysicalNodeMotionState(physicalNodeTransform, physicalNode);
+
+    // retrieves the physical node mass
+    float physicalNodeMass = physicalNode->getMass();
+
+    // retrieves the physical node inertia
+    Coordinate3d_t &physicalNodeInertia = physicalNode->getInertia();
+
+    // converts the physical node inertia
+    btVector3 physicalNodeInertiaVector = btVector3(physicalNodeInertia.x, physicalNodeInertia.y, physicalNodeInertia.z);
+
+    btRigidBody::btRigidBodyConstructionInfo physicalNodeRigidBodyInfo(physicalNodeMass, physicalNodeMotionState, collisionShape, physicalNodeInertiaVector);
+
+    // creates the physical node rigid body
+    physicalNodeRigidBody = new btRigidBody(physicalNodeRigidBodyInfo);
+
+    // sets the physical node rigid body in the physical node rigid body map
+    this->physicalNodeRigidBodyMap[physicalNode] = physicalNodeRigidBody;
+
+    // returns the physical node rigid body
+    return physicalNodeRigidBody;
 }

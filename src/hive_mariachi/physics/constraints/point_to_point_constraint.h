@@ -29,7 +29,7 @@
 
 namespace mariachi {
     namespace physics {
-        class PointToPointConstraint : Constraint {
+        class PointToPointConstraint : public Constraint {
             private:
 
             public:

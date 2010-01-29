@@ -44,25 +44,90 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
 THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
 
 namespace mariachi {
+    namespace physics {
+        class PhysicsEngine;
+    }
+
     class ConfigurationManager;
     class Stage;
 
     class Engine {
         private:
+            /**
+            * The number of arguments sent to the program.
+            */
             int argc;
+
+            /**
+            * The value of the arguments sent to the program.
+            */
             char **argv;
+
+            /**
+            * The flag that controls the running of the engine.
+            */
             bool runningFlag;
+
+            /**
+            * The logger used in the message logging.
+            */
             Logger *logger;
+
+            /**
+            * The manager used to provide configuration options.
+            */
             ConfigurationManager *configurationManager;
+
+            /**
+            * The top level 3d scene render node.
+            */
             SceneNode *render;
+
+            /**
+            * The top level 2d scene render node.
+            */
             Scene2dNode *render2d;
+
+            /**
+            * The engine used for debuging provisioning.
+            */
             DebugEngine *debugEngine;
+
+            /**
+            * The mutex that controls the task list access.
+            */
             MUTEX_HANDLE taskListMutex;
+
+            /**
+            * The task list ready condition.
+            */
             CONDITION_HANDLE taskListReadyCondition;
+
+            /**
+            * The map associating the device name with the
+            * device reference.
+            */
             std::map<std::string, Device *> devicesMap;
+
+            /**
+            * The list of currently available tasks.
+            */
             std::list<Task *> taskList;
+
+            /**
+            * The list of stages to be run in the main thread.
+            */
             std::list<Stage *> mainThreadStagesList;
+
+            /**
+            * The map associating the thread handle with the associated stage.
+            */
             std::map<THREAD_REFERENCE, Stage *> threadHandleStageMap;
+
+            /**
+            * The currently active physics engine, to be used in physics operations.
+            */
+            physics::PhysicsEngine *activePhysicsEngine;
 
         public:
             Engine();
@@ -80,6 +145,7 @@ namespace mariachi {
             void startLogger(int level, bool pidFile);
             void startInputDevices();
             void startScriptEngines();
+            void startPhysicsEngines();
             void startStages();
             void stopStages();
             void startDebugEngine();
@@ -98,6 +164,8 @@ namespace mariachi {
             void setRender(SceneNode *render);
             Scene2dNode *getRender2d();
             void setRender2d(Scene2dNode *render2d);
+            physics::PhysicsEngine *getActivePhysicsEngine();
+            void setActivePhysicsEngine(physics::PhysicsEngine *activePhysicsEngine);
             int getArgc();
             char **getArgv();
     };
