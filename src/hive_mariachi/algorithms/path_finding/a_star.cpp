@@ -51,8 +51,6 @@ inline void AStar::initDistanceFunction() {
 }
 
 Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
-	DWORD startTime = timeGetTime();
-	
     // the unexplored nodes ordered by lowest cost
     std::priority_queue<std::pair<unsigned int, float>, std::vector<std::pair<unsigned int, float>>, AStar> unexploredNodes;
 
