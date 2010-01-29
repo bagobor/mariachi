@@ -60,20 +60,29 @@ Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
     // map associating a node with the lowest cost found to reach it
     std::map<unsigned int, float> costMap;
 
+    // map associating a node with the sum of the lowest cost found to reach it plus the heuristic
+    std::map<unsigned int, float> totalMap;
+
     // number nodes used to reach the node via the lowest cost path
     std::map<unsigned int, unsigned int> numberNodesMap;
 
     // map associating a node with the lowest cost node that was used to reach it
     std::map<unsigned int, unsigned int> previousNodeMap;
 
+	// calculates the distance from the start to the end node
+	float distance = this->distanceFunction(startNodeId, endNodeId, this->nodesGraph);
+
     // stores the cost for the start node
     costMap[startNodeId] = 0;
+	totalMap[startNodeId] = distance;
     numberNodesMap[startNodeId] = 1;
 
     // adds the start node to the open set queue and marks it as unexplored
-    unexploredNodes.push(std::pair<unsigned int, float>(startNodeId, this->distanceFunction(startNodeId, endNodeId, this->nodesGraph)));
+    unexploredNodes.push(std::pair<unsigned int, float>(startNodeId, distance));
     exploredMap[startNodeId] = false;
 
+	unsigned int numberIterations = 0;
+	
     // while the open set is not empty
     while(unexploredNodes.size() > 0) {
         // retrieves the node with lowest total cost
@@ -108,14 +117,15 @@ Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
 
         // iterates through all of the current node's neighbours
         PathNode_t *currentNode = (*this->nodesGraph)[currentNodeId];
-        for(std::map<unsigned int, float>::const_iterator iterator = currentNode->neighboursMap.begin(); iterator != currentNode->neighboursMap.end(); iterator++) {
+        for(std::map<unsigned int, float>::const_iterator iterator = currentNode->neighboursMap->begin(); iterator != currentNode->neighboursMap->end(); iterator++) {
             // retrieves the neighbours' id and cost from the current node
             unsigned int neighbourNodeId = (*iterator).first;
             float movementCost = (*iterator).second;
 
             // skips in case the neighbour was already explored
-            bool neighbourFirstEncounter = exploredMap.find(neighbourNodeId) == exploredMap.end();
-            if(!neighbourFirstEncounter && exploredMap[neighbourNodeId]) {
+			std::map<unsigned int, bool>::iterator exploredMapIterator = exploredMap.find(neighbourNodeId);
+            bool neighbourFirstEncounter = exploredMapIterator == exploredMap.end();
+            if(!neighbourFirstEncounter && exploredMapIterator->second) {
                 continue;
             }
 
@@ -127,19 +137,14 @@ Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
                 newCost += movementCost;
             }
 
+			// calculates the distance from the neighbour node to the end node
+			float distance = this->distanceFunction(neighbourNodeId, endNodeId, this->nodesGraph);
+			float newTotal = newCost + distance;
+
             // skips the iteration in case the cost to travel to the neighbour is higher
             // than the previously found
-            if(!neighbourFirstEncounter) {
-                // retrieves the cost used to reach the neighbour node previously
-                float neighbourNodeCost = 0.0f;
-                if(costMap.find(neighbourNodeId) != costMap.end()) {
-                    neighbourNodeCost = costMap[neighbourNodeId];
-                }
-
-                // continues in case the new cost is higher
-                if(newCost > neighbourNodeCost) {
-                    continue;
-                }
+            if(!neighbourFirstEncounter && newTotal > totalMap[neighbourNodeId]) {
+                continue;
             }
 
             // marks the current node as the best path to the neighbour node
@@ -147,17 +152,19 @@ Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
 
             // stores the cost values for the best path to the neighbour node
             costMap[neighbourNodeId] = newCost;
+            totalMap[neighbourNodeId] = newTotal;
 
             // stores the number of nodes traversed to reach this node
             numberNodesMap[neighbourNodeId] = numberNodesMap[currentNodeId] + 1;
 
             // adds the node to the open set in case it wasn't added before
             if(neighbourFirstEncounter) {
-                std::pair<unsigned int, float> neighbourNodePair = std::pair<unsigned int, float>(neighbourNodeId, newCost + this->distanceFunction(neighbourNodeId, endNodeId, this->nodesGraph));
-                unexploredNodes.push(neighbourNodePair);
+                unexploredNodes.push(std::pair<unsigned int, float>(neighbourNodeId, newTotal));
                 exploredMap[neighbourNodeId] = false;
-            }
+			}
         }
+
+		numberIterations++;
     }
 
     return NULL;
