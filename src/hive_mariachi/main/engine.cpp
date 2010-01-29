@@ -142,15 +142,24 @@ Engine::Engine(int argc, char** argv) {
 Engine::~Engine() {
 }
 
+/**
+* Initializes the running flag.
+*/
 inline void Engine::initRunningFlag() {
     this->runningFlag = true;
 }
 
+/**
+* Initializes the renders.
+*/
 inline void Engine::initRenders() {
     this->render = new SceneNode(std::string("render"));
     this->render2d = new Scene2dNode(std::string("render2d"));
 }
 
+/**
+* Initializes the command line arguments.
+*/
 inline void Engine::initArgs(int argc, char** argv) {
     this->argc = argc;
     this->argv = argv;
@@ -567,26 +576,56 @@ void Engine::setLogger(Logger *logger) {
     this->logger = logger;
 }
 
+/**
+* Retrieves the render.
+*
+* @return The render.
+*/
 SceneNode *Engine::getRender() {
     return this->render;
 }
 
+/**
+* Sets the render.
+*
+* @param render The render.
+*/
 void Engine::setRender(SceneNode *render) {
     this->render = render;
 }
 
+/**
+* Retrieves the render 2d.
+*
+* @return The render 2d.
+*/
 Scene2dNode *Engine::getRender2d() {
     return this->render2d;
 }
 
+/**
+* Sets the render 2d.
+*
+* @param render2d The render 2d.
+*/
 void Engine::setRender2d(Scene2dNode *render2d) {
     this->render2d = render2d;
 }
 
+/**
+* Retrieves the active physics engine.
+*
+* @return The active physics engine.
+*/
 PhysicsEngine *Engine::getActivePhysicsEngine() {
     return this->activePhysicsEngine;
 }
 
+/**
+* Sets the active physics engine.
+*
+* @param activePhysicsEngine The active physics engine.
+*/
 void Engine::setActivePhysicsEngine(PhysicsEngine *activePhysicsEngine) {
     this->activePhysicsEngine = activePhysicsEngine;
 }

@@ -129,13 +129,14 @@ namespace mariachi {
             */
             physics::PhysicsEngine *activePhysicsEngine;
 
+            inline void initRunningFlag();
+            inline void initRenders();
+            inline void initArgs(int argc, char** argv);
+
         public:
             Engine();
             Engine(int argc, char** argv);
             ~Engine();
-            inline void initRunningFlag();
-            inline void initRenders();
-            inline void initArgs(int argc, char** argv);
             void start(void *arguments);
             void stop(void *arguments);
             void update();
