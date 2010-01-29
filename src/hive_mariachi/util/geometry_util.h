@@ -25,14 +25,18 @@
 
 #pragma once
 
+#include "../structures/position.h"
+
 namespace mariachi {
     namespace util {
         class GeometryUtil {
             private:
 
             public:
-                static float getEuclidianDistance(float x1, float y1, float x2, float y2);
-                static float getEuclidianDistance(float x1, float y1, float z1, float x2, float y2, float z2);
+			    static float getEuclidianDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate);
+                static float getEuclidianDistance(Coordinate3d_t *firstCoordinate, Coordinate3d_t *secondCoordinate);
+				static float getManhattanDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate);
+                static float getManhattanDistance(Coordinate3d_t *firstCoordinate, Coordinate3d_t *secondCoordinate);
         };
     }
 }
