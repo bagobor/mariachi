@@ -25,7 +25,7 @@
 
 #include "stdafx.h"
 
-#ifdef MARIACHI_PLATFORM_OPENGL
+//#ifdef MARIACHI_PLATFORM_OPENGL
 
 #include "../main/engine.h"
 #include "../system/system.h"
@@ -39,6 +39,8 @@
 
 using namespace mariachi;
 using namespace mariachi::ui;
+
+extern CameraNode *gCameraNode;
 
 /**
 * Constructor of the class.
@@ -105,7 +107,7 @@ void OpenglAdapter::init() {
     // enables depth testing
     glEnable(GL_DEPTH_TEST);
 
-	// sets the front face
+    // sets the front face
     glFrontFace(GL_CCW);
 
     // enables blending
@@ -183,9 +185,9 @@ void OpenglAdapter::resizeScene(int windowWidth, int windowHeight) {
     // calculates the best ratio of the both
     this->bestRatio = this->highestRatio >  REFERENCE_WIDTH_2D ? REFERENCE_WIDTH_2D : this->highestRatio;
 
-	this->lowestWidthRevertRatio = this->widthRatio / this->lowestRatio;
+    this->lowestWidthRevertRatio = this->widthRatio / this->lowestRatio;
 
-	this->lowestHeightRevertRatio = this->heightRatio / this->lowestRatio;
+    this->lowestHeightRevertRatio = this->heightRatio / this->lowestRatio;
 }
 
 void OpenglAdapter::keyPressed(unsigned char key, int x, int y) {
@@ -278,23 +280,21 @@ inline void OpenglAdapter::display2d() {
     // setup the display 2d
     this->setupDisplay2d();
 
-	// retrieves the render 2d (node)
+    // retrieves the render 2d (node)
     Scene2dNode *render2d = this->renderInformation->getRender2d();
 
-	this->renderNode2d(render2d);
+    this->renderNode2d(render2d);
 }
 
 inline void OpenglAdapter::display3d() {
     // setup the display 3d
     this->setupDisplay3d();
 
-    // moves into the screen
-    glTranslatef(0.0, 0.0, -1 * DEFAULT_ZOOM_LEVEL);
-
-    // rotates the perspective
-    glRotatef(0.0, 1.0, 0.0, 0.0);
-    glRotatef(0.0, 0.0, 1.0, 0.0);
-    glRotatef(0.0, 0.0, 0.0, 1.0);
+    // in case there is a camera node selected
+    if(gCameraNode) {
+        // renders the current camera node
+        this->renderCameraNode(gCameraNode);
+    }
 
     // retrieves the render (node)
     SceneNode *render = this->renderInformation->getRender();
@@ -358,6 +358,20 @@ inline void OpenglAdapter::setupDisplay3d() {
     glLoadIdentity();
 }
 
+inline void OpenglAdapter::renderCameraNode(CameraNode *cameraNode) {
+    // retrieves the position
+    Coordinate3d_t &position = cameraNode->getPosition();
+
+    // retrieves the orientation
+    Rotation3d_t &orientation = cameraNode->getOrientation();
+
+    // performs the rotation to match the elements orientation
+    glRotatef(orientation.angle, orientation.x, orientation.y, orientation.z);
+
+    // moves into the screen
+    glTranslatef(-position.x, -position.y, -position.z);
+}
+
 inline void OpenglAdapter::renderNode2d(Node *node) {
     // retrieves the node children list
     std::list<Node *> nodeChildrenList = node->getChildrenList();
@@ -374,66 +388,66 @@ inline void OpenglAdapter::renderNode2d(Node *node) {
         // retrieves the current node
         Node *currentNode = *nodeChildrenListIterator;
 
-		Coordinate2d_t position;
+        Coordinate2d_t position;
 
         // in case the node is renderable
         if(currentNode->renderable) {
             // retrieves the node type
             unsigned int nodeType = currentNode->getNodeType();
 
-			// switches over the node type
+            // switches over the node type
             switch(nodeType) {
-				// in case it's a component node type
+                // in case it's a component node type
                 case UI_COMPONENT_NODE_TYPE:
                     break;
 
-				// in case it's a box component node type
+                // in case it's a box component node type
                 case UI_BOX_COMPONENT_NODE_TYPE:
                     break;
 
-				// in case it's a view port node type
+                // in case it's a view port node type
                 case UI_VIEW_PORT_NODE_TYPE:
-					// renders the view port node
+                    // renders the view port node
                     this->renderViewPortNode((ViewPortNode *) currentNode, (SquareNode *) node);
-				
-					// retrieves the view port position
-					position = this->getRealPosition2d((ViewPortNode *) currentNode, (SquareNode *) node);
 
-					glPushMatrix();
+                    // retrieves the view port position
+                    position = this->getRealPosition2d((ViewPortNode *) currentNode, (SquareNode *) node);
 
-					glTranslatef(position.x * this->lowestWidthRevertRatio, position.y * this->lowestWidthRevertRatio, 0.0);
+                    glPushMatrix();
 
-					this->renderNode2d(currentNode);
+                    glTranslatef(position.x * this->lowestWidthRevertRatio, position.y * this->lowestWidthRevertRatio, 0.0);
 
-					glPopMatrix();
+                    this->renderNode2d(currentNode);
+
+                    glPopMatrix();
 
                     break;
 
-				// in case it's a container node type
+                // in case it's a container node type
                 case UI_CONTAINER_NODE_TYPE:
                     break;
 
-				// in case it's a panel node type
+                // in case it's a panel node type
                 case UI_PANEL_NODE_TYPE:
-					// renders the panel node
+                    // renders the panel node
                     this->renderPanelNode((PanelNode *) currentNode, (SquareNode *) node);
 
-					// retrieves the panel position
-					position = this->getRealPosition2d((PanelNode *) currentNode, (SquareNode *) node);
+                    // retrieves the panel position
+                    position = this->getRealPosition2d((PanelNode *) currentNode, (SquareNode *) node);
 
-					glPushMatrix();
+                    glPushMatrix();
 
-					glTranslatef(position.x, position.y, 0.0);
+                    glTranslatef(position.x, position.y, 0.0);
 
-					this->renderNode2d(currentNode);
+                    this->renderNode2d(currentNode);
 
-					glPopMatrix();
+                    glPopMatrix();
 
                     break;
 
-				// in case it's a button node type
+                // in case it's a button node type
                 case UI_BUTTON_NODE_TYPE:
-					// renders the button node
+                    // renders the button node
                     this->renderButtonNode((ButtonNode *) currentNode, (SquareNode *) node);
 
                     break;
@@ -561,10 +575,10 @@ inline void OpenglAdapter::renderViewPortNode(ViewPortNode *viewPortNode, Square
 
     // retrieves the position
     Coordinate2d_t position = this->getRealPosition2d(viewPortNode, targetNode);
-	FloatSize2d_t size = this->getRealSize2d(viewPortNode);
+    FloatSize2d_t size = this->getRealSize2d(viewPortNode);
 
-	// renders a square with the texture mapping
-	this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+    // renders a square with the texture mapping
+    this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
 }
 
 inline void OpenglAdapter::renderPanelNode(PanelNode *panelNode, SquareNode *targetNode) {
@@ -577,7 +591,7 @@ inline void OpenglAdapter::renderPanelNode(PanelNode *panelNode, SquareNode *tar
     // retrieves the button texture
     Texture *texture = panelNode->getTexture();
 
-	// retrieves the button position reference
+    // retrieves the button position reference
     PositionReferenceType_t positionReference = panelNode->getPositionReference();
 
     // retrieves the position
@@ -586,8 +600,8 @@ inline void OpenglAdapter::renderPanelNode(PanelNode *panelNode, SquareNode *tar
     // sets the texture
     this->setTexture(texture);
 
-	// renders a square with the texture mapping
-	this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+    // renders a square with the texture mapping
+    this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
 }
 
 inline void OpenglAdapter::renderButtonNode(ButtonNode *buttonNode, SquareNode *targetNode) {
@@ -606,8 +620,8 @@ inline void OpenglAdapter::renderButtonNode(ButtonNode *buttonNode, SquareNode *
     // sets the texture
     this->setTexture(texture);
 
-	// renders a square with the texture mapping
-	this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+    // renders a square with the texture mapping
+    this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
 }
 
 inline Coordinate2d_t OpenglAdapter::getRealPosition2d(SquareNode *squareNode, SquareNode *targetNode) {
@@ -623,51 +637,51 @@ inline Coordinate2d_t OpenglAdapter::getRealPosition2d(SquareNode *squareNode, S
     // retrieves the square node position
     Coordinate2d_t basePosition = squareNode->getPosition();
 
-	// retrieves the button position reference
+    // retrieves the button position reference
     PositionReferenceType_t positionReference = squareNode->getPositionReference();
 
-	// the position value
+    // the position value
     Coordinate2d_t position;
 
-	float targetPositionX = targetPosition.x <= 100.0 && targetPosition.x >= 0.0 ? targetPosition.x : 0.0;
-	float targetPositionY = targetPosition.y <= 100.0 && targetPosition.y >= 0.0 ? targetPosition.y : 0.0;
+    float targetPositionX = targetPosition.x <= 100.0 && targetPosition.x >= 0.0 ? targetPosition.x : 0.0;
+    float targetPositionY = targetPosition.y <= 100.0 && targetPosition.y >= 0.0 ? targetPosition.y : 0.0;
 
-	float ratio1Width = targetSize.width <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.width : 100.0;
-	float ratio1Height = targetSize.height <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.height : 100.0;
+    float ratio1Width = targetSize.width <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.width : 100.0;
+    float ratio1Height = targetSize.height <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.height : 100.0;
 
-	float basePosition_x = basePosition.x / ratio1Width + targetPositionX;
-	float basePosition_y = basePosition.y / ratio1Height + targetPositionY;
+    float basePosition_x = basePosition.x / ratio1Width + targetPositionX;
+    float basePosition_y = basePosition.y / ratio1Height + targetPositionY;
 
-	// switches over the position reference
-	switch(positionReference) {
-		case TOP_LEFT_REFERENCE_POSITION:
-			position.x = basePosition.x * this->lowestWidthRevertRatio;
-			position.y = basePosition.y * this->lowestHeightRevertRatio;
+    // switches over the position reference
+    switch(positionReference) {
+        case TOP_LEFT_REFERENCE_POSITION:
+            position.x = basePosition.x * this->lowestWidthRevertRatio;
+            position.y = basePosition.y * this->lowestHeightRevertRatio;
 
-			break;
+            break;
 
-		case CENTER_REFERENCE_POSITION:
-			position.x = basePosition.x * this->lowestWidthRevertRatio - size.width / 2.0;
-			position.y = basePosition.y * this->lowestHeightRevertRatio - size.height / 2.0;
+        case CENTER_REFERENCE_POSITION:
+            position.x = basePosition.x * this->lowestWidthRevertRatio - size.width / 2.0;
+            position.y = basePosition.y * this->lowestHeightRevertRatio - size.height / 2.0;
 
-			break;
-	}
+            break;
+    }
 
-	// returns the position
-	return position;
+    // returns the position
+    return position;
 }
 
 inline FloatSize2d_t OpenglAdapter::getRealSize2d(SquareNode *squareNode) {
-	// retrieves the square node size
+    // retrieves the square node size
     FloatSize2d_t baseSize = squareNode->getSize();
 
-	FloatSize2d_t size;
+    FloatSize2d_t size;
 
     size.width = baseSize.width * this->lowestWidthRevertRatio;
     size.height = baseSize.height * this->lowestHeightRevertRatio;
 
-	// returns the size
-	return size;
+    // returns the size
+    return size;
 }
 
-#endif
+//#endif

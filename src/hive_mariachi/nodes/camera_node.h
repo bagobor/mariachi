@@ -30,11 +30,32 @@
 namespace mariachi {
     class CameraNode : public LensNode {
         private:
+            CubeNode *autoTrackTargetNode;
+            CubeNode *autoFollowTargetNode;
+            Coordinate3d_t autoTrackOffset;
+            Coordinate3d_t autoFollowOffset;
+            Coordinate3d_t upVector;
+
+            void setDirection(const Coordinate3d_t &direction);
+            void setDirection(float x, float y, float z);
 
         public:
             CameraNode();
             CameraNode(const std::string &name);
             ~CameraNode();
+            void lookAt(const Coordinate3d_t &targetPoint);
+            void lookAt(float x, float y, float z);
+            bool isAutoTracking();
+            bool isAutoFollowing();
+            void enableAutoTracking(CubeNode *targetNode, Coordinate3d_t &offset);
+            void disableAutoTracking();
+            void enableAutoFollowing(CubeNode *targetNode, Coordinate3d_t &offset);
+            void disableAutoFollowing();
+            Coordinate3d_t &getUpVector();
+            void setUpVector(const Coordinate3d_t &upVector);
+            void setUpVector(float x, float y, float z);
+            void _autoTrack();
+            void _autoFollow();
             virtual inline unsigned int getNodeType() { return CAMERA_NODE_TYPE; };
     };
 }

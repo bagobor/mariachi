@@ -57,3 +57,31 @@ void CubeNode::setPosition(float x, float y, float z) {
 
     this->position = position;
 }
+
+Rotation3d_t &CubeNode::getOrientation() {
+    return this->orientation;
+}
+
+void CubeNode::setOrientation(Rotation3d_t &orientation) {
+    this->orientation = orientation;
+}
+
+void CubeNode::setOrientation(float angle, float x, float y, float z) {
+    Rotation3d_t orientation = {angle, x, y, z};
+
+    this->orientation = orientation;
+}
+
+Coordinate3d_t &CubeNode::getScale() {
+    return this->scale;
+}
+
+void CubeNode::setScale(Coordinate3d_t &scale) {
+    this->scale = scale;
+}
+
+void CubeNode::setScale(float scaleX, float scaleY, float scaleZ) {
+    Coordinate3d_t scale = {scaleX, scaleY, scaleZ};
+
+    this->scale = scale;
+}

@@ -32,5 +32,6 @@
 #include "mesh.h"
 #include "oct_tree.h"
 #include "position.h"
+#include "rotation.h"
 #include "size.h"
 #include "texture.h"

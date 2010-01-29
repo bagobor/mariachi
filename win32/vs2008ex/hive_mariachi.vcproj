@@ -193,7 +193,15 @@
 				Name="Nodes"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\actor_node.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\camera_node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\collision_node.cpp"
 					>
 				</File>
 				<File
@@ -210,6 +218,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\node.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\physical_node.cpp"
 					>
 				</File>
 				<File
@@ -628,6 +640,10 @@
 					RelativePath="..\..\src\hive_mariachi\util\string_util.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\vector_util.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Algorithms"
@@ -676,6 +692,102 @@
 					RelativePath="..\..\src\hive_mariachi\user_interface\ui_view_port_node.cpp"
 					>
 				</File>
+				<Filter
+					Name="Layout"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\base_layout.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\flow_layout.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\grid_bag_layout.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Physics"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\physics\physics_engine.cpp"
+					>
+				</File>
+				<Filter
+					Name="Bullet Physics Engine"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\cube_node_motion_state.cpp"
+						>
+					</File>
+					<Filter
+						Name="Collision"
+						>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_collision_solid.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_cube_solid.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_sphere_solid.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Constraints"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\cone_twist_constraint.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\constraint.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\generic_six_dof.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\hinge_constraint.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\point_to_point_constraint.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\slider_constraint.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Collision"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\collision_solid.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\cube_solid.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\sphere_solid.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -884,6 +996,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\structures\position.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\structures\rotation.h"
 					>
 				</File>
 				<File
@@ -1195,7 +1311,15 @@
 				Name="Nodes"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\actor_node.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\camera_node.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\collision_node.h"
 					>
 				</File>
 				<File
@@ -1216,6 +1340,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\nodes\nodes.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\nodes\physical_node.h"
 					>
 				</File>
 				<File
@@ -1382,6 +1510,10 @@
 					RelativePath="..\..\src\hive_mariachi\util\util.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\vector_util.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Algorithms"
@@ -1442,6 +1574,122 @@
 					RelativePath="..\..\src\hive_mariachi\user_interface\user_interface.h"
 					>
 				</File>
+				<Filter
+					Name="Layout"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\base_layout.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\flow_layout.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\grid_bag_layout.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\user_interface\layout\layout.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Physics"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\physics\physics.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\physics\physics_engine.h"
+					>
+				</File>
+				<Filter
+					Name="Bullet Physics Engine"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\_bullet_physics_engine.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\cube_node_motion_state.h"
+						>
+					</File>
+					<Filter
+						Name="Collision"
+						>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_collision_solid.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_cube_solid.h"
+							>
+						</File>
+						<File
+							RelativePath="..\..\src\hive_mariachi\physics\bullet_physics_engine\collision\bullet_physics_engine_sphere_solid.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Constraints"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\cone_twist_constraint.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\constraint.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\constraints.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\generic_six_dof_constraint.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\hinge_constraint.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\point_to_point_constraint.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\constraints\slider_constraint.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Collision"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\collision.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\collision_solid.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\cube_solid.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\physics\collision\sphere_solid.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

@@ -26,13 +26,15 @@
 #pragma once
 
 #include "../structures/position.h"
+#include "../structures/rotation.h"
 #include "node.h"
 
 namespace mariachi {
     class CubeNode : public Node {
         private:
             Coordinate3d_t position;
-            Coordinate3d_t rotation;
+            Rotation3d_t orientation;
+            Coordinate3d_t scale;
 
         public:
             CubeNode();
@@ -41,6 +43,12 @@ namespace mariachi {
             Coordinate3d_t &getPosition();
             void setPosition(Coordinate3d_t &position);
             void setPosition(float x, float y, float z);
+            Rotation3d_t &getOrientation();
+            void setOrientation(Rotation3d_t &orientation);
+            void setOrientation(float angle, float x, float y, float z);
+            Coordinate3d_t &getScale();
+            void setScale(Coordinate3d_t &scale);
+            void setScale(float scaleX, float scaleY, float scaleZ);
             virtual inline unsigned int getNodeType() { return CUBE_NODE_TYPE; };
     };
 }

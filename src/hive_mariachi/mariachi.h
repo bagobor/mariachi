@@ -35,6 +35,7 @@
 #include "main/main.h"
 #include "nodes/nodes.h"
 #include "patterns/patterns.h"
+#include "physics/physics.h"
 #include "render/render.h"
 #include "render_adapters/render_adapters.h"
 #include "render_utils/render_utils.h"

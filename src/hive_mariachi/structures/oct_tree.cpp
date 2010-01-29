@@ -45,7 +45,7 @@ OctTree::OctTree(float boxWidth, float boxHeight, float boxDepth) {
     this->boundingBox.z2 = boxDepth;
 }
 
-OctTree::OctTree(Box_t boundingBox) {
+OctTree::OctTree(Box3d_t boundingBox) {
     // copies the provided bounding box
     this->boundingBox = boundingBox;
 }
@@ -64,14 +64,14 @@ OctTree::~OctTree() {
 * recursively tries to insert the target inside the target list of the containing tree nodes
 * (discards white boxes and subdivides grey boxes).
 */
-void OctTree::insertTargetBox(Node *targetNode, Box_t *targetBoundingBox) {
+void OctTree::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) {
     // initializes the stack of nodes to process
     std::vector<OctTreeBox_t> nodesStack;
 
     // creates the variables for the current values
     OctTreeBox_t currentNodeBox;
     OctTree *currentNode;
-    Box_t currentBox;
+    Box3d_t currentBox;
 
     // declares the oct tree node boxes list
     OctTreeBox_t nodeBoxes[8];
@@ -80,7 +80,7 @@ void OctTree::insertTargetBox(Node *targetNode, Box_t *targetBoundingBox) {
     OctTree *nodes[8];
 
     // declares the list of bounding boxes
-    Box_t boxes[8];
+    Box3d_t boxes[8];
 
     // creates a node box with the start element
     nodeBoxes[0].node = this;
@@ -358,7 +358,7 @@ void OctTree::insertTargetBox(Node *targetNode, Box_t *targetBoundingBox) {
     }
 }
 
-std::vector<Node *> OctTree::getBoxTargets(Box_t *queryBox) {
+std::vector<Node *> OctTree::getBoxTargets(Box3d_t *queryBox) {
     std::map<Node *, bool> targetsMap;
     std::vector<Node *> targets;
 
@@ -368,7 +368,7 @@ std::vector<Node *> OctTree::getBoxTargets(Box_t *queryBox) {
     // creates the variables for the current values
     OctTreeBox_t currentNodeBox;
     OctTree *currentNode;
-    Box_t currentBox;
+    Box3d_t currentBox;
     Node *currentTarget;
 
     // declares the oct tree node boxes list
@@ -378,7 +378,7 @@ std::vector<Node *> OctTree::getBoxTargets(Box_t *queryBox) {
     OctTree *nodes[8];
 
     // declares the list of bounding boxes
-    Box_t boxes[8];
+    Box3d_t boxes[8];
 
     // creates a node box with the start element
     nodeBoxes[0].node = this;
@@ -693,14 +693,14 @@ inline void OctTree::generateChildNodes() {
     float halfHeight = floor(height / 2);
     float halfDepth = floor(depth / 2);
 
-    Box_t firstOctantBox = {x1, y1, z1, x1 + halfWidth, y1 + halfHeight, z1 + halfDepth};
-    Box_t secondOctantBox = {x1 + halfWidth, y1, z1, x2, y1 + halfHeight, z1 + halfDepth};
-    Box_t thirdOctantBox = {x1, y1 + halfHeight, z1, x1 + halfWidth, y2, z1 + halfDepth};
-    Box_t fourthOctantBox = {x1 + halfWidth, y1 + halfHeight, z1, x2, y2, z1 + halfDepth};
-    Box_t fifthOctantBox = {x1, y1, z1 + halfWidth, x1 + halfWidth, y1 + halfHeight, z2};
-    Box_t sixthOctantBox = {x1 + halfWidth, y1, z1 + halfDepth, x2, y1 + halfHeight, z2};
-    Box_t seventhOctantBox = {x1, y1 + halfHeight, z1 + halfDepth, x1 + halfWidth, y2, z2};
-    Box_t eighthOctantBox = {x1 + halfWidth, y1 + halfHeight, z1 + halfDepth, x2, y2, z2};
+    Box3d_t firstOctantBox = {x1, y1, z1, x1 + halfWidth, y1 + halfHeight, z1 + halfDepth};
+    Box3d_t secondOctantBox = {x1 + halfWidth, y1, z1, x2, y1 + halfHeight, z1 + halfDepth};
+    Box3d_t thirdOctantBox = {x1, y1 + halfHeight, z1, x1 + halfWidth, y2, z1 + halfDepth};
+    Box3d_t fourthOctantBox = {x1 + halfWidth, y1 + halfHeight, z1, x2, y2, z1 + halfDepth};
+    Box3d_t fifthOctantBox = {x1, y1, z1 + halfWidth, x1 + halfWidth, y1 + halfHeight, z2};
+    Box3d_t sixthOctantBox = {x1 + halfWidth, y1, z1 + halfDepth, x2, y1 + halfHeight, z2};
+    Box3d_t seventhOctantBox = {x1, y1 + halfHeight, z1 + halfDepth, x1 + halfWidth, y2, z2};
+    Box3d_t eighthOctantBox = {x1 + halfWidth, y1 + halfHeight, z1 + halfDepth, x2, y2, z2};
 
     // creates the octant nodes
     OctTree *firstOctantNode = this->createChildNode(firstOctantBox);
@@ -723,11 +723,11 @@ inline void OctTree::generateChildNodes() {
     this->childNodes.push_back(eighthOctantNode);
 }
 
-inline OctTree *OctTree::createChildNode(Box_t &boundingBox) {
+inline OctTree *OctTree::createChildNode(Box3d_t &boundingBox) {
     return new OctTree(boundingBox);
 }
 
-inline bool OctTree::overlaps(Box_t *box1, Box_t *box2) {
+inline bool OctTree::overlaps(Box3d_t *box1, Box3d_t *box2) {
     return box1->x1 == box2->x1
         && box1->x2 == box2->x2
         && box1->y1 == box2->y1
@@ -736,7 +736,7 @@ inline bool OctTree::overlaps(Box_t *box1, Box_t *box2) {
         && box1->z2 == box2->z2;
 }
 
-inline bool OctTree::contains(Box_t &box) {
+inline bool OctTree::contains(Box3d_t &box) {
     Coordinate3d_t point1 = {box.x1, box.y1, box.z1};
     Coordinate3d_t point2 = {box.x2, box.y2, box.z2};
 
@@ -788,7 +788,7 @@ inline int OctTree::getPointOctant(Coordinate3d_t &point) {
     return octantIndex;
 }
 
-inline void OctTree::pushNodeBoxes(int node_count, OctTree **nodes, Box_t *boxes, OctTreeBox_t *nodeBoxes, std::vector<OctTreeBox_t> &nodesStack) {
+inline void OctTree::pushNodeBoxes(int node_count, OctTree **nodes, Box3d_t *boxes, OctTreeBox_t *nodeBoxes, std::vector<OctTreeBox_t> &nodesStack) {
     for(int i = 0; i < node_count; i++) {
         // wraps the node and box
         nodeBoxes[i].node = nodes[i];
@@ -802,7 +802,7 @@ inline void OctTree::pushNodeBoxes(int node_count, OctTree **nodes, Box_t *boxes
     }
 }
 
-inline void OctTree::fillBox(Box_t *box, float x1, float y1, float z1, float x2, float y2, float z2) {
+inline void OctTree::fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2) {
     if(x1 > x2 || y1 > y2 || z1 > z2)
         printf("debug");
 

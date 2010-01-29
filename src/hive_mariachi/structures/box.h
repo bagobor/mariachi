@@ -26,12 +26,19 @@
 #pragma once
 
 namespace mariachi {
-    typedef struct Box_t {
+    typedef struct Box2d_t {
+        float x1;
+        float y1;
+        float x2;
+        float y2;
+    } Box2d;
+
+    typedef struct Box3d_t {
         float x1;
         float y1;
         float z1;
         float x2;
         float y2;
         float z2;
-    } Box;
+    } Box3d;
 }

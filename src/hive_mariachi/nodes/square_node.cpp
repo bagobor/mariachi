@@ -30,49 +30,49 @@
 using namespace mariachi;
 
 SquareNode::SquareNode() : Node() {
-	// intializes the position reference
-	this->initPositionReference();
+    // intializes the position reference
+    this->initPositionReference();
 }
 
 SquareNode::SquareNode(const std::string &name) : Node(name) {
-	// intializes the position reference
-	this->initPositionReference();
+    // intializes the position reference
+    this->initPositionReference();
 }
 
 SquareNode::~SquareNode() {
 }
 
 inline void SquareNode::initPositionReference() {
-	this->topLeftPositionDirty = true;
-	this->positionReference = TOP_LEFT_REFERENCE_POSITION;
+    this->topLeftPositionDirty = true;
+    this->positionReference = TOP_LEFT_REFERENCE_POSITION;
 }
 
 Coordinate2d_t &SquareNode::getTopLeftPosition() {
-	// in case the top left position is not dirty
-	if(!this->topLeftPositionDirty) {
-		// returns the top left position
-		return this->topLeftPosition;
-	}
+    // in case the top left position is not dirty
+    if(!this->topLeftPositionDirty) {
+        // returns the top left position
+        return this->topLeftPosition;
+    }
 
-	// switches over the position reference
-	switch(this->positionReference) {
-		case TOP_LEFT_REFERENCE_POSITION:
-			this->topLeftPosition = this->position;
+    // switches over the position reference
+    switch(this->positionReference) {
+        case TOP_LEFT_REFERENCE_POSITION:
+            this->topLeftPosition = this->position;
 
-			break;
+            break;
 
-		case CENTER_REFERENCE_POSITION:
-			this->topLeftPosition.x = this->position.x - (this->size.width / 2.0);
-			this->topLeftPosition.y = this->position.y - (this->size.height / 2.0);
+        case CENTER_REFERENCE_POSITION:
+            this->topLeftPosition.x = this->position.x - (this->size.width / 2.0f);
+            this->topLeftPosition.y = this->position.y - (this->size.height / 2.0f);
 
-			break;
-	}
+            break;
+    }
 
-	// unsets the top left position dirty flag
-	this->topLeftPositionDirty = false;
+    // unsets the top left position dirty flag
+    this->topLeftPositionDirty = false;
 
-	// returns the top left position
-	return this->topLeftPosition;
+    // returns the top left position
+    return this->topLeftPosition;
 }
 
 Coordinate2d_t &SquareNode::getPosition() {
@@ -81,14 +81,14 @@ Coordinate2d_t &SquareNode::getPosition() {
 
 void SquareNode::setPosition(Coordinate2d_t &position) {
     this->position = position;
-	this->topLeftPositionDirty = true;
+    this->topLeftPositionDirty = true;
 }
 
 void SquareNode::setPosition(float x, float y) {
     Coordinate2d_t position = { x, y } ;
 
     this->position = position;
-	this->topLeftPositionDirty = true;
+    this->topLeftPositionDirty = true;
 }
 
 FloatSize2d_t &SquareNode::getSize() {
@@ -97,21 +97,21 @@ FloatSize2d_t &SquareNode::getSize() {
 
 void SquareNode::setSize(FloatSize2d_t &size) {
     this->size = size;
-	this->topLeftPositionDirty = true;
+    this->topLeftPositionDirty = true;
 }
 
 void SquareNode::setSize(float width, float height) {
     FloatSize2d_t size = { width, height };
 
     this->size = size;
-	this->topLeftPositionDirty = true;
+    this->topLeftPositionDirty = true;
 }
 
 PositionReferenceType_t SquareNode::getPositionReference() {
-	return this->positionReference;
+    return this->positionReference;
 }
 
 void SquareNode::setPositionReference(PositionReferenceType_t positionReference) {
-	this->positionReference = positionReference;
-	this->topLeftPositionDirty = true;
+    this->positionReference = positionReference;
+    this->topLeftPositionDirty = true;
 }

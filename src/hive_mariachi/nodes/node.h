@@ -33,7 +33,9 @@ typedef enum BasicNodesType_t {
     SCENE2D_NODE_TYPE,
     LENS_NODE_TYPE,
     MODEL_NODE_TYPE,
-    CAMERA_NODE_TYPE
+    CAMERA_NODE_TYPE,
+    PHYSICAL_NODE_TYPE,
+    COLLISION_NODE_TYPE
 } BasicNodesType;
 
 namespace mariachi {

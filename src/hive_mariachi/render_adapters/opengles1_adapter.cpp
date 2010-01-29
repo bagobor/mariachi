@@ -252,7 +252,7 @@ void Opengles1Adapter::display() {
 void gluPerspective(float fovy, float aspect, float zNear, float zFar) {
     float xmin, xmax, ymin, ymax;
 
-    ymax = zNear * tan(fovy * M_PI / 360.0);
+    ymax = zNear * tan(fovy * (float) M_PI / 360.0f);
     ymin = -ymax;
     xmin = ymin * aspect;
     xmax = ymax * aspect;

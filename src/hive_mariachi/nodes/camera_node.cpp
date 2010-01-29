@@ -25,6 +25,9 @@
 
 #include "stdafx.h"
 
+#include "../structures/rotation.h"
+#include "../util/vector_util.h"
+
 #include "camera_node.h"
 
 using namespace mariachi;
@@ -33,13 +36,161 @@ using namespace mariachi;
 * Constructor of the class.
 */
 CameraNode::CameraNode() : LensNode() {
+    // initializes the auto tracking status
+    this->disableAutoTracking();
+
+    // initializes the auto following status
+    this->disableAutoFollowing();
 }
 
 CameraNode::CameraNode(const std::string &name) : LensNode(name) {
+    // initializes the auto tracking status
+    this->disableAutoTracking();
+
+    // initializes the auto following status
+    this->disableAutoFollowing();
 }
 
 /**
 * Destructor of the class.
 */
 CameraNode::~CameraNode() {
+}
+
+
+void CameraNode::lookAt(const Coordinate3d_t &targetPoint) {
+    // the direction vector is the difference between the eye position and the target point
+    Coordinate3d_t direction = VectorUtil::subtract(this->getPosition(), targetPoint);
+
+    // sets the direction
+    this->setDirection(direction);
+}
+
+void CameraNode::lookAt(float x, float y, float z) {
+    // creates a target point coordinate struct
+    Coordinate3d_t targetPoint = { x, y, z };
+
+    // looks at the 3d point
+    this->lookAt(targetPoint);
+}
+
+inline bool CameraNode::isAutoTracking() {
+    // in case the auto track target is set
+    // the camera is auto tracking a target
+    return this->autoTrackTargetNode != NULL;
+}
+
+inline bool CameraNode::isAutoFollowing() {
+    // in case the auto track target is set
+    // the camera is auto tracking a target
+    return this->autoFollowTargetNode != NULL;
+}
+
+void CameraNode::enableAutoTracking(CubeNode *targetNode, Coordinate3d_t &offset) {
+    // enables auto tracking by setting the auto track target node
+    this->autoTrackTargetNode = targetNode;
+
+    // sets the auto track offset
+    this->autoTrackOffset = offset;
+}
+
+void CameraNode::disableAutoTracking() {
+    // disables auto tracking by resetting the auto track target node
+    this->autoTrackTargetNode = NULL;
+}
+
+void CameraNode::enableAutoFollowing(CubeNode *targetNode, Coordinate3d_t &offset) {
+    // sets the follow target node
+    this->autoFollowTargetNode = targetNode;
+
+    // sets the auto follow offset
+    this->autoFollowOffset = offset;
+}
+
+void CameraNode::disableAutoFollowing() {
+    // resets the auto follow target node
+    this->autoFollowTargetNode = NULL;
+}
+
+void CameraNode::setDirection(const Coordinate3d_t &direction) {
+    Rotation3d_t orientation;
+    Coordinate3d_t sideVector;
+    Coordinate3d_t realUpVector;
+
+    // normalizes the direction vector
+    Coordinate3d_t normalizedDirection = VectorUtil::normalize(direction);
+
+    // side vector = up cross direction
+    sideVector = VectorUtil::crossProduct(this->upVector, normalizedDirection);
+
+    // recompute up = direction cross side
+    realUpVector = VectorUtil::crossProduct(normalizedDirection, sideVector);
+
+    // normalize the side vector
+    Coordinate3d_t normalizedSideVector = VectorUtil::normalize(sideVector);
+
+    // normalize the up vector
+    Coordinate3d_t normalizedRealUpVector = VectorUtil::normalize(realUpVector);
+
+    // determines the rotation angle
+    orientation.angle = acos((normalizedSideVector.x + normalizedRealUpVector.y + normalizedDirection.z - 1.0f) / 2.0f) * 180.0f / (float) M_PI;
+
+    // @todo: account for singularities
+
+    // determines the magnitude
+    float magnitude = sqrt((normalizedDirection.y - normalizedRealUpVector.z) * (normalizedDirection.y - normalizedRealUpVector.z) + (normalizedSideVector.z - normalizedDirection.x) * (normalizedSideVector.z - normalizedDirection.x) + (normalizedRealUpVector.x - normalizedSideVector.y) * (normalizedRealUpVector.x - normalizedSideVector.y));
+
+    // determines the rotation axis
+    orientation.x = (normalizedDirection.y - normalizedRealUpVector.z) / magnitude;
+    orientation.y = (normalizedSideVector.z - normalizedDirection.x) / magnitude;
+    orientation.z = (normalizedRealUpVector.x - normalizedSideVector.y) / magnitude;
+
+    // sets the axis angle representation of the rotation in the node orientation
+    this->setOrientation(orientation);
+}
+
+void CameraNode::setDirection(float x, float y, float z) {
+    Coordinate3d_t direction = { x, y, z };
+    this->setDirection(direction);
+}
+
+Coordinate3d_t &CameraNode::getUpVector() {
+    return this->upVector;
+}
+
+void CameraNode::setUpVector(const Coordinate3d_t &upVector) {
+    this->upVector = upVector;
+}
+
+void CameraNode::setUpVector(float x, float y, float z) {
+    Coordinate3d_t upVector = { x, y, z };
+    this->setUpVector(upVector);
+}
+
+void CameraNode::_autoTrack() {
+    // in case an auto track target is defined
+    if(this->isAutoTracking()) {
+        // adds the offset to the target position
+        Coordinate3d_t autoTrackTargetPositionOffset = VectorUtil::add(this->autoTrackTargetNode->getPosition(), this->autoTrackOffset);
+
+        // looks at the target using the configured offset
+        this->lookAt(autoTrackTargetPositionOffset);
+    }
+}
+
+void CameraNode::_autoFollow() {
+    // in case an auto track target is defined
+    if(this->isAutoFollowing()) {
+        // adds the offset to the target position
+        Coordinate3d_t autoFollowTargetPositionOffset = VectorUtil::add(this->autoFollowTargetNode->getPosition(), this->autoFollowOffset);
+
+        // retrieves the target's orientation
+        Rotation3d_t &autoFollowTargetOrientation = this->autoFollowTargetNode->getOrientation();
+
+        // sets the camera at the target position
+        this->setPosition(autoFollowTargetPositionOffset);
+
+        // rotates the camera as required
+        this->setOrientation(autoFollowTargetOrientation);
+    }
 }

@@ -34,33 +34,33 @@ namespace mariachi {
 
     typedef struct OctTreeBox_t {
         OctTree *node;
-        Box_t box;
+        Box3d_t box;
     } OctTreeBox;
 
     class OctTree {
         private:
-            Box_t boundingBox;
+            Box3d_t boundingBox;
             std::vector<OctTree *> childNodes;
             std::vector<Node *> targets;
 
             inline void generateChildNodes();
-            inline OctTree *createChildNode(Box_t &boundingBox);
-            inline bool overlaps(Box_t *box1, Box_t *box2);
-            inline bool intersects(Box_t &box);
-            inline bool contains(Box_t &box);
-            inline bool isContainedBy(Box_t &box);
+            inline OctTree *createChildNode(Box3d_t &boundingBox);
+            inline bool overlaps(Box3d_t *box1, Box3d_t *box2);
+            inline bool intersects(Box3d_t &box);
+            inline bool contains(Box3d_t &box);
+            inline bool isContainedBy(Box3d_t &box);
             inline bool containsPoint(Coordinate3d_t &point);
             inline int getPointOctant(Coordinate3d_t &point);
-            inline void pushNodeBoxes(int node_count, OctTree **nodes, Box_t *boxes, OctTreeBox_t *nodeBoxes, std::vector<OctTreeBox_t> &nodesStack);
-            inline void fillBox(Box_t *box, float x1, float y1, float z1, float x2, float y2, float z2);
+            inline void pushNodeBoxes(int node_count, OctTree **nodes, Box3d_t *boxes, OctTreeBox_t *nodeBoxes, std::vector<OctTreeBox_t> &nodesStack);
+            inline void fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2);
 
         public:
             OctTree();
             OctTree(float boxWidth, float boxHeight, float boxDepth);
-            OctTree(Box_t boundingBox);
+            OctTree(Box3d_t boundingBox);
             ~OctTree();
-            void insertTargetBox(Node *targetNode, Box_t *targetBoundingBox);
-            std::vector<Node *> getBoxTargets(Box_t *queryBox);
+            void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
+            std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
             std::string toString(std::string padding = "");
     };
 }

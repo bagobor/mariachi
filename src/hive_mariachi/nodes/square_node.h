@@ -30,8 +30,8 @@
 #include "node.h"
 
 typedef enum PositionReferenceType_t {
-	TOP_LEFT_REFERENCE_POSITION = 1,
-	CENTER_REFERENCE_POSITION
+    TOP_LEFT_REFERENCE_POSITION = 1,
+    CENTER_REFERENCE_POSITION
 } PositionReferenceType;
 
 namespace mariachi {
@@ -40,17 +40,17 @@ namespace mariachi {
             Coordinate2d_t position;
             Coordinate2d_t rotation;
             FloatSize2d_t size;
-			Coordinate2d_t topLeftPosition;
-			bool topLeftPositionDirty;
-			PositionReferenceType_t positionReference;
+            Coordinate2d_t topLeftPosition;
+            bool topLeftPositionDirty;
+            PositionReferenceType_t positionReference;
 
-			inline void initPositionReference();
+            inline void initPositionReference();
 
         public:
             SquareNode();
             SquareNode(const std::string &name);
             ~SquareNode();
-			Coordinate2d_t &getTopLeftPosition();
+            Coordinate2d_t &getTopLeftPosition();
             Coordinate2d_t &getPosition();
             void setPosition(Coordinate2d_t &position);
             void setPosition(float x, float y);

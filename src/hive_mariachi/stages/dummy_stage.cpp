@@ -34,6 +34,16 @@
 using namespace mariachi;
 using namespace mariachi::ui;
 
+CameraNode *gCameraNode = NULL;
+
+CameraNode *gCameraNode1;
+CameraNode *gCameraNode2;
+CameraNode *gCameraNode3;
+
+CameraNode *gTempCameraNode;
+
+unsigned int counter = 0;
+
 DummyStage::DummyStage() : Stage() {
 }
 
@@ -121,10 +131,10 @@ void DummyStage::start(void *arguments) {
     ViewPortNode *viewPort2Node = new ViewPortNode();
 
     // sets the viewport node position
-    viewPort2Node->setPosition(0.0, 0.0);
+    viewPort2Node->setPosition(0.0f, 0.0f);
 
     // sets the size of the viewport node
-    viewPort2Node->setSize((float) 100.0, (float) 100.0);
+    viewPort2Node->setSize((float) 100.0f, (float) 100.0f);
 
     viewPort2Node->setTexture(backgroundTexture);
 
@@ -144,16 +154,16 @@ void DummyStage::start(void *arguments) {
     // creates a new panel node
     PanelNode *panelNode = new PanelNode();
 
-	panelNode->setPositionReference(CENTER_REFERENCE_POSITION);
+    panelNode->setPositionReference(CENTER_REFERENCE_POSITION);
 
     // sets the viewport node position
-    panelNode->setPosition(50.0, 50.0);
+    panelNode->setPosition(50.0f, 50.0f);
 
-	panelNode->setSize(60.25, 30.00);
+    panelNode->setSize(60.25f, 30.00f);
 
-	panelNode->setTexture(panelTexture);
+    panelNode->setTexture(panelTexture);
 
-	viewPort2Node->addChild(panelNode);
+    viewPort2Node->addChild(panelNode);
 
 
 
@@ -170,12 +180,12 @@ void DummyStage::start(void *arguments) {
     ButtonNode *imageNode = new ButtonNode();
 
     // sets the button node position
-    imageNode->setPosition(3.13, 2.50);
+    imageNode->setPosition(3.13f, 2.50f);
 
     // sets the size of the image node
-    imageNode->setSize(31.40, 14.06);
+    imageNode->setSize(31.40f, 14.06f);
 
-	// sets the texture
+    // sets the texture
     imageNode->setTexture(logoTexture);
 
     // adds the view port node to the render
@@ -190,7 +200,7 @@ void DummyStage::start(void *arguments) {
     // creates a new button node
     ButtonNode *buttonNode = new ButtonNode();
 
-	buttonNode->setPositionReference(CENTER_REFERENCE_POSITION);
+    buttonNode->setPositionReference(CENTER_REFERENCE_POSITION);
 
     // sets the viewport node position
     buttonNode->setPosition(50.0, 30.0);
@@ -198,7 +208,7 @@ void DummyStage::start(void *arguments) {
     // sets the size of the viewport node
     buttonNode->setSize((float) 21.25, (float) 10.94);
 
-	// sets the texture in the button
+    // sets the texture in the button
     buttonNode->setTexture(buttonTexture);
 
     // adds the view port node to the render
@@ -212,6 +222,45 @@ void DummyStage::start(void *arguments) {
 
     packetNetwork->start(&argumentsMap);
     packetNetwork->bindConnection("", 8989);*/
+
+
+
+
+
+
+
+
+    gCameraNode1 = new CameraNode();
+    gCameraNode2 = new CameraNode();
+    gCameraNode3 = new CameraNode();
+
+    gTempCameraNode = new CameraNode();
+
+    gCameraNode = gCameraNode1;
+
+    printf("New node added\n");
+
+    modelNode->setPosition(25.0f, 0.0f, 0.0f);
+    modelNode2->setPosition(-25.0f, 0.0f, 0.0f);
+
+    Coordinate3d zeroVector = { 0.0f, 0.0f, 0.0f };
+
+    gCameraNode1->setPosition(-100.0f, 0.0f, 10.0f);
+    gCameraNode2->setPosition(0.0f, -100.0f, 10.0f);
+    gCameraNode3->setPosition(0.0f, 0.0f, 100.0f);
+
+    gCameraNode1->setOrientation(0.0f, 0.0f, 0.0f, 0.0f);
+    gCameraNode2->setOrientation(0.0f, 0.0f, 0.0f, 0.0f);
+    gCameraNode3->setOrientation(0.0f, 0.0f, 0.0f, 0.0f);
+
+    gCameraNode1->enableAutoTracking(modelNode2, zeroVector);
+    gCameraNode2->enableAutoTracking(modelNode2, zeroVector);
+    gCameraNode3->enableAutoTracking(modelNode2, zeroVector);
+    gTempCameraNode->enableAutoTracking(modelNode2, zeroVector);
+
+    gCameraNode1->setUpVector(0.0, 0.0, 1.0);
+    gCameraNode2->setUpVector(0.0, 0.0, 1.0);
+    gCameraNode3->setUpVector(0.0, 1.0, 0.0);
 }
 
 void DummyStage::stop(void *arguments) {
@@ -220,6 +269,23 @@ void DummyStage::stop(void *arguments) {
 
 void DummyStage::update(void *arguments) {
     Stage::update(arguments);
+
+
+
+    gCameraNode1->_autoTrack();
+    gCameraNode2->_autoTrack();
+    gCameraNode3->_autoTrack();
+
+    gCameraNode1->_autoFollow();
+    gCameraNode2->_autoFollow();
+    gCameraNode3->_autoFollow();
+
+
+
+
+
+
+
 
     std::list<InputDeviceEvent_t> *inputEventQueue;
 
@@ -237,6 +303,27 @@ void DummyStage::update(void *arguments) {
 
         // prints a debug message
         std::cout << "Key pressed (keycode: " << ((KeyboardEvent_t *) inputEvent.event)->keyCode << ")\n";
+
+        if(((KeyboardEvent_t *) inputEvent.event)->keyCode == KEY_CODE_C) {
+            unsigned int value = counter % 3;
+
+            switch(value) {
+                case 0:
+                    gCameraNode = gCameraNode1;
+                    break;
+
+                case 1:
+                    gCameraNode = gCameraNode2;
+                    break;
+
+                case 2:
+                    gCameraNode = gCameraNode3;
+                    break;
+            }
+
+            // increments the coutner
+            counter++;
+        }
 
         // pops the front
         inputEventQueue->pop_front();
