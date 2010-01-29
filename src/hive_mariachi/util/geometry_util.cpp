@@ -27,12 +27,21 @@
 
 #include "geometry_util.h"
 
+using namespace mariachi;
 using namespace mariachi::util;
 
-float GeometryUtil::getEuclidianDistance(float x1, float y1, float x2, float y2) {
-    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+float GeometryUtil::getEuclidianDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate) {
+    return sqrt(pow(secondCoordinate->x - firstCoordinate->x, 2) + pow(secondCoordinate->y - firstCoordinate->y, 2));
 }
 
-float GeometryUtil::getEuclidianDistance(float x1, float y1, float z1, float x2, float y2, float z2) {
-    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2) + pow(z2 - z1, 2));
+float GeometryUtil::getEuclidianDistance(Coordinate3d_t *firstCoordinate, Coordinate3d_t *secondCoordinate) {
+    return sqrt(pow(secondCoordinate->x - firstCoordinate->x, 2) + pow(secondCoordinate->y - firstCoordinate->y, 2) + pow(secondCoordinate->z - firstCoordinate->z, 2));
+}
+
+float GeometryUtil::getManhattanDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate) {
+    return fabs(secondCoordinate->x - firstCoordinate->x) + fabs(secondCoordinate->y - firstCoordinate->y);
+}
+
+float GeometryUtil::getManhattanDistance(Coordinate3d_t *firstCoordinate, Coordinate3d_t *secondCoordinate) {
+    return fabs(secondCoordinate->x - firstCoordinate->x) + fabs(secondCoordinate->y - firstCoordinate->y) + fabs(secondCoordinate->z - firstCoordinate->z);
 }
