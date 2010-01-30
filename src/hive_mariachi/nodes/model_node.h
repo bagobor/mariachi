@@ -26,10 +26,11 @@
 #pragma once
 
 #include "../structures/structures.h"
-#include "cube_node.h"
+
+#include "physical_node.h"
 
 namespace mariachi {
-    class ModelNode : public CubeNode {
+    class ModelNode : public PhysicalNode {
         private:
             std::vector<Mesh_t *> *meshList;
             Texture *texture;

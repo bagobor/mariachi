@@ -26,6 +26,7 @@
 #pragma once
 
 #include "../nodes/nodes.h"
+
 #include "box.h"
 #include "position.h"
 
@@ -36,61 +37,60 @@
 #define MIN_SUBDIVIDABLE_VOLUME MIN_VOLUME * 8.0f
 
 namespace mariachi {
-	struct OctTreeNodeBox3d_t;
+    struct OctTreeNodeBox3d_t;
 
-	/**
-	* Represents a node of an oct tree in 3d space.
-	* Used to implement the underlying behaviour of the tree.
-	*/
-	class OctTreeNode {
-		private:
-			/**
-			* The node's children.
-			*/
-			std::vector<OctTreeNode *> childNodes;
+    /**
+    * Represents a node of an oct tree in 3d space.
+    * Used to implement the underlying behaviour of the tree.
+    */
+    class OctTreeNode {
+        private:
+            /**
+            * The node's children.
+            */
+            std::vector<OctTreeNode *> childNodes;
 
-			/**
-			* The target's contained by the space delimited by the node
-			*/
-			std::vector<Node *> targets;
+            /**
+            * The target's contained by the space delimited by the node
+            */
+            std::vector<Node *> targets;
 
-			/**
-			* The node's bounding box.
-			*/
-			Box3d_t boundingBox;
+            /**
+            * The node's bounding box.
+            */
+            Box3d_t boundingBox;
 
-			inline OctTreeNode *createChildNode(Box3d_t &boundingBox);
-			inline Box3d_t createBox(float x1, float y1, float z1, float x2, float y2, float z2);
-			inline void generateChildNodes();
-			inline bool overlaps(Box3d_t *box1, Box3d_t *box2);
-			inline bool intersects(Box3d_t &box);
-			inline bool contains(Box3d_t &box);
-			inline bool containsPoint(Coordinate3d_t &point);
-			inline int getPointOctant(Coordinate3d_t &point);
-			inline void pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3d_t *boxes, OctTreeNodeBox3d_t *nodeBoxes, std::vector<OctTreeNodeBox3d_t> &nodesStack);
-			inline void fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2);
-			inline bool isSubdividable();
+            inline OctTreeNode *createChildNode(Box3d_t &boundingBox);
+            inline Box3d_t createBox(float x1, float y1, float z1, float x2, float y2, float z2);
+            inline void generateChildNodes();
+            inline bool overlaps(Box3d_t *box1, Box3d_t *box2);
+            inline bool intersects(Box3d_t &box);
+            inline bool contains(Box3d_t &box);
+            inline bool containsPoint(Coordinate3d_t &point);
+            inline int getPointOctant(Coordinate3d_t &point);
+            inline void pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3d_t *boxes, OctTreeNodeBox3d_t *nodeBoxes, std::vector<OctTreeNodeBox3d_t> &nodesStack);
+            inline void fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2);
+            inline bool isSubdividable();
 
-		public:
-			OctTreeNode();
-			OctTreeNode(Box3d_t boundingBox);
-			OctTreeNode(float boxWidth, float boxHeight, float boxDepth);
-			~OctTreeNode();
-			void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
-			std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
-			std::string toString(std::string padding);
-	};
+        public:
+            OctTreeNode();
+            OctTreeNode(Box3d_t boundingBox);
+            OctTreeNode(float boxWidth, float boxHeight, float boxDepth);
+            ~OctTreeNode();
+            void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
+            std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
+            std::string toString(std::string padding);
+    };
 
-	/**
-	* A structure for internal use containing an oct tree node, and a box.
-	* Used as the elements for the stack based traversal of the oct tree.
-	* 
-	* @param node The oct tree node at which the iteration is currently at.
-	* @param box The box that is currently being processed.
-	*/
-	typedef struct OctTreeNodeBox3d_t {
-		OctTreeNode *node;
-		Box3d_t box;
-	} OctTreeNodeBox;
-
+    /**
+    * A structure for internal use containing an oct tree node, and a box.
+    * Used as the elements for the stack based traversal of the oct tree.
+    *
+    * @param node The oct tree node at which the iteration is currently at.
+    * @param box The box that is currently being processed.
+    */
+    typedef struct OctTreeNodeBox3d_t {
+        OctTreeNode *node;
+        Box3d_t box;
+    } OctTreeNodeBox;
 }
