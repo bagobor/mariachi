@@ -325,6 +325,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\structures\oct_tree_node.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\structures\texture.cpp"
 					>
 				</File>
@@ -988,6 +992,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\structures\oct_tree.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\structures\oct_tree_node.h"
 					>
 				</File>
 				<File
