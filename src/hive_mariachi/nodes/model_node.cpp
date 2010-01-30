@@ -29,11 +29,11 @@
 
 using namespace mariachi;
 
-ModelNode::ModelNode() : CubeNode() {
+ModelNode::ModelNode() : PhysicalNode() {
     this->initRenderable();
 }
 
-ModelNode::ModelNode(const std::string &name) : CubeNode(name) {
+ModelNode::ModelNode(const std::string &name) : PhysicalNode(name) {
     this->initRenderable();
 }
 

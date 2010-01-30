@@ -26,30 +26,31 @@
 #pragma once
 
 #include "../nodes/nodes.h"
+
 #include "oct_tree_node.h"
 #include "box.h"
 
 namespace mariachi {
-	class OctTreeNode;
+    class OctTreeNode;
 
-	/**
-	* Represents an oct tree in 3d space.
-	* Used for partioning a 3d environment into octants for faster spatial queries.
-	*/
-	class OctTree {
-		private:
+    /**
+    * Represents an oct tree in 3d space.
+    * Used for partioning a 3d environment into octants for faster spatial queries.
+    */
+    class OctTree {
+        private:
 
-		public:
-			/**
-			* The tree's root node.
-			*/
-			OctTreeNode *rootNode;
+        public:
+            /**
+            * The tree's root node.
+            */
+            OctTreeNode *rootNode;
 
-			OctTree();
-			OctTree(Box3d_t boundingBox);
-			OctTree(float boxWidth, float boxHeight, float boxDepth);
-			~OctTree();
-			void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
-			std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
-	};
+            OctTree();
+            OctTree(Box3d_t boundingBox);
+            OctTree(float boxWidth, float boxHeight, float boxDepth);
+            ~OctTree();
+            void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
+            std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
+    };
 }

@@ -39,45 +39,45 @@ OctTree::OctTree() {
 * Constructor of the class with bounding box.
 */
 OctTree::OctTree(Box3d_t boundingBox) {
-	// creates the root node using the provided bounding box
-	this->rootNode = new OctTreeNode(boundingBox);
+    // creates the root node using the provided bounding box
+    this->rootNode = new OctTreeNode(boundingBox);
 }
 
 /**
 * Constructor of the class with bounding box extents.
 */
 OctTree::OctTree(float boxWidth, float boxHeight, float boxDepth) {
-	// creates the root node using the provided dimensions
-	this->rootNode = new OctTreeNode(boxWidth, boxHeight, boxDepth);
+    // creates the root node using the provided dimensions
+    this->rootNode = new OctTreeNode(boxWidth, boxHeight, boxDepth);
 }
 
 /**
 * Destructor of the class.
 */
 OctTree::~OctTree() {
-	// destroys the root node
-	delete this->rootNode;
+    // destroys the root node
+    delete this->rootNode;
 }
 
 /**
-* Inserts a node into the oct tree. 
+* Inserts a node into the oct tree.
 * Delegates the insertion process to the root node.
-* 
+*
 * @param targetNode The node to insert in the oct tree.
 * @param targetBoundingBox The box bounding the inserted target node.
 */
 void OctTree::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) {
-	this->rootNode->insertTargetBox(targetNode, targetBoundingBox);
+    this->rootNode->insertTargetBox(targetNode, targetBoundingBox);
 }
 
 /**
-* Retrieves the targets bounded by the provided query box. 
+* Retrieves the targets bounded by the provided query box.
 * Delegates the retrieval process to the root node.
-* 
+*
 * @param queryBox The box for which contained targets are retrieved.
 * @return The targets bounded by the provided box.
 */
 std::vector<Node *> OctTree::getBoxTargets(Box3d_t *queryBox) {
-	std::vector<Node *> targets = this->rootNode->getBoxTargets(queryBox);
+    std::vector<Node *> targets = this->rootNode->getBoxTargets(queryBox);
     return targets;
 }
