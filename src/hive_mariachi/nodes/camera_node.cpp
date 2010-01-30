@@ -184,13 +184,7 @@ void CameraNode::_autoFollow() {
         // adds the offset to the target position
         Coordinate3d_t autoFollowTargetPositionOffset = VectorUtil::add(this->autoFollowTargetNode->getPosition(), this->autoFollowOffset);
 
-        // retrieves the target's orientation
-        Rotation3d_t &autoFollowTargetOrientation = this->autoFollowTargetNode->getOrientation();
-
         // sets the camera at the target position
         this->setPosition(autoFollowTargetPositionOffset);
-
-        // rotates the camera as required
-        this->setOrientation(autoFollowTargetOrientation);
     }
 }
