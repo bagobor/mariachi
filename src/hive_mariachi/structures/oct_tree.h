@@ -26,41 +26,30 @@
 #pragma once
 
 #include "../nodes/nodes.h"
+#include "oct_tree_node.h"
 #include "box.h"
-#include "position.h"
 
 namespace mariachi {
-    class OctTree;
+	class OctTreeNode;
 
-    typedef struct OctTreeBox_t {
-        OctTree *node;
-        Box3d_t box;
-    } OctTreeBox;
+	/**
+	* Represents an oct tree in 3d space.
+	* Used for partioning a 3d environment into octants for faster spatial queries.
+	*/
+	class OctTree {
+		private:
 
-    class OctTree {
-        private:
-            Box3d_t boundingBox;
-            std::vector<OctTree *> childNodes;
-            std::vector<Node *> targets;
+		public:
+			/**
+			* The tree's root node.
+			*/
+			OctTreeNode *rootNode;
 
-            inline void generateChildNodes();
-            inline OctTree *createChildNode(Box3d_t &boundingBox);
-            inline bool overlaps(Box3d_t *box1, Box3d_t *box2);
-            inline bool intersects(Box3d_t &box);
-            inline bool contains(Box3d_t &box);
-            inline bool isContainedBy(Box3d_t &box);
-            inline bool containsPoint(Coordinate3d_t &point);
-            inline int getPointOctant(Coordinate3d_t &point);
-            inline void pushNodeBoxes(int node_count, OctTree **nodes, Box3d_t *boxes, OctTreeBox_t *nodeBoxes, std::vector<OctTreeBox_t> &nodesStack);
-            inline void fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2);
-
-        public:
-            OctTree();
-            OctTree(float boxWidth, float boxHeight, float boxDepth);
-            OctTree(Box3d_t boundingBox);
-            ~OctTree();
-            void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
-            std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
-            std::string toString(std::string padding = "");
-    };
+			OctTree();
+			OctTree(Box3d_t boundingBox);
+			OctTree(float boxWidth, float boxHeight, float boxDepth);
+			~OctTree();
+			void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
+			std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
+	};
 }
