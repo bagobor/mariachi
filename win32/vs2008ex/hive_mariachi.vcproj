@@ -653,6 +653,10 @@
 				Name="Util"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\util\box_util.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\util\geometry_util.cpp"
 					>
 				</File>
@@ -1550,6 +1554,10 @@
 			<Filter
 				Name="Util"
 				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\util\box_util.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\util\geometry_util.h"
 					>

@@ -25,9 +25,11 @@
 
 #include "stdafx.h"
 
+#include "../util/util.h"
 #include "oct_tree.h"
 
 using namespace mariachi;
+using namespace mariachi::util;
 
 /**
 * Constructor of the class.
@@ -60,24 +62,24 @@ OctTree::~OctTree() {
 }
 
 /**
-* Inserts a node into the oct tree.
+* Inserts an element into the oct tree.
 * Delegates the insertion process to the root node.
 *
-* @param targetNode The node to insert in the oct tree.
-* @param targetBoundingBox The box bounding the inserted target node.
+* @param element The element to insert in the oct tree.
+* @param elementBoundingBox The box bounding the inserted element.
 */
-void OctTree::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) {
-    this->rootNode->insertTargetBox(targetNode, targetBoundingBox);
+void OctTree::insertElementBox(void *element, Box3d_t *elementBoundingBox) {
+    this->rootNode->insertElementBox(element, elementBoundingBox);
 }
 
 /**
-* Retrieves the targets bounded by the provided query box.
+* Retrieves the elements bounded by the provided query box.
 * Delegates the retrieval process to the root node.
 *
-* @param queryBox The box for which contained targets are retrieved.
-* @return The targets bounded by the provided box.
+* @param queryBox The box for which contained elements are retrieved.
+* @return The elements bounded by the provided box.
 */
-std::vector<Node *> OctTree::getBoxTargets(Box3d_t *queryBox) {
-    std::vector<Node *> targets = this->rootNode->getBoxTargets(queryBox);
-    return targets;
+std::vector<void *> OctTree::getBoxElements(Box3d_t *queryBox) {
+    std::vector<void *> elements = this->rootNode->getBoxElements(queryBox);
+    return elements;
 }

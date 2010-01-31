@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -25,7 +25,18 @@
 
 #pragma once
 
-#include "box_util.h"
-#include "geometry_util.h"
-#include "string_util.h"
-#include "vector_util.h"
+#include "../structures/box.h"
+#include "../structures/position.h"
+
+namespace mariachi {
+    namespace util {
+        class BoxUtil {
+            private:
+
+            public:
+                static mariachi::Box3d_t createBox(float x1, float y1, float z1, float x2, float y2, float z2);
+                static bool overlaps(const mariachi::Box3d_t &box1, const mariachi::Box3d_t &box2);
+                static bool containsPoint(const mariachi::Box3d_t &box, const mariachi::Coordinate3d_t &point);
+        };
+    }
+}

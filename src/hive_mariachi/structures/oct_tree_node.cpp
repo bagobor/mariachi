@@ -25,9 +25,11 @@
 
 #include "stdafx.h"
 
+#include "../util/util.h"
 #include "oct_tree_node.h"
 
 using namespace mariachi;
+using namespace mariachi::util;
 
 /**
 * Constructor of the class.
@@ -71,15 +73,15 @@ OctTreeNode::~OctTreeNode() {
 }
 
 /**
-* Inserts a node into the oct tree.
-* Inserts into the target list in case of overlapping (black boxes),
-* recursively tries to insert the target inside the target list of the containing tree nodes
+* Inserts an element into the oct tree.
+* Inserts into the element list in case of overlapping (black boxes),
+* recursively tries to insert the element inside the element list of the containing tree nodes
 * (discards white boxes and subdivides grey boxes).
 *
-* @param targetNode The node to insert in the oct tree.
-* @param targetBoundingBox The box bounding the inserted target node.
+* @param element The element to insert in the oct tree node.
+* @param elementBoundingBox The box bounding the inserted element.
 */
-void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) {
+void OctTreeNode::insertElementBox(void *element, Box3d_t *elementBoundingBox) {
     // initializes the stack of nodes to process
     std::vector<OctTreeNodeBox3d_t> nodesStack;
 
@@ -99,7 +101,7 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
 
     // creates a node box with the start element
     nodeBoxes[0].node = this;
-    nodeBoxes[0].box = *targetBoundingBox;
+    nodeBoxes[0].box = *elementBoundingBox;
 
     // pushes the first oct tree node onto the stack
     nodesStack.push_back(nodeBoxes[0]);
@@ -119,9 +121,9 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
         currentBox = currentNodeBox.box;
 
         // tests for overlapping
-        if (currentNode->overlaps(&currentNode->boundingBox, &currentBox)) {
-            // adds the target
-            currentNode->targets.push_back(targetNode);
+        if (BoxUtil::overlaps(currentNode->boundingBox, currentBox)) {
+            // adds the element
+            currentNode->elements.push_back(element);
 
             // continues the loop
             continue;
@@ -134,17 +136,17 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
                 // generates the child nodes
                 currentNode->generateChildNodes();
             }
-            // else stops descent and adds the target
+            // else stops descent and adds the element
             else {
-                // adds the target
-                currentNode->targets.push_back(targetNode);
+                // adds the element
+                currentNode->elements.push_back(element);
 
                 // continues the loop
                 continue;
             }
         }
 
-        // retrieves the target's bounding box's vertexes
+        // retrieves the element's bounding box's vertexes
         Coordinate3d_t leftTopBackPoint = {currentBox.x1, currentBox.y2, currentBox.z1};
         Coordinate3d_t rightTopBackPoint = {currentBox.x2, currentBox.y2, currentBox.z1};
         Coordinate3d_t leftBottomBackPoint = {currentBox.x1, currentBox.y1, currentBox.z1};
@@ -154,7 +156,7 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
         Coordinate3d_t leftBottomFrontPoint = {currentBox.x1, currentBox.y1, currentBox.z2};
         Coordinate3d_t rightBottomFrontPoint = {currentBox.x2, currentBox.y1, currentBox.z2};
 
-        // retrieves the octants for each of the target's bounding box's vertexes
+        // retrieves the octants for each of the element's bounding box's vertexes
         int leftTopBackPointOctant = currentNode->getPointOctant(leftTopBackPoint);
         int rightTopBackPointOctant = currentNode->getPointOctant(rightTopBackPoint);
         int leftBottomBackPointOctant = currentNode->getPointOctant(leftBottomBackPoint);
@@ -164,7 +166,7 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
         int leftBottomFrontPointOctant = currentNode->getPointOctant(leftBottomFrontPoint);
         int rightBottomFrontPointOctant = currentNode->getPointOctant(rightBottomFrontPoint);
 
-        // in case the target is contained by a single octant
+        // in case the element is contained by a single octant
         if(leftTopBackPointOctant == rightTopBackPointOctant &&
            leftTopBackPointOctant == leftBottomBackPointOctant &&
            leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -177,7 +179,7 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             // wraps and pushes the node for processing, along with respective box
             this->pushNodeBoxes(1, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target horizontally spans two octants
+        // in case the element horizontally spans two octants
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant == leftBottomBackPointOctant &&
                 leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -188,15 +190,25 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[1] = currentNode->childNodes[rightTopBackPointOctant];
 
             // creates the lower x octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = currentBox.y2;
+            boxes[0].z2 = currentBox.z2;
 
             // creates the higher x octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // wraps and pushes the two nodes for processing, along with respective boxes
             this->pushNodeBoxes(2, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target vertically spans two octants
+        // in case the element vertically spans two octants
         else if(leftTopBackPointOctant == rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -207,15 +219,25 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[1] = currentNode->childNodes[leftTopBackPointOctant];
 
             // creates the lower y octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[0]->boundingBox.y2, currentBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = currentBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = currentBox.z2;
 
             // creates the higher y octant box
-            this->fillBox(&boxes[1], currentBox.x1, nodes[1]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[1].x1 = currentBox.x1;
+            boxes[1].y1 = nodes[1]->boundingBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // wraps and pushes the two nodes for processing, along with respective boxes
             this->pushNodeBoxes(2, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans two octants accross the z-axis
+        // in case the element spans two octants accross the z-axis
         else if(leftTopBackPointOctant == rightTopBackPointOctant &&
                 leftTopBackPointOctant == leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -226,15 +248,25 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[1] = currentNode->childNodes[leftTopFrontPointOctant];
 
             // creates the lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = currentBox.x2;
+            boxes[0].y2 = currentBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher z octant box
-            this->fillBox(&boxes[1], currentBox.x1, currentBox.y1, nodes[1]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[1].x1 = currentBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = nodes[1]->boundingBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // wraps and pushes the two nodes for processing, along with respective boxes
             this->pushNodeBoxes(2, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans four octants across the x and y-axis
+        // in case the element spans four octants across the x and y-axis
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -251,21 +283,41 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[3] = currentNode->childNodes[rightTopBackPointOctant];
 
             // creates the lower x, lower y octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, nodes[0]->boundingBox.y2, currentBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = currentBox.z2;
 
             // creates the higher x, lower y octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[1]->boundingBox.y2, currentBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = nodes[1]->boundingBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // creates the lower x, higher y octant box
-            this->fillBox(&boxes[2], currentBox.x1, nodes[2]->boundingBox.y1, currentBox.z1, nodes[2]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = nodes[2]->boundingBox.y1;
+            boxes[2].z1 = currentBox.z1;
+            boxes[2].x2 = nodes[2]->boundingBox.x2;
+            boxes[2].y2 = currentBox.y2;
+            boxes[2].z2 = currentBox.z2;
 
             // creates the higher x, higher y octant box
-            this->fillBox(&boxes[3], nodes[3]->boundingBox.x1, nodes[3]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[3].x1 = nodes[3]->boundingBox.x1;
+            boxes[3].y1 = nodes[3]->boundingBox.y1;
+            boxes[3].z1 = currentBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = currentBox.z2;
 
             // wraps and pushes the four nodes for processing, along with respective boxes
             this->pushNodeBoxes(4, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans four octants accross the x and z-axis
+        // in case the element spans four octants accross the x and z-axis
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant == leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -282,21 +334,41 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[3] = currentNode->childNodes[rightTopFrontPointOctant];
 
             // creates the lower x, lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, currentBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = currentBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher x, lower z octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[1]->boundingBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = nodes[1]->boundingBox.z2;
 
             // creates the lower x, higher z octant box
-            this->fillBox(&boxes[2], currentBox.x1, currentBox.y1, nodes[2]->boundingBox.z1, nodes[2]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = currentBox.y1;
+            boxes[2].z1 = nodes[2]->boundingBox.z1;
+            boxes[2].x2 = nodes[2]->boundingBox.x2;
+            boxes[2].y2 = currentBox.y2;
+            boxes[2].z2 = currentBox.z2;
 
             // creates the higher x, higher z octant box
-            this->fillBox(&boxes[3], nodes[3]->boundingBox.x1, currentBox.y1, nodes[3]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[3].x1 = nodes[3]->boundingBox.x1;
+            boxes[3].y1 = currentBox.y1;
+            boxes[3].z1 = nodes[3]->boundingBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = currentBox.z2;
 
             // wraps and pushes the four nodes for processing, along with respective boxes
             this->pushNodeBoxes(4, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans four octants accross the y and z-axis
+        // in case the element spans four octants accross the y and z-axis
         else if(leftTopBackPointOctant == rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -313,21 +385,41 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[3] = currentNode->childNodes[leftTopFrontPointOctant];
 
             // creates the lower y, lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[0]->boundingBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = currentBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher y, lower z octant box
-            this->fillBox(&boxes[1], currentBox.x1, nodes[1]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[1]->boundingBox.z2);
+            boxes[1].x1 = currentBox.x1;
+            boxes[1].y1 = nodes[1]->boundingBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = nodes[1]->boundingBox.z2;
 
             // creates the lower y, higher z octant box
-            this->fillBox(&boxes[2], currentBox.x1, currentBox.y1, nodes[2]->boundingBox.z1, currentBox.x2, nodes[2]->boundingBox.y2, currentBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = currentBox.y1;
+            boxes[2].z1 = nodes[2]->boundingBox.z1;
+            boxes[2].x2 = currentBox.x2;
+            boxes[2].y2 = nodes[2]->boundingBox.y2;
+            boxes[2].z2 = currentBox.z2;
 
             // creates the higher x, higher z octant box
-            this->fillBox(&boxes[3], currentBox.x1, nodes[3]->boundingBox.y1, nodes[3]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[3].x1 = currentBox.x1;
+            boxes[3].y1 = nodes[3]->boundingBox.y1;
+            boxes[3].z1 = nodes[3]->boundingBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = currentBox.z2;
 
             // wraps and pushes the four nodes for processing, along with respective boxes
             this->pushNodeBoxes(4, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans eight octants
+        // in case the element spans eight octants
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -356,28 +448,68 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
             nodes[7] = currentNode->childNodes[rightTopFrontPointOctant];
 
             // creates the lower x, lower y, lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, nodes[0]->boundingBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher x, lower y, lower z octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[1]->boundingBox.y2, nodes[1]->boundingBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = nodes[1]->boundingBox.y2;
+            boxes[1].z2 = nodes[1]->boundingBox.z2;
 
             // creates the lower x, higher y, lower z octant box
-            this->fillBox(&boxes[2], currentBox.x1, nodes[2]->boundingBox.y1, currentBox.z1, nodes[2]->boundingBox.x2, currentBox.y2, nodes[2]->boundingBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = nodes[2]->boundingBox.y1;
+            boxes[2].z1 = currentBox.z1;
+            boxes[2].x2 = nodes[2]->boundingBox.x2;
+            boxes[2].y2 = currentBox.y2;
+            boxes[2].z2 = nodes[2]->boundingBox.z2;
 
             // creates the higher x, higher y, lower z octant box
-            this->fillBox(&boxes[3], nodes[3]->boundingBox.x1, nodes[3]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[3]->boundingBox.z2);
+            boxes[3].x1 = nodes[3]->boundingBox.x1;
+            boxes[3].y1 = nodes[3]->boundingBox.y1;
+            boxes[3].z1 = currentBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = nodes[3]->boundingBox.z2;
 
             // creates the lower x, lower y, higher z octant box
-            this->fillBox(&boxes[4], currentBox.x1, currentBox.y1, nodes[4]->boundingBox.z1, nodes[4]->boundingBox.x2, nodes[4]->boundingBox.y2, currentBox.z2);
+            boxes[4].x1 = currentBox.x1;
+            boxes[4].y1 = currentBox.y1;
+            boxes[4].z1 = nodes[4]->boundingBox.z1;
+            boxes[4].x2 = nodes[4]->boundingBox.x2;
+            boxes[4].y2 = nodes[4]->boundingBox.y2;
+            boxes[4].z2 = currentBox.z2;
 
             // creates the higher x, lower y, higher z octant box
-            this->fillBox(&boxes[5], nodes[5]->boundingBox.x1, currentBox.y1, nodes[5]->boundingBox.z1, currentBox.x2, nodes[5]->boundingBox.y2, currentBox.z2);
+            boxes[5].x1 = nodes[5]->boundingBox.x1;
+            boxes[5].y1 = currentBox.y1;
+            boxes[5].z1 = nodes[5]->boundingBox.z1;
+            boxes[5].x2 = currentBox.x2;
+            boxes[5].y2 = nodes[5]->boundingBox.y2;
+            boxes[5].z2 = currentBox.z2;
 
             // creates the lower x, higher y, higher z octant box
-            this->fillBox(&boxes[6], currentBox.x1, nodes[6]->boundingBox.y1, nodes[6]->boundingBox.z1, nodes[6]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[6].x1 = currentBox.x1;
+            boxes[6].y1 = nodes[6]->boundingBox.y1;
+            boxes[6].z1 = nodes[6]->boundingBox.z1;
+            boxes[6].x2 = nodes[6]->boundingBox.x2;
+            boxes[6].y2 = currentBox.y2;
+            boxes[6].z2 = currentBox.z2;
 
             // creates the higher x, higher y, higher z octant box
-            this->fillBox(&boxes[7], nodes[7]->boundingBox.x1, nodes[7]->boundingBox.y1, nodes[7]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[7].x1 = nodes[7]->boundingBox.x1;
+            boxes[7].y1 = nodes[7]->boundingBox.y1;
+            boxes[7].z1 = nodes[7]->boundingBox.z1;
+            boxes[7].x2 = currentBox.x2;
+            boxes[7].y2 = currentBox.y2;
+            boxes[7].z2 = currentBox.z2;
 
             // wraps and pushes the eight nodes for processing, along with respective boxes
             this->pushNodeBoxes(8, nodes, boxes, nodeBoxes, nodesStack);
@@ -386,14 +518,14 @@ void OctTreeNode::insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox) 
 }
 
 /**
-* Retrieves the targets bounded by the provided query box.
+* Retrieves the elements bounded by the provided query box.
 *
-* @param queryBox The box for which contained targets are retrieved.
-* @return The targets bounded by the provided box.
+* @param queryBox The box for which contained elements are retrieved.
+* @return The elements bounded by the provided box.
 */
-std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
-    std::map<Node *, bool> targetsMap;
-    std::vector<Node *> targets;
+std::vector<void *> OctTreeNode::getBoxElements(Box3d_t *queryBox) {
+    std::map<void *, bool> elementsMap;
+    std::vector<void *> elements;
 
     // initializes the stack of nodes to process
     std::vector<OctTreeNodeBox3d_t> nodesStack;
@@ -402,7 +534,7 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
     OctTreeNodeBox3d_t currentNodeBox;
     OctTreeNode *currentNode;
     Box3d_t currentBox;
-    Node *currentTarget;
+    void *currentElement;
 
     // declares the oct tree node boxes list
     OctTreeNodeBox3d_t nodeBoxes[8];
@@ -434,25 +566,25 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
         // retrieves the box with which to bound
         currentBox = currentNodeBox.box;
 
-        // retrieves the number of targets in the current node
-        unsigned int currentNodeTargetsSize = currentNode->targets.size();
+        // retrieves the number of elements in the current node
+        unsigned int currentNodeElementsSize = currentNode->elements.size();
 
-        // adds the current node's targets
-        for(unsigned int i = 0; i < currentNodeTargetsSize; i++) {
-            currentTarget = currentNode->targets[i];
+        // adds the current node's elements
+        for(unsigned int i = 0; i < currentNodeElementsSize; i++) {
+            currentElement = currentNode->elements[i];
 
-            // in case the target is not in the bit map
-            if(targetsMap[currentTarget] != true) {
-                // adds the current target
-                targets.push_back(currentTarget);
+            // in case the element is not in the bit map
+            if(elementsMap[currentElement] != true) {
+                // adds the current element
+                elements.push_back(currentElement);
 
-                // signals the target's bit in the map
-                targetsMap[currentTarget] = true;
+                // signals the element's bit in the map
+                elementsMap[currentElement] = true;
             }
         }
 
         // tests for overlapping
-        if (currentNode->overlaps(&currentNode->boundingBox, &currentBox)) {
+        if (BoxUtil::overlaps(currentNode->boundingBox, currentBox)) {
             // continues the loop
             continue;
         }
@@ -496,7 +628,7 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             // wraps and pushes the node for processing, along with respective box
             this->pushNodeBoxes(1, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target horizontally spans two octants
+        // in case the element horizontally spans two octants
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant == leftBottomBackPointOctant &&
                 leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -507,15 +639,25 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[1] = currentNode->childNodes[rightTopBackPointOctant];
 
             // creates the lower x octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = currentBox.y2;
+            boxes[0].z2 = currentBox.z2;
 
             // creates the higher x octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // wraps and pushes the two nodes for processing, along with respective boxes
             this->pushNodeBoxes(2, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target vertically spans two octants
+        // in case the element vertically spans two octants
         else if(leftTopBackPointOctant == rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -526,15 +668,25 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[1] = currentNode->childNodes[leftTopBackPointOctant];
 
             // creates the lower y octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[0]->boundingBox.y2, currentBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = currentBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = currentBox.z2;
 
             // creates the higher y octant box
-            this->fillBox(&boxes[1], currentBox.x1, nodes[1]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[1].x1 = currentBox.x1;
+            boxes[1].y1 = nodes[1]->boundingBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // wraps and pushes the two nodes for processing, along with respective boxes
             this->pushNodeBoxes(2, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans two octants accross the z-axis
+        // in case the element spans two octants accross the z-axis
         else if(leftTopBackPointOctant == rightTopBackPointOctant &&
                 leftTopBackPointOctant == leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -545,15 +697,25 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[1] = currentNode->childNodes[leftTopFrontPointOctant];
 
             // creates the lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = currentBox.x2;
+            boxes[0].y2 = currentBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher z octant box
-            this->fillBox(&boxes[1], currentBox.x1, currentBox.y1, nodes[1]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[1].x1 = currentBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = nodes[1]->boundingBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // wraps and pushes the two nodes for processing, along with respective boxes
             this->pushNodeBoxes(2, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans four octants accross the x and y-axis
+        // in case the element spans four octants accross the x and y-axis
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant == leftTopFrontPointOctant) {
@@ -570,21 +732,41 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[3] = currentNode->childNodes[rightTopBackPointOctant];
 
             // creates the lower x, lower y octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, nodes[0]->boundingBox.y2, currentBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = currentBox.z2;
 
             // creates the higher x, lower y octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[1]->boundingBox.y2, currentBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = nodes[1]->boundingBox.y2;
+            boxes[1].z2 = currentBox.z2;
 
             // creates the lower x, higher y octant box
-            this->fillBox(&boxes[2], currentBox.x1, currentBox.y1, currentBox.z1, nodes[2]->boundingBox.x2, nodes[2]->boundingBox.y2, currentBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = nodes[2]->boundingBox.y1;
+            boxes[2].z1 = currentBox.z1;
+            boxes[2].x2 = nodes[2]->boundingBox.x2;
+            boxes[2].y2 = currentBox.y2;
+            boxes[2].z2 = currentBox.z2;
 
             // creates the higher x, higher y octant box
-            this->fillBox(&boxes[3], nodes[3]->boundingBox.x1, nodes[3]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[3].x1 = nodes[3]->boundingBox.x1;
+            boxes[3].y1 = nodes[3]->boundingBox.y1;
+            boxes[3].z1 = currentBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = currentBox.z2;
 
             // wraps and pushes the four nodes for processing, along with respective boxes
             this->pushNodeBoxes(4, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans four octants accross the x and z-axis
+        // in case the element spans four octants accross the x and z-axis
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant == leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -601,21 +783,41 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[3] = currentNode->childNodes[rightTopFrontPointOctant];
 
             // creates the lower x, lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, currentBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = currentBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher x, lower z octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[1]->boundingBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = nodes[1]->boundingBox.z2;
 
             // creates the lower x, higher z octant box
-            this->fillBox(&boxes[2], currentBox.x1, currentBox.y1, nodes[2]->boundingBox.z1, nodes[2]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = currentBox.y1;
+            boxes[2].z1 = nodes[2]->boundingBox.z1;
+            boxes[2].x2 = nodes[2]->boundingBox.x2;
+            boxes[2].y2 = currentBox.y2;
+            boxes[2].z2 = currentBox.z2;
 
             // creates the higher x, higher z octant box
-            this->fillBox(&boxes[3], nodes[3]->boundingBox.x1, currentBox.y1, nodes[3]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[3].x1 = nodes[3]->boundingBox.x1;
+            boxes[3].y1 = currentBox.y1;
+            boxes[3].z1 = nodes[3]->boundingBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = currentBox.z2;
 
             // wraps and pushes the four nodes for processing, along with respective boxes
             this->pushNodeBoxes(4, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans four octants accross the y and z-axis
+        // in case the element spans four octants accross the y and z-axis
         else if(leftTopBackPointOctant == rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -632,21 +834,41 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[3] = currentNode->childNodes[leftTopFrontPointOctant];
 
             // creates the lower y, lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[0]->boundingBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = currentBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher y, lower z octant box
-            this->fillBox(&boxes[1], currentBox.x1, nodes[1]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[1]->boundingBox.z2);
+            boxes[1].x1 = currentBox.x1;
+            boxes[1].y1 = nodes[1]->boundingBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = currentBox.y2;
+            boxes[1].z2 = nodes[1]->boundingBox.z2;
 
             // creates the lower y, higher z octant box
-            this->fillBox(&boxes[2], currentBox.x1, currentBox.y1, nodes[2]->boundingBox.z1, currentBox.x2, nodes[2]->boundingBox.y2, currentBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = currentBox.y1;
+            boxes[2].z1 = nodes[2]->boundingBox.z1;
+            boxes[2].x2 = currentBox.x2;
+            boxes[2].y2 = nodes[2]->boundingBox.y2;
+            boxes[2].z2 = currentBox.z2;
 
             // creates the higher x, higher z octant box
-            this->fillBox(&boxes[3], currentBox.x1, nodes[3]->boundingBox.y1, nodes[3]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[3].x1 = currentBox.x1;
+            boxes[3].y1 = nodes[3]->boundingBox.y1;
+            boxes[3].z1 = nodes[3]->boundingBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = currentBox.z2;
 
             // wraps and pushes the four nodes for processing, along with respective boxes
             this->pushNodeBoxes(4, nodes, boxes, nodeBoxes, nodesStack);
         }
-        // in case the target spans eight octants
+        // in case the element spans eight octants
         else if(leftTopBackPointOctant != rightTopBackPointOctant &&
                 leftTopBackPointOctant != leftBottomBackPointOctant &&
                 leftTopBackPointOctant != leftTopFrontPointOctant) {
@@ -675,35 +897,75 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
             nodes[7] = currentNode->childNodes[rightTopFrontPointOctant];
 
             // creates the lower x, lower y, lower z octant box
-            this->fillBox(&boxes[0], currentBox.x1, currentBox.y1, currentBox.z1, nodes[0]->boundingBox.x2, nodes[0]->boundingBox.y2, nodes[0]->boundingBox.z2);
+            boxes[0].x1 = currentBox.x1;
+            boxes[0].y1 = currentBox.y1;
+            boxes[0].z1 = currentBox.z1;
+            boxes[0].x2 = nodes[0]->boundingBox.x2;
+            boxes[0].y2 = nodes[0]->boundingBox.y2;
+            boxes[0].z2 = nodes[0]->boundingBox.z2;
 
             // creates the higher x, lower y, lower z octant box
-            this->fillBox(&boxes[1], nodes[1]->boundingBox.x1, currentBox.y1, currentBox.z1, currentBox.x2, nodes[1]->boundingBox.y2, nodes[1]->boundingBox.z2);
+            boxes[1].x1 = nodes[1]->boundingBox.x1;
+            boxes[1].y1 = currentBox.y1;
+            boxes[1].z1 = currentBox.z1;
+            boxes[1].x2 = currentBox.x2;
+            boxes[1].y2 = nodes[1]->boundingBox.y2;
+            boxes[1].z2 = nodes[1]->boundingBox.z2;
 
             // creates the lower x, higher y, lower z octant box
-            this->fillBox(&boxes[2], currentBox.x1, nodes[2]->boundingBox.y1, currentBox.z1, nodes[2]->boundingBox.x2, currentBox.y2, nodes[2]->boundingBox.z2);
+            boxes[2].x1 = currentBox.x1;
+            boxes[2].y1 = nodes[2]->boundingBox.y1;
+            boxes[2].z1 = currentBox.z1;
+            boxes[2].x2 = nodes[2]->boundingBox.x2;
+            boxes[2].y2 = currentBox.y2;
+            boxes[2].z2 = nodes[2]->boundingBox.z2;
 
             // creates the higher x, higher y, lower z octant box
-            this->fillBox(&boxes[3], nodes[3]->boundingBox.x1, nodes[3]->boundingBox.y1, currentBox.z1, currentBox.x2, currentBox.y2, nodes[3]->boundingBox.z2);
+            boxes[3].x1 = nodes[3]->boundingBox.x1;
+            boxes[3].y1 = nodes[3]->boundingBox.y1;
+            boxes[3].z1 = currentBox.z1;
+            boxes[3].x2 = currentBox.x2;
+            boxes[3].y2 = currentBox.y2;
+            boxes[3].z2 = nodes[3]->boundingBox.z2;
 
             // creates the lower x, lower y, higher z octant box
-            this->fillBox(&boxes[4], currentBox.x1, currentBox.y1, nodes[4]->boundingBox.z1, nodes[4]->boundingBox.x2, nodes[4]->boundingBox.y2, currentBox.z2);
+            boxes[4].x1 = currentBox.x1;
+            boxes[4].y1 = currentBox.y1;
+            boxes[4].z1 = nodes[4]->boundingBox.z1;
+            boxes[4].x2 = nodes[4]->boundingBox.x2;
+            boxes[4].y2 = nodes[4]->boundingBox.y2;
+            boxes[4].z2 = currentBox.z2;
 
             // creates the higher x, lower y, higher z octant box
-            this->fillBox(&boxes[5], nodes[5]->boundingBox.x1, currentBox.y1, nodes[5]->boundingBox.z1, currentBox.x2, nodes[5]->boundingBox.y2, currentBox.z2);
+            boxes[5].x1 = nodes[5]->boundingBox.x1;
+            boxes[5].y1 = currentBox.y1;
+            boxes[5].z1 = nodes[5]->boundingBox.z1;
+            boxes[5].x2 = currentBox.x2;
+            boxes[5].y2 = nodes[5]->boundingBox.y2;
+            boxes[5].z2 = currentBox.z2;
 
             // creates the lower x, higher y, higher z octant box
-            this->fillBox(&boxes[6], currentBox.x1, nodes[6]->boundingBox.y1, nodes[6]->boundingBox.z1, nodes[6]->boundingBox.x2, currentBox.y2, currentBox.z2);
+            boxes[6].x1 = currentBox.x1;
+            boxes[6].y1 = nodes[6]->boundingBox.y1;
+            boxes[6].z1 = nodes[6]->boundingBox.z1;
+            boxes[6].x2 = nodes[6]->boundingBox.x2;
+            boxes[6].y2 = currentBox.y2;
+            boxes[6].z2 = currentBox.z2;
 
             // creates the higher x, higher y, higher z octant box
-            this->fillBox(&boxes[7], nodes[7]->boundingBox.x1, nodes[7]->boundingBox.y1, nodes[7]->boundingBox.z1, currentBox.x2, currentBox.y2, currentBox.z2);
+            boxes[7].x1 = nodes[7]->boundingBox.x1;
+            boxes[7].y1 = nodes[7]->boundingBox.y1;
+            boxes[7].z1 = nodes[7]->boundingBox.z1;
+            boxes[7].x2 = currentBox.x2;
+            boxes[7].y2 = currentBox.y2;
+            boxes[7].z2 = currentBox.z2;
 
             // wraps and pushes the eight nodes for processing, along with respective boxes
             this->pushNodeBoxes(8, nodes, boxes, nodeBoxes, nodesStack);
         }
     }
 
-    return targets;
+    return elements;
 }
 
 /**
@@ -713,17 +975,6 @@ std::vector<Node *> OctTreeNode::getBoxTargets(Box3d_t *queryBox) {
 */
 inline OctTreeNode *OctTreeNode::createChildNode(Box3d_t &boundingBox) {
     return new OctTreeNode(boundingBox);
-}
-
-/**
-* Creates a new a box box for the provided coordinates.
-*/
-inline Box3d_t OctTreeNode::createBox(float x1, float y1, float z1, float x2, float y2, float z2) {
-    // creates a new box
-    Box3d_t box = {x1, y1, z1, x2, y2, z2};
-
-    // returns the created box
-    return box;
 }
 
 /**
@@ -746,14 +997,14 @@ inline void OctTreeNode::generateChildNodes() {
     float halfHeight = height / 2.0f;
     float halfDepth = depth / 2.0f;
 
-    Box3d_t firstOctantBox = this->createBox(x1, y1, z1, x1 + halfWidth, y1 + halfHeight, z1 + halfDepth);
-    Box3d_t secondOctantBox = this->createBox(x1 + halfWidth, y1, z1, x2, y1 + halfHeight, z1 + halfDepth);
-    Box3d_t thirdOctantBox = this->createBox(x1, y1 + halfHeight, z1, x1 + halfWidth, y2, z1 + halfDepth);
-    Box3d_t fourthOctantBox = this->createBox(x1 + halfWidth, y1 + halfHeight, z1, x2, y2, z1 + halfDepth);
-    Box3d_t fifthOctantBox = this->createBox(x1, y1, z1 + halfDepth, x1 + halfWidth, y1 + halfHeight, z2);
-    Box3d_t sixthOctantBox = this->createBox(x1 + halfWidth, y1, z1 + halfDepth, x2, y1 + halfHeight, z2);
-    Box3d_t seventhOctantBox = this->createBox(x1, y1 + halfHeight, z1 + halfDepth, x1 + halfWidth, y2, z2);
-    Box3d_t eighthOctantBox = this->createBox(x1 + halfWidth, y1 + halfHeight, z1 + halfDepth, x2, y2, z2);
+    Box3d_t firstOctantBox = BoxUtil::createBox(x1, y1, z1, x1 + halfWidth, y1 + halfHeight, z1 + halfDepth);
+    Box3d_t secondOctantBox = BoxUtil::createBox(x1 + halfWidth, y1, z1, x2, y1 + halfHeight, z1 + halfDepth);
+    Box3d_t thirdOctantBox = BoxUtil::createBox(x1, y1 + halfHeight, z1, x1 + halfWidth, y2, z1 + halfDepth);
+    Box3d_t fourthOctantBox = BoxUtil::createBox(x1 + halfWidth, y1 + halfHeight, z1, x2, y2, z1 + halfDepth);
+    Box3d_t fifthOctantBox = BoxUtil::createBox(x1, y1, z1 + halfDepth, x1 + halfWidth, y1 + halfHeight, z2);
+    Box3d_t sixthOctantBox = BoxUtil::createBox(x1 + halfWidth, y1, z1 + halfDepth, x2, y1 + halfHeight, z2);
+    Box3d_t seventhOctantBox = BoxUtil::createBox(x1, y1 + halfHeight, z1 + halfDepth, x1 + halfWidth, y2, z2);
+    Box3d_t eighthOctantBox = BoxUtil::createBox(x1 + halfWidth, y1 + halfHeight, z1 + halfDepth, x2, y2, z2);
 
     // creates the octant nodes
     OctTreeNode *firstOctantNode = this->createChildNode(firstOctantBox);
@@ -777,48 +1028,15 @@ inline void OctTreeNode::generateChildNodes() {
 }
 
 /**
-* Tests two boxes for overlapping.
-*/
-inline bool OctTreeNode::overlaps(Box3d_t *box1, Box3d_t *box2) {
-    return box1->x1 == box2->x1
-    && box1->x2 == box2->x2
-    && box1->y1 == box2->y1
-    && box1->y2 == box2->y2
-    && box1->z1 == box2->z1
-    && box1->z2 == box2->z2;
-}
-
-/**
-* Tests if the provided box is contained by the node's bounding box.
-*/
-inline bool OctTreeNode::contains(Box3d_t &box) {
-    Coordinate3d_t point1 = {box.x1, box.y1, box.z1};
-    Coordinate3d_t point2 = {box.x2, box.y2, box.z2};
-
-    return this->containsPoint(point1) && this->containsPoint(point2);
-}
-
-/**
-* Determines if the specified point in contained in the node's bounding box.
-*/
-inline bool OctTreeNode::containsPoint(Coordinate3d_t &point) {
-    return point.x >= this->boundingBox.x1
-    && point.y >= this->boundingBox.y1
-    && point.z >= this->boundingBox.z1
-    && point.x <= this->boundingBox.x2
-    && point.y <= this->boundingBox.y2
-    && point.z <= this->boundingBox.z2;
-}
-
-/**
 * Determines in which octant is the given point contained.
 *
 * @param point The point to determine the octant.
 * @return The octant node index which contains the specified point.
 */
-inline int OctTreeNode::getPointOctant(Coordinate3d_t &point) {
+inline int OctTreeNode::getPointOctant(const Coordinate3d_t &point) {
     int octantIndex = -1;
 
+    // caches the childs nodes list size
     int childNodesSize = this->childNodes.size();
 
     // for each node
@@ -827,7 +1045,7 @@ inline int OctTreeNode::getPointOctant(Coordinate3d_t &point) {
         OctTreeNode *childNode = this->childNodes[i];
 
         // in case the given point is inside the node
-        if (childNode->containsPoint(point)) {
+        if (BoxUtil::containsPoint(this->boundingBox, point)) {
             // signals the index was found
             octantIndex = i;
             break;
@@ -837,6 +1055,7 @@ inline int OctTreeNode::getPointOctant(Coordinate3d_t &point) {
     // returns the retrieved index
     return octantIndex;
 }
+
 /**
 * Wraps an arbitrary number of nodes and their boxes into the composite stack element.
 */
@@ -852,25 +1071,15 @@ inline void OctTreeNode::pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3
 }
 
 /**
-* Utility method to set a box's attributes.
-*/
-inline void OctTreeNode::fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2) {
-    box->x1 = x1;
-    box->y1 = y1;
-    box->z1 = z1;
-    box->x2 = x2;
-    box->y2 = y2;
-    box->z2 = z2;
-}
-
-/**
 * Indicates if the oct tree node is big enough to be sub-divided.
 */
 inline bool OctTreeNode::isSubdividable() {
+    // retrieves the node's bounding box's extends
     float width = this->boundingBox.x2 - this->boundingBox.x1;
     float height = this->boundingBox.y2 - this->boundingBox.y1;
     float depth = this->boundingBox.z2 - this->boundingBox.z1;
 
+    // computes the current bounded volume
     float volume = width * height * depth;
 
     // the node is subdividable if its volume is greater or equal to the minimum volume

@@ -51,9 +51,9 @@ namespace mariachi {
             std::vector<OctTreeNode *> childNodes;
 
             /**
-            * The target's contained by the space delimited by the node
+            * The elements's contained by the space delimited by the node
             */
-            std::vector<Node *> targets;
+            std::vector<void *> elements;
 
             /**
             * The node's bounding box.
@@ -61,15 +61,9 @@ namespace mariachi {
             Box3d_t boundingBox;
 
             inline OctTreeNode *createChildNode(Box3d_t &boundingBox);
-            inline Box3d_t createBox(float x1, float y1, float z1, float x2, float y2, float z2);
             inline void generateChildNodes();
-            inline bool overlaps(Box3d_t *box1, Box3d_t *box2);
-            inline bool intersects(Box3d_t &box);
-            inline bool contains(Box3d_t &box);
-            inline bool containsPoint(Coordinate3d_t &point);
-            inline int getPointOctant(Coordinate3d_t &point);
+            inline int getPointOctant(const Coordinate3d_t &point);
             inline void pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3d_t *boxes, OctTreeNodeBox3d_t *nodeBoxes, std::vector<OctTreeNodeBox3d_t> &nodesStack);
-            inline void fillBox(Box3d_t *box, float x1, float y1, float z1, float x2, float y2, float z2);
             inline bool isSubdividable();
 
         public:
@@ -77,8 +71,8 @@ namespace mariachi {
             OctTreeNode(Box3d_t boundingBox);
             OctTreeNode(float boxWidth, float boxHeight, float boxDepth);
             ~OctTreeNode();
-            void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
-            std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
+            void insertElementBox(void *element, Box3d_t *elementBoundingBox);
+            std::vector<void *> getBoxElements(Box3d_t *queryBox);
             std::string toString(std::string padding);
     };
 
