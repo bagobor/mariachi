@@ -87,12 +87,26 @@ void lua_settype(lua_State *luaState, const char *type) {
     lua_settable(luaState, -3);
 }
 
+/**
+* Sets a mapping name for a float value given as argument.
+*
+* @param luaState The current lua state reference.
+* @param name The mapping name to be used.
+* @param value The float value to be used.
+*/
 void lua_setnamefloat(lua_State *luaState, const char *name, float value) {
     lua_pushstring(luaState, name);
     lua_pushnumber(luaState, value);
     lua_settable(luaState, -3);
 }
 
+/**
+* Sets a mapping name for a function value given as argument.
+*
+* @param luaState The current lua state reference.
+* @param name The mapping name to be used.
+* @param value The function value to be used.
+*/
 void lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value) {
     lua_pushstring(luaState, name);
     lua_pushcfunction(luaState, value);

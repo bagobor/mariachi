@@ -268,10 +268,10 @@ void DummyStage::start(void *arguments) {
     gCameraNode2->setUpVector(0.0, 0.0, 1.0);
     gCameraNode3->setUpVector(0.0, 1.0, 0.0);
 
-	// TESTING OVERHEAD SHOOTER CAMERA
-	gModelNode = modelNode2;
-	Coordinate3d cameraNode3Offset = { 0.0f, -50.0f, 150.0f };
-	gCameraNode3->enableAutoFollowing(modelNode2, cameraNode3Offset);
+    // TESTING OVERHEAD SHOOTER CAMERA
+    gModelNode = modelNode2;
+    Coordinate3d cameraNode3Offset = { 0.0f, -50.0f, 150.0f };
+    gCameraNode3->enableAutoFollowing(modelNode2, cameraNode3Offset);
 }
 
 void DummyStage::stop(void *arguments) {
@@ -291,9 +291,9 @@ void DummyStage::update(void *arguments) {
     gCameraNode2->_autoFollow();
     gCameraNode3->_autoFollow();
 
-	// TESTING OVERHEAD SHOOTER CAMERA
-	posx += 0.5;
-	gModelNode->setPosition(posx, posy, posz);
+    // TESTING OVERHEAD SHOOTER CAMERA
+    posx += 0.5;
+    gModelNode->setPosition(posx, posy, posz);
 
 
 

@@ -46,10 +46,7 @@ namespace Json {
 // Implementation of class Features
 // ////////////////////////////////
 
-Features::Features()
-   : allowComments_( true )
-   , strictRoot_( false )
-{
+Features::Features() : allowComments_(true), strictRoot_(false) {
 }
 
 
@@ -910,6 +907,4 @@ std::istream& operator>>( std::istream &sin, Value &root )
     if (!ok) throw std::runtime_error(reader.getFormatedErrorMessages());
     return sin;
 }
-
-
-} // namespace Json
+}

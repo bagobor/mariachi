@@ -462,6 +462,22 @@
 								>
 							</File>
 						</Filter>
+						<Filter
+							Name="Base"
+							>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\lua_script_engine_list.cpp"
+								>
+							</File>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\lua_script_engine_map.cpp"
+								>
+							</File>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\lua_script_engine_vector.cpp"
+								>
+							</File>
+						</Filter>
 					</Filter>
 				</Filter>
 			</Filter>
@@ -1185,6 +1201,26 @@
 							</File>
 							<File
 								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\structures\structures.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="Base"
+							>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\base.h"
+								>
+							</File>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\lua_script_engine_list.h"
+								>
+							</File>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\lua_script_engine_map.h"
+								>
+							</File>
+							<File
+								RelativePath="..\..\src\hive_mariachi\script\lua_script_engine\mapping\base\lua_script_engine_vector.h"
 								>
 							</File>
 						</Filter>
