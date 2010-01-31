@@ -29,6 +29,14 @@
 
 using namespace mariachi;
 
+/**
+* Base object creation or retrieval function. It allocates a new object (table) reference
+* for the c++ object in case none exists. In case one reeference exists returns
+* it.
+*
+* @param luaState  The current lua state reference.
+* @param value The pointer to the c++ object.
+*/
 bool lua_mariachi_get_reference(lua_State *luaState, void *value) {
     // retrieves the lua script engine
     LuaScriptEngine *luaScriptEngine = lua_getscriptengine(luaState);
