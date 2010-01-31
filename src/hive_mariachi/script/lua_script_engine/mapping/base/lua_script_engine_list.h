@@ -85,7 +85,7 @@ template<typename T> int lua_mariachi_list_get(lua_State *luaState) {
     std::list<T> *self = (std::list<T> *) lua_get_self(luaState);
 
     // retrieves the index
-    int index = (int) lua_tointeger(luaState, 1);
+    int index = (int) lua_tointeger(luaState, -1);
 
     // returns the number of return values
     return 1;

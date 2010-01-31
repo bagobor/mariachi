@@ -73,10 +73,39 @@ bool lua_mariachi_new_Object(lua_State *luaState, void *value) {
 
     // in case the reference is new
     if((return_value = lua_mariachi_get_reference(luaState, value))) {
+        // sets the self value
         lua_set_self(luaState, value);
+
+        // sets the methods
+        lua_setnamefunction(luaState, "cast_as", lua_mariachi_object_cast_as);
     }
 
     return return_value;
+}
+
+int lua_mariachi_object_cast_as(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 1);
+
+    // retrieves self
+    void *self = (void *) lua_get_self(luaState);
+
+    // retrieves the cast as value
+    const char *castAs = lua_tostring(luaState, -1);
+
+    std::string castAsString = std::string(castAs);
+
+    // @todo: Associate strings with constant values
+    // to provide switch access
+
+    if(castAsString == "SceneNode") {
+        lua_mariachi_new_SceneNode(luaState, (SceneNode *) self);
+    } else if(castAsString == "CubeNode") {
+        lua_mariachi_new_CubeNode(luaState, (SceneNode *) self);
+    }
+
+    // returns the number of return values
+    return 1;
 }
 
 int lua_mariachi_get_engine(lua_State *luaState) {
