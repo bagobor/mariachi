@@ -154,6 +154,10 @@ inline void Engine::initRunningFlag() {
 */
 inline void Engine::initRenders() {
     this->render = new SceneNode(std::string("render"));
+
+    SceneNode *render2 = new SceneNode(std::string("render"));
+    this->render->addChild(render2);
+
     this->render2d = new Scene2dNode(std::string("render2d"));
 }
 

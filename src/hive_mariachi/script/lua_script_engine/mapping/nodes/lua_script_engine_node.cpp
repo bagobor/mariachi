@@ -34,9 +34,31 @@ bool lua_mariachi_new_Node(lua_State *luaState, Node *value) {
 
     // in case the reference is new
     validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_NODE_TYPE, lua_mariachi_new_Object) {
+        // sets the methods
+        lua_setnamefunction(luaState, "get_children_list", lua_mariachi_node_get_children_list);
+
         // sets the type of the node
         lua_settype(luaState, LUA_SCRIPT_ENGINE_NODE_TYPE);
     }
 
     return return_value;
+}
+
+int lua_mariachi_node_get_children_list(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 0);
+
+    // retrieves self
+    Node *self = (Node *) lua_get_self(luaState);
+
+    // retrieves the children list
+    std::list<Node *> &childrenList = self->getChildrenList();
+
+    LuaList<Node *> *luaList = new LuaList<Node *>(&childrenList, lua_mariachi_new_Node);
+
+    // creates and loads a list
+    lua_mariachi_new_List<Node *>(luaState, luaList);
+
+    // returns the number of return values
+    return 1;
 }

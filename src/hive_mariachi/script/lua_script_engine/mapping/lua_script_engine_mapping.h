@@ -36,10 +36,6 @@ extern "C" {
 #include "../util/lua_script_engine_util.h"
 #include "../../lua_script_engine.h"
 
-#include "main/main.h"
-#include "nodes/nodes.h"
-#include "structures/structures.h"
-
 #define validate_reference(return_value, luaState, value, node_type, upper_function)\
     if((return_value = upper_function(luaState, value)) || (return_value = !lua_hastype(luaState, node_type)))
 
@@ -47,3 +43,8 @@ bool lua_mariachi_get_reference(lua_State *luaState, void *value);
 bool lua_mariachi_new_Object(lua_State *luaState, void *value);
 int lua_mariachi_get_engine(lua_State *luaState);
 mariachi::LuaScriptEngine *lua_getscriptengine(lua_State *luaState);
+
+#include "base/base.h"
+#include "main/main.h"
+#include "nodes/nodes.h"
+#include "structures/structures.h"

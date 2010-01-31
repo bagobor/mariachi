@@ -29,7 +29,64 @@
 
 #define LUA_SCRIPT_ENGINE_LIST_TYPE "_t_LIST"
 
-template<class T> bool lua_mariachi_new_List(lua_State *luaState, std::list<T> *value);
+namespace mariachi {
+    template<typename T> class LuaList {
+        public:
+            std::list<T> *listValue;
+            bool (*constructor)(lua_State *luaState, Node *value);
 
-template<class T> int lua_mariachi_list_front(lua_State *luaState);
-template<class T> int lua_mariachi_list_get(lua_State *luaState);
+            LuaList() {};
+            LuaList(std::list<T> *listValue, bool (*constructor)(lua_State *luaState, Node *value)) {
+                this->listValue = listValue;
+                this->constructor = constructor;
+            };
+            ~LuaList() {};
+    };
+}
+
+template<class T> bool lua_mariachi_new_List(lua_State *luaState, mariachi::LuaList<T> *value) {
+    bool return_value;
+
+    // in case the reference is new
+    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_LIST_TYPE, lua_mariachi_new_Object) {
+        // sets the type of the node
+        lua_settype(luaState, LUA_SCRIPT_ENGINE_LIST_TYPE);
+
+        // sets the methods
+        lua_setnamefunction(luaState, "front", lua_mariachi_list_front<T>);
+        lua_setnamefunction(luaState, "get", lua_mariachi_list_get<T>);
+    }
+
+    return return_value;
+}
+
+template<typename T> int lua_mariachi_list_front(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 0);
+
+    // retrieves self
+    LuaList<T> *self = (LuaList<T> *) lua_get_self(luaState);
+
+    // retrieves the front value
+    T frontValue = self->listValue->front();
+
+    // constructs the value
+    self->constructor(luaState, frontValue);
+
+    // returns the number of return values
+    return 1;
+}
+
+template<typename T> int lua_mariachi_list_get(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 1);
+
+    // retrieves self
+    std::list<T> *self = (std::list<T> *) lua_get_self(luaState);
+
+    // retrieves the index
+    int index = (int) lua_tointeger(luaState, 1);
+
+    // returns the number of return values
+    return 1;
+}

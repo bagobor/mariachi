@@ -44,6 +44,7 @@ bool lua_mariachi_get_reference(lua_State *luaState, void *value) {
     // allocates the reference
     int reference;
 
+    // in case there is a valid reference registered
     if((reference = luaScriptEngine->getObjectReference(value))) {
         // retrieves the value from the registry index
         lua_rawgeti(luaState, LUA_REGISTRYINDEX, reference);

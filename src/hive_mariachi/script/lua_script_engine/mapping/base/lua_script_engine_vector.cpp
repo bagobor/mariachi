@@ -24,3 +24,5 @@
 // __license__   = GNU General Public License (GPL), Version 3
 
 #include "stdafx.h"
+
+#include "lua_script_engine_vector.h"
