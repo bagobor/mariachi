@@ -41,6 +41,7 @@ extern "C" {
 
 bool lua_mariachi_get_reference(lua_State *luaState, void *value);
 bool lua_mariachi_new_Object(lua_State *luaState, void *value);
+int lua_mariachi_object_cast_as(lua_State *luaState);
 int lua_mariachi_get_engine(lua_State *luaState);
 mariachi::LuaScriptEngine *lua_getscriptengine(lua_State *luaState);
 
