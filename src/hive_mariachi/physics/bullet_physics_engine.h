@@ -34,6 +34,17 @@ namespace mariachi {
     namespace physics {
         class BulletPhysicsEngine : public PhysicsEngine {
             private:
+                btDefaultCollisionConfiguration *collisionConfiguration;
+
+                btCollisionDispatcher *dispatcher;
+
+                btBroadphaseInterface *broadPhase;
+
+                /**
+                * The bullent engine impulse constraint solver.
+                */
+                btSequentialImpulseConstraintSolver *solver;
+
                 /**
                 * The bullet engine world representation object.
                 */
@@ -53,6 +64,9 @@ namespace mariachi {
                 ~BulletPhysicsEngine();
                 void load(void *arguments);
                 void unload(void *arguments);
+                void update(float delta, void *arguments);
+                std::vector<int> getCollisions(void *arguments);
+                void registerPhysics(PhysicalNode *physicalNode, void *arguments);
                 void registerCollision(CollisionNode *collisionNode, void *arguments);
                 CubeSolid *createCubeSolid();
                 SphereSolid *createSphereSolid();

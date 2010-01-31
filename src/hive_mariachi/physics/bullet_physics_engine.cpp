@@ -43,39 +43,117 @@ BulletPhysicsEngine::~BulletPhysicsEngine() {
 
 void BulletPhysicsEngine::load(void *arguments) {
     // creates the collision configuration (contains default setup for memory collision setup)
-    btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();
+    this->collisionConfiguration = new btDefaultCollisionConfiguration();
 
     // creates the default collision dispatcher
-    btCollisionDispatcher *dispatcher = new btCollisionDispatcher(collisionConfiguration);
+    this->dispatcher = new btCollisionDispatcher(collisionConfiguration);
 
     // creates a broad phase as a general purpose broadphase
-    btBroadphaseInterface *overlappingPairCache = new btDbvtBroadphase();
+    this->broadPhase = new btDbvtBroadphase();
 
     // creates a default constraint solver
-    btSequentialImpulseConstraintSolver *solver = new btSequentialImpulseConstraintSolver;
+    this->solver = new btSequentialImpulseConstraintSolver;
 
     // creates the dynamics world
-    this->dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+    this->dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfiguration);
 
     // sets the gravity in the dynamic world (default gravity)
     this->dynamicsWorld->setGravity(btVector3(0.0f, 0.0f, -10.0f));
 }
 
 void BulletPhysicsEngine::unload(void *arguments) {
+    // retrieves the physical node rigid body map iterator
+    std::map<CubeNode *, btRigidBody *>::iterator physicalNodeRigidBodyMapIterator = this->physicalNodeRigidBodyMap.begin();
+
+    // iterates over all the current rigid bodies
+    while(physicalNodeRigidBodyMapIterator != this->physicalNodeRigidBodyMap.end()) {
+        // retrieves the current rigid body
+        btRigidBody *rigidBody = physicalNodeRigidBodyMapIterator->second;
+
+        // removes the rigid body from the dynamics world
+        this->dynamicsWorld->removeRigidBody(rigidBody);
+
+        // deletes the rigid body motion state
+        delete rigidBody->getMotionState();
+
+        // deletes the rigid body
+        delete rigidBody;
+
+        // increments the physical node rigid body map iterator
+        physicalNodeRigidBodyMapIterator++;
+    }
+
+    delete this->dynamicsWorld;
+    delete this->solver;
+    delete this->collisionConfiguration;
+    delete this->dispatcher;
+    delete this->broadPhase;
+}
+
+void BulletPhysicsEngine::update(float delta, void *arguments) {
+    // the default number of sub steps (complexity)
+    int maximumSubSteps = 1;
+
+    // in case the arguments are valid
+    if(arguments) {
+        // retrieves the arguments map from the arguments
+        std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
+
+        // retrieves the maximum sub steps
+        maximumSubSteps = (int) argumentsMap["maximum_sub_steps"];
+    }
+
+    // runs a simulation step
+    this->dynamicsWorld->stepSimulation(delta, maximumSubSteps);
+}
+
+std::vector<int> BulletPhysicsEngine::getCollisions(void *arguments) {
+    // retrieves the number of manifolds
+    int numberManifolds = this->dynamicsWorld->getDispatcher()->getNumManifolds();
+
+    // iterates over all the contact manifolds
+    for(int index = 0; index < numberManifolds; index++) {
+        // retrieves the current manifold
+        btPersistentManifold *contactManifold = dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(index);
+
+        // retrieves the collision objects
+        btCollisionObject *firstCollisionObject = (btRigidBody *) contactManifold->getBody0();
+        btCollisionObject *secondCollisionObject = (btCollisionObject *) contactManifold->getBody1();
+
+        // retrieves the number of contacts
+        int numberContacts = contactManifold->getNumContacts();
+
+        // interates over all the contacts
+        for(int _index = 0; _index < numberContacts; _index++) {
+            // retrieves the current contact point
+            btManifoldPoint &contactPoint = contactManifold->getContactPoint(_index);
+
+            // in case the contact point distance is valid
+            if(contactPoint.getDistance() < 0.0f) {
+                // retrieves the contact point in both objects
+                const btVector3 &contactPointFirstCollisionObject = contactPoint.getPositionWorldOnA();
+                const btVector3 &contactPointSecondCollisionObject = contactPoint.getPositionWorldOnB();
+
+                // retrieves the normal vectors in both objects
+                const btVector3 &contactPointNormalScondCollisionObject = contactPoint.m_normalWorldOnB;
+            }
+        }
+    }
+
+    return std::vector<int>();
+}
+
+void BulletPhysicsEngine::registerPhysics(PhysicalNode *physicalNode, void *arguments) {
+    // retrieves the rigid body
+    this->getRigidBody(physicalNode);
 }
 
 void BulletPhysicsEngine::registerCollision(CollisionNode *collisionNode, void *arguments) {
-
     // retrieves the physical node
     PhysicalNode *physicalNode = (PhysicalNode *) collisionNode->getParent();
 
-
-
-
+    // retrieves the rigid body
     this->getRigidBody(physicalNode, collisionNode);
-
-
-    //this->dynamicsWorld
 }
 
 CubeSolid *BulletPhysicsEngine::createCubeSolid() {
