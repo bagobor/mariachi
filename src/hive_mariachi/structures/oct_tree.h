@@ -25,8 +25,6 @@
 
 #pragma once
 
-#include "../nodes/nodes.h"
-
 #include "oct_tree_node.h"
 #include "box.h"
 
@@ -50,7 +48,7 @@ namespace mariachi {
             OctTree(Box3d_t boundingBox);
             OctTree(float boxWidth, float boxHeight, float boxDepth);
             ~OctTree();
-            void insertTargetBox(Node *targetNode, Box3d_t *targetBoundingBox);
-            std::vector<Node *> getBoxTargets(Box3d_t *queryBox);
+            void insertElementBox(void *element, Box3d_t *elementBoundingBox);
+            std::vector<void *> getBoxElements(Box3d_t *queryBox);
     };
 }

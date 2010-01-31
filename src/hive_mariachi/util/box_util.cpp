@@ -16,16 +16,41 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#pragma once
+#include "stdafx.h"
 
 #include "box_util.h"
-#include "geometry_util.h"
-#include "string_util.h"
-#include "vector_util.h"
+
+using namespace mariachi;
+using namespace mariachi::util;
+
+/**
+* Creates a new a box box for the provided coordinates.
+*/
+Box3d_t BoxUtil::createBox(float x1, float y1, float z1, float x2, float y2, float z2) {
+    // creates a new box
+    Box3d_t box = { x1, y1, z1, x2, y2, z2 };
+
+    // returns the created box
+    return box;
+}
+
+/**
+* Tests two boxes for overlapping.
+*/
+bool BoxUtil::overlaps(const Box3d_t &box1, const Box3d_t &box2) {
+    return box1.x1 == box2.x1 && box1.x2 == box2.x2 && box1.y1 == box2.y1 && box1.y2 == box2.y2 && box1.z1 == box2.z1 && box1.z2 == box2.z2;
+}
+
+/**
+* Determines if the specified box contains the provided point.
+*/
+bool BoxUtil::containsPoint(const Box3d_t &box, const Coordinate3d_t &point) {
+    return point.x >= box.x1 && point.y >= box.y1 && point.z >= box.z1 && point.x <= box.x2 && point.y <= box.y2 && point.z <= box.z2;
+}
