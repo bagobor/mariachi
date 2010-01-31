@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include "../nodes/physical_node.h"
 #include "../nodes/collision_node.h"
 #include "../main/main.h"
 #include "collision/collision.h"
@@ -43,7 +44,9 @@ namespace mariachi {
                 ~PhysicsEngine();
                 virtual void load(void *arguments) {};
                 virtual void unload(void *arguments) {};
-                //virtual void registerBody
+                virtual void update(float delta, void *arguments) {};
+                virtual std::vector<int> getCollisions(void *arguments) { return std::vector<int>(); };
+                virtual void registerPhysics(PhysicalNode *physicalNode, void *arguments) {};
                 virtual void registerCollision(CollisionNode *collisionNode, void *arguments) { };
                 virtual CubeSolid *createCubeSolid() { return NULL; };
                 virtual SphereSolid *createSphereSolid() { return NULL; };
