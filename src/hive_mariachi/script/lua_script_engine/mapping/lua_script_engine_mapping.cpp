@@ -134,12 +134,21 @@ int lua_mariachi_get_engine(lua_State *luaState) {
     return 1;
 }
 
+/**
+* Retrieves the lua script engine for the current lua interpreter.
+*
+* @param luaState The current lua state reference.
+* @return The lua script engine for the current lua interpreter.
+*/
 LuaScriptEngine *lua_getscriptengine(lua_State *luaState) {
     // loads the global variable
     lua_getglobal(luaState, LUA_SCRIPT_ENGINE_GLOBAL_VARIABLE);
 
     // retrieves the lua script engine
     LuaScriptEngine *luaScriptEngine = (LuaScriptEngine *)  lua_tointeger(luaState, -1);
+
+    // pops the engine global variable from stack
+    lua_pop(luaState, 1);
 
     // returns the lua script engine
     return luaScriptEngine;
