@@ -60,6 +60,7 @@ typedef struct LuaTypeInformation_t {
 bool lua_mariachi_get_reference(lua_State *luaState, void *value);
 bool lua_mariachi_new_Object(lua_State *luaState, void *value);
 int lua_mariachi_object_cast_as(lua_State *luaState);
+int lua_mariachi_object_type_id(lua_State *luaState);
 int lua_mariachi_get_engine(lua_State *luaState);
 mariachi::LuaScriptEngine *lua_getscriptengine(lua_State *luaState);
 void lua_generateconstructors(lua_State *luaState);

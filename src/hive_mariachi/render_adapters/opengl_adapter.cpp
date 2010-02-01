@@ -25,7 +25,7 @@
 
 #include "stdafx.h"
 
-//#ifdef MARIACHI_PLATFORM_OPENGL
+#ifdef MARIACHI_PLATFORM_OPENGL
 
 #include "../main/engine.h"
 #include "../system/system.h"
@@ -266,7 +266,7 @@ inline void OpenglAdapter::updateFrameRate() {
         float frameRate = (float) frameCount / deltaClock;
 
         // prints the frame rate
-        printf("Frame rate: %.2f\n", frameRate);
+        //printf("Frame rate: %.2f\n", frameRate);
 
         // resets the frame count
         this->frameCount = 0;
@@ -684,4 +684,4 @@ inline FloatSize2d_t OpenglAdapter::getRealSize2d(SquareNode *squareNode) {
     return size;
 }
 
-//#endif
+#endif

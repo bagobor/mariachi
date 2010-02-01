@@ -85,6 +85,7 @@ bool lua_mariachi_new_Object(lua_State *luaState, void *value) {
 
         // sets the methods
         lua_setnamefunction(luaState, "cast_as", lua_mariachi_object_cast_as);
+        lua_setnamefunction(luaState, "type_id", lua_mariachi_object_type_id);
     }
 
     return return_value;
@@ -113,6 +114,30 @@ int lua_mariachi_object_cast_as(lua_State *luaState) {
 
     // calls the constructor for the cast value
     constructor(luaState, self);
+
+    // returns the number of return values
+    return 1;
+}
+
+/**
+* Lua method to retrieve the c++ type of the current object.
+* Use this method carefully as it is dangerous.
+*
+* @param luaState The current lua state reference.
+* @return The number of returning values.
+*/
+int lua_mariachi_object_type_id(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 0);
+
+    // retrieves self
+    void *self = (void *) lua_get_self(luaState);
+
+    // retrieves the type id value for self
+    const char *typeIdValue = typeid(self).name();
+
+    // pushes the type id value
+    lua_pushfstring(luaState, typeIdValue);
 
     // returns the number of return values
     return 1;

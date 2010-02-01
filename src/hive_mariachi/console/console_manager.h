@@ -81,9 +81,12 @@ namespace mariachi {
             std::map<std::string, CommandProcessInformation_t> processInformationMap;
             ScriptEngine *currentScriptEngine;
             std::string currentScriptEngineName;
+            std::string currentScriptString;
+            bool extraCarret;
 
             inline void initProcessInformationMap();
             inline void initCurrentScriptEngine();
+            inline void initExtraCarret();
             inline void initEngine(Engine *engine);
 
         public:
@@ -93,6 +96,8 @@ namespace mariachi {
             void load(void *arguments);
             void unload(void *arguments);
             void processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction = NULL);
+            void processCommandLineConsole(const char *commandLine, WriteOuputFunction_t outputFunction);
+            void processCommandLineScript(const char *commandLine, WriteOuputFunction_t outputFunction);
             std::string getCarretValue();
             Engine *getEngine();
             void setEngine(Engine *engine);
