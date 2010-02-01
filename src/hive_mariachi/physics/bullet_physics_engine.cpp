@@ -83,10 +83,22 @@ void BulletPhysicsEngine::unload(void *arguments) {
         physicalNodeRigidBodyMapIterator++;
     }
 
+    // clears the physical node rigid body map
+    this->physicalNodeRigidBodyMap.clear();
+
+    // deletes the dynamics world
     delete this->dynamicsWorld;
+
+    // deletes the solver
     delete this->solver;
+
+    // deletes the collision configuration
     delete this->collisionConfiguration;
+
+    // deletes the dispatcher
     delete this->dispatcher;
+
+    // deletes the borad phase
     delete this->broadPhase;
 }
 
