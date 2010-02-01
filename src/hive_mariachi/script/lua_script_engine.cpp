@@ -77,16 +77,21 @@ void LuaScriptEngine::unload(void *arguments) {
     lua_close(this->luaState);
 }
 
-void LuaScriptEngine::runScript(Script_t *script) {
+bool LuaScriptEngine::runScript(Script_t *script) {
+    return true;
 }
 
-void LuaScriptEngine::runScriptFile(const std::string &scriptPath) {
-    luaL_dofile(this->luaState, scriptPath.c_str());
+bool LuaScriptEngine::runScriptFile(const std::string &scriptPath) {
+    return !luaL_dofile(this->luaState, scriptPath.c_str());
 }
 
-void LuaScriptEngine::runScriptString(const std::string &scriptString) {
-    luaL_dostring(this->luaState, scriptString.c_str());
+bool LuaScriptEngine::runScriptString(const std::string &scriptString) {
+    return !luaL_dostring(this->luaState, scriptString.c_str());
 }
+
+std::string LuaScriptEngine::getLastError() {
+    return std::string(lua_tostring(this->luaState, -1));
+};
 
 int LuaScriptEngine::getObjectReference(void *cObjectReference) {
     return this->objectMap[cObjectReference];

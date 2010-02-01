@@ -38,6 +38,7 @@ using namespace mariachi::util;
 ConsoleManager::ConsoleManager() {
     this->initProcessInformationMap();
     this->initCurrentScriptEngine();
+    this->initExtraCarret();
 }
 
 /**
@@ -48,6 +49,7 @@ ConsoleManager::ConsoleManager() {
 ConsoleManager::ConsoleManager(Engine *engine) {
     this->initProcessInformationMap();
     this->initCurrentScriptEngine();
+    this->initExtraCarret();
     this->initEngine(engine);
 }
 
@@ -84,6 +86,13 @@ inline void ConsoleManager::initCurrentScriptEngine() {
 }
 
 /**
+* Initializes the extra carret.
+*/
+inline void ConsoleManager::initExtraCarret() {
+    this->extraCarret = false;
+}
+
+/**
 * Initializes the engine.
 */
 inline void ConsoleManager::initEngine(Engine *engine) {
@@ -104,6 +113,18 @@ void ConsoleManager::unload(void *arguments) {
 * @param outputFunction The write function to receive the processing result.
 */
 void ConsoleManager::processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction) {
+    // checks if the output function is null to change it to the default standard output
+    outputFunction == NULL ? outputFunction = ConsoleManager::write : outputFunction = outputFunction;
+
+    // in case there is a current script engine defined
+    if(this->currentScriptEngine) {
+        this->processCommandLineScript(commandLine, outputFunction);
+    } else {
+        this->processCommandLineConsole(commandLine, outputFunction);
+    }
+}
+
+void ConsoleManager::processCommandLineConsole(const char *commandLine, WriteOuputFunction_t outputFunction) {
     // in case the command line is empty
     if(!strcmp(commandLine, "")) {
         // returns immediately
@@ -132,6 +153,54 @@ void ConsoleManager::processCommandLine(const char *commandLine, WriteOuputFunct
     }
 }
 
+void ConsoleManager::processCommandLineScript(const char *commandLine, WriteOuputFunction_t outputFunction) {
+    if(!strcmp(commandLine, "exit")) {
+        // unsets the current script engine
+        this->currentScriptEngine = NULL;
+
+        // unsets the current script engine name
+        this->currentScriptEngineName = "";
+
+        // returns immediately
+        return;
+    }
+
+    // in case the command line is empty
+    if(!strcmp(commandLine, "")) {
+        // in case the current script string is not empty
+        if(!this->currentScriptString.empty()) {
+            // runs the script for the current string
+            if(!this->currentScriptEngine->runScriptString(this->currentScriptString)) {
+                // retrieves the last error
+                std::string lastError = this->currentScriptEngine->getLastError();
+
+                // prints the last error
+                std::cout << lastError << "\n";
+            }
+
+            // clears the current script string
+            this->currentScriptString.clear();
+        }
+
+        // unsets the extra carret
+        this->extraCarret = false;
+
+        // returns immediately
+        return;
+    }
+
+    // appends the command line to the script string
+    this->currentScriptString += std::string(commandLine) + "\n";
+
+    // tries to run the script for the current string
+    if(this->currentScriptEngine->runScriptString(this->currentScriptString)) {
+        // clears the current script string
+        this->currentScriptString.clear();
+    } else {
+        this->extraCarret = true;
+    }
+}
+
 /**
 * Retrieves the current carret value.
 *
@@ -149,6 +218,12 @@ std::string ConsoleManager::getCarretValue() {
 
     // adds the base carret value
     carret += CONSOLE_MANAGER_CARRET;
+
+    // in case the extra carret is set
+    if(this->extraCarret) {
+        // adds an extra carret value
+        carret += CONSOLE_MANAGER_CARRET;
+    }
 
     // returns the carret
     return carret;
