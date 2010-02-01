@@ -57,6 +57,7 @@ namespace mariachi {
             void unload(void *arguments);
             void runScript(Script_t *script);
             void runScriptFile(const std::string &scriptPath);
+            void runScriptString(const std::string &scriptString);
             int getObjectReference(void *cObjectReference);
             void setObjectReference(void *cObjectReference, int luaObjectIndex);
             inline void openLuaLibs(luaL_reg *luaLibs);

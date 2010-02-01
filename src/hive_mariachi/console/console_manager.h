@@ -25,6 +25,12 @@
 
 #pragma once
 
+#include "../main/engine.h"
+#include "../script/script_engine.h"
+
+/**
+* The console help text.
+*/
 #define CONSOLE_MANAGER_HELP_TEXT "### MARIACHI ENGINE HELP ###\n\
 help [extension-id]  - shows this message or the referred console extension help message\n\
 helpall              - shows the help message of all the loaded console extensions\n\
@@ -40,15 +46,29 @@ unload <plugin-id>   - unloads a plugin\n\
 script <engine-name> - enters in script execution with the given engine name\n\
 exit                 - exits the system"
 
+/**
+* The invalid command message.
+*/
 #define CONSOLE_MANAGER_INVALID_COMMAND_MESSAGE "invalid command"
 
+/**
+* The invalid number arguments message.
+*/
+#define CONSOLE_INVALID_NUMBER_ARGUMENTS_MESSAGE "invalid number of arguments"
+
+/**
+* The carret identifier.
+*/
 #define CONSOLE_MANAGER_CARRET ">>"
 
-#define COMMANDS_LIST { { "help", ConsoleManager::processHelp }, { NULL, NULL } }
+/**
+* The commands list, mapping the
+*/
+#define COMMANDS_LIST { { "help", ConsoleManager::processHelp }, { "script", ConsoleManager::processScript }, { NULL, NULL } }
 
 namespace mariachi {
     typedef void (*WriteOuputFunction_t)(const char *text, bool newline);
-    typedef void (*ConsoleProcessFunction_t)(const char *commandLine, WriteOuputFunction_t writeFunction);
+    typedef void (*ConsoleProcessFunction_t)(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
 
     typedef struct CommandProcessInformation_t {
         const char *name;
@@ -57,18 +77,28 @@ namespace mariachi {
 
     class ConsoleManager {
         private:
+            Engine *engine;
             std::map<std::string, CommandProcessInformation_t> processInformationMap;
+            ScriptEngine *currentScriptEngine;
+            std::string currentScriptEngineName;
 
             inline void initProcessInformationMap();
+            inline void initCurrentScriptEngine();
+            inline void initEngine(Engine *engine);
 
         public:
             ConsoleManager();
+            ConsoleManager(Engine *engine);
             ~ConsoleManager();
             void load(void *arguments);
             void unload(void *arguments);
-            void processCommandLine(const char *commandLine, WriteOuputFunction_t writeFunction = NULL);
+            void processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction = NULL);
+            std::string getCarretValue();
+            Engine *getEngine();
+            void setEngine(Engine *engine);
             static void write(const char *text, bool newline = true);
-            static void processHelp(const char *commandLine, WriteOuputFunction_t writeFunction);
+            static void processHelp(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
+            static void processScript(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
     };
 
     static const CommandProcessInformation_t processInformationList[] = COMMANDS_LIST;

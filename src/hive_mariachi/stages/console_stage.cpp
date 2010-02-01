@@ -25,6 +25,8 @@
 
 #include "stdafx.h"
 
+#include "../console/console.h"
+
 #include "console_stage.h"
 
 using namespace mariachi;
@@ -74,15 +76,19 @@ void ConsoleStage::start(void *arguments) {
     // creates the string buffer
     std::string stringBuffer;
 
+    // retrieves the console manager
+    ConsoleManager *consoleManager = this->engine->getConsoleManager();
+
     // iterates while the running flag is active
     while(this->runningFlag) {
         // prints the carret
-        std::cout << CONSOLE_MANAGER_CARRET << " ";
+        std::cout << consoleManager->getCarretValue() << " ";
 
         // retrieves the current line from standard input
         getline(std::cin, stringBuffer);
 
-        this->engine->getConsoleManager()->processCommandLine(stringBuffer.c_str());
+        // processes the command line value
+        consoleManager->processCommandLine(stringBuffer.c_str());
     }
 }
 

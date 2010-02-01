@@ -29,6 +29,7 @@
 #include "../system/system.h"
 #include "../stages/stages.h"
 #include "../configuration/configuration.h"
+#include "../console/console.h"
 #include "../script/script.h"
 #include "../physics/physics.h"
 
@@ -297,6 +298,28 @@ void Engine::stopConfigurationManager() {
 }
 
 /**
+* Starts the console manager in the engine.
+*/
+void Engine::startConsoleManager() {
+    // creates a console manager
+    this->consoleManager = new ConsoleManager(this);
+
+    // loads the configuration manager
+    this->consoleManager->load(NULL);
+}
+
+/**
+* Stops the console manager in the engine.
+*/
+void Engine::stopConsoleManager() {
+    // unloads the console manager
+    this->consoleManager->unload(NULL);
+
+    // deletes the console manager
+    delete this->consoleManager;
+}
+
+/**
 * Starts the logging system, creating a file and a console handler.
 *
 * @param level The level of debugging to be used in the logging.
@@ -332,28 +355,6 @@ void Engine::startLogger(int level, bool pidFile) {
 }
 
 /**
-* Starts the console manager in the engine.
-*/
-void Engine::startConsoleManager() {
-    // creates a console manager
-    this->consoleManager = new ConsoleManager();
-
-    // loads the configuration manager
-    this->consoleManager->load(NULL);
-}
-
-/**
-* Stops the console manager in the engine.
-*/
-void Engine::stopConsoleManager() {
-    // unloads the console manager
-    this->consoleManager->unload(NULL);
-
-    // deletes the console manager
-    delete this->consoleManager;
-}
-
-/**
 * Starts the input devices in the engine.
 * Starting the input devices implies starting the drivers and start listning
 * to them.
@@ -386,6 +387,9 @@ void Engine::startScriptEngines() {
 
     // runs the script file
     luaScriptEngine->runScriptFile(std::string("c:/test.lua"));
+
+    // sets the lua script engine in the script engines registry
+    this->setScriptEngine("lua", luaScriptEngine);
 }
 
 /**
@@ -611,6 +615,50 @@ void Engine::setDevice(const std::string &deviceName, Device *device) {
     // sets the device in the devices map with
     // the given device name
     this->devicesMap[deviceName] = device;
+}
+
+/**
+* Retrieves the script engine for the given script engine name.
+*
+* @param scriptEngineName The script engine name to retrieve the script engine.
+* @return The script engine for the given script engine name.
+*/
+ScriptEngine *Engine::getScriptEngine(const std::string &scriptEngineName) {
+    return this->scriptEnginesMap[scriptEngineName];
+}
+
+/**
+* Sets the script engine with the given script engine name.
+*
+* @param scriptEngineName The name to be used to identify the script engine.
+* @param scriptEngine The script engine to be set.
+*/
+void Engine::setScriptEngine(const std::string &scriptEngineName, ScriptEngine *scriptEngine) {
+    // sets the script engine in the script engines map with
+    // the given script engine name
+    this->scriptEnginesMap[scriptEngineName] = scriptEngine;
+}
+
+/**
+* Retrieves the physics engine for the given physics engine name.
+*
+* @param physicsEngineName The physics engine name to retrieve the physics engine.
+* @return The physics engine for the given physics engine name.
+*/
+PhysicsEngine *Engine::getPhysicsEngine(const std::string &physicsEngineName) {
+    return this->physicsEnginesMap[physicsEngineName];
+}
+
+/**
+* Sets the physics engine with the given physics engine name.
+*
+* @param physicsEngineName The name to be used to identify the physics engine.
+* @param physicsEngine The physics engine to be set.
+*/
+void Engine::setPhysicsEngine(const std::string &physicsEngineName, PhysicsEngine *physicsEngine) {
+    // sets the physics engine in the physics engines map with
+    // the given physics engine name
+    this->physicsEnginesMap[physicsEngineName] = physicsEngine;
 }
 
 /**

@@ -25,15 +25,30 @@
 
 #include "stdafx.h"
 
+#include "../util/string_util.h"
+
 #include "console_manager.h"
 
 using namespace mariachi;
+using namespace mariachi::util;
 
 /**
 * Constructor of the class.
 */
 ConsoleManager::ConsoleManager() {
     this->initProcessInformationMap();
+    this->initCurrentScriptEngine();
+}
+
+/**
+* Constructor of the class.
+*
+* @param engine The cur
+*/
+ConsoleManager::ConsoleManager(Engine *engine) {
+    this->initProcessInformationMap();
+    this->initCurrentScriptEngine();
+    this->initEngine(engine);
 }
 
 /**
@@ -61,6 +76,20 @@ inline void ConsoleManager::initProcessInformationMap() {
     }
 }
 
+/**
+* Initializes the current script engine.
+*/
+inline void ConsoleManager::initCurrentScriptEngine() {
+    this->currentScriptEngine = NULL;
+}
+
+/**
+* Initializes the engine.
+*/
+inline void ConsoleManager::initEngine(Engine *engine) {
+    this->engine = engine;
+}
+
 void ConsoleManager::load(void *arguments) {
 }
 
@@ -72,26 +101,75 @@ void ConsoleManager::unload(void *arguments) {
 * write function or to the standard output in case none is given.
 *
 * @param commandLine The command line to be processed.
-* @param writeFunction The write function to receive the processing result.
+* @param outputFunction The write function to receive the processing result.
 */
-void ConsoleManager::processCommandLine(const char *commandLine, WriteOuputFunction_t writeFunction) {
+void ConsoleManager::processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction) {
     // in case the command line is empty
     if(!strcmp(commandLine, "")) {
         // returns immediately
         return;
     }
 
-    // retrieves the command process information
-    CommandProcessInformation_t commandProcessInformation = this->processInformationMap[commandLine];
+    // allocates space for the tokens vector
+    std::vector<std::string> commandTokens;
+
+    // tokenizes the command line
+    StringUtil::tokenize(commandLine, commandTokens, " ");
+
+    // retrieves the command
+    std::string &command = commandTokens[0];
+
+    // retrieves the command process information for the given command
+    CommandProcessInformation_t commandProcessInformation = this->processInformationMap[command];
 
     // in case the command process information is valid
     if(commandProcessInformation.name == NULL && commandProcessInformation.processFunction == NULL) {
         // prints the invalid command message
         ConsoleManager::write(CONSOLE_MANAGER_INVALID_COMMAND_MESSAGE);
     } else {
-        // calls the process function
-        commandProcessInformation.processFunction(commandLine, ConsoleManager::write);
+        // calls the process function with the command tokens
+        commandProcessInformation.processFunction(commandTokens, ConsoleManager::write, this);
     }
+}
+
+/**
+* Retrieves the current carret value.
+*
+* @return The current carret value.
+*/
+std::string ConsoleManager::getCarretValue() {
+    // allocates space for the carret
+    std::string carret;
+
+    // in case there is a selected script engine
+    if(this->currentScriptEngine) {
+        // adds the script engine name to the carret
+        carret += "[" + this->currentScriptEngineName + "] ";
+    }
+
+    // adds the base carret value
+    carret += CONSOLE_MANAGER_CARRET;
+
+    // returns the carret
+    return carret;
+}
+
+/**
+* Retrieves the engine.
+*
+* @return The engine.
+*/
+Engine *ConsoleManager::getEngine() {
+    return this->engine;
+}
+
+/**
+* Sets the engine.
+*
+* @param engine The engine.
+*/
+void ConsoleManager::setEngine(Engine *engine) {
+    this->engine = engine;
 }
 
 void ConsoleManager::write(const char *text, bool newline) {
@@ -105,6 +183,39 @@ void ConsoleManager::write(const char *text, bool newline) {
     }
 }
 
-void ConsoleManager::processHelp(const char *commandLine, WriteOuputFunction_t writeFunction) {
-    writeFunction(CONSOLE_MANAGER_HELP_TEXT, true);
+void ConsoleManager::processHelp(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager) {
+    // in case the number of arguments is invalid
+    if(commandTokens.size() != 1) {
+        // writes the invalid number of arguments text
+        outputFunction(CONSOLE_INVALID_NUMBER_ARGUMENTS_MESSAGE, true);
+
+        // returns in error
+        return;
+    }
+
+    // writes the console help text
+    outputFunction(CONSOLE_MANAGER_HELP_TEXT, true);
+}
+
+void ConsoleManager::processScript(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager) {
+    // in case the number of arguments is invalid
+    if(commandTokens.size() != 2) {
+        // writes the invalid number of arguments text
+        outputFunction(CONSOLE_INVALID_NUMBER_ARGUMENTS_MESSAGE, true);
+
+        // returns in error
+        return;
+    }
+
+    // retrieves the script engine name
+    std::string &scriptEngineName = commandTokens[1];
+
+    // sets the current script engine
+    consoleManager->currentScriptEngine = consoleManager->engine->getScriptEngine(scriptEngineName);
+
+    // sets the current script engine name
+    consoleManager->currentScriptEngineName = scriptEngineName;
+
+    // writes the console help text
+    outputFunction(std::string("changed script engine to: " + scriptEngineName).c_str(), true);
 }
