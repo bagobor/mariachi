@@ -48,6 +48,7 @@ namespace mariachi {
             virtual void unload(void *arguments) {};
             virtual void runScript(Script_t *script) {};
             virtual void runScriptFile(const std::string &scriptPath) {};
+            virtual void runScriptString(const std::string &scriptString) {};
             Engine *getEngine();
             void setEngine(Engine *engine);
     };

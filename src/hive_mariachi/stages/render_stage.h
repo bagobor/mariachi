@@ -45,14 +45,15 @@ namespace mariachi {
             RenderAdapter *renderAdapter;
             RenderInformation *renderInformation;
 
+            inline void initThread();
+            inline void initRenderInformation();
+
         public:
             RenderStage();
             RenderStage(Engine *engine);
             RenderStage(Engine *engine, const std::string &name);
             RenderStage(Engine *engine, const std::string &name, RenderSystem renderSystem);
             ~RenderStage();
-            inline void initThread();
-            inline void initRenderInformation();
             void start(void *arguments);
             void stop(void *arguments);
             void update(void *arguments);

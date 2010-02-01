@@ -32,6 +32,10 @@ namespace mariachi {
         private:
             std::string name;
 
+            inline void initThread();
+            inline void initEngine(Engine *engine);
+            inline void initName(std::string name);
+
         protected:
             Engine *engine;
             bool thread;
@@ -41,9 +45,6 @@ namespace mariachi {
             Stage(Engine *engine);
             Stage(Engine *engine, const std::string &name);
             ~Stage();
-            inline void initThread();
-            inline void initEngine(Engine *engine);
-            inline void initName(std::string name);
             virtual void start(void *arguments);
             virtual void stop(void *arguments);
             virtual void update(void *arguments);

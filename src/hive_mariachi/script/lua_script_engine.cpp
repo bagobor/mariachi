@@ -84,6 +84,10 @@ void LuaScriptEngine::runScriptFile(const std::string &scriptPath) {
     luaL_dofile(this->luaState, scriptPath.c_str());
 }
 
+void LuaScriptEngine::runScriptString(const std::string &scriptString) {
+    luaL_dostring(this->luaState, scriptString.c_str());
+}
+
 int LuaScriptEngine::getObjectReference(void *cObjectReference) {
     return this->objectMap[cObjectReference];
 }

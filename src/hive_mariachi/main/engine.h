@@ -29,7 +29,6 @@
 #include "../system/thread.h"
 #include "../devices/device.h"
 #include "../logging/logger.h"
-#include "../console/console.h"
 #include "../nodes/nodes.h"
 #include "../user_interface/user_interface.h"
 #include "../tasks/task.h"
@@ -70,6 +69,8 @@ namespace mariachi {
     }
 
     class ConfigurationManager;
+    class ConsoleManager;
+    class ScriptEngine;
     class Stage;
 
     class Engine {
@@ -142,6 +143,18 @@ namespace mariachi {
             std::map<std::string, Device *> devicesMap;
 
             /**
+            * The map associating the script engine name with the
+            * script engine reference.
+            */
+            std::map<std::string, ScriptEngine *> scriptEnginesMap;
+
+            /**
+            * The map associating the physics engine name with the
+            * physics engine reference.
+            */
+            std::map<std::string, physics::PhysicsEngine *> physicsEnginesMap;
+
+            /**
             * The list of currently available tasks.
             */
             std::list<Task *> taskList;
@@ -194,6 +207,10 @@ namespace mariachi {
             void setStage(const std::string &stageName, Stage *stage);
             Device *getDevice(const std::string &deviceName);
             void setDevice(const std::string &deviceName, Device *device);
+            ScriptEngine *getScriptEngine(const std::string &scriptEngineName);
+            void setScriptEngine(const std::string &scriptEngineName, ScriptEngine *scriptEngine);
+            physics::PhysicsEngine *getPhysicsEngine(const std::string &physicsEngineName);
+            void setPhysicsEngine(const std::string &physicsEngineName, physics::PhysicsEngine *physicsEngine);
             ConfigurationManager *getConfigurationManager();
             void setConfigurationManager(ConfigurationManager *configurationManager);
             ConsoleManager *getConsoleManager();
