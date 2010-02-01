@@ -65,6 +65,8 @@ void OpenglWin32Window::start(void *arguments) {
 }
 
 void OpenglWin32Window::stop(void *arguments) {
+    // unsets the running flag
+    this->runningFlag = false;
 }
 
 void OpenglWin32Window::loop(void *arguments) {
@@ -74,7 +76,11 @@ void OpenglWin32Window::loop(void *arguments) {
     // shows the window
     ShowWindow(this->handlerWindow, SW_SHOWDEFAULT);
 
-    while(1) {
+    // sets the running flag
+    this->runningFlag = true;
+
+    // iterates while the running flag is active
+    while(this->runningFlag) {
         while(PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
             TranslateMessage(&message);
             DispatchMessage(&message);

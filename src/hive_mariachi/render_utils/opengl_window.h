@@ -30,6 +30,10 @@
 namespace mariachi {
     class OpenglWindow {
         private:
+            inline void initRunningFlag();
+
+        protected:
+            bool runningFlag;
 
         public:
             OpenglWindow();

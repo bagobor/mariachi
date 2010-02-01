@@ -64,7 +64,7 @@ exit                 - exits the system"
 /**
 * The commands list, mapping the
 */
-#define COMMANDS_LIST { { "help", ConsoleManager::processHelp }, { "script", ConsoleManager::processScript }, { NULL, NULL } }
+#define COMMANDS_LIST { { "help", ConsoleManager::processHelp }, { "script", ConsoleManager::processScript }, { "exit", ConsoleManager::processExit }, { NULL, NULL } }
 
 namespace mariachi {
     typedef void (*WriteOuputFunction_t)(const char *text, bool newline);
@@ -104,6 +104,7 @@ namespace mariachi {
             static void write(const char *text, bool newline = true);
             static void processHelp(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
             static void processScript(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
+            static void processExit(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
     };
 
     static const CommandProcessInformation_t processInformationList[] = COMMANDS_LIST;

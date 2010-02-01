@@ -32,7 +32,7 @@ using namespace mariachi;
 /**
 * Constructor of the class.
 */
-Stage::Stage() {
+Stage::Stage() : Module() {
     this->initThread();
 }
 
@@ -82,6 +82,7 @@ inline void Stage::initName(std::string name) {
 * @param arguments The arguments for the stage start.
 */
 void Stage::start(void *arguments) {
+    Module::start(arguments);
 }
 
 /**
@@ -90,6 +91,7 @@ void Stage::start(void *arguments) {
 * @param arguments The arguments for the stage stop.
 */
 void Stage::stop(void *arguments) {
+    Module::stop(arguments);
 }
 
 /**

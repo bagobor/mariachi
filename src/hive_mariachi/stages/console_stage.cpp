@@ -70,35 +70,29 @@ inline void ConsoleStage::initThread() {
 void ConsoleStage::start(void *arguments) {
     Stage::start(arguments);
 
-    // sets the running flag
-    this->runningFlag = true;
-
-    // creates the string buffer
-    std::string stringBuffer;
-
     // retrieves the console manager
-    ConsoleManager *consoleManager = this->engine->getConsoleManager();
-
-    // iterates while the running flag is active
-    while(this->runningFlag) {
-        // prints the carret
-        std::cout << consoleManager->getCarretValue() << " ";
-
-        // retrieves the current line from standard input
-        getline(std::cin, stringBuffer);
-
-        // processes the command line value
-        consoleManager->processCommandLine(stringBuffer.c_str());
-    }
+    this->consoleManager = this->engine->getConsoleManager();
 }
 
 void ConsoleStage::stop(void *arguments) {
     Stage::stop(arguments);
 
-    // unsets the running flag
-    this->runningFlag = false;
+    // unsets the console manager
+    this->consoleManager = NULL;
 }
 
 void ConsoleStage::update(void *arguments) {
     Stage::update(arguments);
+
+    // creates the string buffer
+    std::string stringBuffer;
+
+    // prints the carret
+    std::cout << this->consoleManager->getCarretValue() << " ";
+
+    // retrieves the current line from standard input
+    getline(std::cin, stringBuffer);
+
+    // processes the command line value
+    this->consoleManager->processCommandLine(stringBuffer.c_str());
 }

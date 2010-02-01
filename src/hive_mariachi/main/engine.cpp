@@ -25,6 +25,7 @@
 
 #include "stdafx.h"
 
+#include "../exceptions/exceptions.h"
 #include "../devices/devices.h"
 #include "../system/system.h"
 #include "../stages/stages.h"
@@ -105,6 +106,9 @@ THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters) {
     try {
         // creates a new stage runner
         StageRunner stageRunner = StageRunner(stage);
+
+        // registers the stage runner
+        engine->setStageRunner(stage, &stageRunner);
 
         // starts the stage runner
         stageRunner.start(NULL);
@@ -225,6 +229,9 @@ void Engine::start(void *arguments) {
 void Engine::stop(void *arguments) {
     // unsets the running flag
     this->runningFlag = false;
+
+    // signals the task list ready condition (to unblock the thread)
+    CONDITION_SIGNAL(this->taskListReadyCondition);
 }
 
 /**
@@ -338,8 +345,17 @@ void Engine::startLogger(int level, bool pidFile) {
     // retrieves the default logger
     this->logger = Logger::getLogger();
 
-    // sets the logging level
-    this->logger->setLevel(level);
+    // retrieves the logging verbosity value
+    ConfigurationValue_t *loggingVerbosityProperty = this->configurationManager->getProperty("logging/verbosity");
+
+    // in case a verbosity level is define in the configuration
+    if(loggingVerbosityProperty->structure.intValue) {
+        // sets the default logging level
+        this->logger->setLevel(loggingVerbosityProperty->structure.intValue);
+    } else {
+        // sets the default logging level
+        this->logger->setLevel(level);
+    }
 
     // retrieves the logging file property
     ConfigurationValue_t *loggingFileProperty = this->configurationManager->getProperty("logging/file");
@@ -472,14 +488,41 @@ void Engine::stopStages() {
         // retrieves the stage
         Stage *stage = threadHandleStageMapIterator->second;
 
-        // stops the stage
-        stage->stop(NULL);
+        // retrieves the stage runner for the stage
+        StageRunner *stageRunner = this->stageRunnersMap[stage];
+
+        // in case the stage runner is invalid
+        if(!stageRunner) {
+            // throws a runtime exception
+            throw RuntimeException("No stage runner associated with stage: " + stage->getName());
+        }
+
+        // stops the stage runner
+        stageRunner->stop(NULL);
 
         // joins the stage thread
         THREAD_JOIN(threadHandle);
 
         // closes the thread handle
         THREAD_CLOSE(threadHandle);
+
+        // increments the thread handle stage map iterator
+        threadHandleStageMapIterator++;
+    }
+
+    // retrieves the main thread stages list iterator
+    std::list<Stage *>::iterator mainThreadStagesListIterator = this->mainThreadStagesList.begin();
+
+    // iterates over all the main thread stages
+    while(mainThreadStagesListIterator != this->mainThreadStagesList.end()) {
+        // retrieves the main thread stage
+        Stage *mainThreadStage = *mainThreadStagesListIterator;
+
+        // stops the current main thread stage
+        mainThreadStage->stop(NULL);
+
+        // increments the main thread stages list iterator
+        mainThreadStagesListIterator++;
     }
 }
 
@@ -571,6 +614,28 @@ void Engine::getCurrentProcessIdString(std::string &currentProcessIdString) {
 
     // pipes the current process id stream to the current process id string
     currentProcessIdStream >> currentProcessIdString;
+}
+
+/**
+* Retrieves the stage runner for the given stage.
+*
+* @param stage The stage to retrieve the stage runner.
+* @return The stage runner for the given stage.
+*/
+StageRunner *Engine::getStageRunner(Stage *stage) {
+    return this->stageRunnersMap[stage];
+}
+
+/**
+* Sets the stage runner with the given stage.
+*
+* @param stage The stage to be used to identify the stage runner.
+* @param stageRunner The stage runner to be set.
+*/
+void Engine::setStageRunner(Stage *stage, StageRunner *stageRunner) {
+    // sets the stage runner in the stage runners map with
+    // the given stage
+    this->stageRunnersMap[stage] = stageRunner;
 }
 
 /**

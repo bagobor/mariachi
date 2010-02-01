@@ -249,6 +249,7 @@ void LoggerFormatter::format(LoggerRecord *record) {
     // creates the record level string
     std::string recordLevelString;
 
+    // switches in the record level
     switch(recordLevel) {
         case DEBUG:
             recordLevelString += "DEBUG";

@@ -23,16 +23,44 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-{
-    // the default encoding for text
-    "encoding" : "utf-8",
+#pragma once
 
-    // modules loaded at startup
-    "modules" : ["lua", "opengl", "direct3d", "opengles"],
+#include "stdafx.h"
 
-    // the logging support
-    "logging" : { "verbosity" : 3, "file" : false },
+#include "module.h"
 
-	// the scripting configuration
-	"scripting" : { "lua" : { "path" : "../../scripts/hive_mariachi_lua_scripts/src" } }
+using namespace mariachi;
+
+/**
+* Constructor of the class.
+*/
+Module::Module() {
+}
+
+/**
+* Destructor of the class.
+*/
+Module::~Module() {
+}
+
+void Module::start(void *arguments) {
+    // sets the running flag.
+    this->running = true;
+}
+
+void Module::stop(void *arguments) {
+    // unsets the running flag.
+    this->running = false;
+}
+
+bool Module::isRunning() {
+    return this->running;
+}
+
+bool Module::getRunning() {
+    return this->running;
+}
+
+void Module::setRunning(bool running) {
+    this->running = running;
 }

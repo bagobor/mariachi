@@ -188,6 +188,10 @@
 					RelativePath="..\..\src\hive_mariachi\main\engine.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\main\module.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Nodes"
@@ -868,6 +872,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\main\main.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\main\module.h"
 					>
 				</File>
 			</Filter>

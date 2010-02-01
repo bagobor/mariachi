@@ -95,6 +95,8 @@ void OpenglAdapter::start(void *arguments) {
 }
 
 void OpenglAdapter::stop(void *arguments) {
+    // stops the window
+    this->window->stop(NULL);
 }
 
 void OpenglAdapter::init() {
