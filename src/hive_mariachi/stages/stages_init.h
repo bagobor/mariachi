@@ -29,6 +29,10 @@
 ADD_TO_STAGES_LIST(new RenderStage(this, std::string("render")));
 #endif
 
-#ifdef MARIACHI_STAGE_RENDER
+#ifdef MARIACHI_STAGE_CONSOLE
+ADD_TO_STAGES_LIST(new ConsoleStage(this, std::string("console")));
+#endif
+
+#ifdef MARIACHI_STAGE_DUMMY
 ADD_TO_STAGES_LIST(new DummyStage(this, std::string("dummy")));
 #endif

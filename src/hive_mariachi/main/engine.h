@@ -29,6 +29,7 @@
 #include "../system/thread.h"
 #include "../devices/device.h"
 #include "../logging/logger.h"
+#include "../console/console.h"
 #include "../nodes/nodes.h"
 #include "../user_interface/user_interface.h"
 #include "../tasks/task.h"
@@ -39,6 +40,26 @@
 #elif MARIACHI_PLATFORM_UNIX
 #define threadHandleStageMapPut(threadHandle, threadId, currentStage) this->threadHandleStageMap[threadId] = currentStage
 #endif
+
+/**
+* The branding text value.
+*/
+#define MARIACHI_BRANDING_TEXT "Hive Mariachi Engine"
+
+/**
+* The version value.
+*/
+#define MARIACHI_VERSION "1.0.0"
+
+/**
+* The realse information value.
+*/
+#define MARIACHI_RELEASE_INFO "(Hive Solutions Lda. r1:Jan 19 2010)"
+
+/**
+* The help text value.
+*/
+#define MARIACHI_HELP_TEXT "Type \"help\" for more information."
 
 THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
 THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
@@ -79,6 +100,11 @@ namespace mariachi {
             ConfigurationManager *configurationManager;
 
             /**
+            * The manager used to control the console.
+            */
+            ConsoleManager *consoleManager;
+
+            /**
             * The top level 3d scene render node.
             */
             SceneNode *render;
@@ -102,6 +128,12 @@ namespace mariachi {
             * The task list ready condition.
             */
             CONDITION_HANDLE taskListReadyCondition;
+
+            /**
+            * The map associating the stage name with the
+            * stage reference.
+            */
+            std::map<std::string, Stage *> stagesMap;
 
             /**
             * The map associating the device name with the
@@ -140,9 +172,12 @@ namespace mariachi {
             void start(void *arguments);
             void stop(void *arguments);
             void update();
+            void printInformation();
             void handleException(Exception *exception);
             void startConfigurationManager();
             void stopConfigurationManager();
+            void startConsoleManager();
+            void stopConsoleManager();
             void startLogger(int level, bool pidFile);
             void startInputDevices();
             void startScriptEngines();
@@ -155,10 +190,14 @@ namespace mariachi {
             void addTask(Task *task);
             void removeTask(Task *task);
             void getCurrentProcessIdString(std::string &currentProcessIdString);
+            Stage *getStage(const std::string &stageName);
+            void setStage(const std::string &stageName, Stage *stage);
             Device *getDevice(const std::string &deviceName);
             void setDevice(const std::string &deviceName, Device *device);
             ConfigurationManager *getConfigurationManager();
             void setConfigurationManager(ConfigurationManager *configurationManager);
+            ConsoleManager *getConsoleManager();
+            void setConsoleManager(ConsoleManager *consoleManager);
             Logger *getLogger();
             void setLogger(Logger *logger);
             SceneNode *getRender();

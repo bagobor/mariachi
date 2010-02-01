@@ -25,8 +25,4 @@
 
 #pragma once
 
-#include "console_stage.h"
-#include "dummy_stage.h"
-#include "render_stage.h"
-#include "stage.h"
-#include "stage_runner.h"
+#include "console_manager.h"

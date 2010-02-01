@@ -25,8 +25,26 @@
 
 #pragma once
 
-#include "console_stage.h"
-#include "dummy_stage.h"
-#include "render_stage.h"
+#ifndef MARIACHI_STAGE_CONSOLE
+#define MARIACHI_STAGE_CONSOLE true
+#endif
+
 #include "stage.h"
-#include "stage_runner.h"
+
+namespace mariachi {
+    class ConsoleStage : public Stage {
+        private:
+            bool runningFlag;
+
+            inline void initThread();
+
+        public:
+            ConsoleStage();
+            ConsoleStage(Engine *engine);
+            ConsoleStage(Engine *engine, const std::string &name);
+            ~ConsoleStage();
+            void start(void *arguments);
+            void stop(void *arguments);
+            void update(void *arguments);
+    };
+}

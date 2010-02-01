@@ -27,6 +27,7 @@
 
 #include "../render_adapters/render_adapters.h"
 #include "definitions/render_stage_definitions.h"
+
 #include "render_stage.h"
 
 using namespace mariachi;
@@ -134,9 +135,12 @@ void RenderStage::start(void *arguments) {
 }
 
 void RenderStage::stop(void *arguments) {
+    Stage::stop(arguments);
 }
 
 void RenderStage::update(void *arguments) {
+    Stage::update(arguments);
+
     // @TODO: tenho de ver como e que aki faco a gestao dos dirties
 
     // waits for the render information mutex
