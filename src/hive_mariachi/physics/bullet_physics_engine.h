@@ -34,14 +34,23 @@ namespace mariachi {
     namespace physics {
         class BulletPhysicsEngine : public PhysicsEngine {
             private:
+                /**
+                * The bullet engine collision configuration.
+                */
                 btDefaultCollisionConfiguration *collisionConfiguration;
 
+                /**
+                * The bullet engine dispatcher.
+                */
                 btCollisionDispatcher *dispatcher;
 
+                /**
+                * The bullet engine broad phase.
+                */
                 btBroadphaseInterface *broadPhase;
 
                 /**
-                * The bullent engine impulse constraint solver.
+                * The bullet engine impulse constraint solver.
                 */
                 btSequentialImpulseConstraintSolver *solver;
 

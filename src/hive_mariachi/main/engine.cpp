@@ -52,6 +52,9 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
 
+        // starts the console manager in the engine
+        engine->startConsoleManager();
+
         // starts the logger in the engine
         engine->startLogger(DEBUG, true);
 
@@ -146,6 +149,7 @@ Engine::~Engine() {
 * Initializes the running flag.
 */
 inline void Engine::initRunningFlag() {
+    // sets the running flag
     this->runningFlag = true;
 }
 
@@ -153,11 +157,10 @@ inline void Engine::initRunningFlag() {
 * Initializes the renders.
 */
 inline void Engine::initRenders() {
+    // creates the render node
     this->render = new SceneNode(std::string("render"));
 
-    SceneNode *render2 = new SceneNode(std::string("render"));
-    this->render->addChild(render2);
-
+    // creates the render 2d node
     this->render2d = new Scene2dNode(std::string("render2d"));
 }
 
@@ -175,6 +178,9 @@ inline void Engine::initArgs(int argc, char** argv) {
 * @param arguments The arguments for the engine start.
 */
 void Engine::start(void *arguments) {
+    // prints the information
+    this->printInformation();
+
     // creates the task list mutex
     MUTEX_CREATE(this->taskListMutex);
 
@@ -242,6 +248,17 @@ void Engine::update() {
 }
 
 /**
+* Prints the branding information into the standard output.
+*/
+void Engine::printInformation() {
+    // prints the branding information
+    std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << "\n";
+
+    // prints the help text
+    std::cout << MARIACHI_HELP_TEXT << "\n";
+}
+
+/**
 * Handles the given exception, taking the necessary measures to
 * minimize damage.
 *
@@ -254,7 +271,7 @@ void Engine::handleException(Exception *exception) {
 
 /**
 * Starts the configuration manager in the engine.
-* Starting the configuration amanger implies booting the necessary
+* Starting the configuration manager implies booting the necessary
 * structures for data serialization.
 */
 void Engine::startConfigurationManager() {
@@ -312,6 +329,28 @@ void Engine::startLogger(int level, bool pidFile) {
         // adds the file handler to the default logger
         this->logger->addHandler(fileHandler);
     }
+}
+
+/**
+* Starts the console manager in the engine.
+*/
+void Engine::startConsoleManager() {
+    // creates a console manager
+    this->consoleManager = new ConsoleManager();
+
+    // loads the configuration manager
+    this->consoleManager->load(NULL);
+}
+
+/**
+* Stops the console manager in the engine.
+*/
+void Engine::stopConsoleManager() {
+    // unloads the console manager
+    this->consoleManager->unload(NULL);
+
+    // deletes the console manager
+    delete this->consoleManager;
 }
 
 /**
@@ -384,6 +423,10 @@ void Engine::startStages() {
         // retrieves the current stage
         Stage *currentStage = *stagesListIterator;
 
+        // retrieves the current stage name
+        std::string &currentStageName = currentStage->getName();
+
+        // in case the current stage requires a thread to run
         if(currentStage->requiresThread()) {
             // allocates space for the thread id
             THREAD_IDENTIFIER threadId;
@@ -401,6 +444,9 @@ void Engine::startStages() {
             this->mainThreadStagesList.push_back(currentStage);
         }
 
+        // sets the stage in the stages registry
+        this->setStage(currentStageName, currentStage);
+
         // increments the stages list iterator
         stagesListIterator++;
     }
@@ -414,6 +460,7 @@ void Engine::stopStages() {
     // retrieves the thread handle stage map iterator
     std::map<THREAD_REFERENCE, Stage *>::iterator threadHandleStageMapIterator = this->threadHandleStageMap.begin();
 
+    // iterates over all the stage thread handles
     while(threadHandleStageMapIterator != this->threadHandleStageMap.end()) {
         // retrieves the thread handle
         THREAD_REFERENCE threadHandle = threadHandleStageMapIterator->first;
@@ -523,6 +570,28 @@ void Engine::getCurrentProcessIdString(std::string &currentProcessIdString) {
 }
 
 /**
+* Retrieves the stage for the given stage name.
+*
+* @param stageName The stage name to retrieve the stage.
+* @return The stage for the given stage name.
+*/
+Stage *Engine::getStage(const std::string &stageName) {
+    return this->stagesMap[stageName];
+}
+
+/**
+* Sets the stage with the given stage name.
+*
+* @param stageName The name to be used to identify the stage.
+* @param stage The stage to be set.
+*/
+void Engine::setStage(const std::string &stageName, Stage *stage) {
+    // sets the stage in the stages map with
+    // the given stage name
+    this->stagesMap[stageName] = stage;
+}
+
+/**
 * Retrieves the device for the given device name.
 *
 * @param deviceName The device name to retrieve the device.
@@ -561,6 +630,25 @@ ConfigurationManager *Engine::getConfigurationManager() {
 void Engine::setConfigurationManager(ConfigurationManager *configurationManager) {
     this->configurationManager = configurationManager;
 }
+
+/**
+* Retrieves the console manager.
+*
+* @return The console manager.
+*/
+ConsoleManager *Engine::getConsoleManager() {
+    return this->consoleManager;
+}
+
+/**
+* Sets the console manager.
+*
+* @param consoleManager The console manager.
+*/
+void Engine::setConsoleManager(ConsoleManager *consoleManager) {
+    this->consoleManager = consoleManager;
+}
+
 
 /**
 * Retrieves the logger.

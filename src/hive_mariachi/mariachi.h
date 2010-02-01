@@ -27,6 +27,7 @@
 
 #include "algorithms/algorithms.h"
 #include "configuration/configuration.h"
+#include "console/console.h"
 #include "debugging/debugging.h"
 #include "devices/devices.h"
 #include "exceptions/exceptions.h"
