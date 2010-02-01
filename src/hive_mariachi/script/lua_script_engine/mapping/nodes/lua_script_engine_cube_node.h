@@ -31,5 +31,6 @@
 
 bool lua_mariachi_new_CubeNode(lua_State *luaState, mariachi::CubeNode *value);
 
+int lua_mariachi_cube_node_construct(lua_State *luaState);
 int lua_mariachi_cube_node_get_position(lua_State *luaState);
 int lua_mariachi_cube_node_set_position(lua_State *luaState);

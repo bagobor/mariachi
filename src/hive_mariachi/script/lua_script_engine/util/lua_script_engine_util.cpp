@@ -48,6 +48,7 @@ void lua_assertargsmethod(lua_State *luaState, unsigned int expectedArgc) {
 }
 
 void *lua_get_self(lua_State *luaState) {
+    // loads the self variable table
     lua_pushstring(luaState, LUA_SCRIPT_ENGINE_SELF_VARIABLE);
     lua_gettable(luaState, 1);
 
