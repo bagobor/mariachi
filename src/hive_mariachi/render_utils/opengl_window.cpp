@@ -35,12 +35,21 @@ using namespace mariachi;
 * Constructor of the class.
 */
 OpenglWindow::OpenglWindow() {
+    this->initRunningFlag();
 }
 
 /**
 * Destructor of the class.
 */
 OpenglWindow::~OpenglWindow() {
+}
+
+/**
+* Initializes the running flag.
+*/
+inline void OpenglWindow::initRunningFlag() {
+    // sets the running flag
+    this->runningFlag = true;
 }
 
 #endif

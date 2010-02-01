@@ -34,7 +34,10 @@
 namespace mariachi {
     class ConsoleStage : public Stage {
         private:
-            bool runningFlag;
+            /**
+            * The console manager to be used.
+            */
+            ConsoleManager *consoleManager;
 
             inline void initThread();
 

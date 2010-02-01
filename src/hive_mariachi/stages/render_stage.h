@@ -44,6 +44,7 @@ namespace mariachi {
             RenderSystem renderSystem;
             RenderAdapter *renderAdapter;
             RenderInformation *renderInformation;
+            THREAD_HANDLE renderAdapterThreadHandle;
 
             inline void initThread();
             inline void initRenderInformation();

@@ -23,16 +23,20 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-{
-    // the default encoding for text
-    "encoding" : "utf-8",
+#pragma once
 
-    // modules loaded at startup
-    "modules" : ["lua", "opengl", "direct3d", "opengles"],
+namespace mariachi {
+    class Module {
+        private:
+            bool running;
 
-    // the logging support
-    "logging" : { "verbosity" : 3, "file" : false },
-
-	// the scripting configuration
-	"scripting" : { "lua" : { "path" : "../../scripts/hive_mariachi_lua_scripts/src" } }
+        public:
+            Module();
+            ~Module();
+            virtual void start(void *arguments);
+            virtual void stop(void *arguments);
+            bool isRunning();
+            bool getRunning();
+            void setRunning(bool running);
+    };
 }

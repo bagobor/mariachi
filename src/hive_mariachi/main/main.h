@@ -26,3 +26,4 @@
 #pragma once
 
 #include "engine.h"
+#include "module.h"

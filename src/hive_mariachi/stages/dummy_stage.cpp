@@ -244,8 +244,6 @@ void DummyStage::start(void *arguments) {
 
     gCameraNode = gCameraNode3;
 
-    printf("New node added\n");
-
     modelNode->setPosition(25.0f, 0.0f, 0.0f);
     modelNode2->setPosition(-25.0f, 0.0f, 0.0f);
 

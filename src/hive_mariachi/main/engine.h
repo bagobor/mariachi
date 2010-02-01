@@ -71,6 +71,7 @@ namespace mariachi {
     class ConfigurationManager;
     class ConsoleManager;
     class ScriptEngine;
+    class StageRunner;
     class Stage;
 
     class Engine {
@@ -129,6 +130,12 @@ namespace mariachi {
             * The task list ready condition.
             */
             CONDITION_HANDLE taskListReadyCondition;
+
+            /**
+            * The map associating the stage with the
+            * stage runner.
+            */
+            std::map<Stage *, StageRunner *> stageRunnersMap;
 
             /**
             * The map associating the stage name with the
@@ -203,6 +210,8 @@ namespace mariachi {
             void addTask(Task *task);
             void removeTask(Task *task);
             void getCurrentProcessIdString(std::string &currentProcessIdString);
+            StageRunner *getStageRunner(Stage *stage);
+            void setStageRunner(Stage *stage, StageRunner *stageRunner);
             Stage *getStage(const std::string &stageName);
             void setStage(const std::string &stageName, Stage *stage);
             Device *getDevice(const std::string &deviceName);

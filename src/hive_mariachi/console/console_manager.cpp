@@ -290,7 +290,18 @@ void ConsoleManager::processScript(std::vector<std::string> &commandTokens, Writ
 
     // sets the current script engine name
     consoleManager->currentScriptEngineName = scriptEngineName;
+}
 
-    // writes the console help text
-    outputFunction(std::string("changed script engine to: " + scriptEngineName).c_str(), true);
+void ConsoleManager::processExit(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager) {
+    // in case the number of arguments is invalid
+    if(commandTokens.size() != 1) {
+        // writes the invalid number of arguments text
+        outputFunction(CONSOLE_INVALID_NUMBER_ARGUMENTS_MESSAGE, true);
+
+        // returns in error
+        return;
+    }
+
+    // stops the engine
+    consoleManager->engine->stop(NULL);
 }

@@ -28,7 +28,7 @@
 #include "../main/main.h"
 
 namespace mariachi {
-    class Stage {
+    class Stage : public Module {
         private:
             std::string name;
 

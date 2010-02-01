@@ -131,11 +131,20 @@ void RenderStage::start(void *arguments) {
     THREAD_IDENTIFIER threadId;
 
     // creates the engine runnner thread
-    THREAD_HANDLE threadHandle = THREAD_CREATE_BASE(threadId, renderRunnerThread, renderArguments);
+    this->renderAdapterThreadHandle = THREAD_CREATE_BASE(threadId, renderRunnerThread, renderArguments);
 }
 
 void RenderStage::stop(void *arguments) {
     Stage::stop(arguments);
+
+    // stops the render adapter
+    this->renderAdapter->stop(NULL);
+
+    // joins the render adapter thread
+    THREAD_JOIN(this->renderAdapterThreadHandle);
+
+    // closes the render adapter thread handle
+    THREAD_CLOSE(this->renderAdapterThreadHandle);
 }
 
 void RenderStage::update(void *arguments) {
