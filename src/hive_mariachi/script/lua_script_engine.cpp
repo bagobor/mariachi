@@ -31,12 +31,18 @@
 
 using namespace mariachi;
 
+/**
+* Constructor of the class.
+*/
 LuaScriptEngine::LuaScriptEngine() : ScriptEngine() {
 }
 
 LuaScriptEngine::LuaScriptEngine(Engine *engine) : ScriptEngine(engine) {
 }
 
+/**
+* Destructor of the class.
+*/
 LuaScriptEngine::~LuaScriptEngine() {
 }
 
@@ -53,13 +59,17 @@ void LuaScriptEngine::load(void *arguments) {
     // opens the defined lua libs
     this->openLuaLibs(lualibs);
 
+    // registers the scrip engine global variable
     lua_pushinteger(luaState, (long long) this);
     lua_setglobal(luaState, LUA_SCRIPT_ENGINE_GLOBAL_VARIABLE);
 
-    // creates a new table
+    // creates a new table and registers the entry point global function
     lua_newtable(luaState);
-    lua_setnamefunction(luaState, "get_engine", lua_mariachi_get_engine);
+    lua_setnamefunction(luaState, LUA_SCRIPT_ENGINE_GET_ENGINE_METHOD, lua_mariachi_get_engine);
     lua_setglobal(luaState, LUA_SCRIPT_ENGINE_BASE_NAMESPACE);
+
+    // generates the constructors
+    lua_generateconstructors(luaState);
 }
 
 void LuaScriptEngine::unload(void *arguments) {

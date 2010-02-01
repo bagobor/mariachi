@@ -54,7 +54,8 @@ int lua_mariachi_node_get_children_list(lua_State *luaState) {
     // retrieves the children list
     std::list<Node *> &childrenList = self->getChildrenList();
 
-    LuaList<Node *> *luaList = new LuaList<Node *>(&childrenList, lua_mariachi_new_Node);
+    // creates a new lua list object
+    LuaList<Node *> *luaList = new LuaList<Node *>(&childrenList, (LuaConstructor_t) lua_mariachi_new_Node);
 
     // creates and loads a list
     lua_mariachi_new_List<Node *>(luaState, luaList);

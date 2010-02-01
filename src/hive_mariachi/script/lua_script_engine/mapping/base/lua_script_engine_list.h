@@ -30,16 +30,42 @@
 #define LUA_SCRIPT_ENGINE_LIST_TYPE "_t_LIST"
 
 namespace mariachi {
+    /**
+    * Structural class used to be passed as argument to create
+    * a new list in lua.
+    */
     template<typename T> class LuaList {
         public:
+            /**
+            * The stl list value to be encapsulated.
+            */
             std::list<T> *listValue;
-            bool (*constructor)(lua_State *luaState, Node *value);
 
+            /**
+            * The constructor function to be used to construct the list elements.
+            */
+            bool (*constructor)(lua_State *luaState, void *value);
+
+            /**
+            * Constructor of the class.
+            */
             LuaList() {};
-            LuaList(std::list<T> *listValue, bool (*constructor)(lua_State *luaState, Node *value)) {
+
+            /**
+            * Constructor of the class.
+            *
+            * @param listValue The stl list value to be encapsulated.
+            * @param constructor The constructor function to be used to construct
+            * the list elements.
+            */
+            LuaList(std::list<T> *listValue, LuaConstructor_t constructor) {
                 this->listValue = listValue;
                 this->constructor = constructor;
             };
+
+            /**
+            * The destructor of the class.
+            */
             ~LuaList() {};
     };
 }

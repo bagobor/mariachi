@@ -30,12 +30,19 @@
 using namespace mariachi;
 
 /**
+* The lua type information map used to map a string type
+* with the lua type information of the type.
+*/
+std::map<std::string, LuaTypeInformation_t> lua_typeinformationmap;
+
+/**
 * Base object creation or retrieval function. It allocates a new object (table) reference
 * for the c++ object in case none exists. In case one reeference exists returns
 * it.
 *
-* @param luaState  The current lua state reference.
+* @param luaState The current lua state reference.
 * @param value The pointer to the c++ object.
+* @return If a new reference was created.
 */
 bool lua_mariachi_get_reference(lua_State *luaState, void *value) {
     // retrieves the lua script engine
@@ -83,6 +90,14 @@ bool lua_mariachi_new_Object(lua_State *luaState, void *value) {
     return return_value;
 }
 
+/**
+* Lua method to cast an object as a different object.
+* This method is a convenience to allow conversion and
+* type casting between types.
+*
+* @param luaState The current lua state reference.
+* @return The number of returning values.
+*/
 int lua_mariachi_object_cast_as(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 1);
@@ -93,16 +108,11 @@ int lua_mariachi_object_cast_as(lua_State *luaState) {
     // retrieves the cast as value
     const char *castAs = lua_tostring(luaState, -1);
 
-    std::string castAsString = std::string(castAs);
+    // retrieves the constructor for the cast value
+    LuaConstructor_t constructor = lua_getconstructor(castAs);
 
-    // @todo: Associate strings with constant values
-    // to provide switch access
-
-    if(castAsString == "SceneNode") {
-        lua_mariachi_new_SceneNode(luaState, (SceneNode *) self);
-    } else if(castAsString == "CubeNode") {
-        lua_mariachi_new_CubeNode(luaState, (SceneNode *) self);
-    }
+    // calls the constructor for the cast value
+    constructor(luaState, self);
 
     // returns the number of return values
     return 1;
@@ -133,4 +143,103 @@ LuaScriptEngine *lua_getscriptengine(lua_State *luaState) {
 
     // returns the lua script engine
     return luaScriptEngine;
+}
+
+/**
+* Generates the constructors for all the classes in lua.
+* The constructors are registered in the mariachi global namespace.
+*
+* @param luaState The current lua state reference.
+*/
+void lua_generateconstructors(lua_State *luaState) {
+    // in case the type information map is empty
+    if(lua_typeinformationmap.size() == 0) {
+        // constructs the type information map
+        lua_constructtypeinformationmap();
+    }
+
+    // retrieves the lua type information map iterator
+    std::map<std::string, LuaTypeInformation_t>::iterator lua_typeinformationmapIterator = lua_typeinformationmap.begin();
+
+    // loads the engine base global variable
+    lua_getglobal(luaState, LUA_SCRIPT_ENGINE_BASE_NAMESPACE);
+
+    // iterates over all the lua type information map items
+    while(lua_typeinformationmapIterator != lua_typeinformationmap.end()) {
+        // retrieves the lua type name
+        std::string luaTypeName = lua_typeinformationmapIterator->first;
+
+        // retrieves the lua type information
+        LuaTypeInformation_t &luaTypeInformation = lua_typeinformationmapIterator->second;
+
+        // in case there is a valid lua constructor
+        if(luaTypeInformation.luaConstructor) {
+            // sets the lua constructor function in the map with the function lua type name
+            lua_setnamefunction(luaState, luaTypeName.c_str(), luaTypeInformation.luaConstructor);
+        }
+
+        // increments the lua type information map iterator
+        lua_typeinformationmapIterator++;
+    }
+
+    // pops the engine base global variable
+    // from stack
+    lua_pop(luaState, 1);
+}
+
+/**
+* Retrieves the int type value for the given type in
+* character value.
+*
+* @param charType The type in character value to retrieve the
+* int type.
+* @return The int type for the given character type.
+*/
+unsigned int lua_getinttype(const char *charType) {
+    // in case the type information map is empty
+    if(lua_typeinformationmap.size() == 0) {
+        // constructs the type information map
+        lua_constructtypeinformationmap();
+    }
+
+    return lua_typeinformationmap[charType].intType;
+}
+
+/**
+* Retrieves the constructor function for the given type in
+* character value.
+*
+* @param charType The type in character value to retrieve the
+* constructor.
+* @return The constructor for the given character type.
+*/
+LuaConstructor_t lua_getconstructor(const char *charType) {
+    // in case the type information map is empty
+    if(lua_typeinformationmap.size() == 0) {
+        // constructs the type information map
+        lua_constructtypeinformationmap();
+    }
+
+    // returns the contructor for the char type
+    return lua_typeinformationmap[charType].constructor;
+}
+
+/**
+* Constructs the type information map for all the lua type values
+* the constructed map, includes information about the type.
+*/
+void lua_constructtypeinformationmap() {
+    LuaTypeInformation_t listTypeInformation = { LUA_SCRIPT_ENGINE_LIST_TYPE_INT, NULL, NULL };
+    LuaTypeInformation_t mapTypeInformation = { LUA_SCRIPT_ENGINE_MAP_TYPE_INT, NULL, NULL };
+    LuaTypeInformation_t vectorTypeInformation = { LUA_SCRIPT_ENGINE_VECTOR_TYPE_INT, NULL, NULL };
+    LuaTypeInformation_t nodeTypeInformation = { LUA_SCRIPT_ENGINE_NODE_TYPE_INT, (LuaConstructor_t) lua_mariachi_new_Node, NULL };
+    LuaTypeInformation_t cubeNodeTypeInformation = { LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE_INT, (LuaConstructor_t) lua_mariachi_new_CubeNode, lua_mariachi_cube_node_construct };
+    LuaTypeInformation_t sceneNodeTypeInformation = { LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE_INT, (LuaConstructor_t) lua_mariachi_new_SceneNode, NULL };
+
+    lua_typeinformationmap["List"] = listTypeInformation;
+    lua_typeinformationmap["Map"] = mapTypeInformation;
+    lua_typeinformationmap["Vector"] = vectorTypeInformation;
+    lua_typeinformationmap["Node"] = nodeTypeInformation;
+    lua_typeinformationmap["CubeNode"] = cubeNodeTypeInformation;
+    lua_typeinformationmap["SceneNode"] = sceneNodeTypeInformation;
 }

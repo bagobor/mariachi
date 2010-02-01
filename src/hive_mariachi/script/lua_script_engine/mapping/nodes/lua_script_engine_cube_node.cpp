@@ -45,6 +45,20 @@ bool lua_mariachi_new_CubeNode(lua_State *luaState, CubeNode *value) {
     return return_value;
 }
 
+int lua_mariachi_cube_node_construct(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargs(luaState, 0);
+
+    // creates a new cube node
+    CubeNode *cubeNode = new CubeNode();
+
+    // creates and loads the cube node (in lua)
+    lua_mariachi_new_CubeNode(luaState, cubeNode);
+
+    // returns the number of return values
+    return 1;
+}
+
 int lua_mariachi_cube_node_get_position(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 0);

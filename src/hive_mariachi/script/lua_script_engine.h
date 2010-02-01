@@ -41,6 +41,8 @@ extern "C" {
 
 #define LUA_SCRIPT_ENGINE_BASE_NAMESPACE "hive_mariachi"
 
+#define LUA_SCRIPT_ENGINE_GET_ENGINE_METHOD "get_engine"
+
 namespace mariachi {
     class LuaScriptEngine : public ScriptEngine {
         private:
