@@ -242,8 +242,8 @@ void Huffman::generateTable(std::fstream *fileStream) {
             mergedHuffmanNode->value = lowestHuffmanNode->value + secondLowestHuffmanNode->value;
             mergedHuffmanNode->symbol = HUFFMAN_SYMBOL_TABLE_EXTRA_VALUE;
             mergedHuffmanNode->code = std::string();
-            mergedHuffmanNode->left = lowestHuffmanNode;
-            mergedHuffmanNode->right = secondLowestHuffmanNode;
+            mergedHuffmanNode->left = secondLowestHuffmanNode;
+            mergedHuffmanNode->right = lowestHuffmanNode;
             mergedHuffmanNode->parent = NULL;
 
             // sets the parent in the huffman nodes
@@ -280,7 +280,7 @@ void Huffman::printTable() {
         std::string &currentCode = this->huffmanTable[index];
 
         // prints the table line information
-        std::cout << currentSymbol << ": " << currentCode << "\n";
+        std::cout << currentSymbol << " (" << (char) currentSymbol << "): " << currentCode << "\n";
     }
 }
 
@@ -481,8 +481,8 @@ inline void Huffman::cleanStructures(HuffmanNode *node) {
 void Huffman::_generateTable(HuffmanNode *node, std::string &code) {
     // in case it's not a leaf ndoe
     if(node->left && node->right) {
-        this->_generateTable(node->left, code + "1");
-        this->_generateTable(node->right, code + "0");
+        this->_generateTable(node->left, code + "0");
+        this->_generateTable(node->right, code + "1");
     }
 
     // sets the code fot the current symbol
