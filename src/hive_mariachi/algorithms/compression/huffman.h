@@ -25,7 +25,9 @@
 
 #pragma once
 
-#define HUFFMAN_SYMBOL_SYMBOL_SIZE 8
+#define HUFFMAN_SYMBOL_SIZE 8
+
+#define HUFFMAN_SYMBOL_INVALID_SIZE 255
 
 #define HUFFMAN_SYMBOL_TABLE_SIZE 256
 
@@ -47,13 +49,13 @@ namespace mariachi {
 
     typedef struct HuffmanPartialByte_t {
         unsigned char byte;
-		unsigned char numberBits;
+        unsigned char numberBits;
     } HuffmanPartialByte;
 
     typedef struct HuffmanStream_t {
-		std::stringstream *stream;
-		unsigned char bitCounter;
-		unsigned char currentByte;
+        std::stringstream *stream;
+        unsigned char bitCounter;
+        unsigned char currentByte;
     } HuffmanStream;
 
     class Huffman {
@@ -70,24 +72,25 @@ namespace mariachi {
             std::fstream *fileStream;
 
             std::string huffmanTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
-			std::vector<HuffmanPartialByte_t> huffmanComputedTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
+            std::vector<HuffmanPartialByte_t> huffmanComputedTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
 
             inline void initOccurrenceCountList();
             inline void updateOccurrenceValues(char *buffer, unsigned int size);
-			inline void encodeData(char *buffer, HuffmanStream_t *bitStream, unsigned int size);
-			inline void writeHuffmanStream(HuffmanStream_t *bitStream, unsigned char byte, unsigned char numberBits);
-			inline void computeTable();
-			inline std::vector<HuffmanPartialByte_t> computeCode(std::string &code);
-			inline void cleanStructures(HuffmanNode *node);
+            inline void encodeData(char *buffer, HuffmanStream_t *bitStream, unsigned int size);
+            inline void writeHuffmanStream(HuffmanStream_t *bitStream, unsigned char byte, unsigned char numberBits);
+            inline void computeTable();
+            inline std::vector<HuffmanPartialByte_t> computeCode(std::string &code);
+            inline void cleanStructures(HuffmanNode *node);
             void _generateTable(HuffmanNode *node, std::string &code = std::string(""));
 
         public:
             Huffman();
             ~Huffman();
-			void encode(const std::string &filePath, const std::string &targetFilePath);
-			void encode(const std::string &filePath, std::stringstream *targetStream);
+            void encode(const std::string &filePath, const std::string &targetFilePath);
+            void encode(const std::string &filePath, std::stringstream *targetStream);
             void generateTable(const std::string &filePath);
             void generateTable(std::fstream *fileStream);
+            void printTable();
     };
 
     class HuffmanNodeCompare {

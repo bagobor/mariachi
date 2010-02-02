@@ -54,16 +54,11 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     try {
         Huffman a = Huffman();
 
-		std::stringstream stream1;
+        std::stringstream stream1;
 
-		a.encode("C:/light6.bmp", "c:/tobias.bmp2");
-		
-		// creates the file stream to be used
-		//std::fstream fileStream = std::fstream("C:/tobias.mp2", std::fstream::out | std::fstream::binary);
+        a.encode("C:/light6.bmp", "c:/tobias.bmp2");
 
-		//fileStream << stream1.read;
-
-		//fileStream.close();
+        a.printTable();
 
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
