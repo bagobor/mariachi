@@ -265,6 +265,11 @@ void Huffman::generateTable(std::fstream *fileStream) {
     this->cleanStructures(lowestHuffmanNode);
 }
 
+/**
+* Prints the huffman table information to the standard output.
+* The information contained is pretty printed with the symbol and
+* the associated code information.
+*/
 void Huffman::printTable() {
     // iterates over all the symbols
     for(unsigned int index = 0; index < HUFFMAN_SYMBOL_TABLE_SIZE; index++) {
