@@ -37,6 +37,12 @@ extern "C" {
 
 #include "script_engine.h"
 
+#define LUA_SCRIPT_ENGINE_PACKAGE_NAMESPACE "package"
+
+#define LUA_SCRIPT_ENGINE_PACKAGE_PATH "path"
+
+#define LUA_SCRIPT_ENGINE_PACKAGE_PATH_SEPARATOR ";"
+
 #define LUA_SCRIPT_ENGINE_GLOBAL_VARIABLE "lua_script_engine"
 
 #define LUA_SCRIPT_ENGINE_BASE_NAMESPACE "mariachi"
