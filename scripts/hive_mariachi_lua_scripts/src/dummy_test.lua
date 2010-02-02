@@ -27,7 +27,7 @@
 io.write("Running ", _VERSION, "\n")
 
 -- creates a new cube node
-new_cube_node = hive_mariachi.CubeNode()
+new_cube_node = mariachi.CubeNode()
 
 -- retrieves the engine
 engine = mariachi.get_engine()
