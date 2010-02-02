@@ -46,6 +46,7 @@ namespace mariachi {
             ~ScriptEngine();
             virtual void load(void *arguments) {};
             virtual void unload(void *arguments) {};
+            virtual void addExtraPaths(std::vector<std::string *> &extraPaths) { };
             virtual bool runScript(Script_t *script) { return true; };
             virtual bool runScriptFile(const std::string &scriptPath) { return true; };
             virtual bool runScriptString(const std::string &scriptString) { return true; };

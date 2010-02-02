@@ -89,6 +89,19 @@ void lua_settype(lua_State *luaState, const char *type) {
 }
 
 /**
+* Sets a mapping name for a string value given as argument.
+*
+* @param luaState The current lua state reference.
+* @param name The mapping name to be used.
+* @param value The string value to be used.
+*/
+void lua_setnamestring(lua_State *luaState, const char *name, const char *value) {
+    lua_pushstring(luaState, name);
+    lua_pushstring(luaState, value);
+    lua_settable(luaState, -3);
+}
+
+/**
 * Sets a mapping name for a float value given as argument.
 *
 * @param luaState The current lua state reference.

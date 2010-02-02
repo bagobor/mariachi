@@ -77,6 +77,44 @@ void LuaScriptEngine::unload(void *arguments) {
     lua_close(this->luaState);
 }
 
+void LuaScriptEngine::addExtraPaths(std::vector<std::string *> &extraPaths) {
+    // loads the global variable
+    lua_getglobal(luaState, "package");
+
+    // loads the self variable table
+    lua_pushstring(luaState, "path");
+    lua_gettable(luaState, 1);
+
+    // retrieves the path value
+    const char *packagePath = lua_tostring(luaState, -1);
+
+    // pops the path value
+    lua_pop(luaState, 1);
+
+    // creates the new package path string
+    std::string &newPackagePath = std::string(packagePath);
+
+    // retrieves the extra paths iterator
+    std::vector<std::string *>::iterator extraPathsIterator = extraPaths.begin();
+
+    // iterates over all the extra paths
+    while(extraPathsIterator != extraPaths.end()) {
+        // adds the extra path to the new package path
+        newPackagePath += ";" + **extraPathsIterator;
+
+        // increments the extra paths iterator
+        extraPathsIterator++;
+    }
+
+    // loads the new path variable table
+    lua_pushstring(luaState, "path");
+    lua_pushstring(luaState, newPackagePath.c_str());
+    lua_settable(luaState, -3);
+
+    // pops the package global variable
+    lua_pop(luaState, 1);
+}
+
 bool LuaScriptEngine::runScript(Script_t *script) {
     return true;
 }

@@ -39,7 +39,7 @@ extern "C" {
 
 #define LUA_SCRIPT_ENGINE_GLOBAL_VARIABLE "lua_script_engine"
 
-#define LUA_SCRIPT_ENGINE_BASE_NAMESPACE "hive_mariachi"
+#define LUA_SCRIPT_ENGINE_BASE_NAMESPACE "mariachi"
 
 #define LUA_SCRIPT_ENGINE_GET_ENGINE_METHOD "get_engine"
 
@@ -55,6 +55,7 @@ namespace mariachi {
             ~LuaScriptEngine();
             void load(void *arguments);
             void unload(void *arguments);
+            void addExtraPaths(std::vector<std::string *> &extraPaths);
             bool runScript(Script_t *script);
             bool runScriptFile(const std::string &scriptPath);
             bool runScriptString(const std::string &scriptString);

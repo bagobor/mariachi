@@ -37,5 +37,6 @@ void *lua_get_self(lua_State *luaState);
 void lua_set_self(lua_State *luaState, void *selfPointer);
 int lua_hastype(lua_State *luaState, const char *type);
 void lua_settype(lua_State *luaState, const char *type);
+void lua_setnamestring(lua_State *luaState, const char *name, const char *value);
 void lua_setnamefloat(lua_State *luaState, const char *name, float value);
 void lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value);

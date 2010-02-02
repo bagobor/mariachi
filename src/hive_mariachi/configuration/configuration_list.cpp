@@ -114,3 +114,24 @@ void ConfigurationList::addObjectProperty(const std::string &key, ConfigurationM
     // adds the property
     this->addProperty(configurationValue);
 }
+
+std::vector<std::string *> ConfigurationList::getAsStringVector() {
+    // allocates the string vector value
+    std::vector<std::string *> stringVectorValue;
+
+    // retrieves the configuration list iterator
+    std::vector<ConfigurationValue_t *>::iterator configurationListIterator = this->configurationList.begin();
+
+    while(configurationListIterator != this->configurationList.end()) {
+        // retrieves the current configuration value
+        ConfigurationValue_t *currentConfigurationValue = *configurationListIterator;
+
+        // adds the string value to the string vector value
+        stringVectorValue.push_back(currentConfigurationValue->structure.stringValue);
+
+        // increments the configuration list iterator
+        configurationListIterator++;
+    }
+
+    return stringVectorValue;
+};

@@ -30,10 +30,10 @@ io.write("Running ", _VERSION, "\n")
 new_cube_node = hive_mariachi.CubeNode()
 
 -- retrieves the engine
-engine = hive_mariachi.get_engine()
+engine = mariachi.get_engine()
 
 -- retrieves the engine
-engine = hive_mariachi.get_engine()
+engine = mariachi.get_engine()
 
 -- retrieves the render node
 render = engine:get_render()

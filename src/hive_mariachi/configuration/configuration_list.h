@@ -45,5 +45,6 @@ namespace mariachi {
             void addStringProperty(const std::string &key, const std::string &stringValue);
             void addBooleanProperty(const std::string &key, bool booleanValue);
             void addObjectProperty(const std::string &key, ConfigurationMap *objectValue);
+            std::vector<std::string *> getAsStringVector();
     };
 }
