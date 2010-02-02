@@ -414,9 +414,6 @@ void Engine::startScriptEngines() {
         luaScriptEngine->addExtraPaths(stringVectorValue);
     }
 
-    // runs the script file
-    luaScriptEngine->runScriptFile(std::string("c:/test.lua"));
-
     // sets the lua script engine in the script engines registry
     this->setScriptEngine("lua", luaScriptEngine);
 }
