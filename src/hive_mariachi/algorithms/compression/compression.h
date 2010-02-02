@@ -25,5 +25,4 @@
 
 #pragma once
 
-#include "compression/compression.h"
-#include "path_finding/path_finding.h"
+#include "huffman.h"

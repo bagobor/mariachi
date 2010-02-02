@@ -692,6 +692,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Compression"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\compression\huffman.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="User Interface"
@@ -1619,6 +1627,18 @@
 					</File>
 					<File
 						RelativePath="..\..\src\hive_mariachi\algorithms\path_finding\path_finding.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Compression"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\compression\compression.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\compression\huffman.h"
 						>
 					</File>
 				</Filter>

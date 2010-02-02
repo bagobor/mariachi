@@ -28,7 +28,6 @@
 #include "path_finder.h"
 
 namespace mariachi {
-
     class AStar : public PathFinder {
         private:
             float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *);
