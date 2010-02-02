@@ -79,10 +79,10 @@ void LuaScriptEngine::unload(void *arguments) {
 
 void LuaScriptEngine::addExtraPaths(std::vector<std::string *> &extraPaths) {
     // loads the global variable
-    lua_getglobal(luaState, "package");
+    lua_getglobal(luaState, LUA_SCRIPT_ENGINE_PACKAGE_NAMESPACE);
 
     // loads the self variable table
-    lua_pushstring(luaState, "path");
+    lua_pushstring(luaState, LUA_SCRIPT_ENGINE_PACKAGE_PATH);
     lua_gettable(luaState, 1);
 
     // retrieves the path value
@@ -100,14 +100,14 @@ void LuaScriptEngine::addExtraPaths(std::vector<std::string *> &extraPaths) {
     // iterates over all the extra paths
     while(extraPathsIterator != extraPaths.end()) {
         // adds the extra path to the new package path
-        newPackagePath += ";" + **extraPathsIterator;
+        newPackagePath += LUA_SCRIPT_ENGINE_PACKAGE_PATH_SEPARATOR + **extraPathsIterator;
 
         // increments the extra paths iterator
         extraPathsIterator++;
     }
 
     // loads the new path variable table
-    lua_pushstring(luaState, "path");
+    lua_pushstring(luaState, LUA_SCRIPT_ENGINE_PACKAGE_PATH);
     lua_pushstring(luaState, newPackagePath.c_str());
     lua_settable(luaState, -3);
 
