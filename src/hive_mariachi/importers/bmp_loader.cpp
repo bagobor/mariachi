@@ -49,13 +49,13 @@ void BmpLoader::generateImage(const std::string &filePath) {
     }
 
     // seeks to the end of the file
-    bmpFile->seekg (0, std::fstream::end);
+    bmpFile->seekg(0, std::fstream::end);
 
     // get length of file:
     std::streamoff bmpFileLength = bmpFile->tellg();
 
     // seeks to the beginning of the file
-    bmpFile->seekg (0, std::fstream::beg);
+    bmpFile->seekg(0, std::fstream::beg);
 
     // allocates space for the bmp magic
     BmpHeader_t *bmpMagic = (BmpHeader_t *) malloc(BMP_MAGIC_SIZE);

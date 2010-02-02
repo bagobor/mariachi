@@ -25,6 +25,7 @@
 
 #include "stdafx.h"
 
+#include "../algorithms/algorithms.h"
 #include "../exceptions/exceptions.h"
 #include "../devices/devices.h"
 #include "../system/system.h"
@@ -51,6 +52,19 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
+        Huffman a = Huffman();
+
+		std::stringstream stream1;
+
+		a.encode("C:/light6.bmp", "c:/tobias.bmp2");
+		
+		// creates the file stream to be used
+		//std::fstream fileStream = std::fstream("C:/tobias.mp2", std::fstream::out | std::fstream::binary);
+
+		//fileStream << stream1.read;
+
+		//fileStream.close();
+
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
 

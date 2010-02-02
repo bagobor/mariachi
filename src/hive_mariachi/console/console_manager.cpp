@@ -161,6 +161,9 @@ void ConsoleManager::processCommandLineScript(const char *commandLine, WriteOupu
         // unsets the current script engine name
         this->currentScriptEngineName = "";
 
+        // unsets the extra carret
+        this->extraCarret = false;
+
         // returns immediately
         return;
     }
@@ -197,6 +200,7 @@ void ConsoleManager::processCommandLineScript(const char *commandLine, WriteOupu
         // clears the current script string
         this->currentScriptString.clear();
     } else {
+        // sets the extra carret
         this->extraCarret = true;
     }
 }

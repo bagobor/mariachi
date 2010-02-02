@@ -61,13 +61,13 @@ void Md2Importer::generateModel(const std::string &filePath) {
     }
 
     // seeks to the end of the file
-    md2File->seekg (0, std::fstream::end);
+    md2File->seekg(0, std::fstream::end);
 
     // get length of file:
     std::streamoff md2FileLength = md2File->tellg();
 
     // seeks to the beginning of the file
-    md2File->seekg (0, std::fstream::beg);
+    md2File->seekg(0, std::fstream::beg);
 
     // allocates space for the md2 header
     Md2Header_t *md2Header = (Md2Header_t *) malloc(MD2_HEADER_SIZE);
