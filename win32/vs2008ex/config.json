@@ -34,5 +34,5 @@
     "logging" : { "verbosity" : 3, "file" : false },
 
 	// the scripting configuration
-	"scripting" : { "lua" : { "path" : "../../scripts/hive_mariachi_lua_scripts/src" } }
+	"scripting" : { "lua" : { "extra_paths" : ["../../scripts/hive_mariachi_lua_scripts/src/?.lua"] } }
 }

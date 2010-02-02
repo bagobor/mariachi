@@ -348,8 +348,8 @@ void Engine::startLogger(int level, bool pidFile) {
     // retrieves the logging verbosity value
     ConfigurationValue_t *loggingVerbosityProperty = this->configurationManager->getProperty("logging/verbosity");
 
-    // in case a verbosity level is define in the configuration
-    if(loggingVerbosityProperty->structure.intValue) {
+    // in case a verbosity level is defined in the configuration
+    if(loggingVerbosityProperty) {
         // sets the default logging level
         this->logger->setLevel(loggingVerbosityProperty->structure.intValue);
     } else {
@@ -361,7 +361,7 @@ void Engine::startLogger(int level, bool pidFile) {
     ConfigurationValue_t *loggingFileProperty = this->configurationManager->getProperty("logging/file");
 
     // in case the a file logger should be used
-    if(loggingFileProperty->structure.booleanValue) {
+    if(loggingFileProperty && loggingFileProperty->structure.booleanValue) {
         // creates a new file handler
         LoggerFileHandler *fileHandler = new LoggerFileHandler(std::string("service_pid" + currentProcessIdString + ".log"));
 
@@ -400,6 +400,19 @@ void Engine::startScriptEngines() {
 
     // loads the lua script engine
     luaScriptEngine->load(NULL);
+
+    ConfigurationValue_t *luaConfigurationExtraPaths = this->configurationManager->getProperty("scripting/lua/extra_paths");
+
+    if(luaConfigurationExtraPaths) {
+        // retrieves the list value
+        ConfigurationList *listValue = (ConfigurationList *) luaConfigurationExtraPaths->structure.listValue;
+
+        // retrieves the string vector value
+        std::vector<std::string *> stringVectorValue = listValue->getAsStringVector();
+
+        // adds the extra paths
+        luaScriptEngine->addExtraPaths(stringVectorValue);
+    }
 
     // runs the script file
     luaScriptEngine->runScriptFile(std::string("c:/test.lua"));
