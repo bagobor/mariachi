@@ -56,11 +56,13 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         std::stringstream stream1;
 
-        a.encode("C:/light6.bmp", "c:/tobias.bmp2");
+        //a.encode("C:/light6.bmp", "c:/light6.encoded");
 
-        a.printTable();
+        a.decode("C:/light6.encoded", "c:/light6_decoded.bmp");
 
-        a.generateLookupTable();
+        //a.printTable();
+
+        //a.writeOuputFile(c:/tobias.bmp2");
 
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
