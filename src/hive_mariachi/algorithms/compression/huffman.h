@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include "../../util/bit_util.h"
+
 #define HUFFMAN_SYMBOL_SIZE 8
 
 #define HUFFMAN_SYMBOL_INVALID_SIZE 255
@@ -37,11 +39,14 @@
 
 #define HUFFMAN_FILE_BUFFER_SIZE 10240
 
-#define HUFFMAN_STREAM_BUFFER_SIZE 1024
-
-#define HUFFMAN_LOOKUP_TABLE_MAXIMUM_CODE_SIZE 24
+#define HUFFMAN_LOOKUP_TABLE_MAXIMUM_CODE_SIZE 20
 
 namespace mariachi {
+    typedef enum HuffmanType_t {
+        HUFFMAN_TYPE_NORMAL = 1,
+        HUFFMAN_TYPE_LOOKUP_TABLE
+    } HuffmanType;
+
     typedef struct HuffmanNode_t {
         unsigned int value;
         int symbol;
@@ -56,13 +61,27 @@ namespace mariachi {
         unsigned char numberBits;
     } HuffmanPartialByte;
 
-    typedef struct HuffmanStream_t {
-        std::iostream *stream;
-        char buffer[HUFFMAN_STREAM_BUFFER_SIZE];
-        unsigned int bufferSize;
-        unsigned char bitCounter;
-        unsigned char currentByte;
-    } HuffmanStream;
+    typedef struct HuffmanCode_t {
+        unsigned int quadWord;
+        unsigned char numberBits;
+    } HuffmanCode;
+
+    typedef struct HuffmanCodeTable_t {
+        unsigned long long size;
+        HuffmanCode_t *buffer;
+    } HuffmanCodeTable;
+
+    typedef struct HuffmanLookupTable_t {
+        unsigned long long size;
+        unsigned int *buffer;
+    } HuffmanLookupTable;
+
+    typedef struct HuffmanHeader_t {
+        HuffmanType_t type;
+        unsigned int longestCodeSize;
+        HuffmanCodeTable_t codeTable;
+        HuffmanLookupTable_t loookupTable;
+    } HuffmanHeader;
 
     class Huffman {
         private:
@@ -90,27 +109,57 @@ namespace mariachi {
             std::vector<HuffmanPartialByte_t> huffmanComputedTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
 
             /**
+            * The huffman table mapping the symbol with the code
+            * represented as an huffman codes.
+            */
+            HuffmanCode_t huffmanCodeTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
+
+            /**
+            * The current type of coding/decoding being used.
+            */
+            HuffmanType_t type;
+
+            /**
             * The size of the longest code value.
             */
             unsigned int longestCodeSize;
 
+            /**
+            * The lookup table structure value.
+            */
+            HuffmanLookupTable_t lookupTable;
+
+            inline void initType();
             inline void initFileStream();
+            inline void initLookupTable();
             inline void initOccurrenceCountList();
             inline void initLongestCodeSize();
             inline void updateOccurrenceValues(char *buffer, unsigned int size);
-            inline void encodeData(char *buffer, HuffmanStream_t *bitStream, unsigned int size);
-            inline void writeHuffmanStream(HuffmanStream_t *bitStream, unsigned char byte, unsigned char numberBits);
+            inline void encodeData(char *buffer, util::BitStream *bitStream, unsigned int size);
+            inline void decodeData(char *buffer, util::BitStream *bitStream, unsigned int size);
+            inline void writeHuffmanStream(util::BitStream *bitStream, unsigned char byte, unsigned char numberBits);
             inline void computeTable();
             inline std::vector<HuffmanPartialByte_t> computeCode(std::string &code);
             inline void cleanStructures(HuffmanNode *node);
+            inline void cleanLookupTable();
+            inline void cleanFileStream();
+            inline void _readHeader(std::iostream *sourceStream);
+            inline void _writeHeader(std::iostream *targetStream);
+            inline void _readCodeTable(std::iostream *sourceStream);
+            inline void _writeCodeTable(std::iostream *targetStream);
+            inline void _readLookupTable(std::iostream *sourceStream);
+            inline void _writeLookupTable(std::iostream *targetStream);
             void _generateTable(HuffmanNode *node, std::string &code = std::string(""));
-            void _generatePermutations(std::vector<std::string> *stringValuesList, std::string &stringValue, unsigned int count);
+            void _generatePermutations(std::vector<HuffmanCode_t> *huffmanCodeValuesList, char *stringBuffer, unsigned int count);
+            HuffmanCode_t _generateHuffmanCode(const char *stringCodeValue, unsigned char stringCodeValueSize = -1);
 
         public:
             Huffman();
             ~Huffman();
             void encode(const std::string &filePath, const std::string &targetFilePath);
             void encode(const std::string &filePath, std::iostream *targetStream);
+            void decode(const std::string &filePath, const std::string &targetFilePath);
+            void decode(const std::string &filePath, std::iostream *targetStream);
             void generateTable(const std::string &filePath);
             void generateTable(std::fstream *fileStream);
             void generateLookupTable();
@@ -122,5 +171,12 @@ namespace mariachi {
 
         public:
             bool operator()(HuffmanNode_t *firstElement, HuffmanNode_t *secondElement);
+    };
+
+    class HuffmanCodeCompare {
+        private:
+
+        public:
+            bool operator()(HuffmanCode_t *firstElement, HuffmanCode_t *secondElement);
     };
 }
