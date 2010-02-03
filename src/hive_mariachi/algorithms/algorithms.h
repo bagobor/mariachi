@@ -26,4 +26,5 @@
 #pragma once
 
 #include "compression/compression.h"
+#include "hashing/hashing.h"
 #include "path_finding/path_finding.h"
