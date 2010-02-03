@@ -25,49 +25,5 @@
 
 #pragma once
 
-#ifdef __MACH__
-#define unix true
-#include <TargetConditionals.h>
-#endif
-
-#ifdef _WIN32
-#include "targetver.h"
-#include "resource.h"
-
-// excludes rarely-used stuff from windows headers
-#define WIN32_LEAN_AND_MEAN
-
-// includes the extra math definitions
-#define _USE_MATH_DEFINES
-#endif
-
-#include "definitions.h"
-
-#ifdef MARIACHI_PLATFORM_WIN32
-#include <Windows.h>
-#endif
-
-#ifdef MARIACHI_PLATFORM_UNIX
-#include <pthread.h>
-#endif
-
-#ifdef MARIACHI_PLATFORM_IPHONE
-const char *getBundleDirectory();
-#endif
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
-
-#include <string>
-#include <map>
-#include <list>
-#include <queue>
-#include <vector>
-#include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <typeinfo>
+#include "crc32.h"
+#include "md5.h"

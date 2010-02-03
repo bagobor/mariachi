@@ -60,6 +60,8 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         a.printTable();
 
+        a.generateLookupTable();
+
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
 

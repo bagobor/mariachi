@@ -700,6 +700,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Hashing"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\crc32.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\md5.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="User Interface"
@@ -1639,6 +1651,22 @@
 					</File>
 					<File
 						RelativePath="..\..\src\hive_mariachi\algorithms\compression\huffman.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Hashing"
+					>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\crc32.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\hashing.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\md5.h"
 						>
 					</File>
 				</Filter>

@@ -35,7 +35,9 @@ using namespace mariachi;
 * Constructor of the class.
 */
 Huffman::Huffman() {
+    this->initFileStream();
     this->initOccurrenceCountList();
+    this->initLongestCodeSize();
 }
 
 /**
@@ -48,9 +50,18 @@ Huffman::~Huffman() {
     }
 }
 
+inline void Huffman::initFileStream() {
+    // invalidates the file stream
+    this->fileStream = NULL;
+}
+
 inline void Huffman::initOccurrenceCountList() {
     // resets the occurrence count list
     memset(this->occurrenceCountList, NULL, sizeof(unsigned int) * HUFFMAN_SYMBOL_TABLE_SIZE);
+}
+
+inline void Huffman::initLongestCodeSize() {
+    this->longestCodeSize = 0;
 }
 
 void Huffman::encode(const std::string &filePath, const std::string &targetFilePath) {
@@ -63,39 +74,14 @@ void Huffman::encode(const std::string &filePath, const std::string &targetFileP
         throw RuntimeException("Problem while loading file: " + filePath);
     }
 
-    std::stringstream targetStream;
-
     // encodes the file
-    this->encode(filePath, &targetStream);
-
-    // allocates space for the read size
-    unsigned int readSize;
-
-    // allocates the file buffer
-    char fileBuffer[HUFFMAN_FILE_BUFFER_SIZE];
-
-    // iterates continuously
-    while(1) {
-        // reads the buffer
-        targetStream.read(fileBuffer, HUFFMAN_FILE_BUFFER_SIZE);
-
-        // retrieves the read size
-        readSize = targetStream.gcount();
-
-        targetFileStream.write(fileBuffer, readSize);
-
-        // in case the enf of file was reached
-        if(targetStream.eof()) {
-            // breaks the cycle
-            break;
-        }
-    }
+    this->encode(filePath, &targetFileStream);
 
     // closes the target file stream
     targetFileStream.close();
 }
 
-void Huffman::encode(const std::string &filePath, std::stringstream *targetStream) {
+void Huffman::encode(const std::string &filePath, std::iostream *targetStream) {
     // generates the table
     this->generateTable(filePath);
 
@@ -266,6 +252,61 @@ void Huffman::generateTable(std::fstream *fileStream) {
 }
 
 /**
+* Generates the lookup table for the current huffman
+* table values.
+*/
+void Huffman::generateLookupTable() {
+    // in case the longest code size exceeds the limit
+    if(this->longestCodeSize > HUFFMAN_LOOKUP_TABLE_MAXIMUM_CODE_SIZE) {
+        // throws runtime exception
+        throw RuntimeException("Unable to create lookup table maximum code size limit exceeded");
+    }
+
+    // allocates space for the lookup table
+    std::map<std::string, unsigned int> lookupTable;
+
+    // iterates over all the symbols
+    for(unsigned int index = 0; index < HUFFMAN_SYMBOL_TABLE_SIZE; index++) {
+        // retrieves the current symbol
+        int currentSymbol = index;
+
+        // retrieves the current code
+        std::string &currentCode = this->huffmanTable[index];
+
+        // retrieves the current code size
+        unsigned int currentCodeSize = currentCode.size();
+
+        // sets the index in the lookup table
+        lookupTable[currentCode] = index;
+
+        // calculates the size difference between the longest code size
+        // and the current code size
+        unsigned int deltaSize = this->longestCodeSize - currentCodeSize;
+
+        std::vector<std::string> permutationStringValuesList;
+
+        this->_generatePermutations(&permutationStringValuesList, currentCode, deltaSize);
+    }
+}
+
+void Huffman::_generatePermutations(std::vector<std::string> *stringValuesList, std::string &stringValue, unsigned int count) {
+    // iterates over the binary numbers
+    for(unsigned char index = 0; index < 2; index++) {
+        char indexValue = 0x30 | index;
+
+        // adds the current index to the
+        // string value
+        std::string newStringValue = stringValue + indexValue;
+
+        if(count > 1) {
+            this->_generatePermutations(stringValuesList, newStringValue, count - 1);
+        } else {
+            stringValuesList->push_back(newStringValue);
+        }
+    }
+}
+
+/**
 * Prints the huffman table information to the standard output.
 * The information contained is pretty printed with the symbol and
 * the associated code information.
@@ -320,12 +361,18 @@ inline void Huffman::encodeData(char *buffer, HuffmanStream_t *bitStream, unsign
         // iterates over all the computed code partial bytes
         for(unsigned int _index = 0; _index < computedCodeSize; _index++) {
             // retrieves the computed code partial byte
-            HuffmanPartialByte_t computedCodePartialByte = computedCode[_index];
+            HuffmanPartialByte_t &computedCodePartialByte = computedCode[_index];
 
             // writes the computed code partial byte to the huffman stream
             this->writeHuffmanStream(bitStream, computedCodePartialByte.byte, computedCodePartialByte.numberBits);
         }
     }
+
+    // flushes the bit stream
+    bitStream->stream->write(bitStream->buffer, bitStream->bufferSize);
+
+    // resets the buffer size
+    bitStream->bufferSize = 0;
 }
 
 inline void Huffman::writeHuffmanStream(HuffmanStream_t *bitStream, unsigned char byte, unsigned char numberBits) {
@@ -353,14 +400,26 @@ inline void Huffman::writeHuffmanStream(HuffmanStream_t *bitStream, unsigned cha
     // in case the bit counter reached the limit
     // a flush is required
     if(bitStream->bitCounter == HUFFMAN_SYMBOL_SIZE) {
-        // writes the current byte to the stream
-        bitStream->stream->put(bitStream->currentByte);
+        // sets the buffer value
+        bitStream->buffer[bitStream->bufferSize] = bitStream->currentByte;
+
+        // increments the buffer size
+        bitStream->bufferSize++;
 
         // resets the bit counter
         bitStream->bitCounter = 0;
 
         // resets the current byte
         bitStream->currentByte = 0;
+
+        // in case the buffer is full
+        if(bitStream->bufferSize == HUFFMAN_STREAM_BUFFER_SIZE) {
+            // flushes the bit stream
+            bitStream->stream->write(bitStream->buffer, bitStream->bufferSize);
+
+            // resets the buffer size
+            bitStream->bufferSize = 0;
+        }
     }
 
     // in case there are extra bits to be written
@@ -383,6 +442,15 @@ inline void Huffman::computeTable() {
         // retrieves the current code
         std::string &currentCode = this->huffmanTable[index];
 
+        // retrieves the current code size
+        unsigned int currentCodeSize = currentCode.size();
+
+        // in case the current code size is bigger than
+        // the current longest code size
+        if(currentCodeSize > this->longestCodeSize) {
+            this->longestCodeSize = currentCodeSize;
+        }
+
         // computes the current code
         std::vector<HuffmanPartialByte_t> &currentComputedCode = this->computeCode(currentCode);
 
@@ -395,6 +463,9 @@ inline std::vector<HuffmanPartialByte_t> Huffman::computeCode(std::string &code)
     // creates the code vector
     std::vector<HuffmanPartialByte_t> codeVector;
 
+    // allocates space for the partial byte
+    HuffmanPartialByte_t partialByte;
+
     // retrieves the code iterator
     std::string::iterator codeIterator = code.begin();
 
@@ -403,8 +474,6 @@ inline std::vector<HuffmanPartialByte_t> Huffman::computeCode(std::string &code)
 
     // sets the current char
     unsigned char currentChar = 0;
-
-    HuffmanPartialByte_t partialByte;
 
     // iterates over the code characters
     while(codeIterator != code.end()) {

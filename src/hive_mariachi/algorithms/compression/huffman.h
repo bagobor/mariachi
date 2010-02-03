@@ -37,6 +37,10 @@
 
 #define HUFFMAN_FILE_BUFFER_SIZE 10240
 
+#define HUFFMAN_STREAM_BUFFER_SIZE 1024
+
+#define HUFFMAN_LOOKUP_TABLE_MAXIMUM_CODE_SIZE 24
+
 namespace mariachi {
     typedef struct HuffmanNode_t {
         unsigned int value;
@@ -53,7 +57,9 @@ namespace mariachi {
     } HuffmanPartialByte;
 
     typedef struct HuffmanStream_t {
-        std::stringstream *stream;
+        std::iostream *stream;
+        char buffer[HUFFMAN_STREAM_BUFFER_SIZE];
+        unsigned int bufferSize;
         unsigned char bitCounter;
         unsigned char currentByte;
     } HuffmanStream;
@@ -71,10 +77,26 @@ namespace mariachi {
             */
             std::fstream *fileStream;
 
+            /**
+            * The huffman table mapping the symbol with the code
+            * represented as a string.
+            */
             std::string huffmanTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
+
+            /**
+            * The huffman table mapping the symbol with the code
+            * represented as a vector of partial byte values.
+            */
             std::vector<HuffmanPartialByte_t> huffmanComputedTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
 
+            /**
+            * The size of the longest code value.
+            */
+            unsigned int longestCodeSize;
+
+            inline void initFileStream();
             inline void initOccurrenceCountList();
+            inline void initLongestCodeSize();
             inline void updateOccurrenceValues(char *buffer, unsigned int size);
             inline void encodeData(char *buffer, HuffmanStream_t *bitStream, unsigned int size);
             inline void writeHuffmanStream(HuffmanStream_t *bitStream, unsigned char byte, unsigned char numberBits);
@@ -82,14 +104,16 @@ namespace mariachi {
             inline std::vector<HuffmanPartialByte_t> computeCode(std::string &code);
             inline void cleanStructures(HuffmanNode *node);
             void _generateTable(HuffmanNode *node, std::string &code = std::string(""));
+            void _generatePermutations(std::vector<std::string> *stringValuesList, std::string &stringValue, unsigned int count);
 
         public:
             Huffman();
             ~Huffman();
             void encode(const std::string &filePath, const std::string &targetFilePath);
-            void encode(const std::string &filePath, std::stringstream *targetStream);
+            void encode(const std::string &filePath, std::iostream *targetStream);
             void generateTable(const std::string &filePath);
             void generateTable(std::fstream *fileStream);
+            void generateLookupTable();
             void printTable();
     };
 
