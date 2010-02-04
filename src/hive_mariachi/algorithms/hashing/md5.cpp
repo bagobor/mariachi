@@ -149,7 +149,7 @@ void Md5::transform(const unsigned char *block, unsigned int blocksize) {
     GG(c, d, a, b, x[11], MD5_S23, 0x265e5a51);
     GG(b, c, d, a, x[0], MD5_S24, 0xe9b6c7aa);
     GG(a, b, c, d, x[5], MD5_S21, 0xd62f105d);
-    GG(d, a, b, c, x[10], MD5_S22,  0x2441453);
+    GG(d, a, b, c, x[10], MD5_S22, 0x2441453);
     GG(c, d, a, b, x[15], MD5_S23, 0xd8a1e681);
     GG(b, c, d, a, x[4], MD5_S24, 0xe7d3fbc8);
     GG(a, b, c, d, x[9], MD5_S21, 0x21e1cde6);
@@ -173,7 +173,7 @@ void Md5::transform(const unsigned char *block, unsigned int blocksize) {
     HH(a, b, c, d, x[13], MD5_S31, 0x289b7ec6);
     HH(d, a, b, c, x[0], MD5_S32, 0xeaa127fa);
     HH(c, d, a, b, x[3], MD5_S33, 0xd4ef3085);
-    HH(b, c, d, a, x[6], MD5_S34,  0x4881d05);
+    HH(b, c, d, a, x[6], MD5_S34, 0x4881d05);
     HH(a, b, c, d, x[9], MD5_S31, 0xd9d4d039);
     HH(d, a, b, c, x[12], MD5_S32, 0xe6db99e5);
     HH(c, d, a, b, x[15], MD5_S33, 0x1fa27cf8);
