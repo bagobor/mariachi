@@ -85,7 +85,7 @@ void ConfigurationManager::load(void *arguments) {
     // seeks to the end of the file
     this->configurationFile->seekg(0, std::fstream::end);
 
-    // get length of file:
+    // get length of file
     std::streamoff configurationFileLength = this->configurationFile->tellg();
 
     // seeks to the beginning of the file

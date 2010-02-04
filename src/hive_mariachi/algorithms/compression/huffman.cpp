@@ -166,6 +166,12 @@ void Huffman::decode(const std::string &filePath, std::iostream *targetStream) {
     // creates the file stream to be used
     std::fstream *fileStream = new std::fstream(filePath.c_str(), std::fstream::in | std::fstream::binary);
 
+    // in case the opening of the file fails
+    if(fileStream->fail()) {
+        // throws a runtime exception
+        throw RuntimeException("Problem while loading file: " + filePath);
+    }
+
     // reads the header from the file stream
     this->_readHeader(fileStream);
 
@@ -181,23 +187,33 @@ void Huffman::decode(const std::string &filePath, std::iostream *targetStream) {
     // opens the bit stream in read mode
     bitStream.open(BIT_STREAM_READ);
 
+    // starts the size counter with the original file size
+    unsigned long long sizeCounter = this->originalFileSize;
+
     // iterates continuously
-    //while(1) {
-        // reads the buffer
-        //fileStream->read(fileBuffer, this->longestCodeSize);
+    while(1) {
+        // decodes the data to the target buffer
+        // retrieving the read size
+        readSize = this->decodeData(fileBuffer, &bitStream, HUFFMAN_FILE_BUFFER_SIZE);
 
-        // retrieves the read size
-        //readSize = fileStream->gcount();
+        // retrieves the number of symbols to be writen
+        // in case end of file is reached the number of symbols to be writen
+        // is number in the size counter (remaining symbols)
+        sizeCounter < (unsigned long long) readSize ? readSize = (unsigned int) sizeCounter : readSize = readSize;
 
-        // decodes the data to the target stream
-        this->decodeData(fileBuffer, &bitStream, 3145784);
+        // writes the buffer
+        targetStream->write(fileBuffer, readSize);
 
-        // in case the enf of file was reached
-      //  if(fileStream->eof()) {
+        // decrements the size by the
+        // number of symbols read
+        sizeCounter -= readSize;
+
+        // in case the end of file was reached
+        if(!sizeCounter) {
             // breaks the cycle
-        //    break;
-       // }
-   // }
+            break;
+        }
+    }
 
     // closes the bit stream
     bitStream.close();
@@ -223,6 +239,15 @@ void Huffman::generateTable(const std::string &filePath) {
 void Huffman::generateTable(std::fstream *fileStream) {
     // sets the file stream
     this->fileStream = fileStream;
+
+    // seeks to the end of the file
+    this->fileStream->seekg(0, std::fstream::end);
+
+    // get length of file:
+    this->originalFileSize = this->fileStream->tellg();
+
+    // seeks to the beginning of the file
+    this->fileStream->seekg(0, std::fstream::beg);
 
     // allocates the file buffer
     char fileBuffer[HUFFMAN_FILE_BUFFER_SIZE];
@@ -459,7 +484,7 @@ inline void Huffman::updateOccurrenceValues(char *buffer, unsigned int size) {
     }
 }
 
-inline void Huffman::encodeData(char *buffer, BitStream *bitStream, unsigned int size) {
+inline int Huffman::encodeData(char *buffer, BitStream *bitStream, unsigned int size) {
     // iterates over all the symbols in the buffer
     for(unsigned int index = 0; index < size; index++) {
         // retrieves te current symbol
@@ -480,48 +505,61 @@ inline void Huffman::encodeData(char *buffer, BitStream *bitStream, unsigned int
             bitStream->writeByte(computedCodePartialByte.byte, computedCodePartialByte.numberBits);
         }
     }
+
+    // returns the number of encoded symbols
+    return size;
 }
 
-inline void Huffman::decodeData(char *buffer, BitStream *bitStream, unsigned int size) {
+inline int Huffman::decodeData(char *buffer, BitStream *bitStream, unsigned int size) {
     // calculates the number of bytes to be read
     unsigned int numberBytes = this->longestCodeSize / BIT_STREAM_SYMBOL_SIZE;
 
     // calculates the remaining bits
     unsigned int remainingBits = this->longestCodeSize % BIT_STREAM_SYMBOL_SIZE;
 
-    // in case there are remaining bits
-    if(remainingBits > 0) {
-        // increments the number of bytes
-        numberBytes++;
-    }
-
-    // creates the target file stream to be used
-    std::fstream targetFileStream = std::fstream("c:/light6_aux.bmp", std::fstream::out | std::fstream::binary);
-
     // allocates the bit buffer
-    unsigned char *bitBuffer = (unsigned char *) malloc(sizeof(unsigned char) * numberBytes);
+    unsigned char bitBuffer[HUFFMAN_LOOKUP_MAXIMUM_CODE_SIZE];
 
+    // iterates over all the symbols to be decoded
     for(unsigned int index = 0; index < size; index++) {
         // reads the value to the bit buffer
         unsigned int numberReadBits = bitStream->read(bitBuffer, this->longestCodeSize);
 
+        // starts the code value
         unsigned long long code = 0;
 
-        // iterates over all the bytes
+        // iterates over all the bytes to convert the byte buffer
+        // into a quad word code value
         for(unsigned _index = 0; _index < numberBytes; _index++) {
+            // retrieves the current byte
             unsigned char currentByte = bitBuffer[_index];
 
+            // shifts the code value by the
+            // huffman symbol syze value
             code <<= HUFFMAN_SYMBOL_SIZE;
 
+            // adds the current byte to the code
+            code |= currentByte;
+        }
+
+        // in case there are remaining bits
+        if(remainingBits) {
+            // retrieves the current byte
+            unsigned char currentByte = bitBuffer[numberBytes];
+
+            // shifts the code value by the
+            // huffman symbol syze value
+            code <<= remainingBits;
+
+            // adds the current byte to the code
             code |= currentByte;
         }
 
         // retrieves the symbol
         unsigned int symbol = this->lookupTable.buffer[code];
 
-        unsigned char symbolChar = symbol;
-
-        targetFileStream.write((char *) &symbolChar, 1);
+        // sets the symbol in the buffer
+        buffer[index] = symbol;
 
         // retrives the huffman code for the symbol
         HuffmanCode_t huffmanCode = this->huffmanCodeTable[symbol];
@@ -529,11 +567,19 @@ inline void Huffman::decodeData(char *buffer, BitStream *bitStream, unsigned int
         // calculates the extra bits
         int extraBits = huffmanCode.numberBits - numberReadBits;
 
+        // in case the end of the stream has been reached
+        // and no seek is beeing made (end of huffman stream)
+        if(bitStream->eof() && extraBits == 0) {
+            // returns the number of encoded symbols
+            return index + 1;
+        }
+
         // seeks the extra positions
         bitStream->seekRead(extraBits);
     }
 
-    targetFileStream.close();
+    // returns the number of decoded symbols
+    return size;
 }
 
 inline void Huffman::computeTable() {
@@ -671,10 +717,13 @@ inline void Huffman::cleanFileStream() {
 }
 
 inline void Huffman::cleanLookupTable() {
-    // in case the lookup buffer is valid
+    // in case the lookup table buffer is valid
     if(this->lookupTable.buffer) {
         // releases the lookup buffer
         free(this->lookupTable.buffer);
+
+        // invaidates the lookup table buffer
+        this->lookupTable.buffer = NULL;
 
         // sets the lookup table size
         this->lookupTable.size = 0;
@@ -688,11 +737,17 @@ inline void Huffman::_readHeader(std::iostream *sourceStream) {
     // reads the type from the source stream
     sourceStream->read((char *) &this->type, typeSize);
 
-    // retrieves the longest code size size
-    size_t longestCodeSize = sizeof(unsigned int);
+    // retrieves the original file size size
+    size_t originalFileSizeSize = sizeof(unsigned long long);
 
-    // reads the longest code size from the source  stream
-    sourceStream->read((char *) &this->longestCodeSize, longestCodeSize);
+    // reads the original file size from the source stream
+    sourceStream->read((char *) &this->originalFileSize, originalFileSizeSize);
+
+    // retrieves the longest code size size
+    size_t longestCodeSizeSize = sizeof(unsigned int);
+
+    // reads the longest code size from the source stream
+    sourceStream->read((char *) &this->longestCodeSize, longestCodeSizeSize);
 
     // reads the code table from the source stream
     this->_readCodeTable(sourceStream);
@@ -710,6 +765,12 @@ inline void Huffman::_writeHeader(std::iostream *targetStream) {
 
     // writes the type to the target stream
     targetStream->write((char *) &this->type, typeSize);
+
+    // retrieves the original file size size
+    size_t originalFileSizeSize = sizeof(unsigned long long);
+
+    // writes the original file size to the target stream
+    targetStream->write((char *) &this->originalFileSize, originalFileSizeSize);
 
     // retrieves the longest code size size
     size_t longestCodeSize = sizeof(unsigned int);

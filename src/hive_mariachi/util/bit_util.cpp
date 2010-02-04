@@ -116,7 +116,7 @@ unsigned int BitStream::read(unsigned char *readBuffer, unsigned int numberBits)
             readBuffer[numberBytes] = 0;
         } else {
             // reads the remaining byte
-            numberReadBits = this->readByte(readBuffer[numberBytes], remainingBits);
+            numberReadBits += this->readByte(readBuffer[numberBytes], remainingBits);
         }
     }
 
@@ -162,10 +162,13 @@ inline unsigned int BitStream::readByte(unsigned char &byte, unsigned int number
     // otherwise the number of extra bits is zero
     numberExtraBits > 0 ? numberBits = numberAvailableBits : numberExtraBits = 0;
 
-    unsigned char firstMask = (0x01 << numberBits) - 1;
+    // creates the first mask (for the base bits)
+    unsigned char firstMask = BIT_STREAM_MASK[numberBits];
 
+    // creates the shift value (for the base bits)
     unsigned char shiftValue = BIT_STREAM_SYMBOL_SIZE - this->readBitCounter - numberBits;
 
+    // puts the base bits value in the byte
     byte |= (this->readCurrentByte >> shiftValue) & firstMask;
 
     // increments the bit counter by the number of bits
@@ -186,10 +189,13 @@ inline unsigned int BitStream::readByte(unsigned char &byte, unsigned int number
         // shifts the byte by the number of extra bits
         byte <<= numberExtraBits;
 
-        unsigned char secondMask = (0x01 << numberExtraBits) - 1;
+        // creates the second mask (for the extra bits)
+        unsigned char secondMask = BIT_STREAM_MASK[numberExtraBits];
 
+        // creates the shift value (for the extra bits)
         unsigned char shiftValue = BIT_STREAM_SYMBOL_SIZE - numberExtraBits;
 
+        // puts the extra bit values in the byte
         byte |= (this->readCurrentByte >> shiftValue) & secondMask;
 
         // increments the bit counter by the number of extra bits
@@ -243,7 +249,7 @@ void BitStream::flush() {
     // in case there is a byte waiting to be writen
     if(this->writeBitCounter > 0) {
         // sets the write buffer value
-        this->writeBuffer[this->writeBufferSize] = this->writeCurrentByte;
+        this->writeBuffer[this->writeBufferSize] = this->writeCurrentByte << (BIT_STREAM_SYMBOL_SIZE - this->writeBitCounter);
 
         // increments the write buffer size
         this->writeBufferSize++;
@@ -395,6 +401,7 @@ void BitStream::seekRead(int relativePosition) {
                 // sets the new read bit counter
                 this->readBitCounter = BIT_STREAM_SYMBOL_SIZE - newReadBitCounter;
             } else {
+                // sets the read bit counter to the initial position
                 this->readBitCounter = 0;
             }
         }
@@ -408,6 +415,22 @@ void BitStream::seekRead(int relativePosition) {
         // checks the stream for the need to read
         this->_checkRead();
     }
+
+    // in case the seek is negative
+    // the stream end of file flag is cleared
+    if(relativePosition < 0) {
+        // clears the end of file flag
+        this->endOfFile = false;
+    }
+}
+
+/**
+* Tests if the end of file has been reached.
+*
+* @return If the end of file has been reached.
+*/
+bool BitStream::eof() {
+    return this->endOfFile;
 }
 
 inline bool BitStream::_checkRead() {

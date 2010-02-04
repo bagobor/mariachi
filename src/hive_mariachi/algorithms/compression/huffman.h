@@ -41,6 +41,8 @@
 
 #define HUFFMAN_LOOKUP_TABLE_MAXIMUM_CODE_SIZE 20
 
+#define HUFFMAN_LOOKUP_MAXIMUM_CODE_SIZE 64
+
 namespace mariachi {
     typedef enum HuffmanType_t {
         HUFFMAN_TYPE_NORMAL = 1,
@@ -78,6 +80,7 @@ namespace mariachi {
 
     typedef struct HuffmanHeader_t {
         HuffmanType_t type;
+        unsigned long long originalFileSize;
         unsigned int longestCodeSize;
         HuffmanCodeTable_t codeTable;
         HuffmanLookupTable_t loookupTable;
@@ -125,6 +128,11 @@ namespace mariachi {
             unsigned int longestCodeSize;
 
             /**
+            * The original file size.
+            */
+            unsigned long long originalFileSize;
+
+            /**
             * The lookup table structure value.
             */
             HuffmanLookupTable_t lookupTable;
@@ -135,8 +143,8 @@ namespace mariachi {
             inline void initOccurrenceCountList();
             inline void initLongestCodeSize();
             inline void updateOccurrenceValues(char *buffer, unsigned int size);
-            inline void encodeData(char *buffer, util::BitStream *bitStream, unsigned int size);
-            inline void decodeData(char *buffer, util::BitStream *bitStream, unsigned int size);
+            inline int encodeData(char *buffer, util::BitStream *bitStream, unsigned int size);
+            inline int decodeData(char *buffer, util::BitStream *bitStream, unsigned int size);
             inline void writeHuffmanStream(util::BitStream *bitStream, unsigned char byte, unsigned char numberBits);
             inline void computeTable();
             inline std::vector<HuffmanPartialByte_t> computeCode(std::string &code);

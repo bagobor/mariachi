@@ -51,7 +51,7 @@ void BmpLoader::generateImage(const std::string &filePath) {
     // seeks to the end of the file
     bmpFile->seekg(0, std::fstream::end);
 
-    // get length of file:
+    // get length of file
     std::streamoff bmpFileLength = bmpFile->tellg();
 
     // seeks to the beginning of the file
