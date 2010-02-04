@@ -182,22 +182,22 @@ void Huffman::decode(const std::string &filePath, std::iostream *targetStream) {
     bitStream.open(BIT_STREAM_READ);
 
     // iterates continuously
-    while(1) {
+    //while(1) {
         // reads the buffer
-        fileStream->read(fileBuffer, this->longestCodeSize);
+        //fileStream->read(fileBuffer, this->longestCodeSize);
 
         // retrieves the read size
-        readSize = fileStream->gcount();
+        //readSize = fileStream->gcount();
 
         // decodes the data to the target stream
-        this->decodeData(fileBuffer, &bitStream, readSize);
+        this->decodeData(fileBuffer, &bitStream, 3145784);
 
         // in case the enf of file was reached
-        if(fileStream->eof()) {
+      //  if(fileStream->eof()) {
             // breaks the cycle
-            break;
-        }
-    }
+        //    break;
+       // }
+   // }
 
     // closes the bit stream
     bitStream.close();
@@ -355,6 +355,9 @@ void Huffman::generateLookupTable() {
     // allocates space for the lookup table
     unsigned int *lookupTable = (unsigned int *) malloc(sizeof(unsigned int) * lookupTableSize);
 
+    // resets the lookup table
+    memset(lookupTable, NULL, sizeof(unsigned int) * lookupTableSize);
+
     // allocates the string buffer
     char *stringBuffer = (char *) malloc(sizeof(char) * (this->longestCodeSize + 1));
 
@@ -403,7 +406,6 @@ void Huffman::generateLookupTable() {
             }
         }
     }
-
     // cleans the lookup table
     this->cleanLookupTable();
 
@@ -416,7 +418,6 @@ void Huffman::generateLookupTable() {
     // releases the string buffer
     free(stringBuffer);
 }
-
 
 /**
 * Prints the huffman table information to the standard output.
@@ -494,13 +495,15 @@ inline void Huffman::decodeData(char *buffer, BitStream *bitStream, unsigned int
         numberBytes++;
     }
 
+    // creates the target file stream to be used
+    std::fstream targetFileStream = std::fstream("c:/light6_aux.bmp", std::fstream::out | std::fstream::binary);
+
     // allocates the bit buffer
     unsigned char *bitBuffer = (unsigned char *) malloc(sizeof(unsigned char) * numberBytes);
 
-    // iterates over all the symbols in the buffer
     for(unsigned int index = 0; index < size; index++) {
         // reads the value to the bit buffer
-        bitStream->read(bitBuffer, this->longestCodeSize);
+        unsigned int numberReadBits = bitStream->read(bitBuffer, this->longestCodeSize);
 
         unsigned long long code = 0;
 
@@ -516,15 +519,21 @@ inline void Huffman::decodeData(char *buffer, BitStream *bitStream, unsigned int
         // retrieves the symbol
         unsigned int symbol = this->lookupTable.buffer[code];
 
+        unsigned char symbolChar = symbol;
+
+        targetFileStream.write((char *) &symbolChar, 1);
+
         // retrives the huffman code for the symbol
         HuffmanCode_t huffmanCode = this->huffmanCodeTable[symbol];
 
         // calculates the extra bits
-        int extraBits = huffmanCode.numberBits - this->longestCodeSize;
+        int extraBits = huffmanCode.numberBits - numberReadBits;
 
         // seeks the extra positions
         bitStream->seekRead(extraBits);
     }
+
+    targetFileStream.close();
 }
 
 inline void Huffman::computeTable() {
@@ -793,6 +802,18 @@ void Huffman::_generateTable(HuffmanNode *node, std::string &code) {
 }
 
 void Huffman::_generatePermutations(std::vector<HuffmanCode_t> *huffmanCodeValuesList, char *stringBuffer, unsigned int count) {
+    // in case the count is invalid
+    if(count == this->longestCodeSize) {
+        // generates the huffman code for the current string buffer
+        HuffmanCode_t &huffmanCode = this->_generateHuffmanCode(stringBuffer, count);
+
+        // adds the huffman code to the huffman code values list list
+        huffmanCodeValuesList->push_back(huffmanCode);
+
+        // returns immediately
+        return;
+    }
+
     // iterates over the binary numbers
     for(unsigned char index = 0; index < 2; index++) {
         // retrieves the index value in character mode

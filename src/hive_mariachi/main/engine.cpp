@@ -54,15 +54,11 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     try {
         Huffman a = Huffman();
 
-        std::stringstream stream1;
-
-        //a.encode("C:/light6.bmp", "c:/light6.encoded");
+        a.encode("C:/light6.bmp", "c:/light6.encoded");
 
         a.decode("C:/light6.encoded", "c:/light6_decoded.bmp");
 
-        //a.printTable();
-
-        //a.writeOuputFile(c:/tobias.bmp2");
+        a.printTable();
 
         // starts the configuration manager in the engine
         engine->startConfigurationManager();

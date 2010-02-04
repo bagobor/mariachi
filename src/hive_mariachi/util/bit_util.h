@@ -39,6 +39,7 @@ namespace mariachi {
 
         class BitStream {
             private:
+                bool endOfFile;
                 BitStreamMode_t mode;
                 std::iostream *stream;
                 char readBuffer[BIT_STREAM_BUFFER_SIZE];
@@ -55,9 +56,10 @@ namespace mariachi {
                 inline void initBufferSize();
                 inline void initBitCounter();
                 inline void initCurrentByte();
+                inline void initEndOfFile();
                 inline void initStream(std::iostream *stream);
-                inline void _checkRead();
-                inline void _checkWrite();
+                inline bool _checkRead();
+                inline bool _checkWrite();
                 void _flushRead();
 
             public:
@@ -66,8 +68,8 @@ namespace mariachi {
                 ~BitStream();
                 unsigned int read(unsigned char *readBuffer, unsigned int numberBits);
                 unsigned int write(unsigned char *writebuffer, unsigned int numberBits);
-                inline unsigned char readByte(unsigned int numberBits);
-                inline bool writeByte(unsigned char byte, unsigned int numberBits);
+                inline unsigned int readByte(unsigned char &byte, unsigned int numberBits);
+                inline unsigned int writeByte(unsigned char byte, unsigned int numberBits);
                 void flush();
                 void open(BitStreamMode_t mode);
                 void close(bool closeStream = false);

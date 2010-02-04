@@ -40,6 +40,7 @@ BitStream::BitStream() {
     this->initBufferSize();
     this->initBitCounter();
     this->initCurrentByte();
+    this->initEndOfFile();
 }
 
 /**
@@ -52,6 +53,7 @@ BitStream::BitStream(std::iostream *stream) {
     this->initBufferSize();
     this->initBitCounter();
     this->initCurrentByte();
+    this->initEndOfFile();
     this->initStream(stream);
 }
 
@@ -80,6 +82,10 @@ inline void BitStream::initCurrentByte() {
     this->writeCurrentByte = 0;
 }
 
+inline void BitStream::initEndOfFile() {
+    this->endOfFile = false;
+}
+
 inline void BitStream::initStream(std::iostream *stream) {
     this->stream = stream;
 }
@@ -91,20 +97,31 @@ unsigned int BitStream::read(unsigned char *readBuffer, unsigned int numberBits)
     // calculates the remaining bits
     unsigned int remainingBits = numberBits % BIT_STREAM_SYMBOL_SIZE;
 
+    // initializes the number of read bits
+    unsigned int numberReadBits = 0;
+
     // iterates over all the bytes to be read
     for(unsigned int index = 0; index < numberBytes; index++) {
-        // reads the current byte
-        readBuffer[index] = this->readByte(BIT_STREAM_SYMBOL_SIZE);
+        if(this->endOfFile) {
+            readBuffer[index] = 0;
+        } else {
+            // reads the current byte
+            numberReadBits += this->readByte(readBuffer[index], BIT_STREAM_SYMBOL_SIZE);
+        }
     }
 
     // in case there are remainnig bits
     if(remainingBits > 0) {
-        // reads the remaining byte
-        readBuffer[numberBytes] = this->readByte(remainingBits);
+        if(this->endOfFile) {
+            readBuffer[numberBytes] = 0;
+        } else {
+            // reads the remaining byte
+            numberReadBits = this->readByte(readBuffer[numberBytes], remainingBits);
+        }
     }
 
-    // returns the number of bits
-    return numberBits;
+    // returns the number of read bits
+    return numberReadBits;
 }
 
 unsigned int BitStream::write(unsigned char *writeBuffer, unsigned int numberBits) {
@@ -130,9 +147,9 @@ unsigned int BitStream::write(unsigned char *writeBuffer, unsigned int numberBit
     return numberBits;
 }
 
-inline unsigned char BitStream::readByte(unsigned int numberBits) {
-    // allocates space for the byte
-    unsigned char byte = 0;
+inline unsigned int BitStream::readByte(unsigned char &byte, unsigned int numberBits) {
+    // resets the byte value
+    byte = 0;
 
     // calculates the number of available bits
     char numberAvailableBits = BIT_STREAM_SYMBOL_SIZE - this->readBitCounter;
@@ -147,13 +164,22 @@ inline unsigned char BitStream::readByte(unsigned int numberBits) {
 
     unsigned char firstMask = (0x01 << numberBits) - 1;
 
-    byte |= (this->readCurrentByte >> (BIT_STREAM_SYMBOL_SIZE - this->readBitCounter - numberBits)) & firstMask;
+    unsigned char shiftValue = BIT_STREAM_SYMBOL_SIZE - this->readBitCounter - numberBits;
+
+    byte |= (this->readCurrentByte >> shiftValue) & firstMask;
 
     // increments the bit counter by the number of bits
     this->readBitCounter += numberBits;
 
     // checks the stream for the need to read
-    this->_checkRead();
+    // and checks if it's not valid
+    if(!this->_checkRead()) {
+        // shifts the byte by the number of extra bits
+        byte <<= numberExtraBits;
+
+        // returns the number of bits read
+        return numberBits;
+    }
 
     // in case there are extra bits to be read
     if(numberExtraBits > 0) {
@@ -162,17 +188,19 @@ inline unsigned char BitStream::readByte(unsigned int numberBits) {
 
         unsigned char secondMask = (0x01 << numberExtraBits) - 1;
 
-        byte |= (this->readCurrentByte >> (BIT_STREAM_SYMBOL_SIZE - numberExtraBits)) & secondMask;
+        unsigned char shiftValue = BIT_STREAM_SYMBOL_SIZE - numberExtraBits;
+
+        byte |= (this->readCurrentByte >> shiftValue) & secondMask;
 
         // increments the bit counter by the number of extra bits
         this->readBitCounter += numberExtraBits;
     }
 
-    // returns the byte
-    return byte;
+    // returns the number of bits read
+    return numberBits + numberExtraBits;
 }
 
-inline bool BitStream::writeByte(unsigned char byte, unsigned int numberBits) {
+inline unsigned int BitStream::writeByte(unsigned char byte, unsigned int numberBits) {
     // calculates the number of available bits
     char numberAvailableBits = BIT_STREAM_SYMBOL_SIZE - this->writeBitCounter;
 
@@ -207,13 +235,31 @@ inline bool BitStream::writeByte(unsigned char byte, unsigned int numberBits) {
         this->writeBitCounter += numberExtraBits;
     }
 
-    // returns true
-    return true;
+    // returns the number of read bits
+    return numberBits;
 }
 
 void BitStream::flush() {
+    // in case there is a byte waiting to be writen
+    if(this->writeBitCounter > 0) {
+        // sets the write buffer value
+        this->writeBuffer[this->writeBufferSize] = this->writeCurrentByte;
+
+        // increments the write buffer size
+        this->writeBufferSize++;
+
+        // resets the bit counter
+        this->writeBitCounter = 0;
+    }
+
     // flushes the bit stream
     this->stream->write(this->writeBuffer, this->writeBufferSize);
+
+    // in case the writing failed
+    if(this->stream->fail()) {
+        // throws a runtime exception
+        throw RuntimeException("Problem while writing into stream");
+    }
 
     // resets the write buffer size
     this->writeBufferSize = 0;
@@ -252,6 +298,27 @@ void BitStream::open(BitStreamMode_t mode) {
 }
 
 void BitStream::close(bool closeStream) {
+    // switches over the mode
+    switch(this->mode) {
+        // in case it's read mode
+        case BIT_STREAM_READ:
+            break;
+
+        // in case it's write mode
+        case BIT_STREAM_WRITE:
+            // flushes the stream
+            this->flush();
+
+            break;
+
+        // in case it's read and write mode
+        case BIT_STREAM_READ_WRITE:
+            // flushes the stream
+            this->flush();
+
+            break;
+    }
+
     // flushes the stream
     this->stream->flush();
 
@@ -263,6 +330,8 @@ void BitStream::close(bool closeStream) {
 }
 
 void BitStream::seekRead(int relativePosition) {
+    // allocates space for the number
+    // of available bits
     char numberAvailableBits;
 
     // in case the relative position is positive
@@ -313,7 +382,7 @@ void BitStream::seekRead(int relativePosition) {
 
             if(sizeDelta > 0) {
                 // updates the stream position
-                this->stream->seekg(sizeDelta * -1, std::fstream::cur);
+                this->stream->seekg((sizeDelta + this->readBufferSize) * -1, std::fstream::cur);
 
                 // flushes the read
                 this->_flushRead();
@@ -322,8 +391,12 @@ void BitStream::seekRead(int relativePosition) {
                 this->readBufferPointer += numberExtraBytes * -1;
             }
 
-            // sets the new read bit counter
-            this->readBitCounter = BIT_STREAM_SYMBOL_SIZE - newReadBitCounter;
+            if(newReadBitCounter > 0) {
+                // sets the new read bit counter
+                this->readBitCounter = BIT_STREAM_SYMBOL_SIZE - newReadBitCounter;
+            } else {
+                this->readBitCounter = 0;
+            }
         }
 
         // sets the new current byte
@@ -337,7 +410,13 @@ void BitStream::seekRead(int relativePosition) {
     }
 }
 
-inline void BitStream::_checkRead() {
+inline bool BitStream::_checkRead() {
+    // in case the end of file was reached
+    if(this->endOfFile) {
+        // returns false
+        return false;
+    }
+
     // in case the bit counter reached the limit
     // a flush is required
     if(this->readBitCounter == BIT_STREAM_SYMBOL_SIZE) {
@@ -354,17 +433,24 @@ inline void BitStream::_checkRead() {
             this->_flushRead();
 
             // in case no data available to read
-            if(this->readBufferPointer == this->readBufferSize) {
-                throw RuntimeException("No more data available (EOF)");
+            if(!this->readBufferSize) {
+                // sets the end of file flag
+                this->endOfFile = true;
+
+                // returns false
+                return false;
             }
         }
 
         // sets the new current byte
         this->readCurrentByte = this->readBuffer[this->readBufferPointer];
     }
+
+    // returns true
+    return true;
 }
 
-inline void BitStream::_checkWrite() {
+inline bool BitStream::_checkWrite() {
     // in case the bit counter reached the limit
     // a flush is required
     if(this->writeBitCounter == BIT_STREAM_SYMBOL_SIZE) {
@@ -386,6 +472,9 @@ inline void BitStream::_checkWrite() {
             this->flush();
         }
     }
+
+    // returns true
+    return true;
 }
 
 void BitStream::_flushRead() {
@@ -395,8 +484,14 @@ void BitStream::_flushRead() {
     // retrieves the read size
     unsigned int readSize = this->stream->gcount();
 
+    // in case the enf of file was reached
+    if(this->stream->eof()) {
+         // clears the error bits
+         this->stream->clear();
+    }
+
     // sets the read buffer size
-    this->writeBufferSize = readSize;
+    this->readBufferSize = readSize;
 
     // resets the read buffer pointer
     this->readBufferPointer = 0;
