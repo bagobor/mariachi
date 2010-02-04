@@ -25,7 +25,6 @@
 
 #include "stdafx.h"
 
-#include "../algorithms/algorithms.h"
 #include "../exceptions/exceptions.h"
 #include "../devices/devices.h"
 #include "../system/system.h"
@@ -34,6 +33,8 @@
 #include "../console/console.h"
 #include "../script/script.h"
 #include "../physics/physics.h"
+
+#include "../algorithms/algorithms.h"
 
 #include "engine.h"
 
@@ -52,12 +53,21 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
+        Crc32 crc32;
+
+        unsigned int a =4;
+
+        unsigned char crc32Value[4];
+
+        crc32.update((char *) "abcd", a);
+        crc32.close(crc32Value, 4);
+
         // creates a new huffman object
-        Huffman huffamn = Huffman();
+        Huffman huffamn;
 
         // encodes the given file
         //
-        time_t initialTimeEncoding = time(NULL);
+       /* time_t initialTimeEncoding = time(NULL);
 
         huffamn.encode("C:/ldj_production_database.db", "c:/ldj_production_database.db.encoded");
 
@@ -71,7 +81,7 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         time_t endTimeDecoding = time(NULL);
 
-        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);
+        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);*/
 
         // prints the huffman table
         huffamn.printTable();

@@ -25,6 +25,12 @@
 
 #pragma once
 
+#if defined(__sparc__) || defined(__hppa__) || defined(__ppc__) || defined(__mips__) || (defined(__MWERKS__) && !defined(__INTEL__))
+#define MARIACHI_BIG_ENDIAN true
+#else
+#define MARIACHI_LITTLE_ENDIAN true
+#endif
+
 #ifdef _WIN32
 #define MARIACHI_PLATFORM_WIN32 true
 #endif
