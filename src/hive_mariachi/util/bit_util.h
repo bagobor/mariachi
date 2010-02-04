@@ -29,6 +29,8 @@
 
 #define BIT_STREAM_BUFFER_SIZE 1024
 
+
+
 namespace mariachi {
     namespace util {
         typedef enum BitStreamMode_t {
@@ -36,6 +38,8 @@ namespace mariachi {
             BIT_STREAM_WRITE,
             BIT_STREAM_READ_WRITE
         } BitStreamMode;
+
+        static const unsigned int BIT_STREAM_MASK[9] = { 0x00, 0x01, 0x03, 0x07, 0x0F, 0x01F, 0x3F, 0x7F, 0xFF };
 
         class BitStream {
             private:
@@ -74,6 +78,7 @@ namespace mariachi {
                 void open(BitStreamMode_t mode);
                 void close(bool closeStream = false);
                 void seekRead(int relativePosition);
+                bool eof();
         };
     }
 }

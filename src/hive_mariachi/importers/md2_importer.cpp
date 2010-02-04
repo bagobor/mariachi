@@ -63,7 +63,7 @@ void Md2Importer::generateModel(const std::string &filePath) {
     // seeks to the end of the file
     md2File->seekg(0, std::fstream::end);
 
-    // get length of file:
+    // get length of file
     std::streamoff md2FileLength = md2File->tellg();
 
     // seeks to the beginning of the file

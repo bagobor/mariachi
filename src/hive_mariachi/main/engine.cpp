@@ -52,13 +52,29 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
-        Huffman a = Huffman();
+        // creates a new huffman object
+        Huffman huffamn = Huffman();
 
-        a.encode("C:/light6.bmp", "c:/light6.encoded");
+        // encodes the given file
+        //
+        time_t initialTimeEncoding = time(NULL);
 
-        a.decode("C:/light6.encoded", "c:/light6_decoded.bmp");
+        huffamn.encode("C:/ldj_production_database.db", "c:/ldj_production_database.db.encoded");
 
-        a.printTable();
+        time_t endTimeEncoding = time(NULL);
+
+        printf("Encoding took %d\n", endTimeEncoding - initialTimeEncoding);
+
+        time_t initialTimeDecoding = time(NULL);
+
+        huffamn.decode("c:/ldj_production_database.db.encoded", "c:/ldj_production_database.db.decoded");
+
+        time_t endTimeDecoding = time(NULL);
+
+        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);
+
+        // prints the huffman table
+        huffamn.printTable();
 
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
