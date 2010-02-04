@@ -25,9 +25,26 @@
 
 #pragma once
 
-#include "bit_util.h"
-#include "box_util.h"
-#include "cpu_util.h"
-#include "geometry_util.h"
-#include "string_util.h"
-#include "vector_util.h"
+namespace mariachi {
+    namespace util {
+        class CpuUtil {
+            private:
+
+            public:
+                /**
+                * Tests if the given memory position is located at a multiple
+                * of the current cpu architecture base type (16bits, 32bits,
+                * 64bits, etc).
+                * This process allows a better performance.
+                *
+                * @see wikipedia - http://en.wikipedia.org/wiki/Data_structure_alignment
+                *
+                * @param memoryPointer The memory pointer to be used in the test.
+                * @return The result of the alignment test.
+                */
+                template<class T> static inline bool isAligned(const void *memoryPointer) {
+                    return (unsigned int) memoryPointer % sizeof(T) == 0;
+                };
+        };
+    }
+}

@@ -95,7 +95,7 @@ namespace mariachi {
     * The md2 importer class.
     * Allows the importing to the mariachi engine of the quake 2 models.
     *
-    * @see: wikipedia - http://en.wikipedia.org/wiki/MD2_(file_format)
+    * @see wikipedia - http://en.wikipedia.org/wiki/MD2_(file_format)
     */
     class Md2Importer : public ModelImporter {
         private:

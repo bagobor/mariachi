@@ -53,14 +53,15 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
-        Crc32 crc32;
+        //Crc32 crc32;
 
-        unsigned int a =4;
+        //unsigned char crc32Value[4];
 
-        unsigned char crc32Value[4];
+        std::cout << "md5 of 'grape': " << Md5("grape") << std::endl;
 
-        crc32.update((char *) "abcd", a);
-        crc32.close(crc32Value, 4);
+        //crc32.reset();
+        //crc32.update((char *) "abcdd", 4);
+        //crc32.close(crc32Value, 4);
 
         // creates a new huffman object
         Huffman huffamn;

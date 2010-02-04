@@ -23,11 +23,6 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#pragma once
+#include "stdafx.h"
 
-#include "bit_util.h"
-#include "box_util.h"
 #include "cpu_util.h"
-#include "geometry_util.h"
-#include "string_util.h"
-#include "vector_util.h"
