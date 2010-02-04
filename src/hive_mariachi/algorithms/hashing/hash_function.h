@@ -25,9 +25,22 @@
 
 #pragma once
 
-#include "bit_util.h"
-#include "box_util.h"
-#include "cpu_util.h"
-#include "geometry_util.h"
-#include "string_util.h"
-#include "vector_util.h"
+namespace mariachi {
+    class HashFunction {
+        private:
+            /**
+            * The state of the digest.
+            */
+            unsigned int state[4];
+
+        public:
+            HashFunction();
+            HashFunction(const std::string &text);
+            ~HashFunction();
+            virtual void update(const unsigned char *buffer, unsigned int size) {};
+            virtual void finalize(unsigned char *hash, unsigned int size) {};
+            virtual void reset() {};
+            std::string hexdigest() const;
+            friend std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
+    };
+}

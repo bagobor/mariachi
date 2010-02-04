@@ -25,11 +25,15 @@
 
 #include "stdafx.h"
 
+#include "../../exceptions/exceptions.h"
+#include "../../util/util.h"
+
 #include "crc32.h"
 
 using namespace mariachi;
+using namespace mariachi::util;
 
-const unsigned int Crc32::m_tab[] = {
+const unsigned int Crc32::crcTable[] = {
 #ifdef MARIACHI_LITTLE_ENDIAN
     0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL, 0x076dc419L,
     0x706af48fL, 0xe963a535L, 0x9e6495a3L, 0x0edb8832L, 0x79dcb8a4L,
@@ -143,6 +147,8 @@ const unsigned int Crc32::m_tab[] = {
 * Constructor of the class.
 */
 Crc32::Crc32() {
+    // resets the crc 32 value
+    this->reset();
 }
 
 /**
@@ -151,25 +157,29 @@ Crc32::Crc32() {
 Crc32::~Crc32() {
 }
 
-template<class T> inline bool isAligned(const void *p) {
-    return (unsigned int) p % sizeof(T) == 0;
-}
-
 void Crc32::update(const char *buffer, unsigned int size) {
     // sets the current crc as the available crc
-    unsigned int crc = this->m_crc;
+    unsigned int crc = this->crcValue;
 
-    for(; !isAligned<unsigned int>(buffer) && size > 0; size--) {
-        crc = Crc32::m_tab[CRC32_INDEX(crc) ^ *buffer++] ^ CRC32_SHIFTED(crc);
+    // iterates while the current buffer byte is not alligned
+    // with the cpu allignment the iteration one byte at a time
+    // it's slower than going four bytes at a time
+    for(; !CpuUtil::isAligned<unsigned int>(buffer) && size > 0; size--) {
+        // calculates the polynomial values
+        crc = Crc32::crcTable[CRC32_INDEX(crc) ^ *buffer++] ^ CRC32_SHIFTED(crc);
     }
 
+    // iterates over all the buffer in 32 bit mode (unsigned integer)
+    // four bytes at a time (requires allignment)
     while(size >= 4) {
+        // sets the iteration crc base value
         crc ^= *(const unsigned int *) buffer;
 
-        crc = Crc32::m_tab[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
-        crc = Crc32::m_tab[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
-        crc = Crc32::m_tab[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
-        crc = Crc32::m_tab[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
+        // calculates the polynomial values
+        crc = Crc32::crcTable[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
+        crc = Crc32::crcTable[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
+        crc = Crc32::crcTable[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
+        crc = Crc32::crcTable[CRC32_INDEX(crc)] ^ CRC32_SHIFTED(crc);
 
         // decrements the size
         size -= 4;
@@ -178,24 +188,36 @@ void Crc32::update(const char *buffer, unsigned int size) {
         buffer += 4;
     }
 
+    // finishes the calculations for the final unalligned bytes.
     while(size--) {
-        crc = Crc32::m_tab[CRC32_INDEX(crc) ^ *buffer++] ^ CRC32_SHIFTED(crc);
+        // calculates the polynomial values
+        crc = Crc32::crcTable[CRC32_INDEX(crc) ^ *buffer++] ^ CRC32_SHIFTED(crc);
     }
 
-    this->m_crc = crc;
+    // sets the current crc value
+    this->crcValue = crc;
 }
 
-void Crc32::close(unsigned char *hash, unsigned int size) {
+void Crc32::finalize(unsigned char *hash, unsigned int size) {
     // in case the truncation size is invalid
     if(size > 4) {
-        throw "Exception";
+        throw RuntimeException("Invalid truncation value");
     }
 
-    m_crc ^= CRC32_BASE_VALUE;
+    this->crcValue ^= CRC32_BASE_VALUE;
 
     for(unsigned int index = 0; index < size; index++) {
-        hash[index] = GetCrcByte(index);
+        hash[index] = this->getByte(index);
     }
 
+    // resets the crc 32 state
     this->reset();
+}
+
+inline void Crc32::reset() {
+    this->crcValue = CRC32_BASE_VALUE;
+}
+
+inline const char Crc32::getByte(unsigned int index) {
+    return ((char *) &(this->crcValue))[index];
 }

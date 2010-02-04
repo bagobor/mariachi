@@ -669,6 +669,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\util\cpu_util.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\util\geometry_util.cpp"
 					>
 				</File>
@@ -709,6 +713,10 @@
 					>
 					<File
 						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\crc32.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\hash_function.cpp"
 						>
 					</File>
 					<File
@@ -1611,6 +1619,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\util\cpu_util.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\util\geometry_util.h"
 					>
 				</File>
@@ -1667,6 +1679,10 @@
 					>
 					<File
 						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\crc32.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\algorithms\hashing\hash_function.h"
 						>
 					</File>
 					<File

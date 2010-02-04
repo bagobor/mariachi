@@ -28,26 +28,26 @@
 const unsigned int CRC32_BASE_VALUE = 0xffffffffL;
 
 #ifdef MARIACHI_LITTLE_ENDIAN
-#define CRC32_INDEX(c) (c & 0xff)
-#define CRC32_SHIFTED(c) (c >> 8)
+#define CRC32_INDEX(character) (character & 0xff)
+#define CRC32_SHIFTED(character) (character >> 8)
 #else
-#define CRC32_INDEX(c) (c >> 24)
-#define CRC32_SHIFTED(c) (c << 8)
+#define CRC32_INDEX(character) (character >> 24)
+#define CRC32_SHIFTED(character) (character << 8)
 #endif
 
 namespace mariachi {
     class Crc32 {
         private:
-            static const unsigned int m_tab[256];
+            static const unsigned int crcTable[256];
+            unsigned int crcValue;
 
-            void reset() { m_crc = CRC32_BASE_VALUE; };
-            char GetCrcByte(unsigned int i) const { return ((char *) &(m_crc))[i]; };
-            unsigned int m_crc;
+            inline const char getByte(unsigned int index);
 
         public:
             Crc32();
             ~Crc32();
             void update(const char *buffer, unsigned int size);
-            void close(unsigned char *hash, unsigned int size);
+            void finalize(unsigned char *hash, unsigned int size);
+            inline void reset();
     };
 }

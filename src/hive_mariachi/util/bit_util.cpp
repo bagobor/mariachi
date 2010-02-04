@@ -29,7 +29,6 @@
 
 #include "bit_util.h"
 
-using namespace mariachi;
 using namespace mariachi::util;
 
 /**
