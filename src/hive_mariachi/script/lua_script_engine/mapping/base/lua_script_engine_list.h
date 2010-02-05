@@ -95,7 +95,7 @@ template<typename T> int lua_mariachi_list_front(lua_State *luaState) {
     lua_assertargsmethod(luaState, 0);
 
     // retrieves self
-	LuaList<T> *self = (mariachi::LuaList<T> *) lua_get_self(luaState);
+	mariachi::LuaList<T> *self = (mariachi::LuaList<T> *) lua_get_self(luaState);
 
     // retrieves the front value
     T frontValue = self->listValue->front();
