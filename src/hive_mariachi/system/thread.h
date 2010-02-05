@@ -27,7 +27,7 @@
 
 #ifdef MARIACHI_PLATFORM_WIN32
 #define THREAD_VALID_RETURN_VALUE 0
-#define THREAD_INVALID_RETURN_VALUE -1
+#define THREAD_INVALID_RETURN_VALUE 1
 #define THREAD_RETURN DWORD WINAPI
 #define THREAD_ARGUMENTS LPVOID
 #define THREAD_HANDLE HANDLE
@@ -54,7 +54,7 @@ typedef struct ConditionHandle_t {
     pthread_mutex_t mutex;
 } ConditionHandle;
 #define THREAD_VALID_RETURN_VALUE 0
-#define THREAD_INVALID_RETURN_VALUE -1
+#define THREAD_INVALID_RETURN_VALUE 0
 #define THREAD_RETURN void *
 #define THREAD_ARGUMENTS void *
 #define THREAD_HANDLE int
