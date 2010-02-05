@@ -254,7 +254,7 @@ void Engine::start(void *arguments) {
 
         // iterates while the task list contains
         // valid task elements
-        while(this->taskList.size()) {
+      /*  while(this->taskList.size()) {
             // retrieves the current task
             Task *currentTask = this->taskList.front();
 
@@ -269,7 +269,7 @@ void Engine::start(void *arguments) {
         CONDITION_WAIT(this->taskListReadyCondition);
 
         // resets the condition
-        CONDITION_RESET(this->taskListReadyCondition);
+        CONDITION_RESET(this->taskListReadyCondition);*/
     }
 }
 
@@ -314,7 +314,7 @@ void Engine::printInformation() {
 	printf("started printing branding");
 
     // prints the branding information
-	std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
+	//std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
 
     // prints the help text
     //std::cout << MARIACHI_HELP_TEXT << std::endl;
