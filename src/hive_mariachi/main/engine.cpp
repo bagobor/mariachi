@@ -123,8 +123,6 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // returns valid value
         return THREAD_INVALID_RETURN_VALUE;
     } catch(Exception exception) {
-		printf("\n!!!!!Recebeu excepcao: %s  !!!!\n", exception.getMessage().c_str());
-
         // handles the exception
         engine->handleException(&exception);
 
@@ -184,8 +182,10 @@ Engine::Engine() {
 */
 Engine::Engine(int argc, char** argv) {
     this->initRunningFlag();
+	this->initLogger();
     this->initRenders();
     this->initArgs(argc, argv);
+
 }
 
 /**
@@ -200,6 +200,13 @@ Engine::~Engine() {
 inline void Engine::initRunningFlag() {
     // sets the running flag
     this->runningFlag = true;
+}
+
+/**
+* Initializes the logger.
+*/
+inline void Engine::initLogger() {
+    this->logger = NULL;
 }
 
 /**
@@ -230,8 +237,6 @@ void Engine::start(void *arguments) {
     // prints the information
     this->printInformation();
 
-	printf("Creating the mutex");
-
     // creates the task list mutex
     MUTEX_CREATE(this->taskListMutex);
 
@@ -241,22 +246,14 @@ void Engine::start(void *arguments) {
     // allocates space for the thread id
     THREAD_IDENTIFIER threadId;
 
-	printf("Creating the engine runner thread");
-
     // creates the engine runnner thread
     THREAD_HANDLE mainRunnerThreadHandle = THREAD_CREATE_BASE(threadId, mainRunnerThread, this);
 
-	printf("Finished creating the engine runner thread");
-
-/*SLEEP(100);
-
     // iterates while the running flag is active
     while(this->runningFlag) {
-		//printf("Entering while");
-
         // iterates while the task list contains
-        // valid task elements*/
-        /*while(this->taskList.size()) {
+        // valid task elements
+        while(this->taskList.size()) {
             // retrieves the current task
             Task *currentTask = this->taskList.front();
 
@@ -265,15 +262,14 @@ void Engine::start(void *arguments) {
 
             // starts the current task
             currentTask->start(NULL);
-        }*/
+        }
 
         // waits for the task list ready condition
-        //CONDITION_WAIT(this->taskListReadyCondition);
+        CONDITION_WAIT(this->taskListReadyCondition);
 
         // resets the condition
-        //CONDITION_RESET(this->taskListReadyCondition);
-/*		SLEEP(100);
-    }*/
+        CONDITION_RESET(this->taskListReadyCondition);
+    }
 }
 
 /**
@@ -314,15 +310,11 @@ void Engine::update() {
 * Prints the branding information into the standard output.
 */
 void Engine::printInformation() {
-	printf("started printing branding");
-
     // prints the branding information
-	//std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
+	std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
 
     // prints the help text
-    //std::cout << MARIACHI_HELP_TEXT << std::endl;
-
-	printf("finished printing branding information\n");
+    std::cout << MARIACHI_HELP_TEXT << std::endl;
 }
 
 /**
@@ -332,8 +324,14 @@ void Engine::printInformation() {
 * @param exception The exception to be handled.
 */
 void Engine::handleException(Exception *exception) {
-    // prints the exception
-    this->logger->critical("[Exception]: " + exception->getMessage());
+	// in case there is a logger defined
+	if(this->logger) {
+		// prints the exception to the logger
+		this->logger->critical("[Exception]: " + exception->getMessage());
+	} else {
+		// prints the exception directly to the standard error
+		std::cerr << "[Exception]: " + exception->getMessage();
+	}
 }
 
 /**
