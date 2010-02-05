@@ -35,7 +35,7 @@ namespace mariachi {
             public:
                 BaseLayout();
                 ~BaseLayout();
-                virtual void doLayout(ComponentNode *componentNode) {};
+                virtual void doLayout(ComponentNode *componentNode) { };
         };
     }
 }

@@ -157,7 +157,18 @@ Crc32::Crc32() {
 Crc32::~Crc32() {
 }
 
-void Crc32::update(const char *buffer, unsigned int size) {
+/**
+* Updates the hash function to a new value using the
+* buffer with the given size.
+*
+* @param buffer The buffer to be used to update the hash.
+* @param size The size of the buffer used to update
+* the hash.
+*/
+void Crc32::update(const unsigned char *buffer, unsigned int size) {
+    // calls the super
+    HashFunction::update(buffer, size);
+
     // sets the current crc as the available crc
     unsigned int crc = this->crcValue;
 
@@ -198,25 +209,54 @@ void Crc32::update(const char *buffer, unsigned int size) {
     this->crcValue = crc;
 }
 
-void Crc32::finalize(unsigned char *hash, unsigned int size) {
-    // in case the truncation size is invalid
-    if(size > 4) {
-        throw RuntimeException("Invalid truncation value");
-    }
-
+void Crc32::finalize() {
+    // applies xor operation with base value
     this->crcValue ^= CRC32_BASE_VALUE;
 
-    for(unsigned int index = 0; index < size; index++) {
-        hash[index] = this->getByte(index);
+    for(unsigned int index = 0; index < CRC32_DIGEST_SIZE; index++) {
+        this->digest[index] = this->getByte(CRC32_DIGEST_SIZE - index - 1);
     }
 
-    // resets the crc 32 state
-    this->reset();
+    // calls the super
+    HashFunction::finalize();
 }
 
-inline void Crc32::reset() {
+void Crc32::reset() {
+    // resets the crc value
     this->crcValue = CRC32_BASE_VALUE;
+
+    // calls the super
+    HashFunction::reset();
 }
+
+/**
+* Returns an hexadecimal representation of the
+* code.
+*
+* @return The hexadecimal representation of the code.
+*/
+std::string Crc32::hexdigest() const {
+    // in case the hash computation is not finalized
+    if(!this->finalized) {
+        // returns empty string
+        return std::string();
+    }
+
+    // allocates the buffer state
+    char buffer[CRC32_DIGEST_SIZE * 2 + 1];
+
+    // iterates over all the values in the buffer
+    for(int i = 0; i < CRC32_DIGEST_SIZE; i++) {
+        sprintf(&buffer[i * 2], "%02x", this->digest[i]);
+    }
+
+    // sets the last value to end of string
+    buffer[CRC32_DIGEST_SIZE * 2] = 0;
+
+    // returns the string value
+    return std::string(buffer);
+}
+
 
 inline const char Crc32::getByte(unsigned int index) {
     return ((char *) &(this->crcValue))[index];

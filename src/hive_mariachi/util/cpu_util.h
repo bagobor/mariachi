@@ -45,6 +45,17 @@ namespace mariachi {
                 template<class T> static inline bool isAligned(const void *memoryPointer) {
                     return (unsigned int) memoryPointer % sizeof(T) == 0;
                 };
+
+                /**
+                * Rotates the value n times to the left.
+                * This is a binary operation.
+                *
+                * @param value The value to be rotated.
+                * @param n The number of bits to rotate.
+                */
+                inline static const unsigned int rotateLeft(unsigned int value, int n) {
+                    return (value << n) | (value >> (32 - n));
+                }
         };
     }
 }

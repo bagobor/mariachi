@@ -50,9 +50,9 @@ namespace mariachi {
             virtual void update(void *arguments);
             virtual void debug(const std::string &value) { this->engine->getLogger()->debug(this->formatLoggerValue(value)); };
             virtual void info(const std::string &value) { this->engine->getLogger()->info(this->formatLoggerValue(value)); };
-            virtual void warning(const std::string &value) {};
-            virtual void fault(const std::string &value) {};
-            virtual void critical(const std::string &value) {};
+            virtual void warning(const std::string &value) { };
+            virtual void fault(const std::string &value) { };
+            virtual void critical(const std::string &value) { };
             virtual std::string formatLoggerValue(const std::string &value);
             bool requiresThread();
             std::string &getName();

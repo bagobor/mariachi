@@ -25,22 +25,31 @@
 
 #pragma once
 
+#define HASH_STREAM_BUFFER_SIZE 10240
+
 namespace mariachi {
     class HashFunction {
         private:
+
+        protected:
             /**
-            * The state of the digest.
+            * Flag to control the finalization of the hash value
+            * computation.
             */
-            unsigned int state[4];
+            bool finalized;
 
         public:
             HashFunction();
             HashFunction(const std::string &text);
             ~HashFunction();
-            virtual void update(const unsigned char *buffer, unsigned int size) {};
-            virtual void finalize(unsigned char *hash, unsigned int size) {};
-            virtual void reset() {};
-            std::string hexdigest() const;
+            virtual void init();
+            virtual void init(const std::string &text);
+            virtual void init(std::istream &stream);
+            virtual void init(std::fstream &fileStream, bool closeStream = true);
+            virtual void update(const unsigned char *buffer, unsigned int size);
+            virtual void finalize();
+            virtual void reset();
+            virtual std::string hexdigest() const { return std::string(); };
             friend std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
     };
 }

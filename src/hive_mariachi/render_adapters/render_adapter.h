@@ -60,8 +60,8 @@ namespace mariachi {
         public:
             RenderAdapter();
             ~RenderAdapter();
-            virtual void start(void *arguments) {};
-            virtual void stop(void *arguments) {};
+            virtual void start(void *arguments) { };
+            virtual void stop(void *arguments) { };
             Engine *getEngine();
             void setEngine(Engine *engine);
     };

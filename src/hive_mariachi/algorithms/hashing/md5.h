@@ -25,6 +25,10 @@
 
 #pragma once
 
+#include "hash_function.h"
+
+#define MD5_DIGEST_SIZE 16
+
 #define MD5_BLOCK_SIZE 64
 
 #define MD5_S11 7
@@ -50,15 +54,28 @@ namespace mariachi {
     *
     * @see wikipedia - http://en.wikipedia.org/wiki/MD5
     */
-    class Md5 {
+    class Md5 : public HashFunction {
         private:
-            bool finalized;
+            /**
+            * The padding used in the md5 computation.
+            */
+            static const unsigned char md5Padding[64];
+
+            /**
+            * The size of the digest.
+            */
+            static const int DIGEST_SIZE = MD5_DIGEST_SIZE;
+
+            /**
+            * The result of the digest.
+            */
+            unsigned char digest[DIGEST_SIZE];
 
             /**
             * Buffer used to hold the bytes that didn't fit
             * in the last 64 byte chunk.
             */
-            unsigned char buffer[MD5_BLOCK_SIZE];
+            unsigned char hashBuffer[MD5_BLOCK_SIZE];
 
             /**
             * Counter of 64 bit used for number of bits (lo, hi).
@@ -70,21 +87,14 @@ namespace mariachi {
             */
             unsigned int state[4];
 
-            /**
-            * The result of the digest.
-            */
-            unsigned char digest[16];
-
             void transform(const unsigned char *block, unsigned int blocksize);
             static void decode(unsigned int *output, const unsigned char *input, unsigned int size);
-            static void encode(unsigned char output[], const unsigned int input[], unsigned int len);
+            static void encode(unsigned char *output, const unsigned int *input, unsigned int size);
 
-            // low level logic operations
             static inline unsigned int F(unsigned int x, unsigned int y, unsigned int z);
             static inline unsigned int G(unsigned int x, unsigned int y, unsigned int z);
             static inline unsigned int H(unsigned int x, unsigned int y, unsigned int z);
             static inline unsigned int I(unsigned int x, unsigned int y, unsigned int z);
-            static inline unsigned int rotate_left(unsigned int x, int n);
             static inline void FF(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
             static inline void GG(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
             static inline void HH(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
@@ -92,14 +102,10 @@ namespace mariachi {
 
         public:
             Md5();
-            Md5(const std::string &text);
             ~Md5();
             void update(const unsigned char *buffer, unsigned int size);
+            void finalize();
             void reset();
-            Md5 &finalize();
             std::string hexdigest() const;
-            friend std::ostream &operator<<(std::ostream &outStream, const Md5 &value);
     };
-
-    std::ostream &operator<<(std::ostream &outStream, const Md5 &value);
 }

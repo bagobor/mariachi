@@ -49,7 +49,7 @@ namespace Json {
     class FastWriter : public Writer {
         public:
             FastWriter();
-            virtual ~FastWriter(){}
+            virtual ~FastWriter(){ }
             void enableYAMLCompatibility();
 
         public:
@@ -66,7 +66,7 @@ namespace Json {
     *
     * The rules for line break and indent are as follow:
     * - Object value:
-    *     - if empty then print {} without indent and line break
+    *     - if empty then print { } without indent and line break
     *     - if not empty the print '{', line break & indent, print one value per line
     *       and then unindent and line break and print '}'.
     * - Array value:
@@ -83,7 +83,7 @@ namespace Json {
     class StyledWriter: public Writer {
         public:
             StyledWriter();
-            virtual ~StyledWriter(){}
+            virtual ~StyledWriter(){ }
 
         public:
             /** \brief Serialize a Value in <a HREF="http://www.json.org">JSON</a> format.
@@ -139,7 +139,7 @@ namespace Json {
     class StyledStreamWriter {
         public:
             StyledStreamWriter(std::string indentation="\t");
-            ~StyledStreamWriter(){}
+            ~StyledStreamWriter() { }
 
         public:
             /**

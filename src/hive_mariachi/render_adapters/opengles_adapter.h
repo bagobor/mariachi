@@ -36,13 +36,13 @@ namespace mariachi {
         public:
             OpenglesAdapter();
             ~OpenglesAdapter();
-            virtual void start(void *arguments) {};
-            virtual void stop(void *arguments) {};
-            virtual void init() {};
-            virtual void clean() {};
-            virtual void display() {};
-            virtual void resizeScene(int windowWidth, int windowHeight) {};
-            virtual void keyPressed(unsigned char key, int x, int y) {};
+            virtual void start(void *arguments) { };
+            virtual void stop(void *arguments) { };
+            virtual void init() { };
+            virtual void clean() { };
+            virtual void display() { };
+            virtual void resizeScene(int windowWidth, int windowHeight) { };
+            virtual void keyPressed(unsigned char key, int x, int y) { };
     };
 }
 
