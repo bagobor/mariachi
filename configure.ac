@@ -36,6 +36,7 @@ AM_PROG_LIBTOOL
 # checks for programs
 AC_PROG_CXX
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PROG_MAKE_SET
 
 # checks for libraries
@@ -76,8 +77,8 @@ if test "$link_lua" = "no"; then
 fi
 
 # sets the config files to be used in automake
-AC_CONFIG_FILES([lib/liblua/src/Makefile lib/libbullet/src/Makefile src/hive_mariachi/Makefile src/hive_mariachi_runner/Makefile])
+AC_CONFIG_FILES([src/hive_mariachi/Makefile src/hive_mariachi_runner/Makefile lib/liblua/Makefile lib/liblua/src/Makefile lib/libbullet/Makefile lib/libbullet/src/Makefile])
 
 # sets the entry point make files to be used by automake
-AC_OUTPUT([Makefile lib/Makefile lib/liblua/Makefile lib/libbullet/Makefile src/Makefile doc/Makefile man/Makefile examples/Makefile scripts/Makefile])
+AC_OUTPUT([Makefile src/Makefile lib/Makefile doc/Makefile man/Makefile examples/Makefile scripts/Makefile])
 
