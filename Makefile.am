@@ -27,4 +27,4 @@ include $(top_srcdir)/Common.am
 
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = src doc man examples scripts
+SUBDIRS = lib src doc man examples scripts

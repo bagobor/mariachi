@@ -25,14 +25,41 @@
 
 include $(top_srcdir)/Common.am
 
-bin_PROGRAMS = mariachi_runner
+lib_LIBRARIES = liblua.a
 
-mariachi_runner_CFLAGS = $(AM_CFLAGS)
-mariachi_runner_CXXFLAGS = $(AM_CXXFLAGS)
+liblua_a_CFLAGS = $(AM_CFLAGS)
+liblua_a_CXXFLAGS = $(AM_CXXFLAGS)
 
-mariachi_runner_LDADD = ../../lib/liblua/src/liblua.a ../../lib/libbullet/src/libbullet.a ../hive_mariachi/libmariachi.a $(INTLLIBS)
+liblua_a_SOURCES = lapi.c \
+lauxlib.c \
+lbaselib.c \
+lcode.c \
+ldblib.c \
+ldebug.c \
+ldo.c \
+ldump.c \
+lfunc.c \
+lgc.c \
+linit.c \
+liolib.c \
+llex.c \
+lmathlib.c \
+lmem.c \
+loadlib.c \
+lobject.c \
+lopcodes.c \
+loslib.c \
+lparser.c \
+lstate.c \
+lstring.c \
+lstrlib.c \
+ltable.c \
+ltablib.c \
+ltm.c \
+lua.c \
+luac.c \
+lundump.c \
+lvm.c \
+lzio.c \
+print.c
 
-mariachi_runner_LDFLAGS = -framework OpenGL -framework GLUT -framework Cocoa
-
-mariachi_runner_SOURCES = stdafx.cpp \
-main/runner.cpp

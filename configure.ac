@@ -75,5 +75,9 @@ if test "$link_lua" = "no"; then
     AC_MSG_WARN(building without Lua (liblua) libraries support)
 fi
 
-AC_CONFIG_FILES([src/hive_mariachi/Makefile src/hive_mariachi_runner/Makefile])
-AC_OUTPUT([Makefile src/Makefile doc/Makefile man/Makefile examples/Makefile scripts/Makefile])
+# sets the config files to be used in automake
+AC_CONFIG_FILES([lib/liblua/src/Makefile lib/libbullet/src/Makefile src/hive_mariachi/Makefile src/hive_mariachi_runner/Makefile])
+
+# sets the entry point make files to be used by automake
+AC_OUTPUT([Makefile lib/Makefile src/Makefile doc/Makefile man/Makefile examples/Makefile scripts/Makefile])
+
