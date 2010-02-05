@@ -233,7 +233,7 @@ void Engine::start(void *arguments) {
 	printf("Creating the mutex");
 
     // creates the task list mutex
-    /*MUTEX_CREATE(this->taskListMutex);
+    MUTEX_CREATE(this->taskListMutex);
 
     // creates the task list ready condition
     CONDITION_CREATE(this->taskListReadyCondition);
@@ -242,7 +242,7 @@ void Engine::start(void *arguments) {
     THREAD_IDENTIFIER threadId;
 
 	printf("Creating the engine runner thread");
-
+/*
     // creates the engine runnner thread
     THREAD_HANDLE mainRunnerThreadHandle = THREAD_CREATE_BASE(threadId, mainRunnerThread, this);
 
