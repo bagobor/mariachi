@@ -44,7 +44,7 @@ namespace mariachi {
                 */
                 template<class T> static inline bool isAligned(const void *memoryPointer) {
                     return (unsigned int) memoryPointer % sizeof(T) == 0;
-                };
+                }
 
                 /**
                 * Rotates the value n times to the left.

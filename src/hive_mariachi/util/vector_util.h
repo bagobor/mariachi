@@ -37,4 +37,4 @@ namespace mariachi {
             static Coordinate3d_t add(const Coordinate3d_t &vector1, const Coordinate3d_t &vector2);
             static Coordinate3d_t subtract(const Coordinate3d_t &vector1, const Coordinate3d_t &vector2);
     };
-};
+}
