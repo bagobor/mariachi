@@ -134,4 +134,4 @@ std::vector<std::string *> ConfigurationList::getAsStringVector() {
     }
 
     return stringVectorValue;
-};
+}
