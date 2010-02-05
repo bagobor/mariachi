@@ -106,14 +106,14 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // stops the stages in the engine
         engine->stopStages();
 
-        // returns zero (valid)
-        return 0;
+        // returns valid value
+        return THREAD_INVALID_RETURN_VALUE;
     } catch(Exception exception) {
         // handles the exception
         engine->handleException(&exception);
 
-        // returns one (invalid)
-        return 1;
+        // returns invalid value
+        return THREAD_INVALID_RETURN_VALUE;
     }
 }
 
@@ -141,14 +141,14 @@ THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters) {
         // starts the stage runner
         stageRunner.start(NULL);
 
-        // returns zero (valid)
-        return 0;
+        // returns valid value
+        return THREAD_INVALID_RETURN_VALUE;
     } catch(Exception exception) {
         // handles the exception
         engine->handleException(&exception);
 
-        // returns one (invalid)
-        return 1;
+        // returns invalid value
+        return THREAD_INVALID_RETURN_VALUE;
     }
 }
 

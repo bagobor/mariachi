@@ -39,8 +39,8 @@ THREAD_RETURN renderRunnerThread(THREAD_ARGUMENTS parameters) {
     // starts the render adapter
     renderAdapter->start(parameters);
 
-    // returns zero
-    return 0;
+    // returns valid value
+    return THREAD_VALID_RETURN_VALUE;
 }
 
 /**
