@@ -30,4 +30,4 @@ namespace mariachi {
         char *data;
         unsigned int size;
     } FileData_t;
-};
+}
