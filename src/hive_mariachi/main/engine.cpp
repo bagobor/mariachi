@@ -57,12 +57,12 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
     try {
         // creates a new huffman object
-        Huffman huffamn;
+       /* Huffman huffamn;
 
         // encodes the given file
         time_t initialTimeEncoding = time(NULL);
 
-        huffamn.encode("C:/ldj_production_database.db", "c:/ldj_production_database.db.encoded");
+        huffamn.encode("C:/colony_production_database.db", "c:/colony_production_database.db.encoded");
 
         time_t endTimeEncoding = time(NULL);
 
@@ -70,11 +70,11 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         time_t initialTimeDecoding = time(NULL);
 
-        huffamn.decode("c:/ldj_production_database.db.encoded", "c:/ldj_production_database.db.decoded");
+        huffamn.decode("c:/colony_production_database.db.encoded", "c:/colony_production_database.db.decoded");
 
         time_t endTimeDecoding = time(NULL);
 
-        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);
+        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);*/
 
         // prints the huffman table
         huffamn.printTable();
