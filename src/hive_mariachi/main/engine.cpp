@@ -96,7 +96,8 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         //std::fstream &tobias = std::fstream("c:/lost.s06e00.720p.hdtv.x264-2hd.mkv", std::fstream::in | std::fstream::binary);
 
         Md5 md5;
-        md5.init(std::fstream("c:/ldj_production_database.db", std::fstream::in | std::fstream::binary));
+        //md5.init(std::fstream("c:/ldj_production_database.db", std::fstream::in | std::fstream::binary));
+        md5.init("asdas");
         std::cout << "md5 of 'file': " << md5 << std::endl;
 
         /*crc32.finalize();

@@ -29,6 +29,8 @@
 
 #define CRC32_DIGEST_SIZE 4
 
+#define CRC32_HEX_DIGEST_SIZE 9
+
 const unsigned int CRC32_BASE_VALUE = 0xffffffffL;
 
 #ifdef MARIACHI_LITTLE_ENDIAN
