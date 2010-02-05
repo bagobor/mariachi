@@ -115,7 +115,7 @@ void Huffman::encode(const std::string &filePath, std::iostream *targetStream) {
     char fileBuffer[HUFFMAN_FILE_BUFFER_SIZE];
 
     // creates the target bit stream
-    BitStream &targetBitStream = BitStream(targetStream);
+    BitStream targetBitStream(targetStream);
 
     // opens the target bit stream in write mode
     targetBitStream.open(BIT_STREAM_WRITE);
@@ -147,7 +147,7 @@ void Huffman::encode(const std::string &filePath, std::iostream *targetStream) {
 
 void Huffman::decode(const std::string &filePath, const std::string &targetFilePath) {
     // creates the target file stream to be used
-    std::fstream targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
+    std::fstream targetFileStream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
 
     // in case the opening of the file fails
     if(targetFileStream.fail()) {
@@ -391,9 +391,6 @@ void Huffman::generateLookupTable() {
 
     // iterates over all the symbols
     for(unsigned int index = 0; index < HUFFMAN_SYMBOL_TABLE_SIZE; index++) {
-        // retrieves the current symbol
-        int currentSymbol = index;
-
         // retrieves the current code
         std::string &currentCode = this->huffmanTable[index];
 
@@ -402,10 +399,6 @@ void Huffman::generateLookupTable() {
 
         // in case the current code size is valid (valid code)
         if(currentCodeSize) {
-            // calculates the size difference between the longest code size
-            // and the current code size
-            unsigned int deltaSize = this->longestCodeSize - currentCodeSize;
-
             // copies the current code string to the string buffer
             memcpy(stringBuffer, currentCode.c_str(), currentCodeSize);
 
