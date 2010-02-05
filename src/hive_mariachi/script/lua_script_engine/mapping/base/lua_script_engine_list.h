@@ -70,6 +70,10 @@ namespace mariachi {
     };
 }
 
+template<class T> bool lua_mariachi_new_List(lua_State *luaState, mariachi::LuaList<T> *value);
+template<typename T> int lua_mariachi_list_front(lua_State *luaState);
+template<typename T> int lua_mariachi_list_get(lua_State *luaState);
+
 template<class T> bool lua_mariachi_new_List(lua_State *luaState, mariachi::LuaList<T> *value) {
     bool return_value;
 
