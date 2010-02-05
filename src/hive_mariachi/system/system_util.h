@@ -36,7 +36,7 @@
 #define LOCAL_TIME(localTimeValue, timeValue) localTimeValue = localtime(timeValue)
 #define SLEEP(miliseconds) usleep((useconds_t) miliseconds * 1000)
 #define GET_PID() getpid()
-#define SPRINTF(buffer, size, format, ...) sprintf(buffer, size, __VA_ARGS__)
+#define SPRINTF(buffer, size, format, ...) sprintf(buffer, format, __VA_ARGS__)
 #endif
 
 #define CLOCK() clock()
