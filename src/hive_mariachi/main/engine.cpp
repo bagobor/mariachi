@@ -242,13 +242,13 @@ void Engine::start(void *arguments) {
     THREAD_IDENTIFIER threadId;
 
 	printf("Creating the engine runner thread");
-/*
+
     // creates the engine runnner thread
     THREAD_HANDLE mainRunnerThreadHandle = THREAD_CREATE_BASE(threadId, mainRunnerThread, this);
 
 	printf("Finished creating the engine runner thread");
 
-	SLEEP(100);
+/*SLEEP(100);
 
     // iterates while the running flag is active
     while(this->runningFlag) {
