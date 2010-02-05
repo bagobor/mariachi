@@ -77,7 +77,7 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);*/
 
         // prints the huffman table
-        huffamn.printTable();
+       // huffamn.printTable();
 
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
