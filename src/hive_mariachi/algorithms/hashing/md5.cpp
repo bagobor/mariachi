@@ -309,7 +309,7 @@ std::string Md5::hexdigest() const {
 * @param z The z value for computation.
 */
 inline unsigned int Md5::F(unsigned int x, unsigned int y, unsigned int z) {
-    return x & y | ~x & z;
+    return (x & y) | (~x & z);
 }
 
 /**
@@ -320,7 +320,7 @@ inline unsigned int Md5::F(unsigned int x, unsigned int y, unsigned int z) {
 * @param z The z value for computation.
 */
 inline unsigned int Md5::G(unsigned int x, unsigned int y, unsigned int z) {
-    return x & z | y & ~z;
+    return (x & z) | (y & ~z);
 }
 
 /**
