@@ -112,8 +112,8 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // handles the exception
         engine->handleException(&exception);
 
-        // returns minus one (invalid)
-        return -1;
+        // returns one (invalid)
+        return 1;
     }
 }
 
@@ -147,8 +147,8 @@ THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters) {
         // handles the exception
         engine->handleException(&exception);
 
-        // returns minus one (invalid)
-        return -1;
+        // returns one (invalid)
+        return 1;
     }
 }
 
