@@ -83,7 +83,7 @@ inline void Huffman::initLongestCodeSize() {
 
 void Huffman::encode(const std::string &filePath, const std::string &targetFilePath) {
     // creates the target file stream to be used
-    std::fstream &targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
+    std::fstream targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
 
     // in case the opening of the file fails
     if(targetFileStream.fail()) {
@@ -147,7 +147,7 @@ void Huffman::encode(const std::string &filePath, std::iostream *targetStream) {
 
 void Huffman::decode(const std::string &filePath, const std::string &targetFilePath) {
     // creates the target file stream to be used
-    std::fstream &targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
+    std::fstream targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
 
     // in case the opening of the file fails
     if(targetFileStream.fail()) {
