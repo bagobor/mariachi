@@ -79,23 +79,37 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // prints the huffman table
        // huffamn.printTable();
 
+		printf("Starting the configuration manager");
+
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
+
+		printf("Starting the comsole manager");
 
         // starts the console manager in the engine
         engine->startConsoleManager();
 
+		printf("Starting the logger");
+
         // starts the logger in the engine
         engine->startLogger(DEBUG, true);
+
+		engine->getLogger()->info("Starting the input devices");
 
         // starts the input devices in the engine
         engine->startInputDevices();
 
+		engine->getLogger()->info("Starting script engines");
+
         // starts the script engines in the engine
         engine->startScriptEngines();
 
+		engine->getLogger()->info("Starting physics engines");
+
         // starts the physics engines in the engine
         engine->startPhysicsEngines();
+
+		engine->getLogger()->info("Starting stages");
 
         // starts the stages in the engine
         engine->startStages();
