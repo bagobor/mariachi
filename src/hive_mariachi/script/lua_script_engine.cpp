@@ -92,7 +92,7 @@ void LuaScriptEngine::addExtraPaths(std::vector<std::string *> &extraPaths) {
     lua_pop(luaState, 1);
 
     // creates the new package path string
-    std::string &newPackagePath = std::string(packagePath);
+    std::string newPackagePath(packagePath);
 
     // retrieves the extra paths iterator
     std::vector<std::string *>::iterator extraPathsIterator = extraPaths.begin();
