@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "../../../lib/libbullet/src/btBulletDynamicsCommon.h"
+#include "../../../../lib/libbullet/src/btBulletDynamicsCommon.h"
 
 namespace mariachi {
     namespace physics {
