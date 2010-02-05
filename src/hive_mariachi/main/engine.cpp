@@ -252,7 +252,7 @@ void Engine::start(void *arguments) {
 
     // iterates while the running flag is active
     while(this->runningFlag) {
-		printf("Entering while");
+		//printf("Entering while");
 
         // iterates while the task list contains
         // valid task elements
@@ -268,10 +268,10 @@ void Engine::start(void *arguments) {
         }
 
         // waits for the task list ready condition
-        CONDITION_WAIT(this->taskListReadyCondition);
+        //CONDITION_WAIT(this->taskListReadyCondition);
 
         // resets the condition
-        CONDITION_RESET(this->taskListReadyCondition);
+        //CONDITION_RESET(this->taskListReadyCondition);
     }
 }
 
