@@ -129,7 +129,7 @@ bool LuaScriptEngine::runScriptString(const std::string &scriptString) {
 
 std::string LuaScriptEngine::getLastError() {
     return std::string(lua_tostring(this->luaState, -1));
-};
+}
 
 int LuaScriptEngine::getObjectReference(void *cObjectReference) {
     return this->objectMap[cObjectReference];
