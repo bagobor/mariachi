@@ -859,7 +859,7 @@ void Huffman::_generatePermutations(std::vector<HuffmanCode_t> *huffmanCodeValue
     // in case the count is invalid
     if(count == this->longestCodeSize) {
         // generates the huffman code for the current string buffer
-        HuffmanCode_t &huffmanCode = this->_generateHuffmanCode(stringBuffer, count);
+        const HuffmanCode_t &huffmanCode = this->_generateHuffmanCode(stringBuffer, count);
 
         // adds the huffman code to the huffman code values list list
         huffmanCodeValuesList->push_back(huffmanCode);
@@ -882,7 +882,7 @@ void Huffman::_generatePermutations(std::vector<HuffmanCode_t> *huffmanCodeValue
             this->_generatePermutations(huffmanCodeValuesList, stringBuffer, count + 1);
         } else {
             // generates the huffman code for the current string buffer
-            HuffmanCode_t &huffmanCode = this->_generateHuffmanCode(stringBuffer, count + 1);
+            const HuffmanCode_t &huffmanCode = this->_generateHuffmanCode(stringBuffer, count + 1);
 
             // adds the huffman code to the huffman code values list list
             huffmanCodeValuesList->push_back(huffmanCode);
