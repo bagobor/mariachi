@@ -37,7 +37,7 @@ namespace mariachi {
             AStar(PathNodesGraph *nodesGraph);
             ~AStar();
             inline void initDistanceFunction();
-            Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId);
+            Path_t *findPath(unsigned int startNodeId, unsigned int endNodeId);
             void setDistanceFunction(float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->distanceFunction = distanceFunction; };
             float (*getDistanceFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->distanceFunction; };
             bool operator()(std::pair<unsigned int, float> &firstPair, std::pair<unsigned int, float> &secondPair);
