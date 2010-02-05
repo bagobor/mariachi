@@ -452,7 +452,7 @@ void Huffman::printTable() {
         std::string &currentCode = this->huffmanTable[index];
 
         // prints the table line information
-        std::cout << currentSymbol << " (" << (char) currentSymbol << "): " << currentCode << "\n";
+        std::cout << currentSymbol << " (" << (char) currentSymbol << "): " << currentCode << std::endl;
     }
 }
 
