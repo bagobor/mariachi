@@ -53,5 +53,5 @@ namespace mariachi {
             friend std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
     };
 
-	std::ostream &mariachi::operator<<(std::ostream &outStream, const HashFunction &value);
+	std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
 }
