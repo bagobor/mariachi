@@ -123,7 +123,7 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // returns valid value
         return THREAD_INVALID_RETURN_VALUE;
     } catch(Exception exception) {
-		printf("Recebeu excepcao");
+		printf("\n!!!!!Recebeu excepcao: %s  !!!!\n", exception.getMessage().c_str());
 
         // handles the exception
         engine->handleException(&exception);
