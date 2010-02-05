@@ -52,4 +52,6 @@ namespace mariachi {
             virtual std::string hexdigest() const { return std::string(); };
             friend std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
     };
+
+	std::ostream &mariachi::operator<<(std::ostream &outStream, const HashFunction &value);
 }
