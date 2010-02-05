@@ -600,7 +600,7 @@ inline void Huffman::computeTable() {
         this->huffmanComputedTable[currentSymbol] = currentComputedCode;
 
         // generetes the huffman code for the the current code
-        HuffmanCode &currentHuffmanCode = this->_generateHuffmanCode(currentCode.c_str(), currentCodeSize);
+        const HuffmanCode &currentHuffmanCode = this->_generateHuffmanCode(currentCode.c_str(), currentCodeSize);
 
         // sets the current huffman code in the huffman code table
         this->huffmanCodeTable[currentSymbol] = currentHuffmanCode;
