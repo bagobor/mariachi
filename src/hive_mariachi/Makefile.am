@@ -30,8 +30,7 @@ lib_LIBRARIES = libmariachi.a
 libmariachi_a_CFLAGS = $(AM_CFLAGS)
 libmariachi_a_CXXFLAGS = $(AM_CXXFLAGS)
 
-lua_sources = script/lua_script_engine \
-script/lua_script_engine.cpp \
+lua_sources = script/lua_script_engine.cpp \
 script/lua_script_engine/mapping/base/lua_script_engine_list.cpp \
 script/lua_script_engine/mapping/base/lua_script_engine_map.cpp \
 script/lua_script_engine/mapping/base/lua_script_engine_vector.cpp \
@@ -40,21 +39,11 @@ script/lua_script_engine/mapping/main/lua_script_engine_engine.cpp \
 script/lua_script_engine/mapping/nodes/lua_script_engine_cube_node.cpp \
 script/lua_script_engine/mapping/nodes/lua_script_engine_node.cpp \
 script/lua_script_engine/mapping/nodes/lua_script_engine_scene_node.cpp \
-script/lua_script_engine/mapping/structures \
 script/lua_script_engine/mapping/structures/lua_script_engine_position.cpp \
 script/lua_script_engine/util/lua_script_engine_util.cpp
 
-libmariachi_a_SOURCES = configuration \
-console \
-devices \
-exceptions \
-model_viewer.cpp \
-physics \
-script \
+libmariachi_a_SOURCES = model_viewer.cpp \
 stdafx.cpp \
-structures \
-user_interface \
-algorithms/compression \
 algorithms/compression/huffman.cpp \
 algorithms/hashing/crc32.cpp \
 algorithms/hashing/hash_function.cpp \
@@ -69,7 +58,6 @@ configuration/parsers/configuration_parser.cpp \
 configuration/parsers/json_configuration_parser.cpp \
 console/console_manager.cpp \
 debugging/debug_engine.cpp \
-debugging/devices \
 debugging/devices/debug_device.cpp \
 debugging/devices/network_keyboard.cpp \
 devices/device.cpp \
@@ -103,18 +91,14 @@ nodes/scene2d_node.cpp \
 nodes/scene_node.cpp \
 nodes/square_node.cpp \
 patterns/observable.cpp \
-physics/bullet_physics_engine \
 physics/bullet_physics_engine.cpp \
-physics/bullet_physics_engine/collision \
 physics/bullet_physics_engine/collision/bullet_physics_engine_collision_solid.cpp \
 physics/bullet_physics_engine/collision/bullet_physics_engine_cube_solid.cpp \
 physics/bullet_physics_engine/collision/bullet_physics_engine_sphere_solid.cpp \
 physics/bullet_physics_engine/physical_node_motion_state.cpp \
-physics/collision \
 physics/collision/collision_solid.cpp \
 physics/collision/cube_solid.cpp \
 physics/collision/sphere_solid.cpp \
-physics/constraints \
 physics/constraints/cone_twist_constraint.cpp \
 physics/constraints/constraint.cpp \
 physics/constraints/generic_six_dof.cpp \
@@ -131,7 +115,6 @@ render_adapters/opengles_adapter.cpp \
 render_adapters/render_adapter.cpp \
 render_utils/direct3d_win32_window.cpp \
 render_utils/direct3d_window.cpp \
-render_utils/factories \
 render_utils/opengl_cocoa_window.cpp \
 render_utils/opengl_glut_window.cpp \
 render_utils/opengl_win32_window.cpp \
