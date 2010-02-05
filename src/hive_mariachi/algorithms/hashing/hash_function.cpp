@@ -26,3 +26,124 @@
 #include "stdafx.h"
 
 #include "hash_function.h"
+
+using namespace mariachi;
+
+/**
+* Constructor of the class.
+*/
+HashFunction::HashFunction() {
+}
+
+/**
+* Destructor of the class.
+*/
+HashFunction::~HashFunction() {
+}
+
+/**
+* Initializes the hash function.
+*/
+void HashFunction::init() {
+    // resets the current hash value
+    this->reset();
+}
+
+/**
+* Initializes the hash function, with a text value.
+*
+* @param text The text value to be used for computation.
+*/
+void HashFunction::init(const std::string &text) {
+    // resets the current hash value
+    this->reset();
+
+    // updates the hash value with the string value
+    this->update((unsigned char *) text.c_str(), text.length());
+
+    // finalizes the hash value
+    this->finalize();
+}
+
+/**
+* Initializes the hash function, with a stream value.
+*
+* @param stream The stream value to be used for computation.
+*/
+void HashFunction::init(std::istream &stream) {
+    // resets the current hash value
+    this->reset();
+
+    // allocates the file buffer
+    unsigned char streamBuffer[HASH_STREAM_BUFFER_SIZE];
+
+    // initializes the read size
+    unsigned int readSize = 0;
+
+    // retrieves the initial position
+    std::streamoff initialPosition = stream.tellg();
+
+    // iterates continuously
+    while(1) {
+        // reads the buffer
+        stream.read((char *) streamBuffer, HASH_STREAM_BUFFER_SIZE);
+
+        // retrieves the read size
+        readSize = stream.gcount();
+
+        // updates the hash value with the
+        // stream buffer value
+        this->update(streamBuffer, readSize);
+
+        // in case the end of file was reached
+        if(stream.eof()) {
+            // breaks the cycle
+            break;
+        }
+    };
+
+    // finalizes the hash value
+    this->finalize();
+
+    // clears the error bits
+    stream.clear();
+
+    // seeks the the initial position
+    stream.seekg(initialPosition, std::fstream::beg);
+}
+
+/**
+* Initializes the hash function, with a file stream value.
+*
+* @param fileStream The stream value to be used for computation.
+* @param closeStream If the file stream should be closed at end, if false
+* the file stream is positioned at the initial position.
+*/
+void HashFunction::init(std::fstream &fileStream, bool closeStream) {
+    // calls the stream init method
+    this->init((std::istream &) fileStream);
+
+    // in case the file stream should be closed
+    if(closeStream) {
+        // closes the file stream
+        fileStream.close();
+    }
+}
+
+void HashFunction::update(const unsigned char *buffer, unsigned int size) {
+};
+
+void HashFunction::finalize() {
+    // sets the finalized flag
+    this->finalized = true;
+};
+
+void HashFunction::reset() {
+    // unsets the finalized flag
+    this->finalized = false;
+};
+
+std::ostream &mariachi::operator<<(std::ostream &outStream, const HashFunction &value) {
+    // puts the hex digest in the ouput stream
+    return outStream << value.hexdigest();
+}

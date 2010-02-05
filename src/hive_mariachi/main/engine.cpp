@@ -41,6 +41,9 @@
 using namespace mariachi;
 using namespace mariachi::physics;
 
+#define MATIAS 10
+#define BUFFER_SIZE_T 102400
+
 /**
 * Thread that handles the main engine workload.
 * Initializes the script engines and the stages.
@@ -53,15 +56,76 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
-        //Crc32 crc32;
+        /*std::fstream &tobias = std::fstream("c:/lost.s06e00.720p.hdtv.x264-2hd.mkv", std::fstream::in | std::fstream::binary);
 
-        //unsigned char crc32Value[4];
+        unsigned char *fileBuffer = (unsigned char *) malloc(BUFFER_SIZE_T);
 
-        std::cout << "md5 of 'grape': " << Md5("grape") << std::endl;
+        unsigned int readSize;
 
-        //crc32.reset();
-        //crc32.update((char *) "abcdd", 4);
-        //crc32.close(crc32Value, 4);
+        Md5 &md5 = Md5();
+        Crc32 &crc32 = Crc32();
+        md5.init();
+        crc32.init();
+
+        unsigned long long counter = 0;
+
+        // iterates continuously
+        while(1) {
+            // reads the buffer
+            tobias.read((char *) fileBuffer, BUFFER_SIZE_T);
+
+            // retrieves the read size
+            readSize = tobias.gcount();
+
+            md5.update(fileBuffer, readSize);
+            crc32.update(fileBuffer, readSize);
+
+            counter += readSize;
+
+            //printf("leu %d\n", counter);
+
+            // in case the end of file was reached
+            if(tobias.eof()) {
+                // breaks the cycle
+                break;
+            }
+        };
+
+        md5.finalize();*/
+
+        //std::fstream &tobias = std::fstream("c:/lost.s06e00.720p.hdtv.x264-2hd.mkv", std::fstream::in | std::fstream::binary);
+
+        Md5 md5;
+        md5.init(std::fstream("c:/ldj_production_database.db", std::fstream::in | std::fstream::binary));
+        std::cout << "md5 of 'file': " << md5 << std::endl;
+
+        /*crc32.finalize();
+
+        tobias.close();
+
+        free(fileBuffer);*/
+
+        /*std::cout << "md5 of 'file': " << md5 << std::endl;
+        std::cout << "crc32 of 'file': " << crc32 << std::endl;*/
+
+        /*Md5 &md5 = Md5();
+
+        Crc32 &crc32 = Crc32();
+
+        for(unsigned int index = 0; index < MATIAS; index++) {
+            Md5 &md5 = Md5();
+            md5.init("grape");
+            std::cout << "md5 of 'grape': " << md5 << std::endl;
+        }
+
+        for(unsigned int index = 0; index < MATIAS; index++) {
+            Crc32 &crc32 = Crc32();
+            crc32.init("grape");
+            std::cout << "crc32 of 'grape': " << crc32 << std::endl;
+        }
+
+       // std::cout << "md5 of 'grape': " << md5 << std::endl;*/
+
 
         // creates a new huffman object
         Huffman huffamn;

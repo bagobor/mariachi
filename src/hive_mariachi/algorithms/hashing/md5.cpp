@@ -25,21 +25,25 @@
 
 #include "stdafx.h"
 
+#include "../../util/util.h"
+
 #include "md5.h"
 
 using namespace mariachi;
+using namespace mariachi::util;
+
+const unsigned char Md5::md5Padding[] = {
+    0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 
 /**
 * Constructor of the class.
 */
-Md5::Md5() {
+Md5::Md5() : HashFunction() {
+    // resets the md5 value
     this->reset();
-}
-
-Md5::Md5(const std::string &text) {
-    this->reset();
-    update((unsigned char *) text.c_str(), text.length());
-    finalize();
 }
 
 /**
@@ -48,177 +52,27 @@ Md5::Md5(const std::string &text) {
 Md5::~Md5() {
 }
 
-// F, G, H and I are basic Md5 functions.
-inline unsigned int Md5::F(unsigned int x, unsigned int y, unsigned int z) {
-  return x&y | ~x & z;
-}
+/**
+* Updates the hash function to a new value using the
+* buffer with the given size.
+*
+* @param buffer The buffer to be used to update the hash.
+* @param size The size of the buffer used to update
+* the hash.
+*/
+void Md5::update(const unsigned char *buffer, unsigned int size) {
+    // calls the super
+    HashFunction::update(buffer, size);
 
-inline unsigned int Md5::G(unsigned int x, unsigned int y, unsigned int z) {
-  return x&z | y & ~z;
-}
-
-inline unsigned int Md5::H(unsigned int x, unsigned int y, unsigned int z) {
-  return x^y^z;
-}
-
-inline unsigned int Md5::I(unsigned int x, unsigned int y, unsigned int z) {
-  return y ^ (x | ~z);
-}
-
-// rotate_left rotates x left n bits.
-inline unsigned int Md5::rotate_left(unsigned int x, int n) {
-  return (x << n) | (x >> (32 - n));
-}
-
-// FF, GG, HH, and II transformations for rounds 1, 2, 3, and 4.
-// Rotation is separate from addition to prevent recomputation.
-inline void Md5::FF(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
-    a = rotate_left(a + F(b, c, d) + x + ac, s) + b;
-}
-
-inline void Md5::GG(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
-    a = rotate_left(a + G(b, c, d) + x + ac, s) + b;
-}
-
-inline void Md5::HH(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
-    a = rotate_left(a + H(b, c, d) + x + ac, s) + b;
-}
-
-inline void Md5::II(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
-    a = rotate_left(a + I(b, c, d) + x + ac, s) + b;
-}
-
-void Md5::reset() {
-    finalized = false;
-
-    count[0] = 0;
-    count[1] = 0;
-
-    // loads the magic initialization constants
-    state[0] = 0x67452301;
-    state[1] = 0xefcdab89;
-    state[2] = 0x98badcfe;
-    state[3] = 0x10325476;
-}
-
-// decodes input (unsigned char) into output (unsigned int). Assumes len is a multiple of 4.
-void Md5::decode(unsigned int *output, const unsigned char *input, unsigned int size) {
-    for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
-        output[i] = ((unsigned int) input[j]) | (((unsigned int) input[j + 1]) << 8) |
-            (((unsigned int) input[j + 2]) << 16) | (((unsigned int) input[j + 3]) << 24);
-    }
-}
-
-// encodes input (unsigned int) into output (unsigned char). Assumes len is
-// a multiple of 4.
-void Md5::encode(unsigned char output[], const unsigned int input[], unsigned int len) {
-    for(unsigned int i = 0, j = 0; j < len; i++, j += 4) {
-        output[j] = input[i] & 0xff;
-        output[j+1] = (input[i] >> 8) & 0xff;
-        output[j+2] = (input[i] >> 16) & 0xff;
-        output[j+3] = (input[i] >> 24) & 0xff;
-    }
-}
-
-void Md5::transform(const unsigned char *block, unsigned int blocksize) {
-    unsigned int a = state[0], b = state[1], c = state[2], d = state[3], x[16];
-
-    this->decode(x, block, blocksize);
-
-    // the first round of md5 computation
-    FF(a, b, c, d, x[0], MD5_S11, 0xd76aa478);
-    FF(d, a, b, c, x[1], MD5_S12, 0xe8c7b756);
-    FF(c, d, a, b, x[2], MD5_S13, 0x242070db);
-    FF(b, c, d, a, x[3], MD5_S14, 0xc1bdceee);
-    FF(a, b, c, d, x[4], MD5_S11, 0xf57c0faf);
-    FF(d, a, b, c, x[5], MD5_S12, 0x4787c62a);
-    FF(c, d, a, b, x[6], MD5_S13, 0xa8304613);
-    FF(b, c, d, a, x[7], MD5_S14, 0xfd469501);
-    FF(a, b, c, d, x[8], MD5_S11, 0x698098d8);
-    FF(d, a, b, c, x[9], MD5_S12, 0x8b44f7af);
-    FF(c, d, a, b, x[10], MD5_S13, 0xffff5bb1);
-    FF(b, c, d, a, x[11], MD5_S14, 0x895cd7be);
-    FF(a, b, c, d, x[12], MD5_S11, 0x6b901122);
-    FF(d, a, b, c, x[13], MD5_S12, 0xfd987193);
-    FF(c, d, a, b, x[14], MD5_S13, 0xa679438e);
-    FF(b, c, d, a, x[15], MD5_S14, 0x49b40821);
-
-    // the second round of md5 computation
-    GG(a, b, c, d, x[1], MD5_S21, 0xf61e2562);
-    GG(d, a, b, c, x[6], MD5_S22, 0xc040b340);
-    GG(c, d, a, b, x[11], MD5_S23, 0x265e5a51);
-    GG(b, c, d, a, x[0], MD5_S24, 0xe9b6c7aa);
-    GG(a, b, c, d, x[5], MD5_S21, 0xd62f105d);
-    GG(d, a, b, c, x[10], MD5_S22, 0x2441453);
-    GG(c, d, a, b, x[15], MD5_S23, 0xd8a1e681);
-    GG(b, c, d, a, x[4], MD5_S24, 0xe7d3fbc8);
-    GG(a, b, c, d, x[9], MD5_S21, 0x21e1cde6);
-    GG(d, a, b, c, x[14], MD5_S22, 0xc33707d6);
-    GG(c, d, a, b, x[3], MD5_S23, 0xf4d50d87);
-    GG(b, c, d, a, x[8], MD5_S24, 0x455a14ed);
-    GG(a, b, c, d, x[13], MD5_S21, 0xa9e3e905);
-    GG(d, a, b, c, x[2], MD5_S22, 0xfcefa3f8);
-    GG(c, d, a, b, x[7], MD5_S23, 0x676f02d9);
-    GG(b, c, d, a, x[12], MD5_S24, 0x8d2a4c8a);
-
-    // the third round of md5 computation
-    HH(a, b, c, d, x[5], MD5_S31, 0xfffa3942);
-    HH(d, a, b, c, x[8], MD5_S32, 0x8771f681);
-    HH(c, d, a, b, x[11], MD5_S33, 0x6d9d6122);
-    HH(b, c, d, a, x[14], MD5_S34, 0xfde5380c);
-    HH(a, b, c, d, x[1], MD5_S31, 0xa4beea44);
-    HH(d, a, b, c, x[4], MD5_S32, 0x4bdecfa9);
-    HH(c, d, a, b, x[7], MD5_S33, 0xf6bb4b60);
-    HH(b, c, d, a, x[10], MD5_S34, 0xbebfbc70);
-    HH(a, b, c, d, x[13], MD5_S31, 0x289b7ec6);
-    HH(d, a, b, c, x[0], MD5_S32, 0xeaa127fa);
-    HH(c, d, a, b, x[3], MD5_S33, 0xd4ef3085);
-    HH(b, c, d, a, x[6], MD5_S34, 0x4881d05);
-    HH(a, b, c, d, x[9], MD5_S31, 0xd9d4d039);
-    HH(d, a, b, c, x[12], MD5_S32, 0xe6db99e5);
-    HH(c, d, a, b, x[15], MD5_S33, 0x1fa27cf8);
-    HH(b, c, d, a, x[2], MD5_S34, 0xc4ac5665);
-
-    // the fourth round of md5 computation
-    II(a, b, c, d, x[0], MD5_S41, 0xf4292244);
-    II(d, a, b, c, x[7], MD5_S42, 0x432aff97);
-    II(c, d, a, b, x[14], MD5_S43, 0xab9423a7);
-    II(b, c, d, a, x[5], MD5_S44, 0xfc93a039);
-    II(a, b, c, d, x[12], MD5_S41, 0x655b59c3);
-    II(d, a, b, c, x[3], MD5_S42, 0x8f0ccc92);
-    II(c, d, a, b, x[10], MD5_S43, 0xffeff47d);
-    II(b, c, d, a, x[1], MD5_S44, 0x85845dd1);
-    II(a, b, c, d, x[8], MD5_S41, 0x6fa87e4f);
-    II(d, a, b, c, x[15], MD5_S42, 0xfe2ce6e0);
-    II(c, d, a, b, x[6], MD5_S43, 0xa3014314);
-    II(b, c, d, a, x[13], MD5_S44, 0x4e0811a1);
-    II(a, b, c, d, x[4], MD5_S41, 0xf7537e82);
-    II(d, a, b, c, x[11], MD5_S42, 0xbd3af235);
-    II(c, d, a, b, x[2], MD5_S43, 0x2ad7d2bb);
-    II(b, c, d, a, x[9], MD5_S44, 0xeb86d391);
-
-    state[0] += a;
-    state[1] += b;
-    state[2] += c;
-    state[3] += d;
-
-    // invalidates sensitive information
-    memset(x, 0, sizeof x);
-}
-
-
-// Md5 block update operation. Continues an Md5 message-digest
-// operation, processing another message block
-void Md5::update(const unsigned char input[], unsigned int length) {
     // computes the number of bytes modulus 64
-    unsigned int index = count[0] / 8 % MD5_BLOCK_SIZE;
+    unsigned int index = this->count[0] / 8 % MD5_BLOCK_SIZE;
 
     // updates the number of bits
-    if((count[0] += (length << 3)) < (length << 3)) {
-        count[1]++;
+    if((this->count[0] += (size << 3)) < (size << 3)) {
+        this->count[1]++;
     }
 
-    count[1] += (length >> 29);
+    this->count[1] += (size >> 29);
 
     // number of bytes we need to fill in buffer
     unsigned int firstpart = 64 - index;
@@ -226,16 +80,16 @@ void Md5::update(const unsigned char input[], unsigned int length) {
     unsigned int i;
 
     // transform as many times as possible
-    if(length >= firstpart) {
+    if(size >= firstpart) {
         // fills the  buffer first
-        memcpy(&buffer[index], input, firstpart);
+        memcpy(&this->hashBuffer[index], buffer, firstpart);
 
         // transform the buffer
-        transform(buffer, MD5_BLOCK_SIZE);
+        this->transform(this->hashBuffer, MD5_BLOCK_SIZE);
 
         // transform chunks of blocksize (64 bytes)
-        for(i = firstpart; i + MD5_BLOCK_SIZE <= length; i += MD5_BLOCK_SIZE) {
-            transform(&input[i], MD5_BLOCK_SIZE);
+        for(i = firstpart; i + MD5_BLOCK_SIZE <= size; i += MD5_BLOCK_SIZE) {
+            this->transform(&buffer[i], MD5_BLOCK_SIZE);
         }
 
         index = 0;
@@ -244,42 +98,178 @@ void Md5::update(const unsigned char input[], unsigned int length) {
     }
 
     // buffer remaining input
-    memcpy(&buffer[index], &input[i], length-i);
+    memcpy(&this->hashBuffer[index], &buffer[i], size - i);
 }
 
-// Md5 finalization. Ends an Md5 message-digest operation, writing the
-// the message digest and zeroizing the context.
-Md5& Md5::finalize() {
-    static unsigned char padding[64] = {
-        0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
+/**
+* Finalizes the hash calculation, closing the calculation.
+*/
+void Md5::finalize() {
+    // saves the number of bits
+    unsigned char bits[8];
+    this->encode(bits, this->count, 8);
 
-    if(!finalized) {
-        // saves the number of bits
-        unsigned char bits[8];
-        encode(bits, count, 8);
+    // pads out to 56 modulus 64
+    unsigned int index = this->count[0] / 8 % 64;
+    unsigned int paddingSize = (index < 56) ? (56 - index) : (120 - index);
 
-        // pads out to 56 modulus 64
-        unsigned int index = count[0] / 8 % 64;
-        unsigned int padLen = (index < 56) ? (56 - index) : (120 - index);
-        update(padding, padLen);
+    // updates the hash value with the padding
+    this->update(Md5::md5Padding, paddingSize);
 
-        // appends length (before padding)
-        update(bits, 8);
+    // appends length (before padding)
+    this->update(bits, 8);
 
-        // store the state in the digest
-        encode(digest, state, 16);
+    // store the state in the digest
+    this->encode(this->digest, this->state, MD5_DIGEST_SIZE);
 
-        // invalidates sensitive information
-        memset(buffer, 0, sizeof buffer);
-        memset(count, 0, sizeof count);
+    // invalidates sensitive information
+    memset(this->hashBuffer, 0, sizeof(this->hashBuffer));
+    memset(this->count, 0, sizeof(this->count));
 
-        finalized = true;
+    // calls the super
+    HashFunction::finalize();
+}
+
+void Md5::reset() {
+    // unsets the finalized flag
+    this->finalized = false;
+
+    // resets the count values
+    this->count[0] = 0;
+    this->count[1] = 0;
+
+    // loads the magic initialization constants
+    this->state[0] = 0x67452301;
+    this->state[1] = 0xefcdab89;
+    this->state[2] = 0x98badcfe;
+    this->state[3] = 0x10325476;
+
+    // calls the super
+    HashFunction::reset();
+}
+
+/**
+* Decodes multiple unsigned characters into an unsigned integer buffer.
+* Assumes size is a multiple of 4.
+*
+* @param output The output buffer.
+* @param input The input buffer.
+* @param size The size of the input buffer (in bytes).
+*/
+void Md5::decode(unsigned int *output, const unsigned char *input, unsigned int size) {
+    for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
+        output[i] = ((unsigned int) input[j]) | (((unsigned int) input[j + 1]) << 8) |
+            (((unsigned int) input[j + 2]) << 16) | (((unsigned int) input[j + 3]) << 24);
     }
+}
 
-    return *this;
+/**
+* Encodes multiple unsigned integers into an unsigned character buffer.
+* Assumes size is a multiple of 4.
+*
+* @param output The output buffer.
+* @param input The input buffer.
+* @param size The size of the input buffer (in bytes).
+*/
+void Md5::encode(unsigned char *output, const unsigned int *input, unsigned int size) {
+    for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
+        output[j] = input[i] & 0xff;
+        output[j+1] = (input[i] >> 8) & 0xff;
+        output[j+2] = (input[i] >> 16) & 0xff;
+        output[j+3] = (input[i] >> 24) & 0xff;
+    }
+}
+
+void Md5::transform(const unsigned char *block, unsigned int blocksize) {
+    unsigned int a = this->state[0];
+    unsigned int b = this->state[1];
+    unsigned int c = this->state[2];
+    unsigned int d = this->state[3];
+
+    unsigned int x[MD5_DIGEST_SIZE];
+
+    this->decode(x, block, blocksize);
+
+    // the first round of md5 computation
+    Md5::FF(a, b, c, d, x[0], MD5_S11, 0xd76aa478);
+    Md5::FF(d, a, b, c, x[1], MD5_S12, 0xe8c7b756);
+    Md5::FF(c, d, a, b, x[2], MD5_S13, 0x242070db);
+    Md5::FF(b, c, d, a, x[3], MD5_S14, 0xc1bdceee);
+    Md5::FF(a, b, c, d, x[4], MD5_S11, 0xf57c0faf);
+    Md5::FF(d, a, b, c, x[5], MD5_S12, 0x4787c62a);
+    Md5::FF(c, d, a, b, x[6], MD5_S13, 0xa8304613);
+    Md5::FF(b, c, d, a, x[7], MD5_S14, 0xfd469501);
+    Md5::FF(a, b, c, d, x[8], MD5_S11, 0x698098d8);
+    Md5::FF(d, a, b, c, x[9], MD5_S12, 0x8b44f7af);
+    Md5::FF(c, d, a, b, x[10], MD5_S13, 0xffff5bb1);
+    Md5::FF(b, c, d, a, x[11], MD5_S14, 0x895cd7be);
+    Md5::FF(a, b, c, d, x[12], MD5_S11, 0x6b901122);
+    Md5::FF(d, a, b, c, x[13], MD5_S12, 0xfd987193);
+    Md5::FF(c, d, a, b, x[14], MD5_S13, 0xa679438e);
+    Md5::FF(b, c, d, a, x[15], MD5_S14, 0x49b40821);
+
+    // the second round of md5 computation
+    Md5::GG(a, b, c, d, x[1], MD5_S21, 0xf61e2562);
+    Md5::GG(d, a, b, c, x[6], MD5_S22, 0xc040b340);
+    Md5::GG(c, d, a, b, x[11], MD5_S23, 0x265e5a51);
+    Md5::GG(b, c, d, a, x[0], MD5_S24, 0xe9b6c7aa);
+    Md5::GG(a, b, c, d, x[5], MD5_S21, 0xd62f105d);
+    Md5::GG(d, a, b, c, x[10], MD5_S22, 0x2441453);
+    Md5::GG(c, d, a, b, x[15], MD5_S23, 0xd8a1e681);
+    Md5::GG(b, c, d, a, x[4], MD5_S24, 0xe7d3fbc8);
+    Md5::GG(a, b, c, d, x[9], MD5_S21, 0x21e1cde6);
+    Md5::GG(d, a, b, c, x[14], MD5_S22, 0xc33707d6);
+    Md5::GG(c, d, a, b, x[3], MD5_S23, 0xf4d50d87);
+    Md5::GG(b, c, d, a, x[8], MD5_S24, 0x455a14ed);
+    Md5::GG(a, b, c, d, x[13], MD5_S21, 0xa9e3e905);
+    Md5::GG(d, a, b, c, x[2], MD5_S22, 0xfcefa3f8);
+    Md5::GG(c, d, a, b, x[7], MD5_S23, 0x676f02d9);
+    Md5::GG(b, c, d, a, x[12], MD5_S24, 0x8d2a4c8a);
+
+    // the third round of md5 computation
+    Md5::HH(a, b, c, d, x[5], MD5_S31, 0xfffa3942);
+    Md5::HH(d, a, b, c, x[8], MD5_S32, 0x8771f681);
+    Md5::HH(c, d, a, b, x[11], MD5_S33, 0x6d9d6122);
+    Md5::HH(b, c, d, a, x[14], MD5_S34, 0xfde5380c);
+    Md5::HH(a, b, c, d, x[1], MD5_S31, 0xa4beea44);
+    Md5::HH(d, a, b, c, x[4], MD5_S32, 0x4bdecfa9);
+    Md5::HH(c, d, a, b, x[7], MD5_S33, 0xf6bb4b60);
+    Md5::HH(b, c, d, a, x[10], MD5_S34, 0xbebfbc70);
+    Md5::HH(a, b, c, d, x[13], MD5_S31, 0x289b7ec6);
+    Md5::HH(d, a, b, c, x[0], MD5_S32, 0xeaa127fa);
+    Md5::HH(c, d, a, b, x[3], MD5_S33, 0xd4ef3085);
+    Md5::HH(b, c, d, a, x[6], MD5_S34, 0x4881d05);
+    Md5::HH(a, b, c, d, x[9], MD5_S31, 0xd9d4d039);
+    Md5::HH(d, a, b, c, x[12], MD5_S32, 0xe6db99e5);
+    Md5::HH(c, d, a, b, x[15], MD5_S33, 0x1fa27cf8);
+    Md5::HH(b, c, d, a, x[2], MD5_S34, 0xc4ac5665);
+
+    // the fourth round of md5 computation
+    Md5::II(a, b, c, d, x[0], MD5_S41, 0xf4292244);
+    Md5::II(d, a, b, c, x[7], MD5_S42, 0x432aff97);
+    Md5::II(c, d, a, b, x[14], MD5_S43, 0xab9423a7);
+    Md5::II(b, c, d, a, x[5], MD5_S44, 0xfc93a039);
+    Md5::II(a, b, c, d, x[12], MD5_S41, 0x655b59c3);
+    Md5::II(d, a, b, c, x[3], MD5_S42, 0x8f0ccc92);
+    Md5::II(c, d, a, b, x[10], MD5_S43, 0xffeff47d);
+    Md5::II(b, c, d, a, x[1], MD5_S44, 0x85845dd1);
+    Md5::II(a, b, c, d, x[8], MD5_S41, 0x6fa87e4f);
+    Md5::II(d, a, b, c, x[15], MD5_S42, 0xfe2ce6e0);
+    Md5::II(c, d, a, b, x[6], MD5_S43, 0xa3014314);
+    Md5::II(b, c, d, a, x[13], MD5_S44, 0x4e0811a1);
+    Md5::II(a, b, c, d, x[4], MD5_S41, 0xf7537e82);
+    Md5::II(d, a, b, c, x[11], MD5_S42, 0xbd3af235);
+    Md5::II(c, d, a, b, x[2], MD5_S43, 0x2ad7d2bb);
+    Md5::II(b, c, d, a, x[9], MD5_S44, 0xeb86d391);
+
+    // sets the new values in the state
+    this->state[0] += a;
+    this->state[1] += b;
+    this->state[2] += c;
+    this->state[3] += d;
+
+    // invalidates sensitive information
+    memset(x, 0, sizeof(x));
 }
 
 /**
@@ -289,25 +279,127 @@ Md5& Md5::finalize() {
 * @return The hexadecimal representation of the code.
 */
 std::string Md5::hexdigest() const {
-    if(!finalized)
-        return "";
+    // in case the hash computation is not finalized
+    if(!this->finalized) {
+        // returns empty string
+        return std::string();
+    }
 
     // allocates the buffer state
-    char buf[33];
+    char buffer[MD5_DIGEST_SIZE * 2 + 1];
 
     // iterates over all the values in the buffer
-    for(int i = 0; i < 16; i++) {
-        sprintf(buf + i * 2, "%02x", digest[i]);
+    for(int i = 0; i < MD5_DIGEST_SIZE; i++) {
+        sprintf(&buffer[i * 2], "%02x", this->digest[i]);
     }
 
     // sets the last value to end of string
-    buf[32] = 0;
+    buffer[MD5_DIGEST_SIZE * 2] = 0;
 
     // returns the string value
-    return std::string(buf);
+    return std::string(buffer);
 }
 
-std::ostream &mariachi::operator<<(std::ostream &outStream, const Md5 &value) {
-    // puts the hex digest in the ouput stream
-    return outStream << value.hexdigest();
+/**
+* The md5 f computation function.
+*
+* @param x The x value for computation.
+* @param y The y value for computation.
+* @param z The z value for computation.
+*/
+inline unsigned int Md5::F(unsigned int x, unsigned int y, unsigned int z) {
+    return x & y | ~x & z;
+}
+
+/**
+* The md5 g computation function.
+*
+* @param x The x value for computation.
+* @param y The y value for computation.
+* @param z The z value for computation.
+*/
+inline unsigned int Md5::G(unsigned int x, unsigned int y, unsigned int z) {
+    return x & z | y & ~z;
+}
+
+/**
+* The md5 h computation function.
+*
+* @param x The x value for computation.
+* @param y The y value for computation.
+* @param z The z value for computation.
+*/
+inline unsigned int Md5::H(unsigned int x, unsigned int y, unsigned int z) {
+    return x ^ y ^ z;
+}
+
+/**
+* The md5 i computation function.
+*
+* @param x The x value for computation.
+* @param y The y value for computation.
+* @param z The z value for computation.
+*/
+inline unsigned int Md5::I(unsigned int x, unsigned int y, unsigned int z) {
+    return y ^ (x | ~z);
+}
+
+/**
+* The md5 ff transofrmation fuction.
+*
+* @param a The a value for transformation.
+* @param b The b value for transformation.
+* @param c The c value for transformation.
+* @param d The d value for transformation.
+* @param x The x value for transformation.
+* @param s The s value for transformation.
+* @param ac The ac value for transformation.
+*/
+inline void Md5::FF(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
+    a = CpuUtil::rotateLeft(a + F(b, c, d) + x + ac, s) + b;
+}
+
+/**
+* The md5 gg transofrmation fuction.
+*
+* @param a The a value for transformation.
+* @param b The b value for transformation.
+* @param c The c value for transformation.
+* @param d The d value for transformation.
+* @param x The x value for transformation.
+* @param s The s value for transformation.
+* @param ac The ac value for transformation.
+*/
+inline void Md5::GG(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
+    a = CpuUtil::rotateLeft(a + G(b, c, d) + x + ac, s) + b;
+}
+
+/**
+* The md5 hh transofrmation fuction.
+*
+* @param a The a value for transformation.
+* @param b The b value for transformation.
+* @param c The c value for transformation.
+* @param d The d value for transformation.
+* @param x The x value for transformation.
+* @param s The s value for transformation.
+* @param ac The ac value for transformation.
+*/
+inline void Md5::HH(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
+    a = CpuUtil::rotateLeft(a + H(b, c, d) + x + ac, s) + b;
+}
+
+/**
+* The md5 ii transofrmation fuction.
+*
+* @param a The a value for transformation.
+* @param b The b value for transformation.
+* @param c The c value for transformation.
+* @param d The d value for transformation.
+* @param x The x value for transformation.
+* @param s The s value for transformation.
+* @param ac The ac value for transformation.
+*/
+inline void Md5::II(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
+    a = CpuUtil::rotateLeft(a + I(b, c, d) + x + ac, s) + b;
 }

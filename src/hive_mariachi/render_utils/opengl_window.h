@@ -38,10 +38,10 @@ namespace mariachi {
         public:
             OpenglWindow();
             ~OpenglWindow();
-            virtual void start(void *arguments) {};
-            virtual void stop(void *arguments) {};
-            virtual void loop(void *arguments) {};
-            virtual void fullScreen(void *arguments) {};
+            virtual void start(void *arguments) { };
+            virtual void stop(void *arguments) { };
+            virtual void loop(void *arguments) { };
+            virtual void fullScreen(void *arguments) { };
     };
 }
 

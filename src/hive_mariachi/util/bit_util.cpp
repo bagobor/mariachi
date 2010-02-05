@@ -506,7 +506,7 @@ void BitStream::_flushRead() {
     // retrieves the read size
     unsigned int readSize = this->stream->gcount();
 
-    // in case the enf of file was reached
+    // in case the end of file was reached
     if(this->stream->eof()) {
          // clears the error bits
          this->stream->clear();

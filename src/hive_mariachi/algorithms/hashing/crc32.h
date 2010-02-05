@@ -25,6 +25,10 @@
 
 #pragma once
 
+#include "hash_function.h"
+
+#define CRC32_DIGEST_SIZE 4
+
 const unsigned int CRC32_BASE_VALUE = 0xffffffffL;
 
 #ifdef MARIACHI_LITTLE_ENDIAN
@@ -36,9 +40,28 @@ const unsigned int CRC32_BASE_VALUE = 0xffffffffL;
 #endif
 
 namespace mariachi {
-    class Crc32 {
+    class Crc32 : public HashFunction {
         private:
+            /**
+            * The table containing the crc polynomial values.
+            * This table is used in the interanl computation
+            * of the crc value.
+            */
             static const unsigned int crcTable[256];
+
+            /**
+            * The size of the digest.
+            */
+            static const int DIGEST_SIZE = CRC32_DIGEST_SIZE;
+
+            /**
+            * The result of the digest.
+            */
+            unsigned char digest[DIGEST_SIZE];
+
+            /**
+            * The current crc value.
+            */
             unsigned int crcValue;
 
             inline const char getByte(unsigned int index);
@@ -46,8 +69,9 @@ namespace mariachi {
         public:
             Crc32();
             ~Crc32();
-            void update(const char *buffer, unsigned int size);
-            void finalize(unsigned char *hash, unsigned int size);
-            inline void reset();
+            void update(const unsigned char *buffer, unsigned int size);
+            void finalize();
+            void reset();
+            std::string hexdigest() const;
     };
 }

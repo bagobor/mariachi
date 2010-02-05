@@ -40,8 +40,8 @@ namespace mariachi {
             ConfigurationParser(ConfigurationManager *configurationManager);
             ~ConfigurationParser();
             inline void initConfigurationManager(ConfigurationManager *configurationManager);
-            virtual void parseConfiguration(void *configuration) {};
-            virtual void parseResource(void *resource) {};
+            virtual void parseConfiguration(void *configuration) { };
+            virtual void parseResource(void *resource) { };
             virtual std::string &getName() { return this->name; };
             virtual void setName(const std::string &name) { this->name = name; };
     };

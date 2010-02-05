@@ -34,10 +34,10 @@ namespace mariachi {
         public:
             OpenglesWindow();
             ~OpenglesWindow();
-            virtual void start(void *arguments) {};
-            virtual void stop(void *arguments) {};
-            virtual void loop(void *arguments) {};
-            virtual void fullScreen(void *arguments) {};
+            virtual void start(void *arguments) { };
+            virtual void stop(void *arguments) { };
+            virtual void loop(void *arguments) { };
+            virtual void fullScreen(void *arguments) { };
     };
 }
 

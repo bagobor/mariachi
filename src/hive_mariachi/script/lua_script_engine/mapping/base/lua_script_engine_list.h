@@ -49,7 +49,7 @@ namespace mariachi {
             /**
             * Constructor of the class.
             */
-            LuaList() {};
+            LuaList() { };
 
             /**
             * Constructor of the class.
@@ -66,7 +66,7 @@ namespace mariachi {
             /**
             * The destructor of the class.
             */
-            ~LuaList() {};
+            ~LuaList() { };
     };
 }
 

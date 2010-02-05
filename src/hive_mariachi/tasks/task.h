@@ -36,8 +36,8 @@ namespace mariachi {
             Task();
             Task(const std::string &name);
             ~Task();
-            virtual void start(void *parameters) {};
-            virtual void stop(void *parameters) {};
+            virtual void start(void *parameters) { };
+            virtual void stop(void *parameters) { };
             std::string &getName();
             void setName(const std::string &name);
     };

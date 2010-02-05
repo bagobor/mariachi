@@ -83,7 +83,7 @@ inline void Huffman::initLongestCodeSize() {
 
 void Huffman::encode(const std::string &filePath, const std::string &targetFilePath) {
     // creates the target file stream to be used
-    std::fstream targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
+    std::fstream &targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
 
     // in case the opening of the file fails
     if(targetFileStream.fail()) {
@@ -131,7 +131,7 @@ void Huffman::encode(const std::string &filePath, std::iostream *targetStream) {
         // encodes the data to the target stream
         this->encodeData(fileBuffer, &targetBitStream, readSize);
 
-        // in case the enf of file was reached
+        // in case the end of file was reached
         if(this->fileStream->eof()) {
             // breaks the cycle
             break;
@@ -147,7 +147,7 @@ void Huffman::encode(const std::string &filePath, std::iostream *targetStream) {
 
 void Huffman::decode(const std::string &filePath, const std::string &targetFilePath) {
     // creates the target file stream to be used
-    std::fstream targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
+    std::fstream &targetFileStream = std::fstream(targetFilePath.c_str(), std::fstream::out | std::fstream::binary);
 
     // in case the opening of the file fails
     if(targetFileStream.fail()) {
@@ -272,7 +272,7 @@ void Huffman::generateTable(std::fstream *fileStream) {
         // updates the occurence values for the file buffer
         this->updateOccurrenceValues(fileBuffer, readSize);
 
-        // in case the enf of file was reached
+        // in case the end of file was reached
         if(this->fileStream->eof()) {
             // breaks the cycle
             break;

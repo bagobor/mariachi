@@ -93,7 +93,7 @@ namespace mariachi {
         public:
             LoggerHandler();
             ~LoggerHandler();
-            virtual void handle(LoggerRecord *record) {};
+            virtual void handle(LoggerRecord *record) { };
             void flush();
     };
 
