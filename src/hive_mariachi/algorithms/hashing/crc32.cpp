@@ -27,6 +27,7 @@
 
 #include "../../exceptions/exceptions.h"
 #include "../../util/util.h"
+#include "../../system/system.h"
 
 #include "crc32.h"
 
@@ -243,15 +244,15 @@ std::string Crc32::hexdigest() const {
     }
 
     // allocates the buffer state
-    char buffer[CRC32_DIGEST_SIZE * 2 + 1];
+    char buffer[CRC32_HEX_DIGEST_SIZE];
 
     // iterates over all the values in the buffer
     for(int i = 0; i < CRC32_DIGEST_SIZE; i++) {
-        sprintf(&buffer[i * 2], "%02x", this->digest[i]);
+        SPRINTF(&buffer[i * 2], CRC32_HEX_DIGEST_SIZE - i * 2, "%02x", this->digest[i]);
     }
 
     // sets the last value to end of string
-    buffer[CRC32_DIGEST_SIZE * 2] = 0;
+    buffer[CRC32_HEX_DIGEST_SIZE - 1] = 0;
 
     // returns the string value
     return std::string(buffer);

@@ -26,6 +26,7 @@
 #include "stdafx.h"
 
 #include "../../util/util.h"
+#include "../../system/system.h"
 
 #include "md5.h"
 
@@ -286,15 +287,15 @@ std::string Md5::hexdigest() const {
     }
 
     // allocates the buffer state
-    char buffer[MD5_DIGEST_SIZE * 2 + 1];
+    char buffer[MD5_HEX_DIGEST_SIZE];
 
     // iterates over all the values in the buffer
     for(int i = 0; i < MD5_DIGEST_SIZE; i++) {
-        sprintf(&buffer[i * 2], "%02x", this->digest[i]);
+        SPRINTF(&buffer[i * 2], MD5_HEX_DIGEST_SIZE - i * 2, "%02x", this->digest[i]);
     }
 
     // sets the last value to end of string
-    buffer[MD5_DIGEST_SIZE * 2] = 0;
+    buffer[MD5_HEX_DIGEST_SIZE - 1] = 0;
 
     // returns the string value
     return std::string(buffer);

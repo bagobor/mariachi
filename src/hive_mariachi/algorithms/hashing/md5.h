@@ -31,6 +31,8 @@
 
 #define MD5_BLOCK_SIZE 64
 
+#define MD5_HEX_DIGEST_SIZE 33
+
 #define MD5_S11 7
 #define MD5_S12 12
 #define MD5_S13 17
