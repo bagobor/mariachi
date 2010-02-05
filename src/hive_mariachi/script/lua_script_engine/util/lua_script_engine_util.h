@@ -26,7 +26,7 @@
 #pragma once
 
 extern "C" {
-    #include "../../../lib/liblua/src/lua.h"
+    #include "../../../../../lib/liblua/src/lua.h"
 }
 
 #define LUA_SCRIPT_ENGINE_SELF_VARIABLE "_self"

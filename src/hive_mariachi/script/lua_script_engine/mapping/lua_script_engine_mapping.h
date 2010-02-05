@@ -26,7 +26,7 @@
 #pragma once
 
 extern "C" {
-    #include "../../../lib/liblua/src/lua.h"
+    #include "../../../../../lib/liblua/src/lua.h"
 }
 
 #include "../../../main/main.h"
