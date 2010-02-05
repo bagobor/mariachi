@@ -495,7 +495,7 @@ inline int Huffman::encodeData(char *buffer, BitStream *bitStream, unsigned int 
             HuffmanPartialByte_t &computedCodePartialByte = computedCode[_index];
 
             // writes the computed code partial byte to the bit stream
-            bitStream->writeByte(computedCodePartialByte.byte, computedCodePartialByte.numberBits);
+            bitStream->write(&computedCodePartialByte.byte, computedCodePartialByte.numberBits);
         }
     }
 
