@@ -256,7 +256,7 @@ void Engine::start(void *arguments) {
 
         // iterates while the task list contains
         // valid task elements
-        while(this->taskList.size()) {
+        /*while(this->taskList.size()) {
             // retrieves the current task
             Task *currentTask = this->taskList.front();
 
@@ -265,13 +265,14 @@ void Engine::start(void *arguments) {
 
             // starts the current task
             currentTask->start(NULL);
-        }
+        }*/
 
         // waits for the task list ready condition
         //CONDITION_WAIT(this->taskListReadyCondition);
 
         // resets the condition
         //CONDITION_RESET(this->taskListReadyCondition);
+		SLEEP(100);
     }
 }
 
