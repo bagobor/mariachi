@@ -187,7 +187,7 @@ void LoggerStreamHandler::handle(LoggerRecord *record) {
     }
 
     // retrieves the formatted value and puts it into the stream
-	*(this->stream) << record->getFormattedValue() << std::endl;
+    *(this->stream) << record->getFormattedValue() << std::endl;
 
     // flushes the stream
     this->flushStream();

@@ -56,60 +56,23 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
-        // creates a new huffman object
-       /* Huffman huffamn;
-
-        // encodes the given file
-        time_t initialTimeEncoding = time(NULL);
-
-        huffamn.encode("C:/colony_production_database.db", "c:/colony_production_database.db.encoded");
-
-        time_t endTimeEncoding = time(NULL);
-
-        printf("Encoding took %d\n", endTimeEncoding - initialTimeEncoding);
-
-        time_t initialTimeDecoding = time(NULL);
-
-        huffamn.decode("c:/colony_production_database.db.encoded", "c:/colony_production_database.db.decoded");
-
-        time_t endTimeDecoding = time(NULL);
-
-        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);*/
-
-        // prints the huffman table
-       // huffamn.printTable();
-
-		printf("Starting the configuration manager");
-
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
-
-		printf("Starting the comsole manager");
 
         // starts the console manager in the engine
         engine->startConsoleManager();
 
-		printf("Starting the logger");
-
         // starts the logger in the engine
         engine->startLogger(DEBUG, true);
-
-		engine->getLogger()->info("Starting the input devices");
 
         // starts the input devices in the engine
         engine->startInputDevices();
 
-		engine->getLogger()->info("Starting script engines");
-
         // starts the script engines in the engine
         engine->startScriptEngines();
 
-		engine->getLogger()->info("Starting physics engines");
-
         // starts the physics engines in the engine
         engine->startPhysicsEngines();
-
-		engine->getLogger()->info("Starting stages");
 
         // starts the stages in the engine
         engine->startStages();
@@ -182,7 +145,7 @@ Engine::Engine() {
 */
 Engine::Engine(int argc, char** argv) {
     this->initRunningFlag();
-	this->initLogger();
+    this->initLogger();
     this->initRenders();
     this->initArgs(argc, argv);
 
@@ -311,7 +274,7 @@ void Engine::update() {
 */
 void Engine::printInformation() {
     // prints the branding information
-	std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
+    std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
 
     // prints the help text
     std::cout << MARIACHI_HELP_TEXT << std::endl;
@@ -324,14 +287,14 @@ void Engine::printInformation() {
 * @param exception The exception to be handled.
 */
 void Engine::handleException(Exception *exception) {
-	// in case there is a logger defined
-	if(this->logger) {
-		// prints the exception to the logger
-		this->logger->critical("[Exception]: " + exception->getMessage());
-	} else {
-		// prints the exception directly to the standard error
-		std::cerr << "[Exception]: " + exception->getMessage();
-	}
+    // in case there is a logger defined
+    if(this->logger) {
+        // prints the exception to the logger
+        this->logger->critical("[Exception]: " + exception->getMessage());
+    } else {
+        // prints the exception directly to the standard error
+        std::cerr << "[Exception]: " + exception->getMessage();
+    }
 }
 
 /**

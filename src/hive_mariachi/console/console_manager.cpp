@@ -193,7 +193,7 @@ void ConsoleManager::processCommandLineScript(const char *commandLine, WriteOupu
     }
 
     // appends the command line to the script string
-	this->currentScriptString += std::string(commandLine) + "\n";
+    this->currentScriptString += std::string(commandLine) + "\n";
 
     // tries to run the script for the current string
     if(this->currentScriptEngine->runScriptString(this->currentScriptString)) {

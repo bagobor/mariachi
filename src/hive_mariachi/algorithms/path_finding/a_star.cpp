@@ -133,9 +133,9 @@ Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
             float newCost = costMap[currentNodeId];
 
             if(movementCost) {
-				newCost += movementCost;				
+                newCost += movementCost;
             } else {
-				newCost += this->getCostFunction()(currentNodeId, neighbourNodeId, this->nodesGraph);
+                newCost += this->getCostFunction()(currentNodeId, neighbourNodeId, this->nodesGraph);
             }
 
             // calculates the distance from the neighbour node to the end node

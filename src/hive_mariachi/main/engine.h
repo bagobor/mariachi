@@ -182,7 +182,7 @@ namespace mariachi {
             physics::PhysicsEngine *activePhysicsEngine;
 
             inline void initRunningFlag();
-			inline void initLogger();
+            inline void initLogger();
             inline void initRenders();
             inline void initArgs(int argc, char** argv);
 
