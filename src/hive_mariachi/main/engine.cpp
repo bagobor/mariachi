@@ -311,6 +311,8 @@ void Engine::update() {
 * Prints the branding information into the standard output.
 */
 void Engine::printInformation() {
+	printf("started printing branding");
+
     // prints the branding information
 	std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
 
