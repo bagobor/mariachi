@@ -61,7 +61,7 @@ namespace mariachi {
             LuaList(std::list<T> *listValue, LuaConstructor_t constructor) {
                 this->listValue = listValue;
                 this->constructor = constructor;
-            };
+            }
 
             /**
             * The destructor of the class.
