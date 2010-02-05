@@ -31,8 +31,8 @@
     "modules" : ["lua", "opengl", "direct3d", "opengles"],
 
     // the logging support
-    "logging" : { "verbosity" : 3, "file" : false },
+    "logging" : { "verbosity" : 3, "file" : 0 },
 
-	// the scripting configuration
-	"scripting" : { "lua" : { "extra_paths" : ["../../scripts/hive_mariachi_lua_scripts/src/?.lua"] } }
+    // the scripting configuration
+    "scripting" : { "lua" : { "extra_paths" : ["../../scripts/hive_mariachi_lua_scripts/src/?.lua"] } }
 }
