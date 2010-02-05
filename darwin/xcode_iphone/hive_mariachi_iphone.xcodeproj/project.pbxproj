@@ -1,0 +1,1340 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD15070DC6FC5B0079059D /* QuartzCore.framework */; };
+		C217105511071A5B008D329A /* iphone_application_util.mm in Sources */ = {isa = PBXBuildFile; fileRef = C217105411071A5B008D329A /* iphone_application_util.mm */; };
+		C217105811071A78008D329A /* iphone_application_delegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C217105711071A78008D329A /* iphone_application_delegate.mm */; };
+		C217106211071BDB008D329A /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C217105F11071BDB008D329A /* stdafx.cpp */; };
+		C21711F311072453008D329A /* light6.bmp in Copy Model Files */ = {isa = PBXBuildFile; fileRef = C219A2FA110628F700F7A348 /* light6.bmp */; };
+		C21711F411072453008D329A /* light6.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = C219A2FB110628F700F7A348 /* light6.md2 */; };
+		C21711F511072453008D329A /* pallette.bmp in Copy Model Files */ = {isa = PBXBuildFile; fileRef = C219A2FC110628F700F7A348 /* pallette.bmp */; };
+		C21711F611072453008D329A /* pallette.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = C219A2FD110628F700F7A348 /* pallette.md2 */; };
+		C217172F11076F84008D329A /* opengles1_uikit_renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = C217172C11076F84008D329A /* opengles1_uikit_renderer.mm */; };
+		C219A2FE110628F700F7A348 /* function_caller_task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A276110628F700F7A348 /* function_caller_task.cpp */; };
+		C219A300110628F700F7A348 /* task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A278110628F700F7A348 /* task.cpp */; };
+		C219A308110628F700F7A348 /* oct_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A282110628F700F7A348 /* oct_tree.cpp */; };
+		C219A30D110628F700F7A348 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A287110628F700F7A348 /* texture.cpp */; };
+		C219A30F110628F700F7A348 /* dummy_stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A28A110628F700F7A348 /* dummy_stage.cpp */; };
+		C219A311110628F700F7A348 /* render_stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A28C110628F700F7A348 /* render_stage.cpp */; };
+		C219A313110628F700F7A348 /* stage_runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A28E110628F700F7A348 /* stage_runner.cpp */; };
+		C219A315110628F700F7A348 /* stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A290110628F700F7A348 /* stage.cpp */; };
+		C219A318110628F700F7A348 /* lua_script_engine_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A296110628F700F7A348 /* lua_script_engine_util.cpp */; };
+		C219A31B110628F700F7A348 /* lua_script_engine_position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A29B110628F700F7A348 /* lua_script_engine_position.cpp */; };
+		C219A31E110628F700F7A348 /* lua_script_engine_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A29F110628F700F7A348 /* lua_script_engine_node.cpp */; };
+		C219A320110628F700F7A348 /* lua_script_engine_scene_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2A1110628F700F7A348 /* lua_script_engine_scene_node.cpp */; };
+		C219A323110628F700F7A348 /* lua_script_engine_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2A5110628F700F7A348 /* lua_script_engine_engine.cpp */; };
+		C219A326110628F700F7A348 /* lua_script_engine_mapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2A8110628F700F7A348 /* lua_script_engine_mapping.cpp */; };
+		C219A32A110628F700F7A348 /* lua_script_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2AC110628F700F7A348 /* lua_script_engine.cpp */; };
+		C219A32C110628F700F7A348 /* script_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2AE110628F700F7A348 /* script_engine.cpp */; };
+		C219A330110628F700F7A348 /* opengl_cocoa_window_factory.mm in Sources */ = {isa = PBXBuildFile; fileRef = C219A2B4110628F700F7A348 /* opengl_cocoa_window_factory.mm */; };
+		C219A332110628F700F7A348 /* opengl_cocoa_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = C219A2B7110628F700F7A348 /* opengl_cocoa_window_view.mm */; };
+		C219A333110628F700F7A348 /* direct3d_win32_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2B8110628F700F7A348 /* direct3d_win32_window.cpp */; };
+		C219A335110628F700F7A348 /* direct3d_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2BA110628F700F7A348 /* direct3d_window.cpp */; };
+		C219A337110628F700F7A348 /* opengl_glut_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2BC110628F700F7A348 /* opengl_glut_window.cpp */; };
+		C219A339110628F700F7A348 /* opengl_win32_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2BE110628F700F7A348 /* opengl_win32_window.cpp */; };
+		C219A33B110628F700F7A348 /* opengl_cocoa_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2C0110628F700F7A348 /* opengl_cocoa_window.cpp */; };
+		C219A33D110628F700F7A348 /* opengl_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2C2110628F700F7A348 /* opengl_window.cpp */; };
+		C219A340110628F700F7A348 /* direct3d_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2C6110628F700F7A348 /* direct3d_adapter.cpp */; };
+		C219A342110628F700F7A348 /* direct3d9_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2C8110628F700F7A348 /* direct3d9_adapter.cpp */; };
+		C219A344110628F700F7A348 /* opengl_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2CA110628F700F7A348 /* opengl_adapter.cpp */; };
+		C219A346110628F700F7A348 /* render_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2CC110628F700F7A348 /* render_adapter.cpp */; };
+		C219A349110628F700F7A348 /* render_information.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2D0110628F700F7A348 /* render_information.cpp */; };
+		C219A34C110628F700F7A348 /* camera_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2D4110628F700F7A348 /* camera_node.cpp */; };
+		C219A34E110628F700F7A348 /* lens_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2D6110628F700F7A348 /* lens_node.cpp */; };
+		C219A350110628F700F7A348 /* model_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2D8110628F700F7A348 /* model_node.cpp */; };
+		C219A352110628F700F7A348 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2DA110628F700F7A348 /* node.cpp */; };
+		C219A355110628F700F7A348 /* scene_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2DD110628F700F7A348 /* scene_node.cpp */; };
+		C219A357110628F700F7A348 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2E0110628F700F7A348 /* engine.cpp */; };
+		C219A35A110628F700F7A348 /* bmp_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2E4110628F700F7A348 /* bmp_loader.cpp */; };
+		C219A35D110628F700F7A348 /* md2_importer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2E7110628F700F7A348 /* md2_importer.cpp */; };
+		C219A35F110628F700F7A348 /* model_importer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2E9110628F700F7A348 /* model_importer.cpp */; };
+		C219A361110628F700F7A348 /* texture_importer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2EB110628F700F7A348 /* texture_importer.cpp */; };
+		C219A363110628F700F7A348 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2EE110628F700F7A348 /* stdafx.cpp */; };
+		C219A366110628F700F7A348 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2F4110628F700F7A348 /* stdafx.cpp */; };
+		C219A369110628F700F7A348 /* runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2F8110628F700F7A348 /* runner.cpp */; };
+		C219A36F1106292600F7A348 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C219A36D1106292600F7A348 /* MainWindow.xib */; };
+		C219A8601106327E00F7A348 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = C219A85E1106327E00F7A348 /* opengles_uikit_window_view.mm */; };
+		C22A5E9B1108874F005BB421 /* mariachi_iphone_57.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */; };
+		C23712A5110635FD00316133 /* opengles_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C23712A3110635FD00316133 /* opengles_adapter.cpp */; };
+		C23712B211063A7400316133 /* opengles1_adapter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C23712B011063A7400316133 /* opengles1_adapter.cpp */; };
+		C253F48D1106671900771DB0 /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2F4110628F700F7A348 /* stdafx.cpp */; };
+		C253F4901106671900771DB0 /* runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C219A2F8110628F700F7A348 /* runner.cpp */; };
+		C253F55F110668E300771DB0 /* opengles_uikit_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C253F55D110668E300771DB0 /* opengles_uikit_window.cpp */; };
+		C253F59411066A1300771DB0 /* opengles_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C253F59211066A1300771DB0 /* opengles_window.cpp */; };
+		C253F60F11066DB500771DB0 /* opengles_uikit_window_factory.mm in Sources */ = {isa = PBXBuildFile; fileRef = C253F60D11066DB500771DB0 /* opengles_uikit_window_factory.mm */; };
+		C253F7351106756B00771DB0 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C256033811065F1D0023147D /* liblua.a */; };
+		C253F7B71106789F00771DB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = C219A85E1106327E00F7A348 /* opengles_uikit_window_view.mm */; };
+		C256037511065F490023147D /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = C256033E11065F490023147D /* lapi.c */; };
+		C256037711065F490023147D /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034011065F490023147D /* lauxlib.c */; };
+		C256037911065F490023147D /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034211065F490023147D /* lbaselib.c */; };
+		C256037A11065F490023147D /* lcode.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034311065F490023147D /* lcode.c */; };
+		C256037C11065F490023147D /* ldblib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034511065F490023147D /* ldblib.c */; };
+		C256037D11065F490023147D /* ldebug.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034611065F490023147D /* ldebug.c */; };
+		C256037F11065F490023147D /* ldo.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034811065F490023147D /* ldo.c */; };
+		C256038111065F490023147D /* ldump.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034A11065F490023147D /* ldump.c */; };
+		C256038211065F490023147D /* lfunc.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034B11065F490023147D /* lfunc.c */; };
+		C256038411065F490023147D /* lgc.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034D11065F490023147D /* lgc.c */; };
+		C256038611065F490023147D /* linit.c in Sources */ = {isa = PBXBuildFile; fileRef = C256034F11065F490023147D /* linit.c */; };
+		C256038711065F490023147D /* liolib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035011065F490023147D /* liolib.c */; };
+		C256038811065F490023147D /* llex.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035111065F490023147D /* llex.c */; };
+		C256038B11065F490023147D /* lmathlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035411065F490023147D /* lmathlib.c */; };
+		C256038C11065F490023147D /* lmem.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035511065F490023147D /* lmem.c */; };
+		C256038E11065F490023147D /* loadlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035711065F490023147D /* loadlib.c */; };
+		C256038F11065F490023147D /* lobject.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035811065F490023147D /* lobject.c */; };
+		C256039111065F490023147D /* lopcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035A11065F490023147D /* lopcodes.c */; };
+		C256039311065F490023147D /* loslib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035C11065F490023147D /* loslib.c */; };
+		C256039411065F490023147D /* lparser.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035D11065F490023147D /* lparser.c */; };
+		C256039611065F490023147D /* lstate.c in Sources */ = {isa = PBXBuildFile; fileRef = C256035F11065F490023147D /* lstate.c */; };
+		C256039811065F490023147D /* lstring.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036111065F490023147D /* lstring.c */; };
+		C256039A11065F490023147D /* lstrlib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036311065F490023147D /* lstrlib.c */; };
+		C256039B11065F490023147D /* ltable.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036411065F490023147D /* ltable.c */; };
+		C256039D11065F490023147D /* ltablib.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036611065F490023147D /* ltablib.c */; };
+		C256039E11065F490023147D /* ltm.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036711065F490023147D /* ltm.c */; };
+		C25603A011065F490023147D /* lua.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036911065F490023147D /* lua.c */; };
+		C25603A211065F490023147D /* luac.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036B11065F490023147D /* luac.c */; };
+		C25603A511065F490023147D /* lundump.c in Sources */ = {isa = PBXBuildFile; fileRef = C256036E11065F490023147D /* lundump.c */; };
+		C25603A711065F490023147D /* lvm.c in Sources */ = {isa = PBXBuildFile; fileRef = C256037011065F490023147D /* lvm.c */; };
+		C25603A911065F490023147D /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = C256037211065F490023147D /* lzio.c */; };
+		C25603AB11065F490023147D /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = C256037411065F490023147D /* print.c */; };
+		C25603BA11065FDE0023147D /* lua.h in Headers */ = {isa = PBXBuildFile; fileRef = C256036A11065F490023147D /* lua.h */; };
+		C25603C01106602C0023147D /* lauxlib.h in Headers */ = {isa = PBXBuildFile; fileRef = C256034111065F490023147D /* lauxlib.h */; };
+		C25603C81106603B0023147D /* lualib.h in Headers */ = {isa = PBXBuildFile; fileRef = C256036D11065F490023147D /* lualib.h */; };
+		C28DC27B1107ACB200DDE61E /* libhive_mariachi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C219A22A110627A200F7A348 /* libhive_mariachi.a */; };
+		C2A00BB711087B4000994D29 /* render_adapters_init.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A00BB611087B4000994D29 /* render_adapters_init.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C253F42E1106669200771DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C256033711065F1D0023147D;
+			remoteInfo = liblua;
+		};
+		C253F4301106669700771DB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C219A229110627A200F7A348;
+			remoteInfo = hive_mariachi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C21711F21107244F008D329A /* Copy Model Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = models;
+			dstSubfolderSpec = 7;
+			files = (
+				C21711F311072453008D329A /* light6.bmp in Copy Model Files */,
+				C21711F411072453008D329A /* light6.md2 in Copy Model Files */,
+				C21711F511072453008D329A /* pallette.bmp in Copy Model Files */,
+				C21711F611072453008D329A /* pallette.md2 in Copy Model Files */,
+			);
+			name = "Copy Model Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* hive_mariachi_runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hive_mariachi_runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		28FD14FF0DC6FC520079059D /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		32CA4F630368D1EE00C91783 /* hive_mariachi_runner_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hive_mariachi_runner_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* hive_mariachi_runner-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "hive_mariachi_runner-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C217105311071A5B008D329A /* iphone_application_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = iphone_application_util.h; path = ../../src/hive_mariachi_iphone/util/iphone_application_util.h; sourceTree = SOURCE_ROOT; };
+		C217105411071A5B008D329A /* iphone_application_util.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = iphone_application_util.mm; path = ../../src/hive_mariachi_iphone/util/iphone_application_util.mm; sourceTree = SOURCE_ROOT; };
+		C217105611071A78008D329A /* iphone_application_delegate.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = iphone_application_delegate.h; path = ../../src/hive_mariachi_iphone/delegates/iphone_application_delegate.h; sourceTree = SOURCE_ROOT; };
+		C217105711071A78008D329A /* iphone_application_delegate.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = iphone_application_delegate.mm; path = ../../src/hive_mariachi_iphone/delegates/iphone_application_delegate.mm; sourceTree = SOURCE_ROOT; };
+		C217105B11071BCC008D329A /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi_iphone/ReadMe.txt; sourceTree = SOURCE_ROOT; };
+		C217105D11071BDB008D329A /* definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = definitions.h; path = ../../src/hive_mariachi_iphone/definitions.h; sourceTree = SOURCE_ROOT; };
+		C217105E11071BDB008D329A /* platforms.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = platforms.h; path = ../../src/hive_mariachi_iphone/platforms.h; sourceTree = SOURCE_ROOT; };
+		C217105F11071BDB008D329A /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../src/hive_mariachi_iphone/stdafx.cpp; sourceTree = SOURCE_ROOT; };
+		C217106011071BDB008D329A /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../src/hive_mariachi_iphone/stdafx.h; sourceTree = SOURCE_ROOT; };
+		C217106111071BDB008D329A /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = targetver.h; path = ../../src/hive_mariachi_iphone/targetver.h; sourceTree = SOURCE_ROOT; };
+		C217108011071D06008D329A /* definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = definitions.h; path = ../../src/hive_mariachi_runner/definitions.h; sourceTree = SOURCE_ROOT; };
+		C217108111071D06008D329A /* platforms.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = platforms.h; path = ../../src/hive_mariachi_runner/platforms.h; sourceTree = SOURCE_ROOT; };
+		C217172A11076F84008D329A /* opengles_uikit_renderer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles_uikit_renderer.h; path = ../../src/hive_mariachi/render_utils/views/renders/opengles_uikit_renderer.h; sourceTree = SOURCE_ROOT; };
+		C217172B11076F84008D329A /* opengles1_uikit_renderer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles1_uikit_renderer.h; path = ../../src/hive_mariachi/render_utils/views/renders/opengles1_uikit_renderer.h; sourceTree = SOURCE_ROOT; };
+		C217172C11076F84008D329A /* opengles1_uikit_renderer.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = opengles1_uikit_renderer.mm; path = ../../src/hive_mariachi/render_utils/views/renders/opengles1_uikit_renderer.mm; sourceTree = SOURCE_ROOT; };
+		C219A22A110627A200F7A348 /* libhive_mariachi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhive_mariachi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C219A274110628F700F7A348 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi/ReadMe.txt; sourceTree = SOURCE_ROOT; };
+		C219A276110628F700F7A348 /* function_caller_task.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = function_caller_task.cpp; path = ../../src/hive_mariachi/tasks/function_caller_task.cpp; sourceTree = SOURCE_ROOT; };
+		C219A277110628F700F7A348 /* function_caller_task.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = function_caller_task.h; path = ../../src/hive_mariachi/tasks/function_caller_task.h; sourceTree = SOURCE_ROOT; };
+		C219A278110628F700F7A348 /* task.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = task.cpp; path = ../../src/hive_mariachi/tasks/task.cpp; sourceTree = SOURCE_ROOT; };
+		C219A279110628F700F7A348 /* task.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = task.h; path = ../../src/hive_mariachi/tasks/task.h; sourceTree = SOURCE_ROOT; };
+		C219A27B110628F700F7A348 /* system_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = system_util.h; path = ../../src/hive_mariachi/system/system_util.h; sourceTree = SOURCE_ROOT; };
+		C219A27C110628F700F7A348 /* system.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = system.h; path = ../../src/hive_mariachi/system/system.h; sourceTree = SOURCE_ROOT; };
+		C219A27D110628F700F7A348 /* thread.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = thread.h; path = ../../src/hive_mariachi/system/thread.h; sourceTree = SOURCE_ROOT; };
+		C219A27F110628F700F7A348 /* box.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = box.h; path = ../../src/hive_mariachi/structures/box.h; sourceTree = SOURCE_ROOT; };
+		C219A280110628F700F7A348 /* image.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = image.h; path = ../../src/hive_mariachi/structures/image.h; sourceTree = SOURCE_ROOT; };
+		C219A281110628F700F7A348 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = ../../src/hive_mariachi/structures/mesh.h; sourceTree = SOURCE_ROOT; };
+		C219A282110628F700F7A348 /* oct_tree.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = oct_tree.cpp; path = ../../src/hive_mariachi/structures/oct_tree.cpp; sourceTree = SOURCE_ROOT; };
+		C219A283110628F700F7A348 /* oct_tree.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = oct_tree.h; path = ../../src/hive_mariachi/structures/oct_tree.h; sourceTree = SOURCE_ROOT; };
+		C219A284110628F700F7A348 /* position.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = position.h; path = ../../src/hive_mariachi/structures/position.h; sourceTree = SOURCE_ROOT; };
+		C219A285110628F700F7A348 /* size.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = size.h; path = ../../src/hive_mariachi/structures/size.h; sourceTree = SOURCE_ROOT; };
+		C219A286110628F700F7A348 /* structures.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = structures.h; path = ../../src/hive_mariachi/structures/structures.h; sourceTree = SOURCE_ROOT; };
+		C219A287110628F700F7A348 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = texture.cpp; path = ../../src/hive_mariachi/structures/texture.cpp; sourceTree = SOURCE_ROOT; };
+		C219A288110628F700F7A348 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = texture.h; path = ../../src/hive_mariachi/structures/texture.h; sourceTree = SOURCE_ROOT; };
+		C219A28A110628F700F7A348 /* dummy_stage.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = dummy_stage.cpp; path = ../../src/hive_mariachi/stages/dummy_stage.cpp; sourceTree = SOURCE_ROOT; };
+		C219A28B110628F700F7A348 /* dummy_stage.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = dummy_stage.h; path = ../../src/hive_mariachi/stages/dummy_stage.h; sourceTree = SOURCE_ROOT; };
+		C219A28C110628F700F7A348 /* render_stage.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = render_stage.cpp; path = ../../src/hive_mariachi/stages/render_stage.cpp; sourceTree = SOURCE_ROOT; };
+		C219A28D110628F700F7A348 /* render_stage.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_stage.h; path = ../../src/hive_mariachi/stages/render_stage.h; sourceTree = SOURCE_ROOT; };
+		C219A28E110628F700F7A348 /* stage_runner.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stage_runner.cpp; path = ../../src/hive_mariachi/stages/stage_runner.cpp; sourceTree = SOURCE_ROOT; };
+		C219A28F110628F700F7A348 /* stage_runner.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stage_runner.h; path = ../../src/hive_mariachi/stages/stage_runner.h; sourceTree = SOURCE_ROOT; };
+		C219A290110628F700F7A348 /* stage.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stage.cpp; path = ../../src/hive_mariachi/stages/stage.cpp; sourceTree = SOURCE_ROOT; };
+		C219A291110628F700F7A348 /* stage.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stage.h; path = ../../src/hive_mariachi/stages/stage.h; sourceTree = SOURCE_ROOT; };
+		C219A292110628F700F7A348 /* stages.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stages.h; path = ../../src/hive_mariachi/stages/stages.h; sourceTree = SOURCE_ROOT; };
+		C219A296110628F700F7A348 /* lua_script_engine_util.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine_util.cpp; path = ../../src/hive_mariachi/script/lua_script_engine/util/lua_script_engine_util.cpp; sourceTree = SOURCE_ROOT; };
+		C219A297110628F700F7A348 /* lua_script_engine_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine_util.h; path = ../../src/hive_mariachi/script/lua_script_engine/util/lua_script_engine_util.h; sourceTree = SOURCE_ROOT; };
+		C219A298110628F700F7A348 /* util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = util.h; path = ../../src/hive_mariachi/script/lua_script_engine/util/util.h; sourceTree = SOURCE_ROOT; };
+		C219A29B110628F700F7A348 /* lua_script_engine_position.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine_position.cpp; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/structures/lua_script_engine_position.cpp; sourceTree = SOURCE_ROOT; };
+		C219A29C110628F700F7A348 /* lua_script_engine_position.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine_position.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/structures/lua_script_engine_position.h; sourceTree = SOURCE_ROOT; };
+		C219A29D110628F700F7A348 /* structures.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = structures.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/structures/structures.h; sourceTree = SOURCE_ROOT; };
+		C219A29F110628F700F7A348 /* lua_script_engine_node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine_node.cpp; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/nodes/lua_script_engine_node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2A0110628F700F7A348 /* lua_script_engine_node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine_node.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/nodes/lua_script_engine_node.h; sourceTree = SOURCE_ROOT; };
+		C219A2A1110628F700F7A348 /* lua_script_engine_scene_node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine_scene_node.cpp; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/nodes/lua_script_engine_scene_node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2A2110628F700F7A348 /* lua_script_engine_scene_node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine_scene_node.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/nodes/lua_script_engine_scene_node.h; sourceTree = SOURCE_ROOT; };
+		C219A2A3110628F700F7A348 /* nodes.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = nodes.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/nodes/nodes.h; sourceTree = SOURCE_ROOT; };
+		C219A2A5110628F700F7A348 /* lua_script_engine_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine_engine.cpp; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/main/lua_script_engine_engine.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2A6110628F700F7A348 /* lua_script_engine_engine.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine_engine.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/main/lua_script_engine_engine.h; sourceTree = SOURCE_ROOT; };
+		C219A2A7110628F700F7A348 /* main.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/main/main.h; sourceTree = SOURCE_ROOT; };
+		C219A2A8110628F700F7A348 /* lua_script_engine_mapping.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine_mapping.cpp; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/lua_script_engine_mapping.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2A9110628F700F7A348 /* lua_script_engine_mapping.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine_mapping.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/lua_script_engine_mapping.h; sourceTree = SOURCE_ROOT; };
+		C219A2AA110628F700F7A348 /* mapping.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = mapping.h; path = ../../src/hive_mariachi/script/lua_script_engine/mapping/mapping.h; sourceTree = SOURCE_ROOT; };
+		C219A2AB110628F700F7A348 /* _lua_script_engine.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = _lua_script_engine.h; path = ../../src/hive_mariachi/script/lua_script_engine/_lua_script_engine.h; sourceTree = SOURCE_ROOT; };
+		C219A2AC110628F700F7A348 /* lua_script_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lua_script_engine.cpp; path = ../../src/hive_mariachi/script/lua_script_engine.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2AD110628F700F7A348 /* lua_script_engine.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua_script_engine.h; path = ../../src/hive_mariachi/script/lua_script_engine.h; sourceTree = SOURCE_ROOT; };
+		C219A2AE110628F700F7A348 /* script_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = script_engine.cpp; path = ../../src/hive_mariachi/script/script_engine.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2AF110628F700F7A348 /* script_engine.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = script_engine.h; path = ../../src/hive_mariachi/script/script_engine.h; sourceTree = SOURCE_ROOT; };
+		C219A2B0110628F700F7A348 /* script.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = script.h; path = ../../src/hive_mariachi/script/script.h; sourceTree = SOURCE_ROOT; };
+		C219A2B3110628F700F7A348 /* opengl_cocoa_window_factory.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_cocoa_window_factory.h; path = ../../src/hive_mariachi/render_utils/factories/opengl_cocoa_window_factory.h; sourceTree = SOURCE_ROOT; };
+		C219A2B4110628F700F7A348 /* opengl_cocoa_window_factory.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = opengl_cocoa_window_factory.mm; path = ../../src/hive_mariachi/render_utils/factories/opengl_cocoa_window_factory.mm; sourceTree = SOURCE_ROOT; };
+		C219A2B6110628F700F7A348 /* opengl_cocoa_window_view.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_cocoa_window_view.h; path = ../../src/hive_mariachi/render_utils/views/opengl_cocoa_window_view.h; sourceTree = SOURCE_ROOT; };
+		C219A2B7110628F700F7A348 /* opengl_cocoa_window_view.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = opengl_cocoa_window_view.mm; path = ../../src/hive_mariachi/render_utils/views/opengl_cocoa_window_view.mm; sourceTree = SOURCE_ROOT; };
+		C219A2B8110628F700F7A348 /* direct3d_win32_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = direct3d_win32_window.cpp; path = ../../src/hive_mariachi/render_utils/direct3d_win32_window.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2B9110628F700F7A348 /* direct3d_win32_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = direct3d_win32_window.h; path = ../../src/hive_mariachi/render_utils/direct3d_win32_window.h; sourceTree = SOURCE_ROOT; };
+		C219A2BA110628F700F7A348 /* direct3d_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = direct3d_window.cpp; path = ../../src/hive_mariachi/render_utils/direct3d_window.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2BB110628F700F7A348 /* direct3d_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = direct3d_window.h; path = ../../src/hive_mariachi/render_utils/direct3d_window.h; sourceTree = SOURCE_ROOT; };
+		C219A2BC110628F700F7A348 /* opengl_glut_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengl_glut_window.cpp; path = ../../src/hive_mariachi/render_utils/opengl_glut_window.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2BD110628F700F7A348 /* opengl_glut_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_glut_window.h; path = ../../src/hive_mariachi/render_utils/opengl_glut_window.h; sourceTree = SOURCE_ROOT; };
+		C219A2BE110628F700F7A348 /* opengl_win32_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengl_win32_window.cpp; path = ../../src/hive_mariachi/render_utils/opengl_win32_window.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2BF110628F700F7A348 /* opengl_win32_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_win32_window.h; path = ../../src/hive_mariachi/render_utils/opengl_win32_window.h; sourceTree = SOURCE_ROOT; };
+		C219A2C0110628F700F7A348 /* opengl_cocoa_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengl_cocoa_window.cpp; path = ../../src/hive_mariachi/render_utils/opengl_cocoa_window.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2C1110628F700F7A348 /* opengl_cocoa_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_cocoa_window.h; path = ../../src/hive_mariachi/render_utils/opengl_cocoa_window.h; sourceTree = SOURCE_ROOT; };
+		C219A2C2110628F700F7A348 /* opengl_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengl_window.cpp; path = ../../src/hive_mariachi/render_utils/opengl_window.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2C3110628F700F7A348 /* opengl_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_window.h; path = ../../src/hive_mariachi/render_utils/opengl_window.h; sourceTree = SOURCE_ROOT; };
+		C219A2C4110628F700F7A348 /* render_utils.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_utils.h; path = ../../src/hive_mariachi/render_utils/render_utils.h; sourceTree = SOURCE_ROOT; };
+		C219A2C6110628F700F7A348 /* direct3d_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = direct3d_adapter.cpp; path = ../../src/hive_mariachi/render_adapters/direct3d_adapter.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2C7110628F700F7A348 /* direct3d_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = direct3d_adapter.h; path = ../../src/hive_mariachi/render_adapters/direct3d_adapter.h; sourceTree = SOURCE_ROOT; };
+		C219A2C8110628F700F7A348 /* direct3d9_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = direct3d9_adapter.cpp; path = ../../src/hive_mariachi/render_adapters/direct3d9_adapter.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2C9110628F700F7A348 /* direct3d9_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = direct3d9_adapter.h; path = ../../src/hive_mariachi/render_adapters/direct3d9_adapter.h; sourceTree = SOURCE_ROOT; };
+		C219A2CA110628F700F7A348 /* opengl_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengl_adapter.cpp; path = ../../src/hive_mariachi/render_adapters/opengl_adapter.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2CB110628F700F7A348 /* opengl_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_adapter.h; path = ../../src/hive_mariachi/render_adapters/opengl_adapter.h; sourceTree = SOURCE_ROOT; };
+		C219A2CC110628F700F7A348 /* render_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = render_adapter.cpp; path = ../../src/hive_mariachi/render_adapters/render_adapter.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2CD110628F700F7A348 /* render_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_adapter.h; path = ../../src/hive_mariachi/render_adapters/render_adapter.h; sourceTree = SOURCE_ROOT; };
+		C219A2CE110628F700F7A348 /* render_adapters.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_adapters.h; path = ../../src/hive_mariachi/render_adapters/render_adapters.h; sourceTree = SOURCE_ROOT; };
+		C219A2D0110628F700F7A348 /* render_information.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = render_information.cpp; path = ../../src/hive_mariachi/render/render_information.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2D1110628F700F7A348 /* render_information.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_information.h; path = ../../src/hive_mariachi/render/render_information.h; sourceTree = SOURCE_ROOT; };
+		C219A2D2110628F700F7A348 /* render.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render.h; path = ../../src/hive_mariachi/render/render.h; sourceTree = SOURCE_ROOT; };
+		C219A2D4110628F700F7A348 /* camera_node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = camera_node.cpp; path = ../../src/hive_mariachi/nodes/camera_node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2D5110628F700F7A348 /* camera_node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = camera_node.h; path = ../../src/hive_mariachi/nodes/camera_node.h; sourceTree = SOURCE_ROOT; };
+		C219A2D6110628F700F7A348 /* lens_node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = lens_node.cpp; path = ../../src/hive_mariachi/nodes/lens_node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2D7110628F700F7A348 /* lens_node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lens_node.h; path = ../../src/hive_mariachi/nodes/lens_node.h; sourceTree = SOURCE_ROOT; };
+		C219A2D8110628F700F7A348 /* model_node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = model_node.cpp; path = ../../src/hive_mariachi/nodes/model_node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2D9110628F700F7A348 /* model_node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = model_node.h; path = ../../src/hive_mariachi/nodes/model_node.h; sourceTree = SOURCE_ROOT; };
+		C219A2DA110628F700F7A348 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = node.cpp; path = ../../src/hive_mariachi/nodes/node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2DB110628F700F7A348 /* node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = node.h; path = ../../src/hive_mariachi/nodes/node.h; sourceTree = SOURCE_ROOT; };
+		C219A2DC110628F700F7A348 /* nodes.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = nodes.h; path = ../../src/hive_mariachi/nodes/nodes.h; sourceTree = SOURCE_ROOT; };
+		C219A2DD110628F700F7A348 /* scene_node.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = scene_node.cpp; path = ../../src/hive_mariachi/nodes/scene_node.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2DE110628F700F7A348 /* scene_node.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = scene_node.h; path = ../../src/hive_mariachi/nodes/scene_node.h; sourceTree = SOURCE_ROOT; };
+		C219A2E0110628F700F7A348 /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = engine.cpp; path = ../../src/hive_mariachi/main/engine.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2E1110628F700F7A348 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = engine.h; path = ../../src/hive_mariachi/main/engine.h; sourceTree = SOURCE_ROOT; };
+		C219A2E2110628F700F7A348 /* main.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../../src/hive_mariachi/main/main.h; sourceTree = SOURCE_ROOT; };
+		C219A2E4110628F700F7A348 /* bmp_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = bmp_loader.cpp; path = ../../src/hive_mariachi/importers/bmp_loader.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2E5110628F700F7A348 /* bmp_loader.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = bmp_loader.h; path = ../../src/hive_mariachi/importers/bmp_loader.h; sourceTree = SOURCE_ROOT; };
+		C219A2E6110628F700F7A348 /* importers.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = importers.h; path = ../../src/hive_mariachi/importers/importers.h; sourceTree = SOURCE_ROOT; };
+		C219A2E7110628F700F7A348 /* md2_importer.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = md2_importer.cpp; path = ../../src/hive_mariachi/importers/md2_importer.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2E8110628F700F7A348 /* md2_importer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = md2_importer.h; path = ../../src/hive_mariachi/importers/md2_importer.h; sourceTree = SOURCE_ROOT; };
+		C219A2E9110628F700F7A348 /* model_importer.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = model_importer.cpp; path = ../../src/hive_mariachi/importers/model_importer.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2EA110628F700F7A348 /* model_importer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = model_importer.h; path = ../../src/hive_mariachi/importers/model_importer.h; sourceTree = SOURCE_ROOT; };
+		C219A2EB110628F700F7A348 /* texture_importer.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = texture_importer.cpp; path = ../../src/hive_mariachi/importers/texture_importer.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2EC110628F700F7A348 /* texture_importer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = texture_importer.h; path = ../../src/hive_mariachi/importers/texture_importer.h; sourceTree = SOURCE_ROOT; };
+		C219A2EE110628F700F7A348 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../src/hive_mariachi/stdafx.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2EF110628F700F7A348 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../src/hive_mariachi/stdafx.h; sourceTree = SOURCE_ROOT; };
+		C219A2F0110628F700F7A348 /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = targetver.h; path = ../../src/hive_mariachi/targetver.h; sourceTree = SOURCE_ROOT; };
+		C219A2F2110628F700F7A348 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi_runner/ReadMe.txt; sourceTree = SOURCE_ROOT; };
+		C219A2F4110628F700F7A348 /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../src/hive_mariachi_runner/stdafx.cpp; sourceTree = SOURCE_ROOT; };
+		C219A2F5110628F700F7A348 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../src/hive_mariachi_runner/stdafx.h; sourceTree = SOURCE_ROOT; };
+		C219A2F6110628F700F7A348 /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = targetver.h; path = ../../src/hive_mariachi_runner/targetver.h; sourceTree = SOURCE_ROOT; };
+		C219A2F8110628F700F7A348 /* runner.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = runner.cpp; sourceTree = "<group>"; };
+		C219A2FA110628F700F7A348 /* light6.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = light6.bmp; sourceTree = "<group>"; };
+		C219A2FB110628F700F7A348 /* light6.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = light6.md2; sourceTree = "<group>"; };
+		C219A2FC110628F700F7A348 /* pallette.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = pallette.bmp; sourceTree = "<group>"; };
+		C219A2FD110628F700F7A348 /* pallette.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = pallette.md2; sourceTree = "<group>"; };
+		C219A36D1106292600F7A348 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../../src/hive_mariachi_iphone/MainWindow.xib; sourceTree = SOURCE_ROOT; };
+		C219A85D1106327E00F7A348 /* opengles_uikit_window_view.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles_uikit_window_view.h; path = ../../src/hive_mariachi/render_utils/views/opengles_uikit_window_view.h; sourceTree = SOURCE_ROOT; };
+		C219A85E1106327E00F7A348 /* opengles_uikit_window_view.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = opengles_uikit_window_view.mm; path = ../../src/hive_mariachi/render_utils/views/opengles_uikit_window_view.mm; sourceTree = SOURCE_ROOT; };
+		C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mariachi_iphone_57.jpg; path = ../../res/hive_mariachi_runner/icons/mariachi_iphone/jpg/mariachi_iphone_57.jpg; sourceTree = SOURCE_ROOT; };
+		C23712A3110635FD00316133 /* opengles_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengles_adapter.cpp; path = ../../src/hive_mariachi/render_adapters/opengles_adapter.cpp; sourceTree = SOURCE_ROOT; };
+		C23712A4110635FD00316133 /* opengles_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles_adapter.h; path = ../../src/hive_mariachi/render_adapters/opengles_adapter.h; sourceTree = SOURCE_ROOT; };
+		C23712B011063A7400316133 /* opengles1_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengles1_adapter.cpp; path = ../../src/hive_mariachi/render_adapters/opengles1_adapter.cpp; sourceTree = SOURCE_ROOT; };
+		C23712B111063A7400316133 /* opengles1_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles1_adapter.h; path = ../../src/hive_mariachi/render_adapters/opengles1_adapter.h; sourceTree = SOURCE_ROOT; };
+		C253F55D110668E300771DB0 /* opengles_uikit_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengles_uikit_window.cpp; path = ../../src/hive_mariachi/render_utils/opengles_uikit_window.cpp; sourceTree = SOURCE_ROOT; };
+		C253F55E110668E300771DB0 /* opengles_uikit_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles_uikit_window.h; path = ../../src/hive_mariachi/render_utils/opengles_uikit_window.h; sourceTree = SOURCE_ROOT; };
+		C253F59211066A1300771DB0 /* opengles_window.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = opengles_window.cpp; path = ../../src/hive_mariachi/render_utils/opengles_window.cpp; sourceTree = SOURCE_ROOT; };
+		C253F59311066A1300771DB0 /* opengles_window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles_window.h; path = ../../src/hive_mariachi/render_utils/opengles_window.h; sourceTree = SOURCE_ROOT; };
+		C253F60C11066DB500771DB0 /* opengles_uikit_window_factory.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles_uikit_window_factory.h; path = ../../src/hive_mariachi/render_utils/factories/opengles_uikit_window_factory.h; sourceTree = SOURCE_ROOT; };
+		C253F60D11066DB500771DB0 /* opengles_uikit_window_factory.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; name = opengles_uikit_window_factory.mm; path = ../../src/hive_mariachi/render_utils/factories/opengles_uikit_window_factory.mm; sourceTree = SOURCE_ROOT; };
+		C256020F11065A9E0023147D /* definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = definitions.h; path = ../../src/hive_mariachi/definitions.h; sourceTree = SOURCE_ROOT; };
+		C256021011065A9E0023147D /* platforms.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = platforms.h; path = ../../src/hive_mariachi/platforms.h; sourceTree = SOURCE_ROOT; };
+		C256033811065F1D0023147D /* liblua.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblua.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C256033E11065F490023147D /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lapi.c; path = ../../lib/liblua/src/lapi.c; sourceTree = SOURCE_ROOT; };
+		C256033F11065F490023147D /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lapi.h; path = ../../lib/liblua/src/lapi.h; sourceTree = SOURCE_ROOT; };
+		C256034011065F490023147D /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lauxlib.c; path = ../../lib/liblua/src/lauxlib.c; sourceTree = SOURCE_ROOT; };
+		C256034111065F490023147D /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lauxlib.h; path = ../../lib/liblua/src/lauxlib.h; sourceTree = SOURCE_ROOT; };
+		C256034211065F490023147D /* lbaselib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lbaselib.c; path = ../../lib/liblua/src/lbaselib.c; sourceTree = SOURCE_ROOT; };
+		C256034311065F490023147D /* lcode.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lcode.c; path = ../../lib/liblua/src/lcode.c; sourceTree = SOURCE_ROOT; };
+		C256034411065F490023147D /* lcode.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lcode.h; path = ../../lib/liblua/src/lcode.h; sourceTree = SOURCE_ROOT; };
+		C256034511065F490023147D /* ldblib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ldblib.c; path = ../../lib/liblua/src/ldblib.c; sourceTree = SOURCE_ROOT; };
+		C256034611065F490023147D /* ldebug.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ldebug.c; path = ../../lib/liblua/src/ldebug.c; sourceTree = SOURCE_ROOT; };
+		C256034711065F490023147D /* ldebug.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = ldebug.h; path = ../../lib/liblua/src/ldebug.h; sourceTree = SOURCE_ROOT; };
+		C256034811065F490023147D /* ldo.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ldo.c; path = ../../lib/liblua/src/ldo.c; sourceTree = SOURCE_ROOT; };
+		C256034911065F490023147D /* ldo.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = ldo.h; path = ../../lib/liblua/src/ldo.h; sourceTree = SOURCE_ROOT; };
+		C256034A11065F490023147D /* ldump.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ldump.c; path = ../../lib/liblua/src/ldump.c; sourceTree = SOURCE_ROOT; };
+		C256034B11065F490023147D /* lfunc.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lfunc.c; path = ../../lib/liblua/src/lfunc.c; sourceTree = SOURCE_ROOT; };
+		C256034C11065F490023147D /* lfunc.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lfunc.h; path = ../../lib/liblua/src/lfunc.h; sourceTree = SOURCE_ROOT; };
+		C256034D11065F490023147D /* lgc.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lgc.c; path = ../../lib/liblua/src/lgc.c; sourceTree = SOURCE_ROOT; };
+		C256034E11065F490023147D /* lgc.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lgc.h; path = ../../lib/liblua/src/lgc.h; sourceTree = SOURCE_ROOT; };
+		C256034F11065F490023147D /* linit.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = linit.c; path = ../../lib/liblua/src/linit.c; sourceTree = SOURCE_ROOT; };
+		C256035011065F490023147D /* liolib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = liolib.c; path = ../../lib/liblua/src/liolib.c; sourceTree = SOURCE_ROOT; };
+		C256035111065F490023147D /* llex.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = llex.c; path = ../../lib/liblua/src/llex.c; sourceTree = SOURCE_ROOT; };
+		C256035211065F490023147D /* llex.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = llex.h; path = ../../lib/liblua/src/llex.h; sourceTree = SOURCE_ROOT; };
+		C256035311065F490023147D /* llimits.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = llimits.h; path = ../../lib/liblua/src/llimits.h; sourceTree = SOURCE_ROOT; };
+		C256035411065F490023147D /* lmathlib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lmathlib.c; path = ../../lib/liblua/src/lmathlib.c; sourceTree = SOURCE_ROOT; };
+		C256035511065F490023147D /* lmem.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lmem.c; path = ../../lib/liblua/src/lmem.c; sourceTree = SOURCE_ROOT; };
+		C256035611065F490023147D /* lmem.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lmem.h; path = ../../lib/liblua/src/lmem.h; sourceTree = SOURCE_ROOT; };
+		C256035711065F490023147D /* loadlib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = loadlib.c; path = ../../lib/liblua/src/loadlib.c; sourceTree = SOURCE_ROOT; };
+		C256035811065F490023147D /* lobject.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lobject.c; path = ../../lib/liblua/src/lobject.c; sourceTree = SOURCE_ROOT; };
+		C256035911065F490023147D /* lobject.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lobject.h; path = ../../lib/liblua/src/lobject.h; sourceTree = SOURCE_ROOT; };
+		C256035A11065F490023147D /* lopcodes.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lopcodes.c; path = ../../lib/liblua/src/lopcodes.c; sourceTree = SOURCE_ROOT; };
+		C256035B11065F490023147D /* lopcodes.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lopcodes.h; path = ../../lib/liblua/src/lopcodes.h; sourceTree = SOURCE_ROOT; };
+		C256035C11065F490023147D /* loslib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = loslib.c; path = ../../lib/liblua/src/loslib.c; sourceTree = SOURCE_ROOT; };
+		C256035D11065F490023147D /* lparser.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lparser.c; path = ../../lib/liblua/src/lparser.c; sourceTree = SOURCE_ROOT; };
+		C256035E11065F490023147D /* lparser.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lparser.h; path = ../../lib/liblua/src/lparser.h; sourceTree = SOURCE_ROOT; };
+		C256035F11065F490023147D /* lstate.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lstate.c; path = ../../lib/liblua/src/lstate.c; sourceTree = SOURCE_ROOT; };
+		C256036011065F490023147D /* lstate.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lstate.h; path = ../../lib/liblua/src/lstate.h; sourceTree = SOURCE_ROOT; };
+		C256036111065F490023147D /* lstring.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lstring.c; path = ../../lib/liblua/src/lstring.c; sourceTree = SOURCE_ROOT; };
+		C256036211065F490023147D /* lstring.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lstring.h; path = ../../lib/liblua/src/lstring.h; sourceTree = SOURCE_ROOT; };
+		C256036311065F490023147D /* lstrlib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lstrlib.c; path = ../../lib/liblua/src/lstrlib.c; sourceTree = SOURCE_ROOT; };
+		C256036411065F490023147D /* ltable.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ltable.c; path = ../../lib/liblua/src/ltable.c; sourceTree = SOURCE_ROOT; };
+		C256036511065F490023147D /* ltable.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = ltable.h; path = ../../lib/liblua/src/ltable.h; sourceTree = SOURCE_ROOT; };
+		C256036611065F490023147D /* ltablib.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ltablib.c; path = ../../lib/liblua/src/ltablib.c; sourceTree = SOURCE_ROOT; };
+		C256036711065F490023147D /* ltm.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = ltm.c; path = ../../lib/liblua/src/ltm.c; sourceTree = SOURCE_ROOT; };
+		C256036811065F490023147D /* ltm.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = ltm.h; path = ../../lib/liblua/src/ltm.h; sourceTree = SOURCE_ROOT; };
+		C256036911065F490023147D /* lua.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lua.c; path = ../../lib/liblua/src/lua.c; sourceTree = SOURCE_ROOT; };
+		C256036A11065F490023147D /* lua.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lua.h; path = ../../lib/liblua/src/lua.h; sourceTree = SOURCE_ROOT; };
+		C256036B11065F490023147D /* luac.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = luac.c; path = ../../lib/liblua/src/luac.c; sourceTree = SOURCE_ROOT; };
+		C256036C11065F490023147D /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = luaconf.h; path = ../../lib/liblua/src/luaconf.h; sourceTree = SOURCE_ROOT; };
+		C256036D11065F490023147D /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lualib.h; path = ../../lib/liblua/src/lualib.h; sourceTree = SOURCE_ROOT; };
+		C256036E11065F490023147D /* lundump.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lundump.c; path = ../../lib/liblua/src/lundump.c; sourceTree = SOURCE_ROOT; };
+		C256036F11065F490023147D /* lundump.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lundump.h; path = ../../lib/liblua/src/lundump.h; sourceTree = SOURCE_ROOT; };
+		C256037011065F490023147D /* lvm.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lvm.c; path = ../../lib/liblua/src/lvm.c; sourceTree = SOURCE_ROOT; };
+		C256037111065F490023147D /* lvm.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lvm.h; path = ../../lib/liblua/src/lvm.h; sourceTree = SOURCE_ROOT; };
+		C256037211065F490023147D /* lzio.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = lzio.c; path = ../../lib/liblua/src/lzio.c; sourceTree = SOURCE_ROOT; };
+		C256037311065F490023147D /* lzio.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = lzio.h; path = ../../lib/liblua/src/lzio.h; sourceTree = SOURCE_ROOT; };
+		C256037411065F490023147D /* print.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = print.c; path = ../../lib/liblua/src/print.c; sourceTree = SOURCE_ROOT; };
+		C2A00B1E110879DC00994D29 /* opengl_adapter_definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengl_adapter_definitions.h; path = ../../src/hive_mariachi/render_adapters/definitions/opengl_adapter_definitions.h; sourceTree = SOURCE_ROOT; };
+		C2A00B1F110879DC00994D29 /* opengles1_adapter_definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = opengles1_adapter_definitions.h; path = ../../src/hive_mariachi/render_adapters/definitions/opengles1_adapter_definitions.h; sourceTree = SOURCE_ROOT; };
+		C2A00B4011087A6500994D29 /* render_stage_definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_stage_definitions.h; path = ../../src/hive_mariachi/stages/definitions/render_stage_definitions.h; sourceTree = SOURCE_ROOT; };
+		C2A00B4211087A7100994D29 /* stages_init.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stages_init.h; path = ../../src/hive_mariachi/stages/stages_init.h; sourceTree = SOURCE_ROOT; };
+		C2A00BB611087B4000994D29 /* render_adapters_init.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = render_adapters_init.h; path = ../../src/hive_mariachi/render_adapters/render_adapters_init.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C253F7351106756B00771DB0 /* liblua.a in Frameworks */,
+				C28DC27B1107ACB200DDE61E /* libhive_mariachi.a in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */,
+				28FD15080DC6FC5B0079059D /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C219A228110627A200F7A348 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C256033611065F1D0023147D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C219A22A110627A200F7A348 /* libhive_mariachi.a */,
+				C256033811065F1D0023147D /* liblua.a */,
+				1D6058910D05DD3D006BFB54 /* hive_mariachi_runner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				C219A272110628F700F7A348 /* Classes */,
+				C2A88A7E11077A5800CA7BAF /* Includes */,
+				C256033211065EE40023147D /* Library Sources */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* hive_mariachi_runner_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C22A5E62110884D0005BB421 /* Icons */,
+				8D1107310486CEB800E47090 /* hive_mariachi_runner-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
+				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C217104B11071A06008D329A /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				C217105611071A78008D329A /* iphone_application_delegate.h */,
+				C217105711071A78008D329A /* iphone_application_delegate.mm */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
+		C217104C11071A0C008D329A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				C217105311071A5B008D329A /* iphone_application_util.h */,
+				C217105411071A5B008D329A /* iphone_application_util.mm */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		C217104D11071A10008D329A /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				C217105D11071BDB008D329A /* definitions.h */,
+				C217105E11071BDB008D329A /* platforms.h */,
+				C217105F11071BDB008D329A /* stdafx.cpp */,
+				C217106011071BDB008D329A /* stdafx.h */,
+				C217106111071BDB008D329A /* targetver.h */,
+			);
+			name = Global;
+			sourceTree = "<group>";
+		};
+		C219A272110628F700F7A348 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C219A273110628F700F7A348 /* hive_mariachi */,
+				C219A36A1106290400F7A348 /* hive_mariachi_iphone */,
+				C219A2F1110628F700F7A348 /* hive_mariachi_runner */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		C219A273110628F700F7A348 /* hive_mariachi */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2ED110628F700F7A348 /* Global */,
+				C219A2E3110628F700F7A348 /* Importers */,
+				C219A2DF110628F700F7A348 /* Main */,
+				C219A2D3110628F700F7A348 /* Nodes */,
+				C219A2CF110628F700F7A348 /* Render */,
+				C219A2C5110628F700F7A348 /* Render Adapters */,
+				C219A2B1110628F700F7A348 /* Render Utils */,
+				C219A293110628F700F7A348 /* Script */,
+				C219A289110628F700F7A348 /* Stages */,
+				C219A27E110628F700F7A348 /* Structures */,
+				C219A27A110628F700F7A348 /* System */,
+				C219A275110628F700F7A348 /* Tasks */,
+				C219A274110628F700F7A348 /* ReadMe.txt */,
+			);
+			name = hive_mariachi;
+			sourceTree = "<group>";
+		};
+		C219A275110628F700F7A348 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				C219A276110628F700F7A348 /* function_caller_task.cpp */,
+				C219A277110628F700F7A348 /* function_caller_task.h */,
+				C219A278110628F700F7A348 /* task.cpp */,
+				C219A279110628F700F7A348 /* task.h */,
+			);
+			name = Tasks;
+			sourceTree = "<group>";
+		};
+		C219A27A110628F700F7A348 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				C219A27B110628F700F7A348 /* system_util.h */,
+				C219A27C110628F700F7A348 /* system.h */,
+				C219A27D110628F700F7A348 /* thread.h */,
+			);
+			name = System;
+			sourceTree = "<group>";
+		};
+		C219A27E110628F700F7A348 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				C219A27F110628F700F7A348 /* box.h */,
+				C219A280110628F700F7A348 /* image.h */,
+				C219A281110628F700F7A348 /* mesh.h */,
+				C219A282110628F700F7A348 /* oct_tree.cpp */,
+				C219A283110628F700F7A348 /* oct_tree.h */,
+				C219A284110628F700F7A348 /* position.h */,
+				C219A285110628F700F7A348 /* size.h */,
+				C219A286110628F700F7A348 /* structures.h */,
+				C219A287110628F700F7A348 /* texture.cpp */,
+				C219A288110628F700F7A348 /* texture.h */,
+			);
+			name = Structures;
+			sourceTree = "<group>";
+		};
+		C219A289110628F700F7A348 /* Stages */ = {
+			isa = PBXGroup;
+			children = (
+				C2A00B3F11087A5400994D29 /* Definitions */,
+				C219A28A110628F700F7A348 /* dummy_stage.cpp */,
+				C219A28C110628F700F7A348 /* render_stage.cpp */,
+				C219A290110628F700F7A348 /* stage.cpp */,
+				C219A28E110628F700F7A348 /* stage_runner.cpp */,
+				C219A28B110628F700F7A348 /* dummy_stage.h */,
+				C219A28D110628F700F7A348 /* render_stage.h */,
+				C219A291110628F700F7A348 /* stage.h */,
+				C219A28F110628F700F7A348 /* stage_runner.h */,
+				C219A292110628F700F7A348 /* stages.h */,
+				C2A00B4211087A7100994D29 /* stages_init.h */,
+			);
+			name = Stages;
+			sourceTree = "<group>";
+		};
+		C219A293110628F700F7A348 /* Script */ = {
+			isa = PBXGroup;
+			children = (
+				C219A294110628F700F7A348 /* Lua Script Engine */,
+				C219A2AC110628F700F7A348 /* lua_script_engine.cpp */,
+				C219A2AE110628F700F7A348 /* script_engine.cpp */,
+				C219A2AD110628F700F7A348 /* lua_script_engine.h */,
+				C219A2B0110628F700F7A348 /* script.h */,
+				C219A2AF110628F700F7A348 /* script_engine.h */,
+			);
+			name = Script;
+			sourceTree = "<group>";
+		};
+		C219A294110628F700F7A348 /* Lua Script Engine */ = {
+			isa = PBXGroup;
+			children = (
+				C219A299110628F700F7A348 /* Mapping */,
+				C219A295110628F700F7A348 /* Util */,
+				C219A2AB110628F700F7A348 /* _lua_script_engine.h */,
+			);
+			name = "Lua Script Engine";
+			sourceTree = "<group>";
+		};
+		C219A295110628F700F7A348 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				C219A296110628F700F7A348 /* lua_script_engine_util.cpp */,
+				C219A297110628F700F7A348 /* lua_script_engine_util.h */,
+				C219A298110628F700F7A348 /* util.h */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		C219A299110628F700F7A348 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2A4110628F700F7A348 /* Main */,
+				C219A29E110628F700F7A348 /* Nodes */,
+				C219A29A110628F700F7A348 /* Structures */,
+				C219A2A8110628F700F7A348 /* lua_script_engine_mapping.cpp */,
+				C219A2A9110628F700F7A348 /* lua_script_engine_mapping.h */,
+				C219A2AA110628F700F7A348 /* mapping.h */,
+			);
+			name = Mapping;
+			sourceTree = "<group>";
+		};
+		C219A29A110628F700F7A348 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				C219A29B110628F700F7A348 /* lua_script_engine_position.cpp */,
+				C219A29C110628F700F7A348 /* lua_script_engine_position.h */,
+				C219A29D110628F700F7A348 /* structures.h */,
+			);
+			name = Structures;
+			sourceTree = "<group>";
+		};
+		C219A29E110628F700F7A348 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				C219A29F110628F700F7A348 /* lua_script_engine_node.cpp */,
+				C219A2A0110628F700F7A348 /* lua_script_engine_node.h */,
+				C219A2A1110628F700F7A348 /* lua_script_engine_scene_node.cpp */,
+				C219A2A2110628F700F7A348 /* lua_script_engine_scene_node.h */,
+				C219A2A3110628F700F7A348 /* nodes.h */,
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
+		C219A2A4110628F700F7A348 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2A5110628F700F7A348 /* lua_script_engine_engine.cpp */,
+				C219A2A6110628F700F7A348 /* lua_script_engine_engine.h */,
+				C219A2A7110628F700F7A348 /* main.h */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		C219A2B1110628F700F7A348 /* Render Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2B2110628F700F7A348 /* Factories */,
+				C219A2B5110628F700F7A348 /* Views */,
+				C219A2B8110628F700F7A348 /* direct3d_win32_window.cpp */,
+				C219A2BA110628F700F7A348 /* direct3d_window.cpp */,
+				C219A2C0110628F700F7A348 /* opengl_cocoa_window.cpp */,
+				C219A2BC110628F700F7A348 /* opengl_glut_window.cpp */,
+				C219A2BE110628F700F7A348 /* opengl_win32_window.cpp */,
+				C219A2C2110628F700F7A348 /* opengl_window.cpp */,
+				C253F55D110668E300771DB0 /* opengles_uikit_window.cpp */,
+				C253F59211066A1300771DB0 /* opengles_window.cpp */,
+				C219A2B9110628F700F7A348 /* direct3d_win32_window.h */,
+				C219A2BB110628F700F7A348 /* direct3d_window.h */,
+				C219A2C1110628F700F7A348 /* opengl_cocoa_window.h */,
+				C219A2BD110628F700F7A348 /* opengl_glut_window.h */,
+				C219A2BF110628F700F7A348 /* opengl_win32_window.h */,
+				C219A2C3110628F700F7A348 /* opengl_window.h */,
+				C253F55E110668E300771DB0 /* opengles_uikit_window.h */,
+				C253F59311066A1300771DB0 /* opengles_window.h */,
+				C219A2C4110628F700F7A348 /* render_utils.h */,
+			);
+			name = "Render Utils";
+			sourceTree = "<group>";
+		};
+		C219A2B2110628F700F7A348 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2B3110628F700F7A348 /* opengl_cocoa_window_factory.h */,
+				C253F60C11066DB500771DB0 /* opengles_uikit_window_factory.h */,
+				C219A2B4110628F700F7A348 /* opengl_cocoa_window_factory.mm */,
+				C253F60D11066DB500771DB0 /* opengles_uikit_window_factory.mm */,
+			);
+			name = Factories;
+			sourceTree = "<group>";
+		};
+		C219A2B5110628F700F7A348 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C25601E7110659D30023147D /* Renders */,
+				C219A85D1106327E00F7A348 /* opengles_uikit_window_view.h */,
+				C219A85E1106327E00F7A348 /* opengles_uikit_window_view.mm */,
+				C219A2B6110628F700F7A348 /* opengl_cocoa_window_view.h */,
+				C219A2B7110628F700F7A348 /* opengl_cocoa_window_view.mm */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		C219A2C5110628F700F7A348 /* Render Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				C2A00B1D110879AB00994D29 /* Definitions */,
+				C219A2C8110628F700F7A348 /* direct3d9_adapter.cpp */,
+				C219A2C6110628F700F7A348 /* direct3d_adapter.cpp */,
+				C219A2CA110628F700F7A348 /* opengl_adapter.cpp */,
+				C23712B011063A7400316133 /* opengles1_adapter.cpp */,
+				C23712A3110635FD00316133 /* opengles_adapter.cpp */,
+				C219A2CC110628F700F7A348 /* render_adapter.cpp */,
+				C219A2C9110628F700F7A348 /* direct3d9_adapter.h */,
+				C219A2C7110628F700F7A348 /* direct3d_adapter.h */,
+				C219A2CB110628F700F7A348 /* opengl_adapter.h */,
+				C23712B111063A7400316133 /* opengles1_adapter.h */,
+				C23712A4110635FD00316133 /* opengles_adapter.h */,
+				C219A2CD110628F700F7A348 /* render_adapter.h */,
+				C219A2CE110628F700F7A348 /* render_adapters.h */,
+				C2A00BB611087B4000994D29 /* render_adapters_init.h */,
+			);
+			name = "Render Adapters";
+			sourceTree = "<group>";
+		};
+		C219A2CF110628F700F7A348 /* Render */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2D0110628F700F7A348 /* render_information.cpp */,
+				C219A2D1110628F700F7A348 /* render_information.h */,
+				C219A2D2110628F700F7A348 /* render.h */,
+			);
+			name = Render;
+			sourceTree = "<group>";
+		};
+		C219A2D3110628F700F7A348 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2D4110628F700F7A348 /* camera_node.cpp */,
+				C219A2D5110628F700F7A348 /* camera_node.h */,
+				C219A2D6110628F700F7A348 /* lens_node.cpp */,
+				C219A2D7110628F700F7A348 /* lens_node.h */,
+				C219A2D8110628F700F7A348 /* model_node.cpp */,
+				C219A2D9110628F700F7A348 /* model_node.h */,
+				C219A2DA110628F700F7A348 /* node.cpp */,
+				C219A2DB110628F700F7A348 /* node.h */,
+				C219A2DC110628F700F7A348 /* nodes.h */,
+				C219A2DD110628F700F7A348 /* scene_node.cpp */,
+				C219A2DE110628F700F7A348 /* scene_node.h */,
+			);
+			name = Nodes;
+			sourceTree = "<group>";
+		};
+		C219A2DF110628F700F7A348 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2E0110628F700F7A348 /* engine.cpp */,
+				C219A2E1110628F700F7A348 /* engine.h */,
+				C219A2E2110628F700F7A348 /* main.h */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		C219A2E3110628F700F7A348 /* Importers */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2E4110628F700F7A348 /* bmp_loader.cpp */,
+				C219A2E5110628F700F7A348 /* bmp_loader.h */,
+				C219A2E6110628F700F7A348 /* importers.h */,
+				C219A2E7110628F700F7A348 /* md2_importer.cpp */,
+				C219A2E8110628F700F7A348 /* md2_importer.h */,
+				C219A2E9110628F700F7A348 /* model_importer.cpp */,
+				C219A2EA110628F700F7A348 /* model_importer.h */,
+				C219A2EB110628F700F7A348 /* texture_importer.cpp */,
+				C219A2EC110628F700F7A348 /* texture_importer.h */,
+			);
+			name = Importers;
+			sourceTree = "<group>";
+		};
+		C219A2ED110628F700F7A348 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2EE110628F700F7A348 /* stdafx.cpp */,
+				C256020F11065A9E0023147D /* definitions.h */,
+				C256021011065A9E0023147D /* platforms.h */,
+				C219A2EF110628F700F7A348 /* stdafx.h */,
+				C219A2F0110628F700F7A348 /* targetver.h */,
+			);
+			name = Global;
+			sourceTree = "<group>";
+		};
+		C219A2F1110628F700F7A348 /* hive_mariachi_runner */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2F3110628F700F7A348 /* Global */,
+				C219A2F7110628F700F7A348 /* Main */,
+				C219A2F9110628F700F7A348 /* Models */,
+				C219A2F2110628F700F7A348 /* ReadMe.txt */,
+			);
+			name = hive_mariachi_runner;
+			sourceTree = "<group>";
+		};
+		C219A2F3110628F700F7A348 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				C217108011071D06008D329A /* definitions.h */,
+				C217108111071D06008D329A /* platforms.h */,
+				C219A2F4110628F700F7A348 /* stdafx.cpp */,
+				C219A2F5110628F700F7A348 /* stdafx.h */,
+				C219A2F6110628F700F7A348 /* targetver.h */,
+			);
+			name = Global;
+			sourceTree = "<group>";
+		};
+		C219A2F7110628F700F7A348 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2F8110628F700F7A348 /* runner.cpp */,
+			);
+			name = Main;
+			path = ../../src/hive_mariachi_runner/main;
+			sourceTree = SOURCE_ROOT;
+		};
+		C219A2F9110628F700F7A348 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C219A2FA110628F700F7A348 /* light6.bmp */,
+				C219A2FB110628F700F7A348 /* light6.md2 */,
+				C219A2FC110628F700F7A348 /* pallette.bmp */,
+				C219A2FD110628F700F7A348 /* pallette.md2 */,
+			);
+			name = Models;
+			path = ../../src/hive_mariachi_runner/models;
+			sourceTree = SOURCE_ROOT;
+		};
+		C219A36A1106290400F7A348 /* hive_mariachi_iphone */ = {
+			isa = PBXGroup;
+			children = (
+				C2DA39E61107B748000F10FD /* User Interface */,
+				C217104B11071A06008D329A /* Delegates */,
+				C217104D11071A10008D329A /* Global */,
+				C217104C11071A0C008D329A /* Util */,
+				C217105B11071BCC008D329A /* ReadMe.txt */,
+			);
+			name = hive_mariachi_iphone;
+			sourceTree = "<group>";
+		};
+		C22A5E62110884D0005BB421 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		C25601E7110659D30023147D /* Renders */ = {
+			isa = PBXGroup;
+			children = (
+				C217172A11076F84008D329A /* opengles_uikit_renderer.h */,
+				C217172B11076F84008D329A /* opengles1_uikit_renderer.h */,
+				C217172C11076F84008D329A /* opengles1_uikit_renderer.mm */,
+			);
+			name = Renders;
+			sourceTree = "<group>";
+		};
+		C256033211065EE40023147D /* Library Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C256033311065EF60023147D /* liblua */,
+			);
+			name = "Library Sources";
+			sourceTree = "<group>";
+		};
+		C256033311065EF60023147D /* liblua */ = {
+			isa = PBXGroup;
+			children = (
+				C256033E11065F490023147D /* lapi.c */,
+				C256034011065F490023147D /* lauxlib.c */,
+				C256034211065F490023147D /* lbaselib.c */,
+				C256034311065F490023147D /* lcode.c */,
+				C256034511065F490023147D /* ldblib.c */,
+				C256034611065F490023147D /* ldebug.c */,
+				C256034811065F490023147D /* ldo.c */,
+				C256034A11065F490023147D /* ldump.c */,
+				C256034B11065F490023147D /* lfunc.c */,
+				C256034D11065F490023147D /* lgc.c */,
+				C256034F11065F490023147D /* linit.c */,
+				C256035011065F490023147D /* liolib.c */,
+				C256035111065F490023147D /* llex.c */,
+				C256035411065F490023147D /* lmathlib.c */,
+				C256035511065F490023147D /* lmem.c */,
+				C256035711065F490023147D /* loadlib.c */,
+				C256035811065F490023147D /* lobject.c */,
+				C256035A11065F490023147D /* lopcodes.c */,
+				C256035C11065F490023147D /* loslib.c */,
+				C256035D11065F490023147D /* lparser.c */,
+				C256035F11065F490023147D /* lstate.c */,
+				C256036111065F490023147D /* lstring.c */,
+				C256036311065F490023147D /* lstrlib.c */,
+				C256036411065F490023147D /* ltable.c */,
+				C256036611065F490023147D /* ltablib.c */,
+				C256036711065F490023147D /* ltm.c */,
+				C256036911065F490023147D /* lua.c */,
+				C256036B11065F490023147D /* luac.c */,
+				C256036E11065F490023147D /* lundump.c */,
+				C256037011065F490023147D /* lvm.c */,
+				C256037211065F490023147D /* lzio.c */,
+				C256037411065F490023147D /* print.c */,
+				C256033F11065F490023147D /* lapi.h */,
+				C256034111065F490023147D /* lauxlib.h */,
+				C256034411065F490023147D /* lcode.h */,
+				C256034711065F490023147D /* ldebug.h */,
+				C256034911065F490023147D /* ldo.h */,
+				C256034C11065F490023147D /* lfunc.h */,
+				C256034E11065F490023147D /* lgc.h */,
+				C256035211065F490023147D /* llex.h */,
+				C256035311065F490023147D /* llimits.h */,
+				C256035611065F490023147D /* lmem.h */,
+				C256035911065F490023147D /* lobject.h */,
+				C256035B11065F490023147D /* lopcodes.h */,
+				C256035E11065F490023147D /* lparser.h */,
+				C256036011065F490023147D /* lstate.h */,
+				C256036211065F490023147D /* lstring.h */,
+				C256036511065F490023147D /* ltable.h */,
+				C256036811065F490023147D /* ltm.h */,
+				C256036A11065F490023147D /* lua.h */,
+				C256036C11065F490023147D /* luaconf.h */,
+				C256036D11065F490023147D /* lualib.h */,
+				C256036F11065F490023147D /* lundump.h */,
+				C256037111065F490023147D /* lvm.h */,
+				C256037311065F490023147D /* lzio.h */,
+			);
+			name = liblua;
+			sourceTree = "<group>";
+		};
+		C2A00B1D110879AB00994D29 /* Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				C2A00B1E110879DC00994D29 /* opengl_adapter_definitions.h */,
+				C2A00B1F110879DC00994D29 /* opengles1_adapter_definitions.h */,
+			);
+			name = Definitions;
+			sourceTree = "<group>";
+		};
+		C2A00B3F11087A5400994D29 /* Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				C2A00B4011087A6500994D29 /* render_stage_definitions.h */,
+			);
+			name = Definitions;
+			sourceTree = "<group>";
+		};
+		C2A88A7E11077A5800CA7BAF /* Includes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Includes;
+			sourceTree = "<group>";
+		};
+		C2DA39E61107B748000F10FD /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				C219A36D1106292600F7A348 /* MainWindow.xib */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C219A226110627A200F7A348 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C25603C01106602C0023147D /* lauxlib.h in Headers */,
+				C25603BA11065FDE0023147D /* lua.h in Headers */,
+				C25603C81106603B0023147D /* lualib.h in Headers */,
+				C2A00BB711087B4000994D29 /* render_adapters_init.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C256033411065F1D0023147D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* hive_mariachi_runner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "hive_mariachi_runner" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				C21711F21107244F008D329A /* Copy Model Files */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C253F42F1106669200771DB0 /* PBXTargetDependency */,
+				C253F4311106669700771DB0 /* PBXTargetDependency */,
+			);
+			name = hive_mariachi_runner;
+			productName = hive_mariachi_iphone;
+			productReference = 1D6058910D05DD3D006BFB54 /* hive_mariachi_runner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C219A229110627A200F7A348 /* hive_mariachi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C219A231110627B800F7A348 /* Build configuration list for PBXNativeTarget "hive_mariachi" */;
+			buildPhases = (
+				C219A226110627A200F7A348 /* Headers */,
+				C219A227110627A200F7A348 /* Sources */,
+				C219A228110627A200F7A348 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hive_mariachi;
+			productName = hive_mariachi_iphone;
+			productReference = C219A22A110627A200F7A348 /* libhive_mariachi.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C256033711065F1D0023147D /* lua */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C256033D11065F2C0023147D /* Build configuration list for PBXNativeTarget "lua" */;
+			buildPhases = (
+				C256033411065F1D0023147D /* Headers */,
+				C256033511065F1D0023147D /* Sources */,
+				C256033611065F1D0023147D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = lua;
+			productName = liblua;
+			productReference = C256033811065F1D0023147D /* liblua.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Hive Solutions Lda.";
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "hive_mariachi_iphone" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C256033711065F1D0023147D /* lua */,
+				C219A229110627A200F7A348 /* hive_mariachi */,
+				1D6058900D05DD3D006BFB54 /* hive_mariachi_runner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C219A36F1106292600F7A348 /* MainWindow.xib in Resources */,
+				C22A5E9B1108874F005BB421 /* mariachi_iphone_57.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C253F4901106671900771DB0 /* runner.cpp in Sources */,
+				C253F48D1106671900771DB0 /* stdafx.cpp in Sources */,
+				C253F7B71106789F00771DB0 /* opengles_uikit_window_view.mm in Sources */,
+				C217105511071A5B008D329A /* iphone_application_util.mm in Sources */,
+				C217105811071A78008D329A /* iphone_application_delegate.mm in Sources */,
+				C217106211071BDB008D329A /* stdafx.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C219A227110627A200F7A348 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C219A2FE110628F700F7A348 /* function_caller_task.cpp in Sources */,
+				C219A300110628F700F7A348 /* task.cpp in Sources */,
+				C219A308110628F700F7A348 /* oct_tree.cpp in Sources */,
+				C219A30D110628F700F7A348 /* texture.cpp in Sources */,
+				C219A30F110628F700F7A348 /* dummy_stage.cpp in Sources */,
+				C219A311110628F700F7A348 /* render_stage.cpp in Sources */,
+				C219A313110628F700F7A348 /* stage_runner.cpp in Sources */,
+				C219A315110628F700F7A348 /* stage.cpp in Sources */,
+				C219A318110628F700F7A348 /* lua_script_engine_util.cpp in Sources */,
+				C219A31B110628F700F7A348 /* lua_script_engine_position.cpp in Sources */,
+				C219A31E110628F700F7A348 /* lua_script_engine_node.cpp in Sources */,
+				C219A320110628F700F7A348 /* lua_script_engine_scene_node.cpp in Sources */,
+				C219A323110628F700F7A348 /* lua_script_engine_engine.cpp in Sources */,
+				C219A326110628F700F7A348 /* lua_script_engine_mapping.cpp in Sources */,
+				C219A32A110628F700F7A348 /* lua_script_engine.cpp in Sources */,
+				C219A32C110628F700F7A348 /* script_engine.cpp in Sources */,
+				C219A330110628F700F7A348 /* opengl_cocoa_window_factory.mm in Sources */,
+				C219A332110628F700F7A348 /* opengl_cocoa_window_view.mm in Sources */,
+				C219A333110628F700F7A348 /* direct3d_win32_window.cpp in Sources */,
+				C219A335110628F700F7A348 /* direct3d_window.cpp in Sources */,
+				C219A337110628F700F7A348 /* opengl_glut_window.cpp in Sources */,
+				C219A339110628F700F7A348 /* opengl_win32_window.cpp in Sources */,
+				C219A33B110628F700F7A348 /* opengl_cocoa_window.cpp in Sources */,
+				C219A33D110628F700F7A348 /* opengl_window.cpp in Sources */,
+				C219A340110628F700F7A348 /* direct3d_adapter.cpp in Sources */,
+				C219A342110628F700F7A348 /* direct3d9_adapter.cpp in Sources */,
+				C219A344110628F700F7A348 /* opengl_adapter.cpp in Sources */,
+				C219A346110628F700F7A348 /* render_adapter.cpp in Sources */,
+				C219A349110628F700F7A348 /* render_information.cpp in Sources */,
+				C219A34C110628F700F7A348 /* camera_node.cpp in Sources */,
+				C219A34E110628F700F7A348 /* lens_node.cpp in Sources */,
+				C219A350110628F700F7A348 /* model_node.cpp in Sources */,
+				C219A352110628F700F7A348 /* node.cpp in Sources */,
+				C219A355110628F700F7A348 /* scene_node.cpp in Sources */,
+				C219A357110628F700F7A348 /* engine.cpp in Sources */,
+				C219A35A110628F700F7A348 /* bmp_loader.cpp in Sources */,
+				C219A35D110628F700F7A348 /* md2_importer.cpp in Sources */,
+				C219A35F110628F700F7A348 /* model_importer.cpp in Sources */,
+				C219A361110628F700F7A348 /* texture_importer.cpp in Sources */,
+				C219A363110628F700F7A348 /* stdafx.cpp in Sources */,
+				C219A366110628F700F7A348 /* stdafx.cpp in Sources */,
+				C219A369110628F700F7A348 /* runner.cpp in Sources */,
+				C219A8601106327E00F7A348 /* opengles_uikit_window_view.mm in Sources */,
+				C23712A5110635FD00316133 /* opengles_adapter.cpp in Sources */,
+				C23712B211063A7400316133 /* opengles1_adapter.cpp in Sources */,
+				C253F55F110668E300771DB0 /* opengles_uikit_window.cpp in Sources */,
+				C253F59411066A1300771DB0 /* opengles_window.cpp in Sources */,
+				C253F60F11066DB500771DB0 /* opengles_uikit_window_factory.mm in Sources */,
+				C217172F11076F84008D329A /* opengles1_uikit_renderer.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C256033511065F1D0023147D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C256037511065F490023147D /* lapi.c in Sources */,
+				C256037711065F490023147D /* lauxlib.c in Sources */,
+				C256037911065F490023147D /* lbaselib.c in Sources */,
+				C256037A11065F490023147D /* lcode.c in Sources */,
+				C256037C11065F490023147D /* ldblib.c in Sources */,
+				C256037D11065F490023147D /* ldebug.c in Sources */,
+				C256037F11065F490023147D /* ldo.c in Sources */,
+				C256038111065F490023147D /* ldump.c in Sources */,
+				C256038211065F490023147D /* lfunc.c in Sources */,
+				C256038411065F490023147D /* lgc.c in Sources */,
+				C256038611065F490023147D /* linit.c in Sources */,
+				C256038711065F490023147D /* liolib.c in Sources */,
+				C256038811065F490023147D /* llex.c in Sources */,
+				C256038B11065F490023147D /* lmathlib.c in Sources */,
+				C256038C11065F490023147D /* lmem.c in Sources */,
+				C256038E11065F490023147D /* loadlib.c in Sources */,
+				C256038F11065F490023147D /* lobject.c in Sources */,
+				C256039111065F490023147D /* lopcodes.c in Sources */,
+				C256039311065F490023147D /* loslib.c in Sources */,
+				C256039411065F490023147D /* lparser.c in Sources */,
+				C256039611065F490023147D /* lstate.c in Sources */,
+				C256039811065F490023147D /* lstring.c in Sources */,
+				C256039A11065F490023147D /* lstrlib.c in Sources */,
+				C256039B11065F490023147D /* ltable.c in Sources */,
+				C256039D11065F490023147D /* ltablib.c in Sources */,
+				C256039E11065F490023147D /* ltm.c in Sources */,
+				C25603A011065F490023147D /* lua.c in Sources */,
+				C25603A211065F490023147D /* luac.c in Sources */,
+				C25603A511065F490023147D /* lundump.c in Sources */,
+				C25603A711065F490023147D /* lvm.c in Sources */,
+				C25603A911065F490023147D /* lzio.c in Sources */,
+				C25603AB11065F490023147D /* print.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C253F42F1106669200771DB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C256033711065F1D0023147D /* lua */;
+			targetProxy = C253F42E1106669200771DB0 /* PBXContainerItemProxy */;
+		};
+		C253F4311106669700771DB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C219A229110627A200F7A348 /* hive_mariachi */;
+			targetProxy = C253F4301106669700771DB0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
+				PRODUCT_NAME = hive_mariachi_runner;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
+				PRODUCT_NAME = hive_mariachi_runner;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Release;
+		};
+		C219A22B110627A200F7A348 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PREBINDING = NO;
+				PRODUCT_NAME = hive_mariachi;
+			};
+			name = Debug;
+		};
+		C219A22C110627A200F7A348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = hive_mariachi;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C256033911065F1E0023147D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PREBINDING = NO;
+				PRODUCT_NAME = lua;
+			};
+			name = Debug;
+		};
+		C256033A11065F1E0023147D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = lua;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "hive_mariachi_runner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "hive_mariachi_iphone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C219A231110627B800F7A348 /* Build configuration list for PBXNativeTarget "hive_mariachi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C219A22B110627A200F7A348 /* Debug */,
+				C219A22C110627A200F7A348 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C256033D11065F2C0023147D /* Build configuration list for PBXNativeTarget "lua" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C256033911065F1E0023147D /* Debug */,
+				C256033A11065F1E0023147D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
