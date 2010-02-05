@@ -233,7 +233,7 @@ void Engine::start(void *arguments) {
 	printf("Creating the mutex");
 
     // creates the task list mutex
-    MUTEX_CREATE(this->taskListMutex);
+    /*MUTEX_CREATE(this->taskListMutex);
 
     // creates the task list ready condition
     CONDITION_CREATE(this->taskListReadyCondition);
@@ -255,7 +255,7 @@ void Engine::start(void *arguments) {
 		//printf("Entering while");
 
         // iterates while the task list contains
-        // valid task elements
+        // valid task elements*/
         /*while(this->taskList.size()) {
             // retrieves the current task
             Task *currentTask = this->taskList.front();
@@ -272,8 +272,8 @@ void Engine::start(void *arguments) {
 
         // resets the condition
         //CONDITION_RESET(this->taskListReadyCondition);
-		SLEEP(100);
-    }
+/*		SLEEP(100);
+    }*/
 }
 
 /**
