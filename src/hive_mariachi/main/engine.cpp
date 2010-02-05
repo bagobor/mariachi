@@ -56,84 +56,11 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
-        /*std::fstream &tobias = std::fstream("c:/lost.s06e00.720p.hdtv.x264-2hd.mkv", std::fstream::in | std::fstream::binary);
-
-        unsigned char *fileBuffer = (unsigned char *) malloc(BUFFER_SIZE_T);
-
-        unsigned int readSize;
-
-        Md5 &md5 = Md5();
-        Crc32 &crc32 = Crc32();
-        md5.init();
-        crc32.init();
-
-        unsigned long long counter = 0;
-
-        // iterates continuously
-        while(1) {
-            // reads the buffer
-            tobias.read((char *) fileBuffer, BUFFER_SIZE_T);
-
-            // retrieves the read size
-            readSize = tobias.gcount();
-
-            md5.update(fileBuffer, readSize);
-            crc32.update(fileBuffer, readSize);
-
-            counter += readSize;
-
-            //printf("leu %d\n", counter);
-
-            // in case the end of file was reached
-            if(tobias.eof()) {
-                // breaks the cycle
-                break;
-            }
-        };
-
-        md5.finalize();*/
-
-        //std::fstream &tobias = std::fstream("c:/lost.s06e00.720p.hdtv.x264-2hd.mkv", std::fstream::in | std::fstream::binary);
-
-        Md5 md5;
-        //md5.init(std::fstream("c:/ldj_production_database.db", std::fstream::in | std::fstream::binary));
-        md5.init("asdas");
-        std::cout << "md5 of 'file': " << md5 << std::endl;
-
-        /*crc32.finalize();
-
-        tobias.close();
-
-        free(fileBuffer);*/
-
-        /*std::cout << "md5 of 'file': " << md5 << std::endl;
-        std::cout << "crc32 of 'file': " << crc32 << std::endl;*/
-
-        /*Md5 &md5 = Md5();
-
-        Crc32 &crc32 = Crc32();
-
-        for(unsigned int index = 0; index < MATIAS; index++) {
-            Md5 &md5 = Md5();
-            md5.init("grape");
-            std::cout << "md5 of 'grape': " << md5 << std::endl;
-        }
-
-        for(unsigned int index = 0; index < MATIAS; index++) {
-            Crc32 &crc32 = Crc32();
-            crc32.init("grape");
-            std::cout << "crc32 of 'grape': " << crc32 << std::endl;
-        }
-
-       // std::cout << "md5 of 'grape': " << md5 << std::endl;*/
-
-
         // creates a new huffman object
         Huffman huffamn;
 
         // encodes the given file
-        //
-       /* time_t initialTimeEncoding = time(NULL);
+        time_t initialTimeEncoding = time(NULL);
 
         huffamn.encode("C:/ldj_production_database.db", "c:/ldj_production_database.db.encoded");
 
@@ -147,7 +74,7 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         time_t endTimeDecoding = time(NULL);
 
-        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);*/
+        printf("Decoding took %d\n", endTimeDecoding - initialTimeDecoding);
 
         // prints the huffman table
         huffamn.printTable();
