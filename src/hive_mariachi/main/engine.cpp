@@ -123,6 +123,8 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
         // returns valid value
         return THREAD_INVALID_RETURN_VALUE;
     } catch(Exception exception) {
+		printf("Recebeu excepcao");
+
         // handles the exception
         engine->handleException(&exception);
 
@@ -228,6 +230,8 @@ void Engine::start(void *arguments) {
     // prints the information
     this->printInformation();
 
+	printf("Creating the mutex");
+
     // creates the task list mutex
     MUTEX_CREATE(this->taskListMutex);
 
@@ -237,11 +241,17 @@ void Engine::start(void *arguments) {
     // allocates space for the thread id
     THREAD_IDENTIFIER threadId;
 
+	printf("Creating the engine runner thread");
+
     // creates the engine runnner thread
     THREAD_HANDLE mainRunnerThreadHandle = THREAD_CREATE_BASE(threadId, mainRunnerThread, this);
 
+	printf("Finished creating the engine runner thread");
+
     // iterates while the running flag is active
     while(this->runningFlag) {
+		printf("Entering while");
+
         // iterates while the task list contains
         // valid task elements
         while(this->taskList.size()) {
