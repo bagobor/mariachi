@@ -316,6 +316,8 @@ void Engine::printInformation() {
 
     // prints the help text
     std::cout << MARIACHI_HELP_TEXT << std::endl;
+
+	printf("finished printing branding information");
 }
 
 /**
