@@ -248,13 +248,15 @@ void Engine::start(void *arguments) {
 
 	printf("Finished creating the engine runner thread");
 
+	SLEEP(100);
+
     // iterates while the running flag is active
     while(this->runningFlag) {
 		printf("Entering while");
 
         // iterates while the task list contains
         // valid task elements
-      /*  while(this->taskList.size()) {
+        while(this->taskList.size()) {
             // retrieves the current task
             Task *currentTask = this->taskList.front();
 
@@ -269,7 +271,7 @@ void Engine::start(void *arguments) {
         CONDITION_WAIT(this->taskListReadyCondition);
 
         // resets the condition
-        CONDITION_RESET(this->taskListReadyCondition);*/
+        CONDITION_RESET(this->taskListReadyCondition);
     }
 }
 
