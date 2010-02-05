@@ -131,17 +131,17 @@ void HashFunction::init(std::fstream &fileStream, bool closeStream) {
 }
 
 void HashFunction::update(const unsigned char *buffer, unsigned int size) {
-};
+}
 
 void HashFunction::finalize() {
     // sets the finalized flag
     this->finalized = true;
-};
+}
 
 void HashFunction::reset() {
     // unsets the finalized flag
     this->finalized = false;
-};
+}
 
 std::ostream &mariachi::operator<<(std::ostream &outStream, const HashFunction &value) {
     // puts the hex digest in the ouput stream
