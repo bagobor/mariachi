@@ -35,5 +35,5 @@ RuntimeException::RuntimeException() : Exception() {
 RuntimeException::RuntimeException(const std::string &message) : Exception(message) {
 }
 
-RuntimeException::~RuntimeException() {
+RuntimeException::~RuntimeException() throw() {
 }

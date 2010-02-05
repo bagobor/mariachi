@@ -36,7 +36,7 @@ Exception::Exception(const std::string &message) : std::exception() {
     this->initMessage(message);
 }
 
-Exception::~Exception() {
+Exception::~Exception() throw() {
 }
 
 inline void Exception::initMessage(const std::string &message) {
