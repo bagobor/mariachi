@@ -850,7 +850,7 @@ inline void Huffman::_writeLookupTable(std::iostream *targetStream) {
     targetStream->write((char *) this->lookupTable.buffer, lookupTableBufferSize);
 }
 
-void Huffman::_generateTable(HuffmanNode *node, std::string &code) {
+void Huffman::_generateTable(HuffmanNode *node, const std::string &code) {
     // in case it's not a leaf ndoe
     if(node->left && node->right) {
         this->_generateTable(node->left, code + "0");
