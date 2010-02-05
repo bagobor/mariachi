@@ -157,7 +157,7 @@ namespace mariachi {
             inline void _writeCodeTable(std::iostream *targetStream);
             inline void _readLookupTable(std::iostream *sourceStream);
             inline void _writeLookupTable(std::iostream *targetStream);
-            void _generateTable(HuffmanNode *node, std::string &code = std::string(""));
+            void _generateTable(HuffmanNode *node, const std::string &code = std::string(""));
             void _generatePermutations(std::vector<HuffmanCode_t> *huffmanCodeValuesList, char *stringBuffer, unsigned int count);
             HuffmanCode_t _generateHuffmanCode(const char *stringCodeValue, unsigned char stringCodeValueSize = -1);
 
