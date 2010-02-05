@@ -182,7 +182,7 @@ void Huffman::decode(const std::string &filePath, std::iostream *targetStream) {
     char fileBuffer[HUFFMAN_FILE_BUFFER_SIZE];
 
     // creates the target bit stream
-    BitStream &bitStream = BitStream(fileStream);
+    BitStream bitStream(fileStream);
 
     // opens the bit stream in read mode
     bitStream.open(BIT_STREAM_READ);
@@ -594,7 +594,7 @@ inline void Huffman::computeTable() {
         }
 
         // computes the current code
-        std::vector<HuffmanPartialByte_t> &currentComputedCode = this->computeCode(currentCode);
+        const std::vector<HuffmanPartialByte_t> &currentComputedCode = this->computeCode(currentCode);
 
         // sets the current computed code in the huffman computed table
         this->huffmanComputedTable[currentSymbol] = currentComputedCode;
