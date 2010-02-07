@@ -155,7 +155,6 @@
 		5668025B111F420400F4B02A /* options.png in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 56680234111F420400F4B02A /* options.png */; };
 		5668025C111F420400F4B02A /* background.bmp in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 56680235111F420400F4B02A /* background.bmp */; };
 		5668025D111F420400F4B02A /* about.bmp in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 56680236111F420400F4B02A /* about.bmp */; };
-		5668025E111F420400F4B02A /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 56680237111F420400F4B02A /* Thumbs.db */; };
 		5668025F111F420400F4B02A /* quit.png in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 56680238111F420400F4B02A /* quit.png */; };
 		56680260111F420400F4B02A /* background.png in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 56680239111F420400F4B02A /* background.png */; };
 		56680261111F420400F4B02A /* openfeint.png in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 5668023A111F420400F4B02A /* openfeint.png */; };
@@ -334,7 +333,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 56680342111F433500F4B02A /* bullet */;
+			remoteGlobalIDString = 56680342111F433500F4B02A;
 			remoteInfo = bullet;
 		};
 		C253F42E1106669200771DB0 /* PBXContainerItemProxy */ = {
@@ -634,7 +633,6 @@
 		56680234111F420400F4B02A /* options.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = options.png; sourceTree = "<group>"; };
 		56680235111F420400F4B02A /* background.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = background.bmp; sourceTree = "<group>"; };
 		56680236111F420400F4B02A /* about.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = about.bmp; sourceTree = "<group>"; };
-		56680237111F420400F4B02A /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
 		56680238111F420400F4B02A /* quit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quit.png; sourceTree = "<group>"; };
 		56680239111F420400F4B02A /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		5668023A111F420400F4B02A /* openfeint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openfeint.png; sourceTree = "<group>"; };
@@ -1638,7 +1636,6 @@
 				56680235111F420400F4B02A /* background.bmp */,
 				5668022F111F420400F4B02A /* logo.bmp */,
 				56680231111F420400F4B02A /* white.bmp */,
-				56680237111F420400F4B02A /* Thumbs.db */,
 				56680233111F420400F4B02A /* about.png */,
 				5668023F111F420400F4B02A /* about_hover.png */,
 				56680241111F420400F4B02A /* all buttons.png */,
@@ -2595,7 +2592,6 @@
 			files = (
 				566806BA111F473800F4B02A /* MainWindow.xib in Resources */,
 				56680638111F44DC00F4B02A /* config.json in Resources */,
-				5668025E111F420400F4B02A /* Thumbs.db in Resources */,
 				5668024F111F420400F4B02A /* ReadMe.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

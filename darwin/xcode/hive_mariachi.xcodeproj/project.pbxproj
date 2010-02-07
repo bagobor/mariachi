@@ -152,7 +152,6 @@
 		56FE6ABD111F370A005F5594 /* options.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A96111F370A005F5594 /* options.png */; };
 		56FE6ABE111F370A005F5594 /* background.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A97111F370A005F5594 /* background.bmp */; };
 		56FE6ABF111F370A005F5594 /* about.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A98111F370A005F5594 /* about.bmp */; };
-		56FE6AC0111F370A005F5594 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A99111F370A005F5594 /* Thumbs.db */; };
 		56FE6AC1111F370A005F5594 /* quit.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A9A111F370A005F5594 /* quit.png */; };
 		56FE6AC2111F370A005F5594 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A9B111F370A005F5594 /* background.png */; };
 		56FE6AC3111F370A005F5594 /* openfeint.png in Resources */ = {isa = PBXBuildFile; fileRef = 56FE6A9C111F370A005F5594 /* openfeint.png */; };
@@ -331,7 +330,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 56FE6ADB111F3798005F5594 /* bullet */;
+			remoteGlobalIDString = 56FE6ADB111F3798005F5594;
 			remoteInfo = bullet;
 		};
 		C28DC52A1107AF8E00DDE61E /* PBXContainerItemProxy */ = {
@@ -718,7 +717,6 @@
 		56FE6A96111F370A005F5594 /* options.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = options.png; sourceTree = "<group>"; };
 		56FE6A97111F370A005F5594 /* background.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = background.bmp; sourceTree = "<group>"; };
 		56FE6A98111F370A005F5594 /* about.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = about.bmp; sourceTree = "<group>"; };
-		56FE6A99111F370A005F5594 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
 		56FE6A9A111F370A005F5594 /* quit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quit.png; sourceTree = "<group>"; };
 		56FE6A9B111F370A005F5594 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		56FE6A9C111F370A005F5594 /* openfeint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = openfeint.png; sourceTree = "<group>"; };
@@ -1976,7 +1974,6 @@
 				56FE6A97111F370A005F5594 /* background.bmp */,
 				56FE6A91111F370A005F5594 /* logo.bmp */,
 				56FE6A93111F370A005F5594 /* white.bmp */,
-				56FE6A99111F370A005F5594 /* Thumbs.db */,
 				56FE6A95111F370A005F5594 /* about.png */,
 				56FE6AA1111F370A005F5594 /* about_hover.png */,
 				56FE6AA3111F370A005F5594 /* all buttons.png */,
@@ -2503,7 +2500,6 @@
 				56FE6AB8111F370A005F5594 /* logo.bmp in Resources */,
 				56FE6AAE111F370A005F5594 /* pallette.bmp in Resources */,
 				56FE6ABA111F370A005F5594 /* white.bmp in Resources */,
-				56FE6AC0111F370A005F5594 /* Thumbs.db in Resources */,
 				C2A00C101108844100994D29 /* mariachi_rounded.icns in Resources */,
 				56FE6AAF111F370A005F5594 /* light6.md2 in Resources */,
 				56FE6AB0111F370A005F5594 /* pallette.md2 in Resources */,
