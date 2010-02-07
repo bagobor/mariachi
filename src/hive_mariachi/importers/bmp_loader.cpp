@@ -31,49 +31,55 @@
 
 using namespace mariachi;
 
+/**
+* Constructor of the class.
+*/
 BmpLoader::BmpLoader() : TextureImporter() {
 }
 
+/**
+* Destructor of the class.
+*/
 BmpLoader::~BmpLoader() {
     free(this->bitmapData);
 }
 
 void BmpLoader::generateImage(const std::string &filePath) {
     // creates the file stream to be used
-    std::fstream *bmpFile = new std::fstream(filePath.c_str(), std::fstream::in | std::fstream::binary);
+    std::fstream bmpFile(filePath.c_str(), std::fstream::in | std::fstream::binary);
 
     // in case the opening of the file fails
-    if(bmpFile->fail()) {
+    if(bmpFile.fail()) {
         // throws a runtime exception
         throw RuntimeException("Problem while loading file: " + filePath);
     }
 
     // seeks to the end of the file
-    bmpFile->seekg(0, std::fstream::end);
+    bmpFile.seekg(0, std::fstream::end);
 
     // get length of file
-    std::streamoff bmpFileLength = bmpFile->tellg();
+    std::streamoff bmpFileLength = bmpFile.tellg();
 
     // seeks to the beginning of the file
-    bmpFile->seekg(0, std::fstream::beg);
+    bmpFile.seekg(0, std::fstream::beg);
 
     // allocates space for the bmp magic
     BmpHeader_t *bmpMagic = (BmpHeader_t *) malloc(BMP_MAGIC_SIZE);
 
     // reads the magic data
-    bmpFile->read((char *) bmpMagic, BMP_MAGIC_SIZE);
+    bmpFile.read((char *) bmpMagic, BMP_MAGIC_SIZE);
 
     // allocates space for the bmp header
     BmpHeader_t *bmpHeader = (BmpHeader_t *) malloc(BMP_HEADER_SIZE);
 
     // reads the header data
-    bmpFile->read((char *) bmpHeader, BMP_HEADER_SIZE);
+    bmpFile.read((char *) bmpHeader, BMP_HEADER_SIZE);
 
     // allocates space for the bmp dib v3 header
     BmpDibV3Header_t *bmpDibHeader = (BmpDibV3Header_t *) malloc(BMP_DIB_V3_HEADER_SIZE);
 
     // reads the bmp dib v3 header data
-    bmpFile->read((char *) bmpDibHeader, BMP_DIB_V3_HEADER_SIZE);
+    bmpFile.read((char *) bmpDibHeader, BMP_DIB_V3_HEADER_SIZE);
 
     // sets the bitmap size information
     this->bitmapSize.height = bmpDibHeader->height;
@@ -86,7 +92,7 @@ void BmpLoader::generateImage(const std::string &filePath) {
     char *bitmapRawData = (char *) malloc(bitmapDataLength);
 
     // reads the bitmap raw data
-    bmpFile->read((char *) bitmapRawData, bitmapDataLength);
+    bmpFile.read((char *) bitmapRawData, bitmapDataLength);
 
     // calculates the pixel count
     int pixelCount = bmpDibHeader->height * bmpDibHeader->width;
@@ -125,7 +131,7 @@ void BmpLoader::generateImage(const std::string &filePath) {
     }
 
     // closes the file
-    bmpFile->close();
+    bmpFile.close();
 
     // releases the bmp magic
     free(bmpMagic);
@@ -138,9 +144,6 @@ void BmpLoader::generateImage(const std::string &filePath) {
 
     // releases the bitmap raw data
     free(bitmapRawData);
-
-    // releases the bmp file
-    delete bmpFile;
 }
 
 Texture *BmpLoader::getTexture() {

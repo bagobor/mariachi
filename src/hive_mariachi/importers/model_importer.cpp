@@ -29,8 +29,14 @@
 
 using namespace mariachi;
 
+/**
+* Constructor of the class.
+*/
 ModelImporter::ModelImporter() {
 }
 
+/**
+* Destructor of the class.
+*/
 ModelImporter::~ModelImporter() {
 }
