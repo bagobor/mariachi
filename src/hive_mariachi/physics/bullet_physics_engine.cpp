@@ -112,7 +112,7 @@ void BulletPhysicsEngine::update(float delta, void *arguments) {
         std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
 
         // retrieves the maximum sub steps
-        maximumSubSteps = (int) argumentsMap["maximum_sub_steps"];
+        maximumSubSteps = (long long) argumentsMap["maximum_sub_steps"];
     }
 
     // runs a simulation step

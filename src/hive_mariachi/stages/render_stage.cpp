@@ -127,11 +127,8 @@ void RenderStage::start(void *arguments) {
     // sets the engine in the render arguments
     ((Engine **) renderArguments)[4] = this->engine;
 
-    // allocates space for the thread id
-    THREAD_IDENTIFIER threadId;
-
     // creates the engine runnner thread
-    this->renderAdapterThreadHandle = THREAD_CREATE_BASE(threadId, renderRunnerThread, renderArguments);
+    this->renderAdapterThreadHandle = THREAD_CREATE_BASE(this->renderAdapterThreadIdentifier, renderRunnerThread, renderArguments);
 }
 
 void RenderStage::stop(void *arguments) {
@@ -141,7 +138,7 @@ void RenderStage::stop(void *arguments) {
     this->renderAdapter->stop(NULL);
 
     // joins the render adapter thread
-    THREAD_JOIN(this->renderAdapterThreadHandle);
+    THREAD_JOIN_BASE(this->renderAdapterThreadHandle, this->renderAdapterThreadIdentifier);
 
     // closes the render adapter thread handle
     THREAD_CLOSE(this->renderAdapterThreadHandle);

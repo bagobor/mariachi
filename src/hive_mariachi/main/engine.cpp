@@ -307,7 +307,7 @@ void Engine::startConfigurationManager() {
     this->configurationManager = new ConfigurationManager(this);
 
     // creates the configuration arguments
-    ConfigurationArguments_t configurationArguments = { "config.json" };
+    ConfigurationArguments_t configurationArguments = { std::string(std::string(HIVE_MARIACHI_BASE_PATH) + "/config.json").c_str() };
 
     // loads the configuration manager
     this->configurationManager->load(&configurationArguments);

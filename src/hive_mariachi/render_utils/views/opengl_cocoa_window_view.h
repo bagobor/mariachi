@@ -32,6 +32,8 @@
 #import "../../main/engine.h"
 #import "../../render_adapters/opengl_adapter.h"
 
+using namespace mariachi;
+
 @interface OpenglCocoaWindowView : NSOpenGLView {
     Engine *engine;
     OpenglAdapter *openglAdapter;
