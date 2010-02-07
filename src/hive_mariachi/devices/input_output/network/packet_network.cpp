@@ -53,7 +53,7 @@ void PacketNetwork::start(void *arguments) {
     std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
 
     // retrieves and sets the socket type
-    this->socketType = (unsigned int) argumentsMap["socketType"];
+    this->socketType = (unsigned long long) argumentsMap["socketType"];
 
     // allocates space for the socket data
     SOCKET_DATA socketData;

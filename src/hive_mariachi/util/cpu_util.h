@@ -43,7 +43,7 @@ namespace mariachi {
                 * @return The result of the alignment test.
                 */
                 template<class T> static inline bool isAligned(const void *memoryPointer) {
-                    return (unsigned int) memoryPointer % sizeof(T) == 0;
+                    return (unsigned long long) memoryPointer % sizeof(T) == 0;
                 }
 
                 /**

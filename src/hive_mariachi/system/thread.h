@@ -36,6 +36,7 @@
 #define THREAD_CREATE(threadAttributes, stackSize, startAddress, parameter, creationFlags, threadId) CreateThread(threadAttributes, stackSize, startAddress, (THREAD_ARGUMENTS) parameter, creationFlags, &threadId)
 #define THREAD_CREATE_BASE(threadId, startAddress, parameter) THREAD_CREATE(NULL, 0, startAddress, (THREAD_ARGUMENTS) parameter, 0, threadId)
 #define THREAD_JOIN(threadHandle) WaitForSingleObject(threadHandle, INFINITE)
+#define THREAD_JOIN_BASE(threadHandle, threadIdentifier) THREAD_JOIN(threadHandle)
 #define THREAD_CLOSE(threadHandle) CloseHandle(threadHandle)
 #define MUTEX_HANDLE HANDLE
 #define MUTEX_CREATE(mutexHandle) mutexHandle = CreateMutex(NULL, false, NULL)
@@ -64,6 +65,7 @@ typedef struct ConditionHandle_t {
 #define THREAD_CREATE(threadId, creationFlags, startAddress, parameter) pthread_create(&threadId, creationFlags, startAddress, (THREAD_ARGUMENTS) parameter)
 #define THREAD_CREATE_BASE(threadId, startAddress, parameter) THREAD_CREATE(threadId, NULL, startAddress, parameter)
 #define THREAD_JOIN(threadIdentifier) pthread_join(threadIdentifier, NULL)
+#define THREAD_JOIN_BASE(threadHandle, threadIdentifier) THREAD_JOIN(threadIdentifier)
 #define THREAD_CLOSE(threadHandle)
 #define MUTEX_HANDLE pthread_mutex_t *
 #define MUTEX_CREATE(mutexHandle) mutexHandle = (MUTEX_HANDLE) malloc(sizeof(pthread_mutex_t));\
