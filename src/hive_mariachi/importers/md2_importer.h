@@ -103,6 +103,7 @@ namespace mariachi {
             std::vector<float *> vertexList;
             std::vector<void *> glCommandsList;
             std::vector<Mesh_t *> meshList;
+            std::vector<Frame_t *> framesList;
             int meshCount;
 
         public:

@@ -52,28 +52,28 @@ void Md2Importer::generateModel(const std::string &filePath) {
     this->cleanModel();
 
     // creates the file stream to be used
-    std::fstream *md2File = new std::fstream(filePath.c_str(), std::fstream::in | std::fstream::binary);
+    std::fstream md2File(filePath.c_str(), std::fstream::in | std::fstream::binary);
 
     // in case the opening of the file fails
-    if(md2File->fail()) {
+    if(md2File.fail()) {
         // throws a runtime exception
         throw RuntimeException("Problem while loading file: " + filePath);
     }
 
     // seeks to the end of the file
-    md2File->seekg(0, std::fstream::end);
+    md2File.seekg(0, std::fstream::end);
 
     // get length of file
-    std::streamoff md2FileLength = md2File->tellg();
+    std::streamoff md2FileLength = md2File.tellg();
 
     // seeks to the beginning of the file
-    md2File->seekg(0, std::fstream::beg);
+    md2File.seekg(0, std::fstream::beg);
 
     // allocates space for the md2 header
     Md2Header_t *md2Header = (Md2Header_t *) malloc(MD2_HEADER_SIZE);
 
     // reads the header data
-    md2File->read((char *) md2Header, MD2_HEADER_SIZE);
+    md2File.read((char *) md2Header, MD2_HEADER_SIZE);
 
     // calculates the md2 contents length
     std::streamoff md2ContentsLength = md2FileLength - MD2_HEADER_SIZE;
@@ -82,13 +82,13 @@ void Md2Importer::generateModel(const std::string &filePath) {
     char *md2Contents = (char *) malloc(md2ContentsLength);
 
     // reads the contents data
-    md2File->read((char *) md2Contents, md2ContentsLength);
+    md2File.read((char *) md2Contents, md2ContentsLength);
 
     // closes the file
-    md2File->close();
+    md2File.close();
 
     // in case the reading of the file fails
-    if(md2File->fail()) {
+    if(md2File.fail()) {
         // throws a runtime exception
         throw RuntimeException("Problem reading the file");
     }
@@ -109,10 +109,12 @@ void Md2Importer::generateModel(const std::string &filePath) {
             // retrieves the vertex contents
             Md2VertexContents_t *vertexContents = (Md2VertexContents_t *) &md2Contents[frameContentsPointer];
 
+            // calculates the vertex coordinates with the scale and translation
             float vertexX = (vertexContents->vertex[0] * frameHeader->scale[0]) + frameHeader->translate[0];
             float vertexY = (vertexContents->vertex[1] * frameHeader->scale[1]) + frameHeader->translate[1];
             float vertexZ = (vertexContents->vertex[2] * frameHeader->scale[2]) + frameHeader->translate[2];
 
+            // adds the vertex coordinates in the coordinates list
             this->coordinatesList.push_back(vertexX);
             this->coordinatesList.push_back(vertexY);
             this->coordinatesList.push_back(vertexZ);
@@ -131,6 +133,7 @@ void Md2Importer::generateModel(const std::string &filePath) {
     // starts the gl contents end pointer
     unsigned int glContentsEndPointer = glContentsPointer + glContentsLength;
 
+    // iterates until reaching the end
     while(glContentsPointer < glContentsEndPointer) {
         // retrieves the number of vertices
         int numberVertices = *(int *) &md2Contents[glContentsPointer];
@@ -163,6 +166,7 @@ void Md2Importer::generateModel(const std::string &filePath) {
 
             vertexTextureInformationCopy->vertexTextureY = (float) 1.0 - vertexTextureInformationCopy->vertexTextureY;
 
+            // adds the commands to the gl commands list
             this->glCommandsList.push_back((void *) &vertexTextureInformationCopy->vertexTextureX);
             this->glCommandsList.push_back((void *) &vertexTextureInformationCopy->vertexTextureY);
             this->glCommandsList.push_back((void *) &vertexTextureInformationCopy->vertexIndex);
@@ -177,9 +181,6 @@ void Md2Importer::generateModel(const std::string &filePath) {
 
     // releases the md2 contents buffer
     free(md2Contents);
-
-    // releases the md2 file
-    delete md2File;
 }
 
 void Md2Importer::generateVertexList() {
@@ -224,6 +225,10 @@ void Md2Importer::generateVertexList() {
     }
 }
 
+/**
+* Generates the mesh list for the current vertex information
+* in the importer.
+*/
 void Md2Importer::generateMeshList() {
     // cleans the previous mesh list information (in case there is one)
     this->cleanMeshList();

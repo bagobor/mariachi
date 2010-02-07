@@ -28,6 +28,7 @@
 #include "box.h"
 #include "configuration.h"
 #include "data.h"
+#include "frame.h"
 #include "image.h"
 #include "mesh.h"
 #include "oct_tree.h"
