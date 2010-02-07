@@ -34,15 +34,10 @@
 #include "../script/script.h"
 #include "../physics/physics.h"
 
-#include "../algorithms/algorithms.h"
-
 #include "engine.h"
 
 using namespace mariachi;
 using namespace mariachi::physics;
-
-#define MATIAS 10
-#define BUFFER_SIZE_T 102400
 
 /**
 * Thread that handles the main engine workload.
