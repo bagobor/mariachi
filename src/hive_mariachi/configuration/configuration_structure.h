@@ -28,22 +28,24 @@
 #include "../structures/configuration.h"
 
 namespace mariachi {
-    class ConfigurationList;
-    class ConfigurationMap;
+    namespace configuration {
+        class ConfigurationList;
+        class ConfigurationMap;
 
-    class ConfigurationStructure {
-        private:
+        class ConfigurationStructure {
+            private:
 
-    protected:
-        void cleanConfigurationValue(ConfigurationValue_t *configurationValue);
+        protected:
+            void cleanConfigurationValue(ConfigurationValue_t *configurationValue);
 
-        public:
-            ConfigurationStructure();
-            ~ConfigurationStructure();
-            static ConfigurationValue_t *getIntValue(int intValue);
-            static ConfigurationValue_t *getStringValue(const std::string &stringValue);
-            static ConfigurationValue_t *getBooleanValue(bool booleanValue);
-            static ConfigurationValue_t *getListValue(ConfigurationList *listValue);
-            static ConfigurationValue_t *getObjectValue(ConfigurationMap *objectValue);
-    };
+            public:
+                ConfigurationStructure();
+                ~ConfigurationStructure();
+                static ConfigurationValue_t *getIntValue(int intValue);
+                static ConfigurationValue_t *getStringValue(const std::string &stringValue);
+                static ConfigurationValue_t *getBooleanValue(bool booleanValue);
+                static ConfigurationValue_t *getListValue(ConfigurationList *listValue);
+                static ConfigurationValue_t *getObjectValue(ConfigurationMap *objectValue);
+        };
+    }
 }

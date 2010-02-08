@@ -28,6 +28,7 @@
 #include "a_star.h"
 
 using namespace mariachi;
+using namespace mariachi::algorithms;
 
 /**
 * Constructor of the class.

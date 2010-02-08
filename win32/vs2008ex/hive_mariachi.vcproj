@@ -158,8 +158,24 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\src\hive_mariachi\model_viewer.cpp"
+				RelativePath="..\..\src\hive_mariachi\stdafx.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<Filter
 				Name="Importers"
@@ -296,26 +312,6 @@
 			<Filter
 				Name="Global"
 				>
-				<File
-					RelativePath="..\..\src\hive_mariachi\stdafx.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-				</File>
 			</Filter>
 			<Filter
 				Name="Render"
@@ -868,7 +864,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\src\hive_mariachi\model_viewer.h"
+				RelativePath="..\..\src\hive_mariachi\mariachi.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\hive_mariachi\stdafx.h"
 				>
 			</File>
 			<Filter
@@ -1015,27 +1015,19 @@
 				Name="Global"
 				>
 				<File
-					RelativePath="..\..\src\hive_mariachi\definitions.h"
+					RelativePath="..\..\src\hive_mariachi\global\definitions.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\hive_mariachi\mariachi.h"
+					RelativePath="..\..\src\hive_mariachi\global\platforms.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\hive_mariachi\platforms.h"
+					RelativePath="..\..\src\hive_mariachi\global\resource.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\hive_mariachi\resource.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi\stdafx.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi\targetver.h"
+					RelativePath="..\..\src\hive_mariachi\global\targetver.h"
 					>
 				</File>
 			</Filter>

@@ -31,17 +31,19 @@
 #include "configuration_parser.h"
 
 namespace mariachi {
-    class JsonConfigurationParser : public ConfigurationParser {
-        private:
-            void updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode);
-            void updateConfigurationList(ConfigurationList *configurationList, const Json::Value &currentNode);
-            ConfigurationValue *createConfigurationValue(const Json::Value &propertyValue);
+    namespace configuration {
+        class JsonConfigurationParser : public ConfigurationParser {
+            private:
+                void updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode);
+                void updateConfigurationList(ConfigurationList *configurationList, const Json::Value &currentNode);
+                ConfigurationValue *createConfigurationValue(const Json::Value &propertyValue);
 
-        public:
-            JsonConfigurationParser();
-            JsonConfigurationParser(ConfigurationManager *configurationManager);
-            ~JsonConfigurationParser();
-            void parseConfiguration(void *configuration);
-            void parseResource(void *resource);
-    };
+            public:
+                JsonConfigurationParser();
+                JsonConfigurationParser(ConfigurationManager *configurationManager);
+                ~JsonConfigurationParser();
+                void parseConfiguration(void *configuration);
+                void parseResource(void *resource);
+        };
+    }
 }

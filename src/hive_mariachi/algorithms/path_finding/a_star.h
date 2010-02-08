@@ -28,19 +28,21 @@
 #include "path_finder.h"
 
 namespace mariachi {
-    class AStar : public PathFinder {
-        private:
-            float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *);
+    namespace algorithms {
+        class AStar : public PathFinder {
+            private:
+                float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *);
 
-        public:
-            AStar();
-            AStar(PathNodesGraph *nodesGraph);
-            ~AStar();
-            inline void initDistanceFunction();
-            Path_t *findPath(unsigned int startNodeId, unsigned int endNodeId);
-            void setDistanceFunction(float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->distanceFunction = distanceFunction; };
-            float (*getDistanceFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->distanceFunction; };
-            bool operator()(std::pair<unsigned int, float> &firstPair, std::pair<unsigned int, float> &secondPair);
-            static float defaultDistanceFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph);
-    };
+            public:
+                AStar();
+                AStar(PathNodesGraph *nodesGraph);
+                ~AStar();
+                inline void initDistanceFunction();
+                Path_t *findPath(unsigned int startNodeId, unsigned int endNodeId);
+                void setDistanceFunction(float (*distanceFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->distanceFunction = distanceFunction; };
+                float (*getDistanceFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->distanceFunction; };
+                bool operator()(std::pair<unsigned int, float> &firstPair, std::pair<unsigned int, float> &secondPair);
+                static float defaultDistanceFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph);
+        };
+    }
 }

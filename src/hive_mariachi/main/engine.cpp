@@ -37,6 +37,8 @@
 #include "engine.h"
 
 using namespace mariachi;
+using namespace mariachi::configuration;
+using namespace mariachi::console;
 using namespace mariachi::physics;
 
 /**

@@ -31,8 +31,8 @@
 #endif
 
 #ifdef _WIN32
-#include "targetver.h"
-#include "resource.h"
+#include "global/targetver.h"
+#include "global/resource.h"
 
 // excludes rarely-used stuff from windows headers
 #define WIN32_LEAN_AND_MEAN
@@ -41,7 +41,7 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include "definitions.h"
+#include "global/definitions.h"
 
 #ifdef MARIACHI_PLATFORM_WIN32
 #include <Windows.h>

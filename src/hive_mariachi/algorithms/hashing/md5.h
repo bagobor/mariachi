@@ -51,63 +51,65 @@
 #define MD5_S44 21
 
 namespace mariachi {
-    /**
-    * Class used to calculate md5 hashes.
-    *
-    * @see wikipedia - http://en.wikipedia.org/wiki/MD5
-    */
-    class Md5 : public HashFunction {
-        private:
-            /**
-            * The padding used in the md5 computation.
-            */
-            static const unsigned char md5Padding[64];
+    namespace algorithms {
+        /**
+        * Class used to calculate md5 hashes.
+        *
+        * @see wikipedia - http://en.wikipedia.org/wiki/MD5
+        */
+        class Md5 : public HashFunction {
+            private:
+                /**
+                * The padding used in the md5 computation.
+                */
+                static const unsigned char md5Padding[64];
 
-            /**
-            * The size of the digest.
-            */
-            static const int DIGEST_SIZE = MD5_DIGEST_SIZE;
+                /**
+                * The size of the digest.
+                */
+                static const int DIGEST_SIZE = MD5_DIGEST_SIZE;
 
-            /**
-            * The result of the digest.
-            */
-            unsigned char digest[DIGEST_SIZE];
+                /**
+                * The result of the digest.
+                */
+                unsigned char digest[DIGEST_SIZE];
 
-            /**
-            * Buffer used to hold the bytes that didn't fit
-            * in the last 64 byte chunk.
-            */
-            unsigned char hashBuffer[MD5_BLOCK_SIZE];
+                /**
+                * Buffer used to hold the bytes that didn't fit
+                * in the last 64 byte chunk.
+                */
+                unsigned char hashBuffer[MD5_BLOCK_SIZE];
 
-            /**
-            * Counter of 64 bit used for number of bits (lo, hi).
-            */
-            unsigned int count[2];
+                /**
+                * Counter of 64 bit used for number of bits (lo, hi).
+                */
+                unsigned int count[2];
 
-            /**
-            * The state of the digest.
-            */
-            unsigned int state[4];
+                /**
+                * The state of the digest.
+                */
+                unsigned int state[4];
 
-            void transform(const unsigned char *block, unsigned int blocksize);
-            static void decode(unsigned int *output, const unsigned char *input, unsigned int size);
-            static void encode(unsigned char *output, const unsigned int *input, unsigned int size);
+                void transform(const unsigned char *block, unsigned int blocksize);
+                static void decode(unsigned int *output, const unsigned char *input, unsigned int size);
+                static void encode(unsigned char *output, const unsigned int *input, unsigned int size);
 
-            static inline unsigned int F(unsigned int x, unsigned int y, unsigned int z);
-            static inline unsigned int G(unsigned int x, unsigned int y, unsigned int z);
-            static inline unsigned int H(unsigned int x, unsigned int y, unsigned int z);
-            static inline unsigned int I(unsigned int x, unsigned int y, unsigned int z);
-            static inline void FF(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
-            static inline void GG(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
-            static inline void HH(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
-            static inline void II(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
+                static inline unsigned int F(unsigned int x, unsigned int y, unsigned int z);
+                static inline unsigned int G(unsigned int x, unsigned int y, unsigned int z);
+                static inline unsigned int H(unsigned int x, unsigned int y, unsigned int z);
+                static inline unsigned int I(unsigned int x, unsigned int y, unsigned int z);
+                static inline void FF(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
+                static inline void GG(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
+                static inline void HH(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
+                static inline void II(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac);
 
-        public:
-            Md5();
-            ~Md5();
-            void update(const unsigned char *buffer, unsigned int size);
-            void finalize();
-            void reset();
-            std::string hexdigest() const;
-    };
+            public:
+                Md5();
+                ~Md5();
+                void update(const unsigned char *buffer, unsigned int size);
+                void finalize();
+                void reset();
+                std::string hexdigest() const;
+        };
+    }
 }

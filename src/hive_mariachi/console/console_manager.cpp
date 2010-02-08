@@ -30,6 +30,7 @@
 #include "console_manager.h"
 
 using namespace mariachi;
+using namespace mariachi::console;
 using namespace mariachi::util;
 
 /**

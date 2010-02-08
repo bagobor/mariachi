@@ -29,22 +29,24 @@
 #include "configuration_structure.h"
 
 namespace mariachi {
-    class ConfigurationMap : public ConfigurationStructure {
-        private:
-            std::map<std::string, ConfigurationValue_t *> configurationMap;
-            std::list<ConfigurationValue_t *> configurationList;
+    namespace configuration {
+        class ConfigurationMap : public ConfigurationStructure {
+            private:
+                std::map<std::string, ConfigurationValue_t *> configurationMap;
+                std::list<ConfigurationValue_t *> configurationList;
 
-        public:
-            ConfigurationMap();
-            ~ConfigurationMap();
-            inline void cleanMap();
-            ConfigurationValue_t *_getProperty(const std::string &key);
-            ConfigurationValue_t *getProperty(const std::string &key);
-            void setProperty(const std::string &key, ConfigurationValue_t *value);
-            void removeProperty(const std::string &key);
-            void setIntProperty(const std::string &key, int intValue);
-            void setStringProperty(const std::string &key, const std::string &stringValue);
-            void setBooleanProperty(const std::string &key, bool booleanValue);
-            void setObjectProperty(const std::string &key, ConfigurationMap *objectValue);
-    };
+            public:
+                ConfigurationMap();
+                ~ConfigurationMap();
+                inline void cleanMap();
+                ConfigurationValue_t *_getProperty(const std::string &key);
+                ConfigurationValue_t *getProperty(const std::string &key);
+                void setProperty(const std::string &key, ConfigurationValue_t *value);
+                void removeProperty(const std::string &key);
+                void setIntProperty(const std::string &key, int intValue);
+                void setStringProperty(const std::string &key, const std::string &stringValue);
+                void setBooleanProperty(const std::string &key, bool booleanValue);
+                void setObjectProperty(const std::string &key, ConfigurationMap *objectValue);
+        };
+    }
 }

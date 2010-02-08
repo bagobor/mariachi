@@ -28,30 +28,32 @@
 #define HASH_STREAM_BUFFER_SIZE 10240
 
 namespace mariachi {
-    class HashFunction {
-        private:
+    namespace algorithms {
+        class HashFunction {
+            private:
 
-        protected:
-            /**
-            * Flag to control the finalization of the hash value
-            * computation.
-            */
-            bool finalized;
+            protected:
+                /**
+                * Flag to control the finalization of the hash value
+                * computation.
+                */
+                bool finalized;
 
-        public:
-            HashFunction();
-            HashFunction(const std::string &text);
-            ~HashFunction();
-            virtual void init();
-            virtual void init(const std::string &text);
-            virtual void init(std::istream &stream);
-            virtual void init(std::fstream &fileStream, bool closeStream = true);
-            virtual void update(const unsigned char *buffer, unsigned int size);
-            virtual void finalize();
-            virtual void reset();
-            virtual std::string hexdigest() const { return std::string(); };
-            friend std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
-    };
+            public:
+                HashFunction();
+                HashFunction(const std::string &text);
+                ~HashFunction();
+                virtual void init();
+                virtual void init(const std::string &text);
+                virtual void init(std::istream &stream);
+                virtual void init(std::fstream &fileStream, bool closeStream = true);
+                virtual void update(const unsigned char *buffer, unsigned int size);
+                virtual void finalize();
+                virtual void reset();
+                virtual std::string hexdigest() const { return std::string(); };
+                friend std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
+        };
 
-    std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
+        std::ostream &operator<<(std::ostream &outStream, const HashFunction &value);
+    }
 }

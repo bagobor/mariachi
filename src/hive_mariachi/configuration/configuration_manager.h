@@ -34,20 +34,22 @@
 #define DEFAULT_CONFIGURATION_FILE "config.json"
 
 namespace mariachi {
-    class ConfigurationParser;
+    namespace configuration {
+        class ConfigurationParser;
 
-    class ConfigurationManager : public ConfigurationMap {
-        private:
-            Engine *engine;
-            std::fstream *configurationFile;
-            std::list<ConfigurationParser *> configurationParserList;
+        class ConfigurationManager : public ConfigurationMap {
+            private:
+                Engine *engine;
+                std::fstream *configurationFile;
+                std::list<ConfigurationParser *> configurationParserList;
 
-        public:
-            ConfigurationManager();
-            ConfigurationManager(Engine *engine);
-            ~ConfigurationManager();
-            inline void initEngine(Engine *engine);
-            void load(void *arguments);
-            void unload(void *arguments);
-    };
+            public:
+                ConfigurationManager();
+                ConfigurationManager(Engine *engine);
+                ~ConfigurationManager();
+                inline void initEngine(Engine *engine);
+                void load(void *arguments);
+                void unload(void *arguments);
+        };
+    }
 }

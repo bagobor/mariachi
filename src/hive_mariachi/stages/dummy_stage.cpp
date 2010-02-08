@@ -76,7 +76,7 @@ void DummyStage::start(void *arguments) {
 
 
     // generates the model
-    importer->generateModel(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/man_animated.md2"));
+    importer->generateModel(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/windmill.md2"));
 
     // generates the vertex list
     importer->generateVertexList();
@@ -112,7 +112,7 @@ void DummyStage::start(void *arguments) {
 
 
     BmpLoader *bmpLoader = new BmpLoader();
-    bmpLoader->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/man.bmp"));
+    bmpLoader->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/windmill.bmp"));
     Texture *texture = bmpLoader->getTexture();
 
     // sets the texture in the model node

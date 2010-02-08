@@ -32,6 +32,7 @@
 #include "configuration_manager.h"
 
 using namespace mariachi;
+using namespace mariachi::configuration;
 
 /**
 * Constructor of the class.

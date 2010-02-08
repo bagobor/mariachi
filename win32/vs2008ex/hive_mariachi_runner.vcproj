@@ -175,29 +175,29 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\..\src\hive_mariachi_runner\stdafx.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+			</File>
 			<Filter
 				Name="Global"
 				>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\stdafx.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="1"
-						/>
-					</FileConfiguration>
-				</File>
 			</Filter>
 			<Filter
 				Name="Main"
@@ -233,27 +233,27 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\src\hive_mariachi_runner\stdafx.h"
+				>
+			</File>
 			<Filter
 				Name="Global"
 				>
 				<File
-					RelativePath="..\..\src\hive_mariachi_runner\definitions.h"
+					RelativePath="..\..\src\hive_mariachi_runner\global\definitions.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\hive_mariachi_runner\platforms.h"
+					RelativePath="..\..\src\hive_mariachi_runner\global\platforms.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\hive_mariachi_runner\resource.h"
+					RelativePath="..\..\src\hive_mariachi_runner\global\resource.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\hive_mariachi_runner\stdafx.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\targetver.h"
+					RelativePath="..\..\src\hive_mariachi_runner\global\targetver.h"
 					>
 				</File>
 			</Filter>

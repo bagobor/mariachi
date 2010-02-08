@@ -30,21 +30,23 @@
 #include "configuration_structure.h"
 
 namespace mariachi {
-    class ConfigurationList : public ConfigurationStructure {
-        private:
-            std::vector<ConfigurationValue_t *> configurationList;
-            inline void cleanList();
+    namespace configuration {
+        class ConfigurationList : public ConfigurationStructure {
+            private:
+                std::vector<ConfigurationValue_t *> configurationList;
+                inline void cleanList();
 
-        public:
-            ConfigurationList();
-            ~ConfigurationList();
-            ConfigurationValue_t *getProperty(unsigned int index);
-            void addProperty(ConfigurationValue_t *value);
-            void removeProperty(unsigned int index);
-            void addIntProperty(const std::string &key, int intValue);
-            void addStringProperty(const std::string &key, const std::string &stringValue);
-            void addBooleanProperty(const std::string &key, bool booleanValue);
-            void addObjectProperty(const std::string &key, ConfigurationMap *objectValue);
-            std::vector<std::string *> getAsStringVector();
-    };
+            public:
+                ConfigurationList();
+                ~ConfigurationList();
+                ConfigurationValue_t *getProperty(unsigned int index);
+                void addProperty(ConfigurationValue_t *value);
+                void removeProperty(unsigned int index);
+                void addIntProperty(const std::string &key, int intValue);
+                void addStringProperty(const std::string &key, const std::string &stringValue);
+                void addBooleanProperty(const std::string &key, bool booleanValue);
+                void addObjectProperty(const std::string &key, ConfigurationMap *objectValue);
+                std::vector<std::string *> getAsStringVector();
+        };
+    }
 }

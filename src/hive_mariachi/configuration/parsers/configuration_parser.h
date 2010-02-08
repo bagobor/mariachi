@@ -28,21 +28,23 @@
 #include "../configuration_manager.h"
 
 namespace mariachi {
-    class ConfigurationParser {
-        private:
-            std::string name;
+    namespace configuration {
+        class ConfigurationParser {
+            private:
+                std::string name;
 
-        protected:
-            ConfigurationManager *configurationManager;
+            protected:
+                ConfigurationManager *configurationManager;
 
-        public:
-            ConfigurationParser();
-            ConfigurationParser(ConfigurationManager *configurationManager);
-            ~ConfigurationParser();
-            inline void initConfigurationManager(ConfigurationManager *configurationManager);
-            virtual void parseConfiguration(void *configuration) { };
-            virtual void parseResource(void *resource) { };
-            virtual std::string &getName() { return this->name; };
-            virtual void setName(const std::string &name) { this->name = name; };
-    };
+            public:
+                ConfigurationParser();
+                ConfigurationParser(ConfigurationManager *configurationManager);
+                ~ConfigurationParser();
+                inline void initConfigurationManager(ConfigurationManager *configurationManager);
+                virtual void parseConfiguration(void *configuration) { };
+                virtual void parseResource(void *resource) { };
+                virtual std::string &getName() { return this->name; };
+                virtual void setName(const std::string &name) { this->name = name; };
+        };
+    }
 }

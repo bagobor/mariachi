@@ -76,12 +76,18 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
 THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
 
 namespace mariachi {
+    namespace configuration {
+        class ConfigurationManager;
+    }
+
+    namespace console {
+        class ConsoleManager;
+    }
+
     namespace physics {
         class PhysicsEngine;
     }
 
-    class ConfigurationManager;
-    class ConsoleManager;
     class ScriptEngine;
     class StageRunner;
     class Stage;
@@ -111,12 +117,12 @@ namespace mariachi {
             /**
             * The manager used to provide configuration options.
             */
-            ConfigurationManager *configurationManager;
+            configuration::ConfigurationManager *configurationManager;
 
             /**
             * The manager used to control the console.
             */
-            ConsoleManager *consoleManager;
+            console::ConsoleManager *consoleManager;
 
             /**
             * The top level 3d scene render node.
@@ -233,10 +239,10 @@ namespace mariachi {
             void setScriptEngine(const std::string &scriptEngineName, ScriptEngine *scriptEngine);
             physics::PhysicsEngine *getPhysicsEngine(const std::string &physicsEngineName);
             void setPhysicsEngine(const std::string &physicsEngineName, physics::PhysicsEngine *physicsEngine);
-            ConfigurationManager *getConfigurationManager();
-            void setConfigurationManager(ConfigurationManager *configurationManager);
-            ConsoleManager *getConsoleManager();
-            void setConsoleManager(ConsoleManager *consoleManager);
+            configuration::ConfigurationManager *getConfigurationManager();
+            void setConfigurationManager(configuration::ConfigurationManager *configurationManager);
+            console::ConsoleManager *getConsoleManager();
+            void setConsoleManager(console::ConsoleManager *consoleManager);
             Logger *getLogger();
             void setLogger(Logger *logger);
             SceneNode *getRender();
