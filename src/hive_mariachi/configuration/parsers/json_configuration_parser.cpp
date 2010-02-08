@@ -61,8 +61,11 @@ void JsonConfigurationParser::parseConfiguration(void *configuration) {
     // root json node
     Json::Value rootNode;
 
+	// creates the features object
+	Json::Features features;
+	
     // creates the json reader
-    Json::Reader reader = Json::Reader(Json::Features());
+    Json::Reader reader(features);
 
     // retrieves the file data from configuration
     FileData_t *fileData = (FileData_t *) configuration;

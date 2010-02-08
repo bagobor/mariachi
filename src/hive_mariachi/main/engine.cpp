@@ -105,7 +105,7 @@ THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters) {
 
     try {
         // creates a new stage runner
-        StageRunner stageRunner = StageRunner(stage);
+        StageRunner stageRunner(stage);
 
         // registers the stage runner
         engine->setStageRunner(stage, &stageRunner);
@@ -349,7 +349,7 @@ void Engine::stopConsoleManager() {
 */
 void Engine::startLogger(int level, bool pidFile) {
     // allocates a new string for the current process id string
-    std::string currentProcessIdString = std::string();
+    std::string currentProcessIdString;
 
     // in case the pid file is active
     if(pidFile) {

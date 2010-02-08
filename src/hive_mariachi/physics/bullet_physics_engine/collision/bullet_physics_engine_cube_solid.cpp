@@ -44,7 +44,7 @@ void BulletPhysicsEngineCubeSolid::setBoundingBox(Box3d_t &boundingBox) {
     btScalar height = fabs(boundingBox.y2 - boundingBox.y1);
     btScalar depth = fabs(boundingBox.z2 - boundingBox.z1);
 
-    btVector3 boxExtents = btVector3(width, height, depth);
+    btVector3 boxExtents(width, height, depth);
 
     this->collisionShape = new btBoxShape(boxExtents);
 }

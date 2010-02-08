@@ -39,7 +39,7 @@ using namespace mariachi;
 int main(int argc, char** argv) {
     try {
         // creates a new engine
-        Engine engine = Engine(argc, argv);
+        Engine engine(argc, argv);
 
         // starts the engine
         engine.start(NULL);
