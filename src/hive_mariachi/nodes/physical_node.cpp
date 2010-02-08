@@ -33,9 +33,11 @@ using namespace mariachi;
 * Constructor of the class.
 */
 PhysicalNode::PhysicalNode() : CubeNode() {
+	this->initMass();
 }
 
 PhysicalNode::PhysicalNode(const std::string &name) : CubeNode(name) {
+	this->initMass();
 }
 
 /**
@@ -44,6 +46,8 @@ PhysicalNode::PhysicalNode(const std::string &name) : CubeNode(name) {
 PhysicalNode::~PhysicalNode() {
 }
 
+inline void PhysicalNode::initMass() {
+    this->mass = PHYSICAL_NODE_DEFAULT_MASS;}
 void PhysicalNode::addImpulse(const Coordinate3d_t &impulse) {
 }
 

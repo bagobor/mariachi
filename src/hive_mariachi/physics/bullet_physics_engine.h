@@ -27,6 +27,7 @@
 
 #include "../../../lib/libbullet/src/btBulletDynamicsCommon.h"
 #include "../nodes/physical_node.h"
+#include "../structures/collision.h"
 
 #include "physics_engine.h"
 
@@ -63,9 +64,16 @@ namespace mariachi {
                 * The map associating the physical nodes with the bullet engine
                 * rigid body structures.
                 */
-                std::map<CubeNode *, btRigidBody *> physicalNodeRigidBodyMap;
+                std::map<PhysicalNode *, btRigidBody *> physicalNodeRigidBodyMap;
 
-                btRigidBody *getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode = NULL);
+                /**
+                * The map associating the bullet engine rigid body structures with
+				* the physical nodes.
+                */
+                std::map<btRigidBody *, PhysicalNode *> rigidBodyPhysicalNodeMap;
+
+				btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode, void *arguments);
+				void setRigidBodyCollisionFlags(btRigidBody *rigidBody, CollisionNode *collisionNode);
 
             public:
                 BulletPhysicsEngine();
@@ -74,11 +82,16 @@ namespace mariachi {
                 void load(void *arguments);
                 void unload(void *arguments);
                 void update(float delta, void *arguments);
-                std::vector<int> getCollisions(void *arguments);
+                std::vector<Collision3d_t> getCollisions(void *arguments);
                 void registerPhysics(PhysicalNode *physicalNode, void *arguments);
                 void registerCollision(CollisionNode *collisionNode, void *arguments);
+				void unregisterCollision(CollisionNode *collisionNode, void *arguments);
                 CubeSolid *createCubeSolid();
                 SphereSolid *createSphereSolid();
+				void updatePhysicalNodePosition(PhysicalNode *physicalNode, const Coordinate3d_t &position);
+				void addPhysicalNodeImpulse(PhysicalNode *physicalNode, const Coordinate3d_t &impulse, const Coordinate3d_t &relativePosition);
+				void setPhysicalNodeVelocity(PhysicalNode *physicalNode, const Coordinate3d_t &velocity);
+				void setGravity(const Coordinate3d_t &gravity);
         };
     }
 }

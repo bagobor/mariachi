@@ -78,14 +78,25 @@ void PhysicalNodeMotionState::setWorldTransform(const btTransform &worldTransfor
     float normalizedY = rotationBullet.y() / norm;
     float normalizedZ = rotationBullet.z() / norm;
 
-    // creates the rotation for the orientation
-    Rotation3d_t orientation = { angle, normalizedX, normalizedY, normalizedZ };
+    // creates the rotation for the physical node
+    Rotation3d_t rotation = { angle, normalizedX, normalizedY, normalizedZ };
 
     // sets the position in the cube node
     this->physicalNode->setPosition(position);
 
     // sets the orientation in the cube node
-    this->physicalNode->setOrientation(orientation);
+    this->physicalNode->setRotation(rotation);
+}
+
+/**
+* Updates bullet's world transform to reflect the new position. Useful for kinematic bodies.
+*/
+void PhysicalNodeMotionState::setPosition(const Coordinate3d_t &position) {
+	// creates the position vector for the specified position
+	btVector3 positionVector(position.x, position.y, position.z);
+
+    // sets the position in bullet's world transform
+    this->worldTransform.setOrigin(positionVector);
 }
 
 PhysicalNode *PhysicalNodeMotionState::getPhysicalNode() {

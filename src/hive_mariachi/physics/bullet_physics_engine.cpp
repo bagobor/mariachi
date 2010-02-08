@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = João Magalhães <joamag@hive.pt> & Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -56,14 +56,11 @@ void BulletPhysicsEngine::load(void *arguments) {
 
     // creates the dynamics world
     this->dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadPhase, solver, collisionConfiguration);
-
-    // sets the gravity in the dynamic world (default gravity)
-    this->dynamicsWorld->setGravity(btVector3(0.0f, 0.0f, -10.0f));
 }
 
 void BulletPhysicsEngine::unload(void *arguments) {
     // retrieves the physical node rigid body map iterator
-    std::map<CubeNode *, btRigidBody *>::iterator physicalNodeRigidBodyMapIterator = this->physicalNodeRigidBodyMap.begin();
+    std::map<PhysicalNode *, btRigidBody *>::iterator physicalNodeRigidBodyMapIterator = this->physicalNodeRigidBodyMap.begin();
 
     // iterates over all the current rigid bodies
     while(physicalNodeRigidBodyMapIterator != this->physicalNodeRigidBodyMap.end()) {
@@ -119,45 +116,79 @@ void BulletPhysicsEngine::update(float delta, void *arguments) {
     this->dynamicsWorld->stepSimulation(delta, maximumSubSteps);
 }
 
-std::vector<int> BulletPhysicsEngine::getCollisions(void *arguments) {
+std::vector<Collision3d_t> BulletPhysicsEngine::getCollisions(void *arguments) {
+	// the collision list
+	std::vector<Collision3d_t> collisions;
+
     // retrieves the number of manifolds
     int numberManifolds = this->dynamicsWorld->getDispatcher()->getNumManifolds();
 
-    // iterates over all the contact manifolds
+    // iterates over all the contact manifolds creating the corresponding collision
     for(int index = 0; index < numberManifolds; index++) {
+		// the current collision
+		Collision3d_t collision;
+
         // retrieves the current manifold
         btPersistentManifold *contactManifold = dynamicsWorld->getDispatcher()->getManifoldByIndexInternal(index);
 
-        // retrieves the collision objects
-        btCollisionObject *firstCollisionObject = (btRigidBody *) contactManifold->getBody0();
-        btCollisionObject *secondCollisionObject = (btCollisionObject *) contactManifold->getBody1();
+        // retrieves the collision's rigid bodies
+        btRigidBody *firstRigidBody = (btRigidBody *) contactManifold->getBody0();
+        btRigidBody *secondRigidBody = (btRigidBody *) contactManifold->getBody1();
+
+		// retrieves the motion state's physical nodes into the collision
+		collision.firstPhysicalNode = this->rigidBodyPhysicalNodeMap[firstRigidBody];
+		collision.secondPhysicalNode = this->rigidBodyPhysicalNodeMap[secondRigidBody];
 
         // retrieves the number of contacts
         int numberContacts = contactManifold->getNumContacts();
 
         // interates over all the contacts
-        for(int _index = 0; _index < numberContacts; _index++) {
+        for(int _index = 0; _index < numberContacts && _index < COLLISION_POINT_LIST_SIZE; _index++) {
             // retrieves the current contact point
             btManifoldPoint &contactPoint = contactManifold->getContactPoint(_index);
 
             // in case the contact point distance is valid
             if(contactPoint.getDistance() < 0.0f) {
-                // retrieves the contact point in both objects
-                const btVector3 &contactPointFirstCollisionObject = contactPoint.getPositionWorldOnA();
-                const btVector3 &contactPointSecondCollisionObject = contactPoint.getPositionWorldOnB();
+				// the collision point
+				CollisionPoint3d_t collisionPoint;
 
-                // retrieves the normal vectors in both objects
-                const btVector3 &contactPointNormalScondCollisionObject = contactPoint.m_normalWorldOnB;
+                // retrieves the contact point in both objects
+                const btVector3 &contactPointFirstRigidBody = contactPoint.getPositionWorldOnA();
+                const btVector3 &contactPointSecondRigidBody = contactPoint.getPositionWorldOnB();
+
+                // retrieves the normal vectors on the second object
+                const btVector3 &contactPointNormalSecondRigidBody = contactPoint.m_normalWorldOnB;
+
+				// sets the position on the first object
+				collisionPoint.positionFirstPhysicalNode.x = contactPointFirstRigidBody.x();
+				collisionPoint.positionFirstPhysicalNode.y = contactPointFirstRigidBody.y();
+				collisionPoint.positionFirstPhysicalNode.z = contactPointFirstRigidBody.z();
+
+				// sets the position on the second object
+				collisionPoint.positionSecondPhysicalNode.x = contactPointSecondRigidBody.x();
+				collisionPoint.positionSecondPhysicalNode.y = contactPointSecondRigidBody.y();
+				collisionPoint.positionSecondPhysicalNode.z = contactPointSecondRigidBody.z();
+				
+				// sets the normal on the second object
+				collisionPoint.normalSecondPhysicalNode.x = contactPointNormalSecondRigidBody.x();
+				collisionPoint.normalSecondPhysicalNode.y = contactPointNormalSecondRigidBody.y();
+				collisionPoint.normalSecondPhysicalNode.z = contactPointNormalSecondRigidBody.z();
+
+				// sets the point in the collision's point list
+				collision.collisionPointList[_index] = collisionPoint;
             }
         }
+
+		// adds the collision to the collision list
+		collisions.push_back(collision);
     }
 
-    return std::vector<int>();
+    return collisions;
 }
 
 void BulletPhysicsEngine::registerPhysics(PhysicalNode *physicalNode, void *arguments) {
     // retrieves the rigid body
-    this->getRigidBody(physicalNode);
+    this->getRigidBody(physicalNode, NULL, arguments);
 }
 
 void BulletPhysicsEngine::registerCollision(CollisionNode *collisionNode, void *arguments) {
@@ -165,7 +196,18 @@ void BulletPhysicsEngine::registerCollision(CollisionNode *collisionNode, void *
     PhysicalNode *physicalNode = (PhysicalNode *) collisionNode->getParent();
 
     // retrieves the rigid body
-    this->getRigidBody(physicalNode, collisionNode);
+    this->getRigidBody(physicalNode, collisionNode, arguments);
+}
+
+void BulletPhysicsEngine::unregisterCollision(CollisionNode *collisionNode, void *arguments) {
+    // retrieves the physical node
+    PhysicalNode *physicalNode = (PhysicalNode *) collisionNode->getParent();
+
+    // retrieves the rigid body
+	btRigidBody *physicalNodeRigidBody = this->physicalNodeRigidBodyMap[physicalNode];
+
+	// removes the rigid body from the world
+	this->dynamicsWorld->removeRigidBody(physicalNodeRigidBody);
 }
 
 CubeSolid *BulletPhysicsEngine::createCubeSolid() {
@@ -176,7 +218,21 @@ SphereSolid *BulletPhysicsEngine::createSphereSolid() {
     return new BulletPhysicsEngineSphereSolid();
 }
 
-btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode) {
+btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode, void *arguments) {
+	// the collision filter group flags
+	short int collisionFilterGroup = NULL;
+
+	// the collision filter mask flags
+	short int collisionFilterMask = NULL;
+
+	if(arguments != NULL) {
+		// retrieves the arguments map from the arguments
+		std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
+
+		// retrieves the collision flags
+		collisionFilterGroup = (int) argumentsMap["collision_filter_group"];
+		collisionFilterMask = (int) argumentsMap["collision_filter_mask"];
+	}
     // the physical node rigid body reference
     btRigidBody *physicalNodeRigidBody;
 
@@ -189,11 +245,11 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
 
     // in case a collision node is defined
     if(collisionNode) {
-        // retrieves the bulled physics collision solid
+        // retrieves the bullet physics collision solid
         BulletPhysicsEngineCollisionSolid *bulletPhysicsEngineCollisionSolid = (BulletPhysicsEngineCollisionSolid *) collisionNode->getCollisionSolid();
 
         // retrieves the bullet collision shape
-        collisionShape = bulletPhysicsEngineCollisionSolid->getCollisionShape();
+        collisionShape = (btCollisionShape *) bulletPhysicsEngineCollisionSolid->getCollisionShape();
     } else {
         // sets the collision shape as null (invalid)
         collisionShape = NULL;
@@ -222,14 +278,85 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
     // converts the physical node inertia
     btVector3 physicalNodeInertiaVector(physicalNodeInertia.x, physicalNodeInertia.y, physicalNodeInertia.z);
 
+	// creates the rigid body construction info
     btRigidBody::btRigidBodyConstructionInfo physicalNodeRigidBodyInfo(physicalNodeMass, physicalNodeMotionState, collisionShape, physicalNodeInertiaVector);
 
     // creates the physical node rigid body
     physicalNodeRigidBody = new btRigidBody(physicalNodeRigidBodyInfo);
 
+	// sets the collision node's collision flags in the corresponding rigid body
+	this->setRigidBodyCollisionFlags(physicalNodeRigidBody, collisionNode);
+
+	// adds the rigid body to the dynamics world
+	this->dynamicsWorld->addRigidBody(physicalNodeRigidBody, collisionFilterMask, collisionFilterGroup);
+
     // sets the physical node rigid body in the physical node rigid body map
     this->physicalNodeRigidBodyMap[physicalNode] = physicalNodeRigidBody;
 
+	// sets the physical node rigid body in the rigid body physical node map
+	this->rigidBodyPhysicalNodeMap[physicalNodeRigidBody] = physicalNode;
+
     // returns the physical node rigid body
     return physicalNodeRigidBody;
+}
+
+void BulletPhysicsEngine::updatePhysicalNodePosition(PhysicalNode *physicalNode, const Coordinate3d_t &position) {
+    // retrieves the rigid body for the current physical node
+    btRigidBody *physicalNodeRigidBody = this->physicalNodeRigidBodyMap[physicalNode];
+
+	// retrieves the rigid body's motion state
+	PhysicalNodeMotionState *physicalNodeMotionState = (PhysicalNodeMotionState *) physicalNodeRigidBody->getMotionState();
+
+	// updates the motion state's position
+	physicalNodeMotionState->setPosition(position);
+}
+
+void BulletPhysicsEngine::setRigidBodyCollisionFlags(btRigidBody *rigidBody, CollisionNode *collisionNode) {
+	// retrieves the collision flags
+	int collisionFlags = rigidBody->getCollisionFlags();
+
+	// determines if the collision node has the contact response options enabled
+	if(!collisionNode->getContactResponseEnabled()) {
+		// sets the no contact response collision flag
+		collisionFlags |= btRigidBody::CF_NO_CONTACT_RESPONSE;
+	}
+
+	// sets the determined collision flags
+	rigidBody->setCollisionFlags(collisionFlags);
+}
+
+void BulletPhysicsEngine::addPhysicalNodeImpulse(PhysicalNode *physicalNode, const Coordinate3d_t &impulse, const Coordinate3d_t &relativePosition) {
+    // retrieves the rigid body for the current physical node
+    btRigidBody *physicalNodeRigidBody = this->physicalNodeRigidBodyMap[physicalNode];
+
+	// creates the impulse vector
+	btVector3 impulseVector = btVector3(impulse.x, impulse.y, impulse.z);
+
+	// creates the relative position vector
+	btVector3 relativePositionVector = btVector3(relativePosition.x, relativePosition.y, relativePosition.z);
+
+	// adds an impulse to the physical node
+	physicalNodeRigidBody->applyImpulse(impulseVector, relativePositionVector);
+}
+
+void BulletPhysicsEngine::setPhysicalNodeVelocity(PhysicalNode *physicalNode, const Coordinate3d_t &velocity) {
+    // retrieves the rigid body for the current physical node
+    btRigidBody *physicalNodeRigidBody = this->physicalNodeRigidBodyMap[physicalNode];
+
+	// creates the velocity vector
+	btVector3 velocityVector = btVector3(velocity.x, velocity.y, velocity.z);
+
+	// adds an impulse to the physical node
+	physicalNodeRigidBody->setLinearVelocity(velocityVector);
+}
+			
+void BulletPhysicsEngine::setGravity(const Coordinate3d_t &gravity) {
+	// sets the gravity
+	this->gravity = gravity;
+
+	// creates the gravity vector
+	btVector3 gravityVector = btVector3(gravity.x, gravity.y, gravity.z);
+
+    // sets the gravity in the dynamic world
+    this->dynamicsWorld->setGravity(gravityVector);
 }

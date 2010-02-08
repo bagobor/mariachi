@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = João Magalhães <joamag@hive.pt> & Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -364,11 +364,11 @@ inline void OpenglAdapter::renderCameraNode(CameraNode *cameraNode) {
     // retrieves the position
     Coordinate3d_t &position = cameraNode->getPosition();
 
-    // retrieves the orientation
-    Rotation3d_t &orientation = cameraNode->getOrientation();
+    // retrieves the rotation
+    Rotation3d_t &rotation = cameraNode->getRotation();
 
     // performs the rotation to match the elements orientation
-    glRotatef(orientation.angle, orientation.x, orientation.y, orientation.z);
+    glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
 
     // moves into the screen
     glTranslatef(-position.x, -position.y, -position.z);
@@ -492,6 +492,12 @@ inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
     // retrieves the position
     Coordinate3d_t &position = modelNode->getPosition();
 
+	// retrieves the rotation
+	Rotation3d_t &rotation = modelNode->getRotation();
+
+	// retrieves the scale
+	Coordinate3d_t &scale = modelNode->getScale();
+
     // retrieves the mesh list size
     size_t meshListSize = meshList->size();
 
@@ -503,6 +509,12 @@ inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
 
     // puts the element in the screen
     glTranslatef(position.x, position.y, position.z);
+
+	// scales the element
+    glScalef(scale.x, scale.y, scale.z);
+
+	// rotates the element
+    glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
 
     // iterates over all the meshes
     for(unsigned int index = 0; index < meshListSize; index++) {
