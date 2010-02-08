@@ -27,7 +27,6 @@
 
 #include "lens_node.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
 
 /**

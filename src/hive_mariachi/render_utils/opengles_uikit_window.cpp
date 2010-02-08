@@ -32,8 +32,6 @@
 #include "factories/opengles_uikit_window_factory.h"
 #include "opengles_uikit_window.h"
 
-using namespace mariachi;
-
 /**
 * Constructor of the class.
 */

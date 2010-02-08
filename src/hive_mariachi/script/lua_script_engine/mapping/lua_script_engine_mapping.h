@@ -36,37 +36,44 @@ extern "C" {
 #include "../util/lua_script_engine_util.h"
 #include "../../lua_script_engine.h"
 
-typedef bool (*LuaConstructor_t)(lua_State *luaState, void *value);
-
-typedef enum LuaType_t {
-    LUA_SCRIPT_ENGINE_LIST_TYPE_INT = 1,
-    LUA_SCRIPT_ENGINE_MAP_TYPE_INT,
-    LUA_SCRIPT_ENGINE_VECTOR_TYPE_INT,
-    LUA_SCRIPT_ENGINE_NODE_TYPE_INT,
-    LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE_INT,
-    LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE_INT,
-    LUA_SCRIPT_ENGINE_COORDINATE_3D_TYPE_INT
-} LuaType;
-
-typedef struct LuaTypeInformation_t {
-    unsigned int intType;
-    LuaConstructor_t constructor;
-    lua_CFunction luaConstructor;
-} LuaTypeInformation;
-
-#define validate_reference(return_value, luaState, value, node_type, upper_function)\
+#define lua_mariachi_validate_reference(return_value, luaState, value, node_type, upper_function)\
     if((return_value = upper_function(luaState, value)) || (return_value = !lua_hastype(luaState, node_type)))
 
-bool lua_mariachi_get_reference(lua_State *luaState, void *value);
-bool lua_mariachi_new_Object(lua_State *luaState, void *value);
-int lua_mariachi_object_cast_as(lua_State *luaState);
-int lua_mariachi_object_type_id(lua_State *luaState);
-int lua_mariachi_get_engine(lua_State *luaState);
-mariachi::LuaScriptEngine *lua_getscriptengine(lua_State *luaState);
-void lua_generateconstructors(lua_State *luaState);
-unsigned int lua_getinttype(const char *charType);
-LuaConstructor_t lua_getconstructor(const char *charType);
-void lua_constructtypeinformationmap();
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            typedef bool (*LuaConstructor_t)(lua_State *luaState, void *value);
+
+            typedef enum LuaType_t {
+                LUA_SCRIPT_ENGINE_LIST_TYPE_INT = 1,
+                LUA_SCRIPT_ENGINE_MAP_TYPE_INT,
+                LUA_SCRIPT_ENGINE_VECTOR_TYPE_INT,
+                LUA_SCRIPT_ENGINE_NODE_TYPE_INT,
+                LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE_INT,
+                LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE_INT,
+                LUA_SCRIPT_ENGINE_COORDINATE_3D_TYPE_INT
+            } LuaType;
+
+            typedef struct LuaTypeInformation_t {
+                unsigned int intType;
+                LuaConstructor_t constructor;
+                lua_CFunction luaConstructor;
+            } LuaTypeInformation;
+
+            bool lua_mariachi_get_reference(lua_State *luaState, void *value);
+            bool lua_mariachi_new_Object(lua_State *luaState, void *value);
+            int lua_mariachi_object_cast_as(lua_State *luaState);
+            int lua_mariachi_object_type_id(lua_State *luaState);
+            int lua_mariachi_get_engine(lua_State *luaState);
+
+            LuaScriptEngine *lua_getscriptengine(lua_State *luaState);
+            void lua_generateconstructors(lua_State *luaState);
+            unsigned int lua_getinttype(const char *charType);
+            LuaConstructor_t lua_getconstructor(const char *charType);
+            void lua_constructtypeinformationmap();
+        }
+    }
+}
 
 #include "base/base.h"
 #include "main/main.h"

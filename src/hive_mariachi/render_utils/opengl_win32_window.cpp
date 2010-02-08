@@ -32,7 +32,6 @@
 
 #include "opengl_win32_window.h"
 
-using namespace mariachi;
 using namespace mariachi::devices;
 using namespace mariachi::exceptions;
 using namespace mariachi::render_utils;

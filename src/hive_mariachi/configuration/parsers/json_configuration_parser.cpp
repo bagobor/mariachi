@@ -30,7 +30,6 @@
 
 #include "json_configuration_parser.h"
 
-using namespace mariachi;
 using namespace mariachi::exceptions;
 using namespace mariachi::structures;
 using namespace mariachi::configuration;

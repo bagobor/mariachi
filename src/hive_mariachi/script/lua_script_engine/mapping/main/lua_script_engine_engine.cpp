@@ -27,17 +27,17 @@
 
 #include "lua_script_engine_engine.h"
 
-using namespace mariachi;
+using namespace mariachi::script::lua;
 
-int lua_mariachi_engine_get_render(lua_State *luaState) {
+int LuaEngine::getRender(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 0);
 
     // retrieves self
-    Engine *self = (Engine *) lua_get_self(luaState);
+    Engine *self = (Engine *) lua_getself(luaState);
 
     // creates and loads a new scene node
-    lua_mariachi_new_SceneNode(luaState, self->getRender());
+    LuaSceneNode::allocate(luaState, self->getRender());
 
     // returns the number of return values
     return 1;

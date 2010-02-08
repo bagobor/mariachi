@@ -28,6 +28,7 @@
 #include "script_engine.h"
 
 using namespace mariachi;
+using namespace mariachi::script;
 
 /**
 * Constructor of the class.

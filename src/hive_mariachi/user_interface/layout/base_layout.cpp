@@ -27,7 +27,6 @@
 
 #include "base_layout.h"
 
-using namespace mariachi;
 using namespace mariachi::ui;
 
 /**

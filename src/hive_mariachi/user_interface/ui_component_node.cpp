@@ -27,7 +27,6 @@
 
 #include "ui_component_node.h"
 
-using namespace mariachi;
 using namespace mariachi::ui;
 using namespace mariachi::structures;
 

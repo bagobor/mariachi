@@ -27,7 +27,6 @@
 
 #include "geometry_util.h"
 
-using namespace mariachi;
 using namespace mariachi::util;
 using namespace mariachi::structures;
 

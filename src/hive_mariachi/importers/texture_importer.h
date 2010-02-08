@@ -35,7 +35,7 @@ namespace mariachi {
             public:
                 TextureImporter();
                 ~TextureImporter();
-                virtual Texture *getTexture() { return NULL; };
+                virtual structures::Texture *getTexture() { return NULL; };
         };
     }
 }

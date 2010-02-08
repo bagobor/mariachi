@@ -27,7 +27,6 @@
 
 #include "grid_bag_layout.h"
 
-using namespace mariachi;
 using namespace mariachi::ui;
 
 /**

@@ -27,7 +27,6 @@
 
 #include "hash_function.h"
 
-using namespace mariachi;
 using namespace mariachi::algorithms;
 
 /**

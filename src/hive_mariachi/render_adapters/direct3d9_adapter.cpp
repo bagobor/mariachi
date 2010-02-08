@@ -35,7 +35,6 @@
 
 struct CUSTOMVERTEX { FLOAT X, Y, Z, RHW; DWORD COLOR; };
 
-using namespace mariachi;
 using namespace mariachi::render;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;

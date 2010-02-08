@@ -36,7 +36,7 @@ namespace mariachi {
             private:
                 structures::FloatSize2d_t size;
                 structures::FloatColor_t color;
-                Texture *texture;
+                structures::Texture *texture;
 
             public:
                 ComponentNode();
@@ -45,8 +45,8 @@ namespace mariachi {
                 void initRenderable();
                 structures::FloatColor_t &getColor();
                 void setColor(const structures::FloatColor_t &color);
-                Texture *getTexture();
-                void setTexture(Texture *texture);
+                structures::Texture *getTexture();
+                void setTexture(structures::Texture *texture);
                 virtual inline unsigned int getNodeType() { return UI_COMPONENT_NODE_TYPE; };
         };
     }
