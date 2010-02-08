@@ -51,7 +51,7 @@ Logger::~Logger() {
 
 void Logger::debug(const std::string &value) {
     // creates a new logger debug record
-    LoggerRecord record = LoggerRecord(value, DEBUG);
+    LoggerRecord record(value, DEBUG);
 
     // handles the logger record
     this->handle(&record);
@@ -59,7 +59,7 @@ void Logger::debug(const std::string &value) {
 
 void Logger::info(const std::string &value) {
     // creates a new logger info record
-    LoggerRecord record = LoggerRecord(value, INFO);
+    LoggerRecord record(value, INFO);
 
     // handles the logger record
     this->handle(&record);
@@ -67,7 +67,7 @@ void Logger::info(const std::string &value) {
 
 void Logger::warning(const std::string &value) {
     // creates a new logger warning record
-    LoggerRecord record = LoggerRecord(value, WARNING);
+    LoggerRecord record(value, WARNING);
 
     // handles the logger record
     this->handle(&record);
@@ -75,7 +75,7 @@ void Logger::warning(const std::string &value) {
 
 void Logger::fault(const std::string &value) {
     // creates a new logger fault record
-    LoggerRecord record = LoggerRecord(value, FAULT);
+    LoggerRecord record(value, FAULT);
 
     // handles the logger record
     this->handle(&record);
@@ -83,7 +83,7 @@ void Logger::fault(const std::string &value) {
 
 void Logger::critical(const std::string &value) {
     // creates a new logger critical record
-    LoggerRecord record = LoggerRecord(value, CRITICAL);
+    LoggerRecord record(value, CRITICAL);
 
     // handles the logger record
     this->handle(&record);
@@ -304,10 +304,10 @@ void LoggerTimeFormatter::format(LoggerRecord *record) {
     strftime(timeBuffer, 1024, "%Y-%m-%d %H:%M:%S", localTimeValue);
 
     // creates the time string
-    const std::string &timeString = std::string(timeBuffer);
+    const std::string &timeString(timeBuffer);
 
     // creates the new formatted value
-    const std::string &newFormattedValue = std::string(timeString + " " + formattedValue);
+    const std::string &newFormattedValue(timeString + " " + formattedValue);
 
     // sets the new formatted value in the record
     record->setFormattedValue(newFormattedValue);

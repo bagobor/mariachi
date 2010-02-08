@@ -203,7 +203,7 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
     Coordinate3d_t &physicalNodePosition = physicalNode->getPosition();
 
     // converts the physical node position
-    btVector3 physicalNodePositionVector = btVector3(physicalNodePosition.x, physicalNodePosition.y, physicalNodePosition.z);
+    btVector3 physicalNodePositionVector(physicalNodePosition.x, physicalNodePosition.y, physicalNodePosition.z);
 
     // initializes the physical node transform
     btTransform physicalNodeTransform;
@@ -220,7 +220,7 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
     Coordinate3d_t &physicalNodeInertia = physicalNode->getInertia();
 
     // converts the physical node inertia
-    btVector3 physicalNodeInertiaVector = btVector3(physicalNodeInertia.x, physicalNodeInertia.y, physicalNodeInertia.z);
+    btVector3 physicalNodeInertiaVector(physicalNodeInertia.x, physicalNodeInertia.y, physicalNodeInertia.z);
 
     btRigidBody::btRigidBodyConstructionInfo physicalNodeRigidBodyInfo(physicalNodeMass, physicalNodeMotionState, collisionShape, physicalNodeInertiaVector);
 
