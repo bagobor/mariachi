@@ -39,5 +39,5 @@ namespace mariachi {
                 DebugDevice();
                 ~DebugDevice();
         };
-    };
+    }
 }
