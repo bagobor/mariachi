@@ -43,7 +43,7 @@ namespace mariachi {
                 ~PhysicalNodeMotionState();
                 void getWorldTransform(btTransform &worldTransform) const;
                 void setWorldTransform(const btTransform &worldTransform);
-				void setPosition(const Coordinate3d_t &position);
+                void setPosition(const Coordinate3d_t &position);
                 PhysicalNode *getPhysicalNode();
                 void setPhysicalNode(PhysicalNode *physicalNode);
         };

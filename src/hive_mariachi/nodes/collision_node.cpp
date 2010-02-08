@@ -75,9 +75,9 @@ void CollisionNode::setCollisionSolid(physics::CollisionSolid *collisionSolid) {
 }
 
 bool CollisionNode::getContactResponseEnabled() {
-	return contactResponseEnabled;
+    return contactResponseEnabled;
 }
 
 void CollisionNode::setContactResponseEnabled(bool contactResponseEnabled) {
-	this->contactResponseEnabled = contactResponseEnabled;
+    this->contactResponseEnabled = contactResponseEnabled;
 }

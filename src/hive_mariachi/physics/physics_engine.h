@@ -40,7 +40,7 @@ namespace mariachi {
 
             protected:
                 Engine *engine;
-				Coordinate3d_t gravity;
+                Coordinate3d_t gravity;
 
             public:
                 PhysicsEngine();
@@ -52,14 +52,14 @@ namespace mariachi {
                 virtual std::vector<Collision3d_t> getCollisions(void *arguments) { return std::vector<Collision3d_t>(); };
                 virtual void registerPhysics(PhysicalNode *physicalNode, void *arguments) {};
                 virtual void registerCollision(CollisionNode *collisionNode, void *arguments) {};
-				virtual void unregisterCollision(CollisionNode *collisionNode, void *arguments) {};
+                virtual void unregisterCollision(CollisionNode *collisionNode, void *arguments) {};
                 virtual CubeSolid *createCubeSolid() { return NULL; };
                 virtual SphereSolid *createSphereSolid() { return NULL; };
-				virtual void updatePhysicalNodePosition(PhysicalNode *physicalNode, const Coordinate3d_t &position) {};
-				virtual void addPhysicalNodeImpulse(PhysicalNode *physicalNode, const Coordinate3d_t &impulse, const Coordinate3d_t &relativePosition) {};
-				virtual void setPhysicalNodeVelocity(PhysicalNode *physicalNode, const Coordinate3d_t &velocity) {};
-				virtual const Coordinate3d_t &getGravity() { return this->gravity; };
-				virtual void setGravity(const Coordinate3d_t &gravity) { };
+                virtual void updatePhysicalNodePosition(PhysicalNode *physicalNode, const Coordinate3d_t &position) {};
+                virtual void addPhysicalNodeImpulse(PhysicalNode *physicalNode, const Coordinate3d_t &impulse, const Coordinate3d_t &relativePosition) {};
+                virtual void setPhysicalNodeVelocity(PhysicalNode *physicalNode, const Coordinate3d_t &velocity) {};
+                virtual const Coordinate3d_t &getGravity() { return this->gravity; };
+                virtual void setGravity(const Coordinate3d_t &gravity) { };
                 Engine *getEngine();
                 void setEngine(Engine *engine);
         };

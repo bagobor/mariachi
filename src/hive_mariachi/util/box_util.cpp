@@ -34,14 +34,14 @@ using namespace mariachi::util;
 * Creates a new a box for the provided extents, and centered in the origin of the world coordinates.
 */
 Box3d_t BoxUtil::createBox(float width, float height, float depth) {
-	// computes half the width
-	float halfWidth = width / 2.0f;
+    // computes half the width
+    float halfWidth = width / 2.0f;
 
-	// computes half the width
-	float halfHeight = height / 2.0f;
+    // computes half the width
+    float halfHeight = height / 2.0f;
 
-	// computes half the depth
-	float halfDepth = depth / 2.0f;
+    // computes half the depth
+    float halfDepth = depth / 2.0f;
 
     // creates a new box
     Box3d_t box = { -halfWidth, -halfHeight, -halfDepth, halfWidth, halfHeight, halfDepth };
