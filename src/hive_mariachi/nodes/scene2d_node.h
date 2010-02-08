@@ -28,12 +28,14 @@
 #include "square_node.h"
 
 namespace mariachi {
-    class Scene2dNode : public SquareNode {
-        private:
-        public:
-            Scene2dNode();
-            Scene2dNode(const std::string &name);
-            ~Scene2dNode();
-            virtual inline unsigned int getNodeType() { return SCENE2D_NODE_TYPE; };
-    };
+    namespace nodes {
+        class Scene2dNode : public SquareNode {
+            private:
+            public:
+                Scene2dNode();
+                Scene2dNode(const std::string &name);
+                ~Scene2dNode();
+                virtual inline unsigned int getNodeType() { return SCENE2D_NODE_TYPE; };
+        };
+    }
 }

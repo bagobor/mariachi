@@ -28,6 +28,7 @@
 #include "collision_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 using namespace mariachi::physics;
 
 /**

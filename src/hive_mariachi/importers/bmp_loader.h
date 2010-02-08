@@ -48,73 +48,75 @@
 #define BMP_MAXIMUM_ALPHA_VALUE 255
 
 namespace mariachi {
-    typedef struct BmpMagic_t {
-        unsigned char magicNumber[2];
-    } BmpMagic_t;
+    namespace importers {
+        typedef struct BmpMagic_t {
+            unsigned char magicNumber[2];
+        } BmpMagic_t;
 
-    typedef struct BmpHeader_t {
-        unsigned int size;
-        unsigned short reserved1;
-        unsigned short reserved2;
-        unsigned int offset;
-    } BmpHeader;
+        typedef struct BmpHeader_t {
+            unsigned int size;
+            unsigned short reserved1;
+            unsigned short reserved2;
+            unsigned int offset;
+        } BmpHeader;
 
-    typedef struct BmpDibV3Header_t {
-        unsigned int headerSize;
-        unsigned int width;
-        unsigned int height;
-        unsigned short numberPlanes;
-        unsigned short bitsPerPixel;
-        unsigned int compressType;
-        unsigned int bmpBytesZ;
-        unsigned int horizontalResolution;
-        unsigned int verticalResolution;
-        unsigned int numberColors;
-        unsigned int numberImportantColors;
-    } BmpDibV3Header;
+        typedef struct BmpDibV3Header_t {
+            unsigned int headerSize;
+            unsigned int width;
+            unsigned int height;
+            unsigned short numberPlanes;
+            unsigned short bitsPerPixel;
+            unsigned int compressType;
+            unsigned int bmpBytesZ;
+            unsigned int horizontalResolution;
+            unsigned int verticalResolution;
+            unsigned int numberColors;
+            unsigned int numberImportantColors;
+        } BmpDibV3Header;
 
-    typedef struct BmpRGB_t {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-    } BmpRGB;
+        typedef struct BmpRGB_t {
+            unsigned char red;
+            unsigned char green;
+            unsigned char blue;
+        } BmpRGB;
 
-    typedef struct BmpRGBA_t {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-        unsigned char alpha;
-    } BmpRGBA;
+        typedef struct BmpRGBA_t {
+            unsigned char red;
+            unsigned char green;
+            unsigned char blue;
+            unsigned char alpha;
+        } BmpRGBA;
 
-    typedef union BmpColor_t {
-        BmpRGBA_t rgba;
-    } BmpColor;
+        typedef union BmpColor_t {
+            BmpRGBA_t rgba;
+        } BmpColor;
 
-    typedef struct BmpSize_t {
-        unsigned int width;
-        unsigned int height;
-    } BmpSize;
+        typedef struct BmpSize_t {
+            unsigned int width;
+            unsigned int height;
+        } BmpSize;
 
-    typedef enum BmpCompressionMethod_t {
-        CMP_RGB = 0,
-        CMP_RLE8,
-        CMP_RLE4,
-        CMP_BITFIELDS,
-        CMP_JPEG,
-        CMP_PNG
-    } BmpCompressionMethod;
+        typedef enum BmpCompressionMethod_t {
+            CMP_RGB = 0,
+            CMP_RLE8,
+            CMP_RLE4,
+            CMP_BITFIELDS,
+            CMP_JPEG,
+            CMP_PNG
+        } BmpCompressionMethod;
 
-    class BmpLoader : public TextureImporter {
-        private:
-            BmpColor_t *bitmapData;
-            BmpSize_t bitmapSize;
+        class BmpLoader : public TextureImporter {
+            private:
+                BmpColor_t *bitmapData;
+                BmpSize_t bitmapSize;
 
-        public:
-            BmpLoader();
-            ~BmpLoader();
-            void generateImage(const std::string &filePath);
-            Texture *getTexture();
-            BmpColor_t *getBitmapData();
-            BmpSize_t getBitmapSize();
-    };
+            public:
+                BmpLoader();
+                ~BmpLoader();
+                void generateImage(const std::string &filePath);
+                Texture *getTexture();
+                BmpColor_t *getBitmapData();
+                BmpSize_t getBitmapSize();
+        };
+    }
 }

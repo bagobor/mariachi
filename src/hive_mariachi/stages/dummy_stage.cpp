@@ -29,10 +29,14 @@
 #include "../importers/importers.h"
 #include "../devices/devices.h"
 #include "../user_interface/user_interface.h"
+
 #include "dummy_stage.h"
 
 using namespace mariachi;
 using namespace mariachi::ui;
+using namespace mariachi::nodes;
+using namespace mariachi::devices;
+using namespace mariachi::importers;
 
 CameraNode *gCameraNode = NULL;
 

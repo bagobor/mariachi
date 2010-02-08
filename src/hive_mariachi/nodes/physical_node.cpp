@@ -28,6 +28,7 @@
 #include "physical_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 /**
 * Constructor of the class.
@@ -47,7 +48,8 @@ PhysicalNode::~PhysicalNode() {
 }
 
 inline void PhysicalNode::initMass() {
-    this->mass = PHYSICAL_NODE_DEFAULT_MASS;}
+    this->mass = PHYSICAL_NODE_DEFAULT_MASS;
+}
 void PhysicalNode::addImpulse(const Coordinate3d_t &impulse) {
 }
 

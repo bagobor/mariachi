@@ -29,4 +29,4 @@
 
 #define LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE "_t_SCENE_NODE"
 
-bool lua_mariachi_new_SceneNode(lua_State *luaState, mariachi::SceneNode *value);
+bool lua_mariachi_new_SceneNode(lua_State *luaState, mariachi::nodes::SceneNode *value);

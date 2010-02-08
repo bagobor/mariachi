@@ -28,6 +28,7 @@
 #include "model_importer.h"
 
 using namespace mariachi;
+using namespace mariachi::importers;
 
 /**
 * Constructor of the class.

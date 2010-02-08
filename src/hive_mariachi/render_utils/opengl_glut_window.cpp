@@ -32,6 +32,7 @@
 #include "opengl_glut_window.h"
 
 using namespace mariachi;
+using namespace mariachi::devices;
 
 OpenglGlutWindow *openglGlutWindow;
 

@@ -29,18 +29,20 @@
 #include "../input_output_device.h"
 
 namespace mariachi {
-    class NetworkDevice : public InputOutputDevice {
-        private:
+    namespace devices {
+        class NetworkDevice : public InputOutputDevice {
+            private:
 
-        protected:
-            SOCKET_HANDLE socketHandle;
-            unsigned int socketType;
-            std::list<SOCKET_HANDLE> clientSocketHandlesList;
+            protected:
+                SOCKET_HANDLE socketHandle;
+                unsigned int socketType;
+                std::list<SOCKET_HANDLE> clientSocketHandlesList;
 
-        public:
-            NetworkDevice();
-            ~NetworkDevice();
-            virtual void read(char *buffer, unsigned int size) { };
-            virtual void write(char *buffer, unsigned int size) { };
-    };
+            public:
+                NetworkDevice();
+                ~NetworkDevice();
+                virtual void read(char *buffer, unsigned int size) { };
+                virtual void write(char *buffer, unsigned int size) { };
+        };
+    }
 }

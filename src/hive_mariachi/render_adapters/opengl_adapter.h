@@ -68,15 +68,15 @@ namespace mariachi {
             inline void display3d();
             inline void setupDisplay2d();
             inline void setupDisplay3d();
-            inline void renderCameraNode(CameraNode *cameraNode);
-            inline void renderNode2d(Node *node);
+            inline void renderCameraNode(nodes::CameraNode *cameraNode);
+            inline void renderNode2d(nodes::Node *node);
             inline void renderSquare(float x1, float y1, float x2, float y2);
-            inline void renderModelNode(ModelNode *modelNode);
-            inline void renderViewPortNode(ui::ViewPortNode *viewPortNode, SquareNode *targetNode);
-            inline void renderPanelNode(ui::PanelNode *panelNode, SquareNode *targetNode);
-            inline void renderButtonNode(ui::ButtonNode *buttonNode, SquareNode *targetNode);
-            inline Coordinate2d_t getRealPosition2d(SquareNode *squareNode, SquareNode *targetNode);
-            inline FloatSize2d_t getRealSize2d(SquareNode *squareNode);
+            inline void renderModelNode(nodes::ModelNode *modelNode);
+            inline void renderViewPortNode(ui::ViewPortNode *viewPortNode, nodes::SquareNode *targetNode);
+            inline void renderPanelNode(ui::PanelNode *panelNode, nodes::SquareNode *targetNode);
+            inline void renderButtonNode(ui::ButtonNode *buttonNode, nodes::SquareNode *targetNode);
+            inline Coordinate2d_t getRealPosition2d(nodes::SquareNode *squareNode, nodes::SquareNode *targetNode);
+            inline FloatSize2d_t getRealSize2d(nodes::SquareNode *squareNode);
 
         public:
             OpenglAdapter();

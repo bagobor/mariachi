@@ -27,7 +27,7 @@
 
 #include "network_keyboard.h"
 
-using namespace mariachi;
+using namespace mariachi::debugging;
 
 /**
 * Constructor of the class.

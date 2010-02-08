@@ -28,6 +28,7 @@
 #include "scene2d_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 /**
 * Constructor of the class.

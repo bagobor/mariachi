@@ -28,13 +28,15 @@
 #include "network_device.h"
 
 namespace mariachi {
-    class DatagramNetwork : public NetworkDevice {
-        private:
+    namespace devices {
+        class DatagramNetwork : public NetworkDevice {
+            private:
 
-        public:
-            DatagramNetwork();
-            ~DatagramNetwork();
-            void read(char *buffer, unsigned int size);
-            void write(char *buffer, unsigned int size);
-    };
+            public:
+                DatagramNetwork();
+                ~DatagramNetwork();
+                void read(char *buffer, unsigned int size);
+                void write(char *buffer, unsigned int size);
+        };
+    }
 }

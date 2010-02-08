@@ -29,11 +29,13 @@
 #include "../output/output_device.h"
 
 namespace mariachi {
-    class InputOutputDevice : public InputDevice, public OutputDevice {
-        private:
+    namespace devices {
+        class InputOutputDevice : public InputDevice, public OutputDevice {
+            private:
 
-        public:
-            InputOutputDevice();
-            ~InputOutputDevice();
-    };
+            public:
+                InputOutputDevice();
+                ~InputOutputDevice();
+        };
+    }
 }

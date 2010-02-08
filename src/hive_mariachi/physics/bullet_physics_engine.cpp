@@ -30,6 +30,7 @@
 #include "bullet_physics_engine.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 using namespace mariachi::physics;
 
 BulletPhysicsEngine::BulletPhysicsEngine() : PhysicsEngine() {

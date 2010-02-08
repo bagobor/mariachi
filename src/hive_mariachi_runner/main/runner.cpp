@@ -28,6 +28,7 @@
 #include "../../hive_mariachi/mariachi.h"
 
 using namespace mariachi;
+using namespace mariachi::exceptions;
 
 /**
 * The main entry point of the program.

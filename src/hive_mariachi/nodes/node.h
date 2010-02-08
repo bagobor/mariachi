@@ -25,44 +25,46 @@
 
 #pragma once
 
-typedef enum BasicNodesType_t {
-    NODE_TYPE = 1000,
-    CUBE_NODE_TYPE,
-    SQUARE_NODE_TYPE,
-    SCENE_NODE_TYPE,
-    SCENE2D_NODE_TYPE,
-    LENS_NODE_TYPE,
-    MODEL_NODE_TYPE,
-    ACTOR_NODE_TYPE,
-    CAMERA_NODE_TYPE,
-    PHYSICAL_NODE_TYPE,
-    COLLISION_NODE_TYPE
-} BasicNodesType;
-
 namespace mariachi {
-    class Node {
-        private:
-            Node *parent;
-            std::list<Node *> childrenList;
+    namespace nodes {
+        typedef enum BasicNodesType_t {
+            NODE_TYPE = 1000,
+            CUBE_NODE_TYPE,
+            SQUARE_NODE_TYPE,
+            SCENE_NODE_TYPE,
+            SCENE2D_NODE_TYPE,
+            LENS_NODE_TYPE,
+            MODEL_NODE_TYPE,
+            ACTOR_NODE_TYPE,
+            CAMERA_NODE_TYPE,
+            PHYSICAL_NODE_TYPE,
+            COLLISION_NODE_TYPE
+        } BasicNodesType;
 
-        public:
-            std::string name;
-            bool renderable;
+        class Node {
+            private:
+                Node *parent;
+                std::list<Node *> childrenList;
 
-            Node();
-            Node(const std::string &name);
-            ~Node();
-            inline void initRenderable();
-            Node *getParent();
-            void setParent(Node *parent);
-            void reparentTo(Node *parent);
-            void addChild(Node *child);
-            void removeChild(Node *child);
-            bool isRenderable();
-            std::list<Node *> &getChildrenList();
-            void setChildrenList(std::list<Node *> &childrenList);
-            bool getRenderable();
-            void setRenderable(bool renderable);
-            virtual inline unsigned int getNodeType() { return NODE_TYPE; };
-    };
+            public:
+                std::string name;
+                bool renderable;
+
+                Node();
+                Node(const std::string &name);
+                ~Node();
+                inline void initRenderable();
+                Node *getParent();
+                void setParent(Node *parent);
+                void reparentTo(Node *parent);
+                void addChild(Node *child);
+                void removeChild(Node *child);
+                bool isRenderable();
+                std::list<Node *> &getChildrenList();
+                void setChildrenList(std::list<Node *> &childrenList);
+                bool getRenderable();
+                void setRenderable(bool renderable);
+                virtual inline unsigned int getNodeType() { return NODE_TYPE; };
+        };
+    }
 }

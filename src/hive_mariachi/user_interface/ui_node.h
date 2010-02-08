@@ -27,19 +27,19 @@
 
 #include "../nodes/square_node.h"
 
-typedef enum UiNodesType_t {
-    UI_NODE_TYPE = 2000,
-    UI_COMPONENT_NODE_TYPE,
-    UI_BOX_COMPONENT_NODE_TYPE,
-    UI_VIEW_PORT_NODE_TYPE,
-    UI_CONTAINER_NODE_TYPE,
-    UI_PANEL_NODE_TYPE,
-    UI_BUTTON_NODE_TYPE
-} UiNodesType;
-
 namespace mariachi {
     namespace ui {
-        class UiNode : public SquareNode {
+        typedef enum UiNodesType_t {
+            UI_NODE_TYPE = 2000,
+            UI_COMPONENT_NODE_TYPE,
+            UI_BOX_COMPONENT_NODE_TYPE,
+            UI_VIEW_PORT_NODE_TYPE,
+            UI_CONTAINER_NODE_TYPE,
+            UI_PANEL_NODE_TYPE,
+            UI_BUTTON_NODE_TYPE
+        } UiNodesType;
+
+        class UiNode : public nodes::SquareNode {
             private:
 
             public:

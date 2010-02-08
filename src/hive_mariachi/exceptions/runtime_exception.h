@@ -28,12 +28,14 @@
 #include "exception.h"
 
 namespace mariachi {
-    class RuntimeException : public Exception  {
-        private:
+    namespace exceptions {
+        class RuntimeException : public Exception  {
+            private:
 
-        public:
-            RuntimeException();
-            RuntimeException(const std::string &message);
-            ~RuntimeException() throw();
-    };
+            public:
+                RuntimeException();
+                RuntimeException(const std::string &message);
+                ~RuntimeException() throw();
+        };
+    }
 }

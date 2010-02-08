@@ -30,21 +30,23 @@
 #include "cube_node.h"
 
 namespace mariachi {
-    class CollisionNode : public CubeNode {
-        private:
-            physics::CollisionSolid *collisionSolid;
-            bool contactResponseEnabled;
+    namespace nodes {
+        class CollisionNode : public CubeNode {
+            private:
+                physics::CollisionSolid *collisionSolid;
+                bool contactResponseEnabled;
 
-        public:
-            CollisionNode();
-            CollisionNode(const std::string &name);
-            ~CollisionNode();
-            void startCollision(void *arguments);
-            void stopCollision(void *arguments);
-            physics::CollisionSolid *getCollisionSolid();
-            bool getContactResponseEnabled();
-            void setContactResponseEnabled(bool contactResponseEnabled);
-            void setCollisionSolid(physics::CollisionSolid *collisionSolid);
-            virtual inline unsigned int getNodeType() { return COLLISION_NODE_TYPE; };
-    };
+            public:
+                CollisionNode();
+                CollisionNode(const std::string &name);
+                ~CollisionNode();
+                void startCollision(void *arguments);
+                void stopCollision(void *arguments);
+                physics::CollisionSolid *getCollisionSolid();
+                bool getContactResponseEnabled();
+                void setContactResponseEnabled(bool contactResponseEnabled);
+                void setCollisionSolid(physics::CollisionSolid *collisionSolid);
+                virtual inline unsigned int getNodeType() { return COLLISION_NODE_TYPE; };
+        };
+    }
 }

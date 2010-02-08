@@ -28,6 +28,7 @@
 #include "square_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 SquareNode::SquareNode() : Node() {
     // intializes the position reference

@@ -28,6 +28,7 @@
 #include "lua_script_engine_cube_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 bool lua_mariachi_new_CubeNode(lua_State *luaState, CubeNode *value) {
     bool return_value;

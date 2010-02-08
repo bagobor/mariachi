@@ -28,13 +28,15 @@
 #include "../nodes/nodes.h"
 
 namespace mariachi {
-    class ModelImporter {
-        private:
+    namespace importers {
+        class ModelImporter {
+            private:
 
-        public:
-            ModelImporter();
-            ~ModelImporter();
-            virtual ModelNode *getModelNode() { return NULL; };
-            virtual ActorNode *getActorNode() { return NULL; };
-    };
+            public:
+                ModelImporter();
+                ~ModelImporter();
+                virtual nodes::ModelNode *getModelNode() { return NULL; };
+                virtual nodes::ActorNode *getActorNode() { return NULL; };
+        };
+    }
 }

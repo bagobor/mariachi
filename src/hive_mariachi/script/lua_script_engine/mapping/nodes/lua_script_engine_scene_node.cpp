@@ -28,6 +28,7 @@
 #include "lua_script_engine_scene_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 bool lua_mariachi_new_SceneNode(lua_State *luaState, SceneNode *value) {
     bool return_value;

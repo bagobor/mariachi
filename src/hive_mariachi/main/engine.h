@@ -70,8 +70,6 @@
 */
 #define MARIACHI_HELP_TEXT "Type \"help\" for more information."
 
-#define MARIACHI_QUOTE(text) #text
-
 THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
 THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
 
@@ -112,7 +110,7 @@ namespace mariachi {
             /**
             * The logger used in the message logging.
             */
-            Logger *logger;
+            logging::Logger *logger;
 
             /**
             * The manager used to provide configuration options.
@@ -127,17 +125,17 @@ namespace mariachi {
             /**
             * The top level 3d scene render node.
             */
-            SceneNode *render;
+            nodes::SceneNode *render;
 
             /**
             * The top level 2d scene render node.
             */
-            Scene2dNode *render2d;
+            nodes::Scene2dNode *render2d;
 
             /**
             * The engine used for debuging provisioning.
             */
-            DebugEngine *debugEngine;
+            debugging::DebugEngine *debugEngine;
 
             /**
             * The mutex that controls the task list access.
@@ -165,7 +163,7 @@ namespace mariachi {
             * The map associating the device name with the
             * device reference.
             */
-            std::map<std::string, Device *> devicesMap;
+            std::map<std::string, devices::Device *> devicesMap;
 
             /**
             * The map associating the script engine name with the
@@ -212,7 +210,7 @@ namespace mariachi {
             void stop(void *arguments);
             void update();
             void printInformation();
-            void handleException(Exception *exception);
+            void handleException(exceptions::Exception *exception);
             void startConfigurationManager();
             void stopConfigurationManager();
             void startConsoleManager();
@@ -233,8 +231,8 @@ namespace mariachi {
             void setStageRunner(Stage *stage, StageRunner *stageRunner);
             Stage *getStage(const std::string &stageName);
             void setStage(const std::string &stageName, Stage *stage);
-            Device *getDevice(const std::string &deviceName);
-            void setDevice(const std::string &deviceName, Device *device);
+            devices::Device *getDevice(const std::string &deviceName);
+            void setDevice(const std::string &deviceName, devices::Device *device);
             ScriptEngine *getScriptEngine(const std::string &scriptEngineName);
             void setScriptEngine(const std::string &scriptEngineName, ScriptEngine *scriptEngine);
             physics::PhysicsEngine *getPhysicsEngine(const std::string &physicsEngineName);
@@ -243,12 +241,12 @@ namespace mariachi {
             void setConfigurationManager(configuration::ConfigurationManager *configurationManager);
             console::ConsoleManager *getConsoleManager();
             void setConsoleManager(console::ConsoleManager *consoleManager);
-            Logger *getLogger();
-            void setLogger(Logger *logger);
-            SceneNode *getRender();
-            void setRender(SceneNode *render);
-            Scene2dNode *getRender2d();
-            void setRender2d(Scene2dNode *render2d);
+            logging::Logger *getLogger();
+            void setLogger(logging::Logger *logger);
+            nodes::SceneNode *getRender();
+            void setRender(nodes::SceneNode *render);
+            nodes::Scene2dNode *getRender2d();
+            void setRender2d(nodes::Scene2dNode *render2d);
             physics::PhysicsEngine *getActivePhysicsEngine();
             void setActivePhysicsEngine(physics::PhysicsEngine *activePhysicsEngine);
             int getArgc();

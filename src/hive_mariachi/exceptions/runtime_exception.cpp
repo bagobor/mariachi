@@ -28,6 +28,7 @@
 #include "runtime_exception.h"
 
 using namespace mariachi;
+using namespace mariachi::exceptions;
 
 RuntimeException::RuntimeException() : Exception() {
 }

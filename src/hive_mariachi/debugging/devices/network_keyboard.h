@@ -28,17 +28,19 @@
 #include "debug_device.h"
 
 namespace mariachi {
-    /**
-    * Manages a network keyboard that allows remote
-    * control of device standard input.
-    */
-    class NetworkKeyboard : public DebugDevice {
-        private:
+    namespace debugging {
+        /**
+        * Manages a network keyboard that allows remote
+        * control of device standard input.
+        */
+        class NetworkKeyboard : public DebugDevice {
+            private:
 
-        public:
-            NetworkKeyboard();
-            ~NetworkKeyboard();
-            void start(void *arguments);
-            void stop(void *arguments);
-    };
+            public:
+                NetworkKeyboard();
+                ~NetworkKeyboard();
+                void start(void *arguments);
+                void stop(void *arguments);
+        };
+    }
 }

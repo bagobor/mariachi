@@ -32,6 +32,7 @@
 #include "direct3d_win32_window.h"
 
 using namespace mariachi;
+using namespace mariachi::exceptions;
 
 Direct3dWin32Window *direct3dWin32Window;
 

@@ -28,18 +28,20 @@
 #include "network_device.h"
 
 namespace mariachi {
-    class PacketNetwork : public NetworkDevice {
-        private:
+    namespace devices {
+        class PacketNetwork : public NetworkDevice {
+            private:
 
-        public:
-            PacketNetwork();
-            ~PacketNetwork();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void bindConnection(const std::string &ipAddress, unsigned int port);
-            void openConnection(const std::string &ipAddress, unsigned int port, unsigned int timeout);
-            void closeConnection();
-            void read(char *buffer, unsigned int size);
-            void write(char *buffer, unsigned int size);
-    };
+            public:
+                PacketNetwork();
+                ~PacketNetwork();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void bindConnection(const std::string &ipAddress, unsigned int port);
+                void openConnection(const std::string &ipAddress, unsigned int port, unsigned int timeout);
+                void closeConnection();
+                void read(char *buffer, unsigned int size);
+                void write(char *buffer, unsigned int size);
+        };
+    }
 }
