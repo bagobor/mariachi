@@ -31,7 +31,6 @@
 
 #include "direct3d_win32_window.h"
 
-using namespace mariachi;
 using namespace mariachi::exceptions;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;

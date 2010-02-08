@@ -27,7 +27,6 @@
 
 #include "observable.h"
 
-using namespace mariachi;
 using namespace mariachi::patterns;
 
 /**

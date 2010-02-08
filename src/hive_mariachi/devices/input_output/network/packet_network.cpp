@@ -29,7 +29,6 @@
 #include "../../../system/socket.h"
 #include "packet_network.h"
 
-using namespace mariachi;
 using namespace mariachi::exceptions;
 using namespace mariachi::devices;
 

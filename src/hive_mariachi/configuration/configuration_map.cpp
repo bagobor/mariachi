@@ -28,7 +28,6 @@
 #include "../util/util.h"
 #include "configuration_map.h"
 
-using namespace mariachi;
 using namespace mariachi::util;
 using namespace mariachi::structures;
 using namespace mariachi::configuration;

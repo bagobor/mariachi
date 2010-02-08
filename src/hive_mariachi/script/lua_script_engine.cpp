@@ -30,6 +30,8 @@
 #include "lua_script_engine.h"
 
 using namespace mariachi;
+using namespace mariachi::script;
+using namespace mariachi::script::lua;
 
 /**
 * Constructor of the class.

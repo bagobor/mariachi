@@ -27,7 +27,6 @@
 
 #include "point_to_point_constraint.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 
 /**

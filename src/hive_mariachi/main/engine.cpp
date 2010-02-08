@@ -40,6 +40,7 @@ using namespace mariachi;
 
 using namespace mariachi::nodes;
 using namespace mariachi::tasks;
+using namespace mariachi::script;
 using namespace mariachi::stages;
 using namespace mariachi::console;
 using namespace mariachi::devices;

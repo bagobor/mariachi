@@ -27,18 +27,18 @@
 
 #include "lua_script_engine_cube_node.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
 using namespace mariachi::structures;
+using namespace mariachi::script::lua;
 
-bool lua_mariachi_new_CubeNode(lua_State *luaState, CubeNode *value) {
+bool LuaCubeNode::allocate(lua_State *luaState, CubeNode *value) {
     bool return_value;
 
     // in case the reference is new
-    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE, lua_mariachi_new_Node) {
+    lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE, LuaNode::allocate) {
         // sets the methods
-        lua_setnamefunction(luaState, "get_position", lua_mariachi_cube_node_get_position);
-        lua_setnamefunction(luaState, "set_position", lua_mariachi_cube_node_set_position);
+        lua_setnamefunction(luaState, "get_position", LuaCubeNode::getPosition);
+        lua_setnamefunction(luaState, "set_position", LuaCubeNode::setPosition);
 
         // sets the type of the node
         lua_settype(luaState, LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE);
@@ -47,7 +47,7 @@ bool lua_mariachi_new_CubeNode(lua_State *luaState, CubeNode *value) {
     return return_value;
 }
 
-int lua_mariachi_cube_node_construct(lua_State *luaState) {
+int LuaCubeNode::construct(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargs(luaState, 0);
 
@@ -55,35 +55,35 @@ int lua_mariachi_cube_node_construct(lua_State *luaState) {
     CubeNode *cubeNode = new CubeNode();
 
     // creates and loads the cube node (in lua)
-    lua_mariachi_new_CubeNode(luaState, cubeNode);
+    LuaCubeNode::allocate(luaState, cubeNode);
 
     // returns the number of return values
     return 1;
 }
 
-int lua_mariachi_cube_node_get_position(lua_State *luaState) {
+int LuaCubeNode::getPosition(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 0);
 
     // retrieves self
-    CubeNode *self = (CubeNode *) lua_get_self(luaState);
+    CubeNode *self = (CubeNode *) lua_getself(luaState);
 
     // retrieves the position
     Coordinate3d_t position = self->getPosition();
 
     // creates and loads a coordinate 3d
-    lua_mariachi_new_Coordinate3d_t(luaState, &position);
+    LuaCoordinate3d_t::allocate(luaState, &position);
 
     // returns the number of return values
     return 1;
 }
 
-int lua_mariachi_cube_node_set_position(lua_State *luaState) {
+int LuaCubeNode::setPosition(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 3);
 
     // retrieves self
-    CubeNode *self = (CubeNode *) lua_get_self(luaState);
+    CubeNode *self = (CubeNode *) lua_getself(luaState);
 
     // retrieves the coordinates
     float x = (float) lua_tonumber(luaState, 1);

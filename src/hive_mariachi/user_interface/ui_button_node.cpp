@@ -27,7 +27,6 @@
 
 #include "ui_button_node.h"
 
-using namespace mariachi;
 using namespace mariachi::ui;
 
 /**

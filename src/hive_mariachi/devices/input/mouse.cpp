@@ -27,7 +27,6 @@
 
 #include "mouse.h"
 
-using namespace mariachi;
 using namespace mariachi::devices;
 
 /**
