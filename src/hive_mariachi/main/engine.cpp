@@ -143,7 +143,6 @@ Engine::Engine(int argc, char** argv) {
     this->initLogger();
     this->initRenders();
     this->initArgs(argc, argv);
-
 }
 
 /**
@@ -583,7 +582,7 @@ void Engine::startRunLoop() {
         this->update();
 
         // @todo changes this hardcoded sleep
-        SLEEP(100);
+        SLEEP(30);
     }
 }
 

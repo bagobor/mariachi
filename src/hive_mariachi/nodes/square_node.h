@@ -27,6 +27,7 @@
 
 #include "../structures/size.h"
 #include "../structures/position.h"
+
 #include "node.h"
 
 typedef enum PositionReferenceType_t {

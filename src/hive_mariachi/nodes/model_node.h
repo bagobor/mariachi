@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "../structures/structures.h"
+#include "../structures/mesh.h"
 
 #include "physical_node.h"
 
@@ -40,10 +40,10 @@ namespace mariachi {
             ModelNode(const std::string &name);
             ~ModelNode();
             inline void initRenderable();
-            std::vector<Mesh_t *> *getMeshList();
-            void setMeshList(std::vector<Mesh_t *> *meshList);
-            Texture *getTexture();
-            void setTexture(Texture *texture);
+            virtual std::vector<Mesh_t *> *getMeshList();
+            virtual void setMeshList(std::vector<Mesh_t *> *meshList);
+            virtual Texture *getTexture();
+            virtual void setTexture(Texture *texture);
             virtual inline unsigned int getNodeType() { return MODEL_NODE_TYPE; };
     };
 }

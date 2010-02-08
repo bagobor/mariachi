@@ -90,7 +90,7 @@ Path_t *AStar::findPath(unsigned int startNodeId, unsigned int endNodeId) {
         unsigned int currentNodeId = currentNodePair.first;
 
         // returns the path in case the goal as been reached
-        if (currentNodeId == endNodeId) {
+        if(currentNodeId == endNodeId) {
             // creates a path structure where to store the resulting path
             unsigned int numberNodes = numberNodesMap[endNodeId];
             Path_t *path = (Path_t *) malloc(sizeof(Path_t));
