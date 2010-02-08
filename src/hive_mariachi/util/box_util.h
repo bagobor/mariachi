@@ -34,7 +34,7 @@ namespace mariachi {
             private:
 
             public:
-				static mariachi::Box3d_t createBox(float width, float height, float depth);
+                static mariachi::Box3d_t createBox(float width, float height, float depth);
                 static mariachi::Box3d_t createBox(float x1, float y1, float z1, float x2, float y2, float z2);
                 static bool overlaps(const mariachi::Box3d_t &box1, const mariachi::Box3d_t &box2);
                 static bool containsPoint(const mariachi::Box3d_t &box, const mariachi::Coordinate3d_t &point);

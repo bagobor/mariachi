@@ -33,13 +33,13 @@ using namespace mariachi;
 * Constructor of the class.
 */
 CubeNode::CubeNode() : Node() {
-	// initialize the cube node's transforms (translation, scale and rotation)
-	this->initTransforms();
+    // initialize the cube node's transforms (translation, scale and rotation)
+    this->initTransforms();
 }
 
 CubeNode::CubeNode(const std::string &name) : Node(name) {
-	// initialize the cube node's transforms (translation, scale and rotation)
-	this->initTransforms();
+    // initialize the cube node's transforms (translation, scale and rotation)
+    this->initTransforms();
 }
 
 /**
@@ -49,23 +49,23 @@ CubeNode::~CubeNode() {
 }
 
 inline void CubeNode::initTransforms() {
-	// creats the origin position
-	Coordinate3d_t initialPosition = { 0.0f, 0.0f, 0.0f };
+    // creats the origin position
+    Coordinate3d_t initialPosition = { 0.0f, 0.0f, 0.0f };
 
-	// initializes the node's position
-	this->position = initialPosition;
+    // initializes the node's position
+    this->position = initialPosition;
 
-	// creates an empty rotation
-	Rotation3d_t initialRotation = { 0.0f, 0.0f, 0.0f, 0.0f };
+    // creates an empty rotation
+    Rotation3d_t initialRotation = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-	// initializes the node's rotation
-	this->rotation = initialRotation;
+    // initializes the node's rotation
+    this->rotation = initialRotation;
 
-	// creates the identity scale
-	Coordinate3d_t initialScale = { 1.0f, 1.0f, 1.0f };
+    // creates the identity scale
+    Coordinate3d_t initialScale = { 1.0f, 1.0f, 1.0f };
 
-	// initializes the node's scale
-	this->scale = initialScale;
+    // initializes the node's scale
+    this->scale = initialScale;
 }
 
 Coordinate3d_t &CubeNode::getPosition() {
@@ -97,10 +97,10 @@ void CubeNode::setRotation(float angle, float x, float y, float z) {
 }
 
 void CubeNode::setRotation(float x, float y, float z) {
-	// @todo: convert the rotation vector into an angle rotation
-	// rotation would be (x, 1.0f, 0.0f, 0.0f);
-	// rotation would be (y, 0.0f, 1.0f, 0.0f);
-	// rotation would be (z, 0.0f, 0.0f, 1.0f);
+    // @todo: convert the rotation vector into an angle rotation
+    // rotation would be (x, 1.0f, 0.0f, 0.0f);
+    // rotation would be (y, 0.0f, 1.0f, 0.0f);
+    // rotation would be (z, 0.0f, 0.0f, 1.0f);
 }
 
 Coordinate3d_t &CubeNode::getScale() {

@@ -61,9 +61,9 @@ void JsonConfigurationParser::parseConfiguration(void *configuration) {
     // root json node
     Json::Value rootNode;
 
-	// creates the features object
-	Json::Features features;
-	
+    // creates the features object
+    Json::Features features;
+
     // creates the json reader
     Json::Reader reader(features);
 

@@ -45,7 +45,7 @@ namespace mariachi {
             PhysicalNode();
             PhysicalNode(const std::string &name);
             ~PhysicalNode();
-			inline void initMass();
+            inline void initMass();
             void addImpulse(const Coordinate3d_t &impulse);
             void addTorque(const Coordinate3d_t &torque);
             float getMass();

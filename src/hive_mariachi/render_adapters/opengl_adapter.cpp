@@ -492,11 +492,11 @@ inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
     // retrieves the position
     Coordinate3d_t &position = modelNode->getPosition();
 
-	// retrieves the rotation
-	Rotation3d_t &rotation = modelNode->getRotation();
+    // retrieves the rotation
+    Rotation3d_t &rotation = modelNode->getRotation();
 
-	// retrieves the scale
-	Coordinate3d_t &scale = modelNode->getScale();
+    // retrieves the scale
+    Coordinate3d_t &scale = modelNode->getScale();
 
     // retrieves the mesh list size
     size_t meshListSize = meshList->size();
@@ -510,10 +510,10 @@ inline void OpenglAdapter::renderModelNode(ModelNode *modelNode) {
     // puts the element in the screen
     glTranslatef(position.x, position.y, position.z);
 
-	// scales the element
+    // scales the element
     glScalef(scale.x, scale.y, scale.z);
 
-	// rotates the element
+    // rotates the element
     glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
 
     // iterates over all the meshes
