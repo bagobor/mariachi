@@ -27,7 +27,6 @@
 
 #include "task.h"
 
-using namespace mariachi;
 using namespace mariachi::tasks;
 
 /**

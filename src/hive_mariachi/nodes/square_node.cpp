@@ -27,7 +27,6 @@
 
 #include "square_node.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
 using namespace mariachi::structures;
 

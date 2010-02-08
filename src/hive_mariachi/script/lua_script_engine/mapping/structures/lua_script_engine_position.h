@@ -27,4 +27,16 @@
 
 #include "../lua_script_engine_mapping.h"
 
-bool lua_mariachi_new_Coordinate3d_t(lua_State *luaState, mariachi::structures::Coordinate3d_t *value);
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            class LuaCoordinate3d_t {
+                private:
+
+                public:
+                    static bool allocate(lua_State *luaState, structures::Coordinate3d_t *value);
+                    static int construct(lua_State *luaState);
+            };
+        }
+    }
+}

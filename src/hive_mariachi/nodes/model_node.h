@@ -34,7 +34,7 @@ namespace mariachi {
         class ModelNode : public PhysicalNode {
             private:
                 std::vector<structures::Mesh_t *> *meshList;
-                Texture *texture;
+                structures::Texture *texture;
 
             public:
                 ModelNode();
@@ -43,8 +43,8 @@ namespace mariachi {
                 inline void initRenderable();
                 virtual std::vector<structures::Mesh_t *> *getMeshList();
                 virtual void setMeshList(std::vector<structures::Mesh_t *> *meshList);
-                virtual Texture *getTexture();
-                virtual void setTexture(Texture *texture);
+                virtual structures::Texture *getTexture();
+                virtual void setTexture(structures::Texture *texture);
                 virtual inline unsigned int getNodeType() { return MODEL_NODE_TYPE; };
         };
     }

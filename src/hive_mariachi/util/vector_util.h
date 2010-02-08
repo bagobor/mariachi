@@ -28,13 +28,15 @@
 #include "../structures/position.h"
 
 namespace mariachi {
-    class VectorUtil {
-        private:
+    namespace util {
+        class VectorUtil {
+            private:
 
-        public:
-            static structures::Coordinate3d_t normalize(const structures::Coordinate3d_t &vector);
-            static structures::Coordinate3d_t crossProduct(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
-            static structures::Coordinate3d_t add(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
-            static structures::Coordinate3d_t subtract(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
-    };
+            public:
+                static structures::Coordinate3d_t normalize(const structures::Coordinate3d_t &vector);
+                static structures::Coordinate3d_t crossProduct(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
+                static structures::Coordinate3d_t add(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
+                static structures::Coordinate3d_t subtract(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
+        };
+    }
 }

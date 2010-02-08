@@ -27,7 +27,6 @@
 
 #include "configuration_parser.h"
 
-using namespace mariachi;
 using namespace mariachi::configuration;
 
 /**

@@ -29,7 +29,6 @@
 
 #include "huffman.h"
 
-using namespace mariachi;
 using namespace mariachi::util;
 using namespace mariachi::exceptions;
 using namespace mariachi::algorithms;

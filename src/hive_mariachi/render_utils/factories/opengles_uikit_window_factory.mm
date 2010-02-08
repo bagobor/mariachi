@@ -33,8 +33,6 @@
 #import "../views/opengl_cocoa_window_view.h"
 #import "opengles_uikit_window_factory.h"
 
-using namespace mariachi;
-
 NSAutoreleasePool *pool;
 OpenglesAdapter *openglesAdapter;
 Engine *engine;

@@ -31,8 +31,6 @@
 #include "definitions/opengles1_adapter_definitions.h"
 #include "opengles1_adapter.h"
 
-using namespace mariachi;
-
 float rotx = 0.0;
 float roty = 0.0;
 float rotz = 0.0;

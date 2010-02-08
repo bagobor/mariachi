@@ -27,17 +27,31 @@
 
 #include "lua_script_engine_scene_node.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
+using namespace mariachi::script::lua;
 
-bool lua_mariachi_new_SceneNode(lua_State *luaState, SceneNode *value) {
+bool LuaSceneNode::allocate(lua_State *luaState, SceneNode *value) {
     bool return_value;
 
     // in case the reference is new
-    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE, lua_mariachi_new_CubeNode) {
+    lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE, LuaCubeNode::allocate) {
         // sets the type of the node
         lua_settype(luaState, LUA_SCRIPT_ENGINE_NODE_TYPE);
     }
 
     return return_value;
+}
+
+int LuaSceneNode::construct(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargs(luaState, 0);
+
+    // creates a new scene node
+    SceneNode *sceneNode = new SceneNode();
+
+    // creates and loads the scene node (in lua)
+    LuaNode::allocate(luaState, sceneNode);
+
+    // returns the number of return values
+    return 1;
 }

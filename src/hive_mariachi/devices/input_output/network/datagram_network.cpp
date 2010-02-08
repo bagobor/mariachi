@@ -27,7 +27,6 @@
 
 #include "datagram_network.h"
 
-using namespace mariachi;
 using namespace mariachi::devices;
 
 /**

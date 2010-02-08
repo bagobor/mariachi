@@ -83,7 +83,9 @@ namespace mariachi {
         class PhysicsEngine;
     }
 
-    class ScriptEngine;
+    namespace script {
+        class ScriptEngine;
+    }
 
     namespace stages {
         class StageRunner;
@@ -169,7 +171,7 @@ namespace mariachi {
             * The map associating the script engine name with the
             * script engine reference.
             */
-            std::map<std::string, ScriptEngine *> scriptEnginesMap;
+            std::map<std::string, script::ScriptEngine *> scriptEnginesMap;
 
             /**
             * The map associating the physics engine name with the
@@ -233,8 +235,8 @@ namespace mariachi {
             void setStage(const std::string &stageName, stages::Stage *stage);
             devices::Device *getDevice(const std::string &deviceName);
             void setDevice(const std::string &deviceName, devices::Device *device);
-            ScriptEngine *getScriptEngine(const std::string &scriptEngineName);
-            void setScriptEngine(const std::string &scriptEngineName, ScriptEngine *scriptEngine);
+            script::ScriptEngine *getScriptEngine(const std::string &scriptEngineName);
+            void setScriptEngine(const std::string &scriptEngineName, script::ScriptEngine *scriptEngine);
             physics::PhysicsEngine *getPhysicsEngine(const std::string &physicsEngineName);
             void setPhysicsEngine(const std::string &physicsEngineName, physics::PhysicsEngine *physicsEngine);
             configuration::ConfigurationManager *getConfigurationManager();

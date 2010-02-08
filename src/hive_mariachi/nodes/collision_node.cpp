@@ -64,14 +64,13 @@ void CollisionNode::startCollision(void *arguments) {
 * @param arguments The arguments to stop the collision capture system.
 */
 void CollisionNode::stopCollision(void *arguments) {
-
 }
 
 CollisionSolid *CollisionNode::getCollisionSolid() {
     return this->collisionSolid;
 }
 
-void CollisionNode::setCollisionSolid(physics::CollisionSolid *collisionSolid) {
+void CollisionNode::setCollisionSolid(CollisionSolid *collisionSolid) {
     this->collisionSolid = collisionSolid;
 }
 

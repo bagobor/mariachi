@@ -27,7 +27,6 @@
 
 #include "bullet_physics_engine_collision_solid.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 
 BulletPhysicsEngineCollisionSolid::BulletPhysicsEngineCollisionSolid() : CollisionSolid() {

@@ -27,4 +27,15 @@
 
 #include "../lua_script_engine_mapping.h"
 
-int lua_mariachi_engine_get_render(lua_State *luaState);
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            class LuaEngine {
+                private:
+
+                public:
+                    static int getRender(lua_State *luaState);
+            };
+        }
+    }
+}

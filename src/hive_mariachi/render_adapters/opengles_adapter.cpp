@@ -29,8 +29,6 @@
 
 #include "opengles_adapter.h"
 
-using namespace mariachi;
-
 /**
 * Constructor of the class.
 */

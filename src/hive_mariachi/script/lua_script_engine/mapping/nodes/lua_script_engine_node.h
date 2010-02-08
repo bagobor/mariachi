@@ -29,6 +29,17 @@
 
 #define LUA_SCRIPT_ENGINE_NODE_TYPE "_t_NODE"
 
-bool lua_mariachi_new_Node(lua_State *luaState, mariachi::nodes::Node *value);
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            class LuaNode {
+                private:
 
-int lua_mariachi_node_get_children_list(lua_State *luaState);
+                public:
+                    static bool allocate(lua_State *luaState, nodes::Node *value);
+                    static int construct(lua_State *luaState);
+                    static int getChildrenList(lua_State *luaState);
+            };
+        }
+    }
+}

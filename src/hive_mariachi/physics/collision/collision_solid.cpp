@@ -27,7 +27,6 @@
 
 #include "collision_solid.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 
 /**
