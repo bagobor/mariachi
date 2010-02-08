@@ -28,6 +28,7 @@
 #include "hash_function.h"
 
 using namespace mariachi;
+using namespace mariachi::algorithms;
 
 /**
 * Constructor of the class.
@@ -143,7 +144,7 @@ void HashFunction::reset() {
     this->finalized = false;
 }
 
-std::ostream &mariachi::operator<<(std::ostream &outStream, const HashFunction &value) {
+std::ostream &mariachi::algorithms::operator<<(std::ostream &outStream, const HashFunction &value) {
     // puts the hex digest in the ouput stream
     return outStream << value.hexdigest();
 }

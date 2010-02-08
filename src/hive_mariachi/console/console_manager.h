@@ -67,45 +67,47 @@ exit                 - exits the system"
 #define COMMANDS_LIST { { "help", ConsoleManager::processHelp }, { "script", ConsoleManager::processScript }, { "exit", ConsoleManager::processExit }, { NULL, NULL } }
 
 namespace mariachi {
-    typedef void (*WriteOuputFunction_t)(const char *text, bool newline);
-    typedef void (*ConsoleProcessFunction_t)(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
+    namespace console {
+        typedef void (*WriteOuputFunction_t)(const char *text, bool newline);
+        typedef void (*ConsoleProcessFunction_t)(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
 
-    typedef struct CommandProcessInformation_t {
-        const char *name;
-        ConsoleProcessFunction_t processFunction;
-    } CommandProcessInformation;
+        typedef struct CommandProcessInformation_t {
+            const char *name;
+            ConsoleProcessFunction_t processFunction;
+        } CommandProcessInformation;
 
-    class ConsoleManager {
-        private:
-            Engine *engine;
-            std::map<std::string, CommandProcessInformation_t> processInformationMap;
-            ScriptEngine *currentScriptEngine;
-            std::string currentScriptEngineName;
-            std::string currentScriptString;
-            bool extraCarret;
+        class ConsoleManager {
+            private:
+                Engine *engine;
+                std::map<std::string, CommandProcessInformation_t> processInformationMap;
+                ScriptEngine *currentScriptEngine;
+                std::string currentScriptEngineName;
+                std::string currentScriptString;
+                bool extraCarret;
 
-            inline void initProcessInformationMap();
-            inline void initCurrentScriptEngine();
-            inline void initExtraCarret();
-            inline void initEngine(Engine *engine);
+                inline void initProcessInformationMap();
+                inline void initCurrentScriptEngine();
+                inline void initExtraCarret();
+                inline void initEngine(Engine *engine);
 
-        public:
-            ConsoleManager();
-            ConsoleManager(Engine *engine);
-            ~ConsoleManager();
-            void load(void *arguments);
-            void unload(void *arguments);
-            void processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction = NULL);
-            void processCommandLineConsole(const char *commandLine, WriteOuputFunction_t outputFunction);
-            void processCommandLineScript(const char *commandLine, WriteOuputFunction_t outputFunction);
-            std::string getCarretValue();
-            Engine *getEngine();
-            void setEngine(Engine *engine);
-            static void write(const char *text, bool newline = true);
-            static void processHelp(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
-            static void processScript(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
-            static void processExit(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
-    };
+            public:
+                ConsoleManager();
+                ConsoleManager(Engine *engine);
+                ~ConsoleManager();
+                void load(void *arguments);
+                void unload(void *arguments);
+                void processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction = NULL);
+                void processCommandLineConsole(const char *commandLine, WriteOuputFunction_t outputFunction);
+                void processCommandLineScript(const char *commandLine, WriteOuputFunction_t outputFunction);
+                std::string getCarretValue();
+                Engine *getEngine();
+                void setEngine(Engine *engine);
+                static void write(const char *text, bool newline = true);
+                static void processHelp(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
+                static void processScript(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
+                static void processExit(std::vector<std::string> &commandTokens, WriteOuputFunction_t outputFunction, ConsoleManager *consoleManager);
+        };
 
-    static const CommandProcessInformation_t processInformationList[] = COMMANDS_LIST;
+        static const CommandProcessInformation_t processInformationList[] = COMMANDS_LIST;
+    }
 }

@@ -26,4 +26,5 @@
 #pragma once
 
 #include "crc32.h"
+#include "hash_function.h"
 #include "md5.h"

@@ -28,24 +28,26 @@
 #include "../../structures/path.h"
 
 namespace mariachi {
-    class PathFinder {
-        private:
-            float (*costFunction)(unsigned int, unsigned int, PathNodesGraph *);
+    namespace algorithms {
+        class PathFinder {
+            private:
+                float (*costFunction)(unsigned int, unsigned int, PathNodesGraph *);
 
-        protected:
-            PathNodesGraph *nodesGraph;
+            protected:
+                PathNodesGraph *nodesGraph;
 
-        public:
-            PathFinder();
-            PathFinder(PathNodesGraph *nodesGraph);
-            ~PathFinder();
-            inline void initNodesGraph(PathNodesGraph *nodesGraph);
-            inline void initCostFunction();
-            virtual Path_t *findPath(unsigned int startNodeId, unsigned int endNodeId) { return NULL; };
-            virtual PathNodesGraph *getNodesGraph() { return this->nodesGraph; };
-            virtual void setNodesGraph(PathNodesGraph *nodesGraph) { this->nodesGraph = nodesGraph; };
-            virtual void setCostFunction(float (*costFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->costFunction = costFunction; };
-            virtual float (*getCostFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->costFunction; };
-            static float defaultCostFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph);
-    };
+            public:
+                PathFinder();
+                PathFinder(PathNodesGraph *nodesGraph);
+                ~PathFinder();
+                inline void initNodesGraph(PathNodesGraph *nodesGraph);
+                inline void initCostFunction();
+                virtual Path_t *findPath(unsigned int startNodeId, unsigned int endNodeId) { return NULL; };
+                virtual PathNodesGraph *getNodesGraph() { return this->nodesGraph; };
+                virtual void setNodesGraph(PathNodesGraph *nodesGraph) { this->nodesGraph = nodesGraph; };
+                virtual void setCostFunction(float (*costFunction)(unsigned int, unsigned int, PathNodesGraph *)) { this->costFunction = costFunction; };
+                virtual float (*getCostFunction())(unsigned int, unsigned int, PathNodesGraph *) { return this->costFunction; };
+                static float defaultCostFunction(unsigned int firstNodeId, unsigned int secondNodeId, PathNodesGraph *nodesGraph);
+        };
+    }
 }

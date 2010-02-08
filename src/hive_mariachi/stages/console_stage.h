@@ -37,7 +37,7 @@ namespace mariachi {
             /**
             * The console manager to be used.
             */
-            ConsoleManager *consoleManager;
+            console::ConsoleManager *consoleManager;
 
             inline void initThread();
 

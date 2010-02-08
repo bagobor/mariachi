@@ -30,6 +30,7 @@
 #include "huffman.h"
 
 using namespace mariachi;
+using namespace mariachi::algorithms;
 using namespace mariachi::util;
 
 /**

@@ -28,6 +28,7 @@
 #include "configuration_list.h"
 
 using namespace mariachi;
+using namespace mariachi::configuration;
 
 /**
 * Constructor of the class.

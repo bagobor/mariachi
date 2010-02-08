@@ -28,6 +28,7 @@
 #include "path_finder.h"
 
 using namespace mariachi;
+using namespace mariachi::algorithms;
 
 PathFinder::PathFinder() {
     this->initCostFunction();
