@@ -31,25 +31,38 @@
 
 using namespace mariachi;
 
+/**
+* Constructor fo the class.
+*/
 Md2Importer::Md2Importer() : ModelImporter() {
-    // invalidates the mesh count
-    this->meshCount = -1;
+    // invalidates the frame count
+    this->frameCount = -1;
 }
 
+/**
+* Destructor of the class.
+*/
 Md2Importer::~Md2Importer() {
     // cleans the model
     this->cleanModel();
 
-    // cleans the vertex list
-    this->cleanVertextList();
-
-    // cleans the mesh list
-    this->cleanMeshList();
+    // cleans the md2 frame list
+    this->cleanMd2FrameList();
 }
 
+/**
+* Generates the model information from the model file in the
+* given file path.
+*
+* @param filePath The file path to the file to be used to generate
+* the model.
+*/
 void Md2Importer::generateModel(const std::string &filePath) {
     // cleans the previous model information (in case there is one)
     this->cleanModel();
+
+    // cleans the previous frame information (in case there is one)
+    this->cleanMd2FrameList();
 
     // creates the file stream to be used
     std::fstream md2File(filePath.c_str(), std::fstream::in | std::fstream::binary);
@@ -93,16 +106,44 @@ void Md2Importer::generateModel(const std::string &filePath) {
         throw RuntimeException("Problem reading the file");
     }
 
+    // sets the frame count as the value of the number of frames
+    // in the md2 header
+    this->frameCount = md2Header->numberFrames;
+
+    // generates the coordinates list
+    this->generateCoordinatesList(md2Header, md2Contents);
+
+    // generates the gl commands list
+    this->generateGlCommandsList(md2Header, md2Contents);
+
+    // releases the md2 header buffer
+    free(md2Header);
+
+    // releases the md2 contents buffer
+    free(md2Contents);
+}
+
+/**
+* Generates the coordinates list for each of the frames contained in
+* the md2 model.
+*/
+inline void Md2Importer::generateCoordinatesList(Md2Header_t *md2Header, char *md2Contents) {
     // starts the frame contents pointer
     unsigned int frameContentsPointer = md2Header->offsetFrames - MD2_HEADER_SIZE;
 
     // iterates over all the frames in the model
-    for(int index = 0; index < md2Header->numberFrames; index++) {
+    for(int index = 0; index < this->frameCount; index++) {
         // retrieves the frame header
         Md2FrameHeader_t *frameHeader = (Md2FrameHeader_t *) &md2Contents[frameContentsPointer];
 
         // increments the frame contents pointer
         frameContentsPointer += MD2_FRAME_HEADER_SIZE;
+
+        // creates a new md2 frame
+        Md2Frame *md2Frame = new Md2Frame();
+
+        // adds the frame to the md2 frames list
+        this->md2FramesList.push_back(md2Frame);
 
         // iterates over all the vertices
         for(int _index = 0; _index < md2Header->numberVertices; _index++) {
@@ -115,15 +156,17 @@ void Md2Importer::generateModel(const std::string &filePath) {
             float vertexZ = (vertexContents->vertex[2] * frameHeader->scale[2]) + frameHeader->translate[2];
 
             // adds the vertex coordinates in the coordinates list
-            this->coordinatesList.push_back(vertexX);
-            this->coordinatesList.push_back(vertexY);
-            this->coordinatesList.push_back(vertexZ);
+            md2Frame->coordinatesList.push_back(vertexX);
+            md2Frame->coordinatesList.push_back(vertexY);
+            md2Frame->coordinatesList.push_back(vertexZ);
 
             // increments the frame contents pointer
             frameContentsPointer += MD2_VERTEX_VALUE_SIZE;
         }
     }
+}
 
+inline void Md2Importer::generateGlCommandsList(Md2Header_t *md2Header, char *md2Contents) {
     // calculates the gl contents length
     unsigned int glContentsLength = md2Header->numberGlCommands * MD2_FLOAT_SIZE;
 
@@ -164,6 +207,7 @@ void Md2Importer::generateModel(const std::string &filePath) {
             // copies the vertex texture information
             memcpy(vertexTextureInformationCopy, vertexTextureInformation, sizeof(Md2VertexTextureInformation_t));
 
+            // recalculates the vertex texture y position (inverting the value)
             vertexTextureInformationCopy->vertexTextureY = (float) 1.0 - vertexTextureInformationCopy->vertexTextureY;
 
             // adds the commands to the gl commands list
@@ -175,15 +219,209 @@ void Md2Importer::generateModel(const std::string &filePath) {
             glContentsPointer += 12;
         }
     }
-
-    // releases the md2 header buffer
-    free(md2Header);
-
-    // releases the md2 contents buffer
-    free(md2Contents);
 }
 
+/**
+* Retrieves the main md2 frame.
+*
+* @return The main md2 frame for the md2 importer.
+*/
+Md2Frame *Md2Importer::getMainMd2Frame() {
+    // returns the first md2 frame as the main frame
+    return this->md2FramesList[0];
+}
+
+/**
+* Generates the vertex list from the list of coordinates.
+*/
 void Md2Importer::generateVertexList() {
+    // retrieves the md2 frames list iterator
+    std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
+
+    // iterates over all the md2 frames
+    while(md2FramesListIterator != this->md2FramesList.end()) {
+        // retrieves the current frame
+        Md2Frame *currentMd2Frame = *md2FramesListIterator;
+
+        // generates the vertex list for the current md2 frame
+        currentMd2Frame->generateVertexList();
+
+        // increments the md2 frames list iterator
+        md2FramesListIterator++;
+    }
+}
+
+/**
+* Generates the mesh list for the current vertex information
+* in the importer.
+*/
+void Md2Importer::generateMeshList() {
+    // retrieves the md2 frames list iterator
+    std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
+
+    // starts the gl command index
+    unsigned int glCommandIndex = 0;
+
+    // iterates over all the md2 frames
+    while(md2FramesListIterator != this->md2FramesList.end()) {
+        // retrieves the current md2 frame
+        Md2Frame *currentMd2Frame = *md2FramesListIterator;
+
+        // generates the mesh list for the current md2 frame
+        currentMd2Frame->generateMeshList(this->glCommandsList);
+
+        // increments the md2 frames list iterator
+        md2FramesListIterator++;
+    }
+}
+
+/**
+* Generates the frames list from the list of meshes
+* available.
+*/
+void Md2Importer::generateFrameList() {
+    // retrieves the md2 frames list iterator
+    std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
+
+     // iterates over all the md2 frames
+    while(md2FramesListIterator != this->md2FramesList.end()) {
+        // retrieves the current md2 frame
+        Md2Frame *currentMd2Frame = *md2FramesListIterator;
+
+        // retrieves the frame structure from the current md2 frame
+        Frame_t *frame = currentMd2Frame->getFrame();
+
+        // adds the frame to the frames list
+        this->framesList.push_back(frame);
+
+        // increments the md2 frames list iterator
+        md2FramesListIterator++;
+    }
+}
+
+ModelNode *Md2Importer::getModelNode() {
+    // retrieves the main md2 frame
+    Md2Frame *mainMd2Frame = this->getMainMd2Frame();
+
+    // creates a new model node
+    ModelNode *modelNode = new ModelNode();
+
+    // sets the model node position
+    modelNode->setPosition(0.0, 0.0, 0.0);
+
+    // sets the mesh list in the model node
+    modelNode->setMeshList(&mainMd2Frame->meshList);
+
+    // returns the model node
+    return modelNode;
+}
+
+ActorNode *Md2Importer::getActorNode() {
+    // retrieves the main md2 frame
+    Md2Frame *mainMd2Frame = this->getMainMd2Frame();
+
+    // creates a new actor node
+    ActorNode *actorNode = new ActorNode();
+
+    // sets the actor node position
+    actorNode->setPosition(0.0, 0.0, 0.0);
+
+    // sets the frame list in the actor node
+    actorNode->setFrameList(&this->framesList);
+
+    // returns the actor node
+    return actorNode;
+}
+
+void Md2Importer::cleanModel() {
+    // in case the gl commands list is empty
+    // there is nothing to clean
+    if(this->glCommandsList.empty())
+        return;
+
+    // retrieves the gl commands iterator
+    std::vector<void *>::iterator glCommandsListIterator = this->glCommandsList.begin();
+
+    // iterates over all gl commands
+    while(glCommandsListIterator != this->glCommandsList.end()) {
+        // retrieves the number of vertices
+        int numberVertices = (long long) *glCommandsListIterator;
+
+        // in case the number of vertices is less than zero
+        if(numberVertices < 0) {
+            numberVertices = numberVertices * -1;
+        }
+
+        // increments the gl commands list iterator
+        glCommandsListIterator++;
+
+        // in case the number of vertices is valid
+        if(numberVertices > 0) {
+            // retrieves the vertex texture information buffer
+            Md2VertexTextureInformation_t *mMd2VertexTextureInformationBuffer = (Md2VertexTextureInformation_t *) *glCommandsListIterator;
+
+            // releases the vertex texture information buffer
+            free(mMd2VertexTextureInformationBuffer);
+        }
+
+        // increments the gl commands list iterator
+        glCommandsListIterator += numberVertices * 3;
+    }
+
+    // clears the commands list
+    this->glCommandsList.clear();
+}
+
+void Md2Importer::cleanMd2FrameList() {
+    // in case the md2 frames list is empty
+    // there is nothing to clean
+    if(this->md2FramesList.empty())
+        return;
+
+    // retrieves the md2 frames list iterator
+    std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
+
+     // iterates over all the md2 frames
+    while(md2FramesListIterator != this->md2FramesList.end()) {
+        // retrieves the current md2 frame
+        Md2Frame *currentMd2Frame = *md2FramesListIterator;
+
+        // deletes the current md2 frame
+        delete currentMd2Frame;
+
+        // increments the md2 frames list iterator
+        md2FramesListIterator++;
+    }
+
+    // clears the frames list
+    this->framesList.clear();
+}
+
+/**
+* Constructor of the class
+*/
+Md2Frame::Md2Frame() {
+    // invalidates the mesh count
+    this->meshCount = -1;
+}
+
+/**
+* Destructor of the class
+*/
+Md2Frame::~Md2Frame() {
+    // cleans the vertex list
+    this->cleanVertextList();
+
+    // cleans the mesh list
+    this->cleanMeshList();
+}
+
+/**
+* Generates the vertex list from the list of coordinates.
+*
+* @return The number of generated vertex.
+*/
+void Md2Frame::generateVertexList() {
     // cleans the previous vertex list information (in case there is one)
     this->cleanVertextList();
 
@@ -229,33 +467,33 @@ void Md2Importer::generateVertexList() {
 * Generates the mesh list for the current vertex information
 * in the importer.
 */
-void Md2Importer::generateMeshList() {
+void Md2Frame::generateMeshList(const std::vector<void *> &glCommandsList) {
     // cleans the previous mesh list information (in case there is one)
     this->cleanMeshList();
 
     // in case the mesh count is invalid
     if(this->meshCount < 0) {
         // counts the meshes
-        this->countMeshes();
+        this->countMeshes(glCommandsList);
     }
 
     // creates the mesh buffer
     Mesh_t *meshBuffer = (Mesh_t *) malloc(sizeof(Mesh_t) * this->meshCount);
 
-    // starts the gl command index
-    unsigned int glCommandIndex = 0;
-
     // creates the mesh pointer
     unsigned int meshPointer = 0;
 
+    // starts the gl command index
+    unsigned int glCommandIndex = 0;
+
     // iterates over all the gl commands in
     // the gl commands list
-    while(this->glCommandsList[glCommandIndex] != 0) {
+    while(glCommandsList[glCommandIndex] != 0) {
         // start the mesh type
         MeshType_t meshType = TRIANGLE_STRIP;
 
         // retrieves the number of vertices
-        int numberVertices = (long long) this->glCommandsList[glCommandIndex];
+        int numberVertices = (long long) glCommandsList[glCommandIndex];
 
         // in case the number of vertices is bigger than zero
         if(numberVertices > 0) {
@@ -294,9 +532,9 @@ void Md2Importer::generateMeshList() {
         // iterates over all the vertices
         for(int index = 0; index < numberVertices; index++) {
             // retrieves the vertex texture information
-            float vertexTextureX = *(float *) this->glCommandsList[glCommandIndex + 0];
-            float vertexTextureY = *(float *) this->glCommandsList[glCommandIndex + 1];
-            int vertexIndex = *(int *) this->glCommandsList[glCommandIndex + 2];
+            float vertexTextureX = *(float *) glCommandsList[glCommandIndex + 0];
+            float vertexTextureY = *(float *) glCommandsList[glCommandIndex + 1];
+            int vertexIndex = *(int *) glCommandsList[glCommandIndex + 2];
 
             // retrieves the vertex
             float *vertex = this->vertexList[vertexIndex];
@@ -305,7 +543,7 @@ void Md2Importer::generateMeshList() {
             memcpy(vertexBuffer, vertex, sizeof(float) * 3);
 
             // copes the texture vertex information to the vertex texture buffer
-            memcpy(textureVertexBuffer, this->glCommandsList[glCommandIndex], sizeof(float) * 2);
+            memcpy(textureVertexBuffer, glCommandsList[glCommandIndex], sizeof(float) * 2);
 
             // increments the gl command index
             glCommandIndex += 3;
@@ -325,7 +563,7 @@ void Md2Importer::generateMeshList() {
     }
 }
 
-void Md2Importer::countMeshes() {
+void Md2Frame::countMeshes(const std::vector<void *> &glCommandsList) {
     // resets the mesh count
     this->meshCount = 0;
 
@@ -334,9 +572,9 @@ void Md2Importer::countMeshes() {
 
     // iterates over all the gl commands in
     // the gl commands list
-    while(this->glCommandsList[glCommandIndex] != 0) {
+    while(glCommandsList[glCommandIndex] != 0) {
         // retrieves the number of vertices
-        int numberVertices = (long long) this->glCommandsList[glCommandIndex];
+        int numberVertices = (long long) glCommandsList[glCommandIndex];
 
         // in case the number of vertices is smaller than zero
         if(numberVertices < 0) {
@@ -409,60 +647,17 @@ void Md2Importer::compileDisplayList() {
     }
 }*/
 
-ModelNode *Md2Importer::getModelNode() {
-    // creates a new model node
-    ModelNode *modelNode = new ModelNode();
+Frame_t *Md2Frame::getFrame() {
+    // updates the frame values
+    this->frame.type = FRAME_TYPE_NORMAL;
+    this->frame.name = "";
+    this->frame.meshList = &this->meshList;
 
-    // sets the model node position
-    modelNode->setPosition(0.0, 0.0, 0.0);
-
-    // sets the mesh list in the model node
-    modelNode->setMeshList(&this->meshList);
-
-    // returns the model node
-    return modelNode;
+    // returns the frame
+    return &this->frame;
 }
 
-void Md2Importer::cleanModel() {
-    // in case the gl commands list is empty
-    // there is nothing to clean
-    if(this->glCommandsList.empty())
-        return;
-
-    // retrieves the gl commands iterator
-    std::vector<void *>::iterator glCommandsListIterator = this->glCommandsList.begin();
-
-    // iterates over all gl commands
-    while(glCommandsListIterator != this->glCommandsList.end()) {
-        // retrieves the number of vertices
-        int numberVertices = (long long) *glCommandsListIterator;
-
-        // in case the number of vertices is less than zero
-        if(numberVertices < 0) {
-            numberVertices = numberVertices * -1;
-        }
-
-        // increments the gl commands list iterator
-        glCommandsListIterator++;
-
-        // in case the number of vertices is valid
-        if(numberVertices > 0) {
-            // retrieves the vertex texture information buffer
-            Md2VertexTextureInformation_t *mMd2VertexTextureInformationBuffer = (Md2VertexTextureInformation_t *) *glCommandsListIterator;
-
-            // releases the vertex texture information buffer
-            free(mMd2VertexTextureInformationBuffer);
-        }
-
-        // increments the gl commands list iterator
-        glCommandsListIterator += numberVertices * 3;
-    }
-
-    // clears the commands list
-    this->glCommandsList.clear();
-}
-
-void Md2Importer::cleanVertextList() {
+void Md2Frame::cleanVertextList() {
     // in case the vertex list is empty
     // there is nothing to clean
     if(this->vertexList.empty())
@@ -481,7 +676,7 @@ void Md2Importer::cleanVertextList() {
     this->vertexList.clear();
 }
 
-void Md2Importer::cleanMeshList() {
+void Md2Frame::cleanMeshList() {
     // in case the mesh list is empty
     // there is nothing to clean
     if(this->meshList.empty())
