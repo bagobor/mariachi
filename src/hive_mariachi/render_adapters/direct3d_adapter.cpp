@@ -30,6 +30,7 @@
 #include "direct3d_adapter.h"
 
 using namespace mariachi;
+using namespace mariachi::render_adapters;
 
 /**
 * Constructor of the class.

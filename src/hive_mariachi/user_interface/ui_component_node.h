@@ -34,8 +34,8 @@ namespace mariachi {
     namespace ui {
         class ComponentNode : public UiNode {
             private:
-                FloatSize2d_t size;
-                FloatColor_t color;
+                structures::FloatSize2d_t size;
+                structures::FloatColor_t color;
                 Texture *texture;
 
             public:
@@ -43,8 +43,8 @@ namespace mariachi {
                 ComponentNode(const std::string &name);
                 ~ComponentNode();
                 void initRenderable();
-                FloatColor_t &getColor();
-                void setColor(const FloatColor_t &color);
+                structures::FloatColor_t &getColor();
+                void setColor(const structures::FloatColor_t &color);
                 Texture *getTexture();
                 void setTexture(Texture *texture);
                 virtual inline unsigned int getNodeType() { return UI_COMPONENT_NODE_TYPE; };

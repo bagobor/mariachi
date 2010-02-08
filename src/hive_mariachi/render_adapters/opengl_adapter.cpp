@@ -41,6 +41,9 @@ using namespace mariachi;
 using namespace mariachi::ui;
 using namespace mariachi::nodes;
 using namespace mariachi::render;
+using namespace mariachi::structures;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
 
 extern CameraNode *gCameraNode;
 

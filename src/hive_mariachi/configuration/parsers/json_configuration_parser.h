@@ -36,7 +36,7 @@ namespace mariachi {
             private:
                 void updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode);
                 void updateConfigurationList(ConfigurationList *configurationList, const Json::Value &currentNode);
-                ConfigurationValue *createConfigurationValue(const Json::Value &propertyValue);
+                structures::ConfigurationValue *createConfigurationValue(const Json::Value &propertyValue);
 
             public:
                 JsonConfigurationParser();

@@ -32,6 +32,7 @@
 using namespace mariachi;
 using namespace mariachi::importers;
 using namespace mariachi::exceptions;
+using namespace mariachi::structures;
 
 /**
 * Constructor of the class.

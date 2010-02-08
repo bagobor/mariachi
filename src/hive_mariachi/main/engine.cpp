@@ -39,12 +39,15 @@
 using namespace mariachi;
 
 using namespace mariachi::nodes;
+using namespace mariachi::tasks;
+using namespace mariachi::stages;
 using namespace mariachi::console;
 using namespace mariachi::devices;
 using namespace mariachi::logging;
 using namespace mariachi::physics;
 using namespace mariachi::debugging;
 using namespace mariachi::exceptions;
+using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
@@ -54,7 +57,7 @@ using namespace mariachi::configuration;
 * @param parameters The thread parameters.
 * @return The thread result.
 */
-THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
+THREAD_RETURN mariachi::mainRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the engine from the parameters
     Engine *engine = (Engine *) parameters;
 
@@ -104,7 +107,7 @@ THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters) {
 * @param parameters The thread parameters.
 * @return The thread result.
 */
-THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters) {
+THREAD_RETURN mariachi::stageRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the stage from the parameters
     Stage *stage = (Stage *) parameters;
 

@@ -28,6 +28,7 @@
 #include "lua_script_engine_position.h"
 
 using namespace mariachi;
+using namespace mariachi::structures;
 
 bool lua_mariachi_new_Coordinate3d_t(lua_State *luaState, Coordinate3d_t *value) {
     bool return_value;

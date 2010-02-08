@@ -26,21 +26,23 @@
 #pragma once
 
 namespace mariachi {
-    typedef struct ImageRGB_t {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-    } ImageRGB;
+    namespace structures {
+        typedef struct ImageRGB_t {
+            unsigned char red;
+            unsigned char green;
+            unsigned char blue;
+        } ImageRGB;
 
-    typedef struct ImageRGBA_t {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-        unsigned char alpha;
-    } ImageRGBA;
+        typedef struct ImageRGBA_t {
+            unsigned char red;
+            unsigned char green;
+            unsigned char blue;
+            unsigned char alpha;
+        } ImageRGBA;
 
-    typedef union ImageColor_t {
-        ImageRGBA_t rgb;
-        ImageRGBA_t rgba;
-    } ImageColor;
+        typedef union ImageColor_t {
+            ImageRGBA_t rgb;
+            ImageRGBA_t rgba;
+        } ImageColor;
+    }
 }

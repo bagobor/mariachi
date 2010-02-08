@@ -39,10 +39,10 @@ namespace mariachi {
 
         class SquareNode : public Node {
             private:
-                Coordinate2d_t position;
-                Coordinate2d_t rotation;
-                FloatSize2d_t size;
-                Coordinate2d_t topLeftPosition;
+                structures::Coordinate2d_t position;
+                structures::Coordinate2d_t rotation;
+                structures::FloatSize2d_t size;
+                structures::Coordinate2d_t topLeftPosition;
                 bool topLeftPositionDirty;
                 PositionReferenceType_t positionReference;
 
@@ -52,12 +52,12 @@ namespace mariachi {
                 SquareNode();
                 SquareNode(const std::string &name);
                 ~SquareNode();
-                Coordinate2d_t &getTopLeftPosition();
-                Coordinate2d_t &getPosition();
-                void setPosition(Coordinate2d_t &position);
+                structures::Coordinate2d_t &getTopLeftPosition();
+                structures::Coordinate2d_t &getPosition();
+                void setPosition(structures::Coordinate2d_t &position);
                 void setPosition(float x, float y);
-                FloatSize2d_t &getSize();
-                void setSize(FloatSize2d_t &size);
+                structures::FloatSize2d_t &getSize();
+                void setSize(structures::FloatSize2d_t &size);
                 void setSize(float width, float height);
                 PositionReferenceType_t getPositionReference();
                 void setPositionReference(PositionReferenceType_t positionReference);

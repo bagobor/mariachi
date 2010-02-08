@@ -82,16 +82,16 @@ namespace mariachi {
                 void load(void *arguments);
                 void unload(void *arguments);
                 void update(float delta, void *arguments);
-                std::vector<Collision3d_t> getCollisions(void *arguments);
+                std::vector<structures::Collision3d_t> getCollisions(void *arguments);
                 void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments);
                 void registerCollision(nodes::CollisionNode *collisionNode, void *arguments);
                 void unregisterCollision(nodes::CollisionNode *collisionNode, void *arguments);
                 CubeSolid *createCubeSolid();
                 SphereSolid *createSphereSolid();
-                void updatePhysicalNodePosition(nodes::PhysicalNode *physicalNode, const Coordinate3d_t &position);
-                void addPhysicalNodeImpulse(nodes::PhysicalNode *physicalNode, const Coordinate3d_t &impulse, const Coordinate3d_t &relativePosition);
-                void setPhysicalNodeVelocity(nodes::PhysicalNode *physicalNode, const Coordinate3d_t &velocity);
-                void setGravity(const Coordinate3d_t &gravity);
+                void updatePhysicalNodePosition(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &position);
+                void addPhysicalNodeImpulse(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &impulse, const structures::Coordinate3d_t &relativePosition);
+                void setPhysicalNodeVelocity(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &velocity);
+                void setGravity(const structures::Coordinate3d_t &gravity);
         };
     }
 }

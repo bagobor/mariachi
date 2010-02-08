@@ -29,14 +29,16 @@
 #include "texture.h"
 
 namespace mariachi {
-    typedef enum FrameType_t {
-        FRAME_TYPE_NORMAL = 1
-    } FrameType;
+    namespace structures {
+        typedef enum FrameType_t {
+            FRAME_TYPE_NORMAL = 1
+        } FrameType;
 
-    typedef struct Frame_t {
-        FrameType_t type;
-        std::string name;
-        std::vector<Mesh_t *> *meshList;
-        Texture *texture;
-    } Frame;
+        typedef struct Frame_t {
+            FrameType_t type;
+            std::string name;
+            std::vector<Mesh_t *> *meshList;
+            Texture *texture;
+        } Frame;
+    }
 }

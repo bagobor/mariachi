@@ -28,10 +28,17 @@
 #include "texture.h"
 
 using namespace mariachi;
+using namespace mariachi::structures;
 
+/**
+* Constructor of the class.
+*/
 Texture::Texture() {
 }
 
+/**
+* Destructor of the class.
+*/
 Texture::~Texture() {
 }
 

@@ -32,21 +32,23 @@
 #include "stage.h"
 
 namespace mariachi {
-    /**
-    * Just a dummy stage for testing purposes.
-    * This stage should be used carefully. It may affect the stability
-    * of the program or system.
-    */
-    class DummyStage : public Stage {
-        private:
+    namespace stages {
+        /**
+        * Just a dummy stage for testing purposes.
+        * This stage should be used carefully. It may affect the stability
+        * of the program or system.
+        */
+        class DummyStage : public Stage {
+            private:
 
-        public:
-            DummyStage();
-            DummyStage(Engine *engine);
-            DummyStage(Engine *engine, const std::string &name);
-            ~DummyStage();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void update(void *arguments);
-    };
+            public:
+                DummyStage();
+                DummyStage(Engine *engine);
+                DummyStage(Engine *engine, const std::string &name);
+                ~DummyStage();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void update(void *arguments);
+        };
+    }
 }

@@ -35,8 +35,10 @@
 using namespace mariachi;
 using namespace mariachi::ui;
 using namespace mariachi::nodes;
+using namespace mariachi::stages;
 using namespace mariachi::devices;
 using namespace mariachi::importers;
+using namespace mariachi::structures;
 
 CameraNode *gCameraNode = NULL;
 

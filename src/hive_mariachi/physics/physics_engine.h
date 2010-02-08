@@ -40,7 +40,7 @@ namespace mariachi {
 
             protected:
                 Engine *engine;
-                Coordinate3d_t gravity;
+                structures::Coordinate3d_t gravity;
 
             public:
                 PhysicsEngine();
@@ -49,17 +49,17 @@ namespace mariachi {
                 virtual void load(void *arguments) {};
                 virtual void unload(void *arguments) {};
                 virtual void update(float delta, void *arguments) {};
-                virtual std::vector<Collision3d_t> getCollisions(void *arguments) { return std::vector<Collision3d_t>(); };
+                virtual std::vector<structures::Collision3d_t> getCollisions(void *arguments) { return std::vector<structures::Collision3d_t>(); };
                 virtual void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments) {};
                 virtual void registerCollision(nodes::CollisionNode *collisionNode, void *arguments) {};
                 virtual void unregisterCollision(nodes::CollisionNode *collisionNode, void *arguments) {};
                 virtual CubeSolid *createCubeSolid() { return NULL; };
                 virtual SphereSolid *createSphereSolid() { return NULL; };
-                virtual void updatePhysicalNodePosition(nodes::PhysicalNode *physicalNode, const Coordinate3d_t &position) {};
-                virtual void addPhysicalNodeImpulse(nodes::PhysicalNode *physicalNode, const Coordinate3d_t &impulse, const Coordinate3d_t &relativePosition) {};
-                virtual void setPhysicalNodeVelocity(nodes::PhysicalNode *physicalNode, const Coordinate3d_t &velocity) {};
-                virtual const Coordinate3d_t &getGravity() { return this->gravity; };
-                virtual void setGravity(const Coordinate3d_t &gravity) { };
+                virtual void updatePhysicalNodePosition(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &position) {};
+                virtual void addPhysicalNodeImpulse(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &impulse, const structures::Coordinate3d_t &relativePosition) {};
+                virtual void setPhysicalNodeVelocity(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &velocity) {};
+                virtual const structures::Coordinate3d_t &getGravity() { return this->gravity; };
+                virtual void setGravity(const structures::Coordinate3d_t &gravity) { };
                 Engine *getEngine();
                 void setEngine(Engine *engine);
         };

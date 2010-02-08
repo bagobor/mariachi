@@ -29,6 +29,7 @@
 
 using namespace mariachi;
 using namespace mariachi::nodes;
+using namespace mariachi::structures;
 
 bool lua_mariachi_new_CubeNode(lua_State *luaState, CubeNode *value) {
     bool return_value;

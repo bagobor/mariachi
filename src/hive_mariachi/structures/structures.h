@@ -26,12 +26,16 @@
 #pragma once
 
 #include "box.h"
+#include "collision.h"
+#include "color.h"
 #include "configuration.h"
 #include "data.h"
 #include "frame.h"
 #include "image.h"
 #include "mesh.h"
 #include "oct_tree.h"
+#include "oct_tree_node.h"
+#include "path.h"
 #include "position.h"
 #include "rotation.h"
 #include "size.h"

@@ -29,8 +29,9 @@
 #include "configuration_map.h"
 
 using namespace mariachi;
-using namespace mariachi::configuration;
 using namespace mariachi::util;
+using namespace mariachi::structures;
+using namespace mariachi::configuration;
 
 /**
 * Constructor of the class.

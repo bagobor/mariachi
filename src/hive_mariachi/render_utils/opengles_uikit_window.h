@@ -33,20 +33,22 @@
 #include "opengles_window.h"
 
 namespace mariachi {
-    class OpenglesUikitWindow : public OpenglesWindow {
-        private:
-            OpenglesAdapter *openglesAdapter;
-            Engine *engine;
-            FunctionCallerTask *functionCallerTask;
+    namespace render_utils {
+        class OpenglesUikitWindow : public OpenglesWindow {
+            private:
+                OpenglesAdapter *openglesAdapter;
+                Engine *engine;
+                FunctionCallerTask *functionCallerTask;
 
-        public:
-            OpenglesUikitWindow();
-            ~OpenglesUikitWindow();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void loop(void *arguments);
-            void fullScreen(void *arguments);
-    };
+            public:
+                OpenglesUikitWindow();
+                ~OpenglesUikitWindow();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void loop(void *arguments);
+                void fullScreen(void *arguments);
+        };
+    }
 }
 
 #endif

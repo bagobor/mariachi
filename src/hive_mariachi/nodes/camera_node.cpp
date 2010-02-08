@@ -32,6 +32,7 @@
 
 using namespace mariachi;
 using namespace mariachi::nodes;
+using namespace mariachi::structures;
 
 /**
 * Constructor of the class.
@@ -57,7 +58,6 @@ CameraNode::CameraNode(const std::string &name) : LensNode(name) {
 */
 CameraNode::~CameraNode() {
 }
-
 
 void CameraNode::lookAt(const Coordinate3d_t &targetPoint) {
     // the direction vector is the difference between the eye position and the target point

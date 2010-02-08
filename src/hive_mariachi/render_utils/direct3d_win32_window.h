@@ -47,25 +47,27 @@
 LRESULT CALLBACK Direct3dWindowProc(HWND handlerWindow, UINT message, WPARAM wParam, LPARAM lParam);
 
 namespace mariachi {
-    class Direct3dWin32Window : public Direct3dWindow {
-        private:
-            HDC handlerDeviceContext;
-            HGLRC handlerOpengl;
-            HWND handlerWindow;
-            HWND handlerFullScreen;
+    namespace render_utils {
+        class Direct3dWin32Window : public Direct3dWindow {
+            private:
+                HDC handlerDeviceContext;
+                HGLRC handlerOpengl;
+                HWND handlerWindow;
+                HWND handlerFullScreen;
 
-        public:
-            Direct3dAdapter *adapter;
+            public:
+                render_adapters::Direct3dAdapter *adapter;
 
-            Direct3dWin32Window();
-            ~Direct3dWin32Window();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void loop(void *arguments);
-            void fullScreen(void *arguments);
-            HWND getHandlerWindow();
-            void createWindow(char* title, int x, int y, int width, int height);
-    };
+                Direct3dWin32Window();
+                ~Direct3dWin32Window();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void loop(void *arguments);
+                void fullScreen(void *arguments);
+                HWND getHandlerWindow();
+                void createWindow(char* title, int x, int y, int width, int height);
+        };
+    }
 }
 
 #endif

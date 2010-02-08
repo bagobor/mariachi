@@ -33,14 +33,14 @@ namespace mariachi {
     namespace configuration {
         class ConfigurationList : public ConfigurationStructure {
             private:
-                std::vector<ConfigurationValue_t *> configurationList;
+                std::vector<structures::ConfigurationValue_t *> configurationList;
                 inline void cleanList();
 
             public:
                 ConfigurationList();
                 ~ConfigurationList();
-                ConfigurationValue_t *getProperty(unsigned int index);
-                void addProperty(ConfigurationValue_t *value);
+                structures::ConfigurationValue_t *getProperty(unsigned int index);
+                void addProperty(structures::ConfigurationValue_t *value);
                 void removeProperty(unsigned int index);
                 void addIntProperty(const std::string &key, int intValue);
                 void addStringProperty(const std::string &key, const std::string &stringValue);
