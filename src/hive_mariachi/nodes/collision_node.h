@@ -33,6 +33,7 @@ namespace mariachi {
     class CollisionNode : public CubeNode {
         private:
             physics::CollisionSolid *collisionSolid;
+            bool contactResponseEnabled;
 
         public:
             CollisionNode();
@@ -41,6 +42,8 @@ namespace mariachi {
             void startCollision(void *arguments);
             void stopCollision(void *arguments);
             physics::CollisionSolid *getCollisionSolid();
+            bool getContactResponseEnabled();
+            void setContactResponseEnabled(bool contactResponseEnabled);
             void setCollisionSolid(physics::CollisionSolid *collisionSolid);
             virtual inline unsigned int getNodeType() { return COLLISION_NODE_TYPE; };
     };

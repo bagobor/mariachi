@@ -27,6 +27,8 @@
 
 #include "cube_node.h"
 
+#define PHYSICAL_NODE_DEFAULT_MASS 0.0f
+
 namespace mariachi {
     class PhysicalNode : public CubeNode {
         private:
@@ -43,6 +45,7 @@ namespace mariachi {
             PhysicalNode();
             PhysicalNode(const std::string &name);
             ~PhysicalNode();
+			inline void initMass();
             void addImpulse(const Coordinate3d_t &impulse);
             void addTorque(const Coordinate3d_t &torque);
             float getMass();

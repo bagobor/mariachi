@@ -1047,6 +1047,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\hive_mariachi\structures\collision.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\structures\color.h"
 					>
 				</File>

@@ -73,3 +73,11 @@ CollisionSolid *CollisionNode::getCollisionSolid() {
 void CollisionNode::setCollisionSolid(physics::CollisionSolid *collisionSolid) {
     this->collisionSolid = collisionSolid;
 }
+
+bool CollisionNode::getContactResponseEnabled() {
+	return contactResponseEnabled;
+}
+
+void CollisionNode::setContactResponseEnabled(bool contactResponseEnabled) {
+	this->contactResponseEnabled = contactResponseEnabled;
+}

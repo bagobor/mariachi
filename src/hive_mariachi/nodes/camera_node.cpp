@@ -113,7 +113,7 @@ void CameraNode::disableAutoFollowing() {
 }
 
 void CameraNode::setDirection(const Coordinate3d_t &direction) {
-    Rotation3d_t orientation;
+    Rotation3d_t rotation;
     Coordinate3d_t sideVector;
     Coordinate3d_t realUpVector;
 
@@ -133,7 +133,7 @@ void CameraNode::setDirection(const Coordinate3d_t &direction) {
     Coordinate3d_t normalizedRealUpVector = VectorUtil::normalize(realUpVector);
 
     // determines the rotation angle
-    orientation.angle = acos((normalizedSideVector.x + normalizedRealUpVector.y + normalizedDirection.z - 1.0f) / 2.0f) * 180.0f / (float) M_PI;
+    rotation.angle = acos((normalizedSideVector.x + normalizedRealUpVector.y + normalizedDirection.z - 1.0f) / 2.0f) * 180.0f / (float) M_PI;
 
     // @todo: account for singularities
 
@@ -141,12 +141,12 @@ void CameraNode::setDirection(const Coordinate3d_t &direction) {
     float magnitude = sqrt((normalizedDirection.y - normalizedRealUpVector.z) * (normalizedDirection.y - normalizedRealUpVector.z) + (normalizedSideVector.z - normalizedDirection.x) * (normalizedSideVector.z - normalizedDirection.x) + (normalizedRealUpVector.x - normalizedSideVector.y) * (normalizedRealUpVector.x - normalizedSideVector.y));
 
     // determines the rotation axis
-    orientation.x = (normalizedDirection.y - normalizedRealUpVector.z) / magnitude;
-    orientation.y = (normalizedSideVector.z - normalizedDirection.x) / magnitude;
-    orientation.z = (normalizedRealUpVector.x - normalizedSideVector.y) / magnitude;
+    rotation.x = (normalizedDirection.y - normalizedRealUpVector.z) / magnitude;
+    rotation.y = (normalizedSideVector.z - normalizedDirection.x) / magnitude;
+    rotation.z = (normalizedRealUpVector.x - normalizedSideVector.y) / magnitude;
 
-    // sets the axis angle representation of the rotation in the node orientation
-    this->setOrientation(orientation);
+    // sets the axis angle representation of the rotation in the node rotation
+    this->setRotation(rotation);
 }
 
 void CameraNode::setDirection(float x, float y, float z) {

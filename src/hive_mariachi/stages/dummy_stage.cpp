@@ -253,9 +253,9 @@ void DummyStage::start(void *arguments) {
     gCameraNode2->setPosition(0.0f, -100.0f, 15.0f);
     gCameraNode3->setPosition(0.0f, 0.0f, 100.0f);
 
-    gCameraNode1->setOrientation(0.0f, 0.0f, 0.0f, 0.0f);
-    gCameraNode2->setOrientation(0.0f, 0.0f, 0.0f, 0.0f);
-    gCameraNode3->setOrientation(0.0f, 0.0f, 0.0f, 0.0f);
+    gCameraNode1->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
+    gCameraNode2->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
+    gCameraNode3->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
 
     gCameraNode1->enableAutoTracking(modelNode2, zeroVector);
     gCameraNode2->enableAutoTracking(modelNode2, zeroVector);
