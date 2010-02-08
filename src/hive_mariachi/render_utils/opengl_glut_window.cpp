@@ -33,6 +33,8 @@
 
 using namespace mariachi;
 using namespace mariachi::devices;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
 
 OpenglGlutWindow *openglGlutWindow;
 

@@ -32,8 +32,10 @@
 
 using namespace mariachi;
 using namespace mariachi::render;
+using namespace mariachi::stages;
+using namespace mariachi::render_adapters;
 
-THREAD_RETURN renderRunnerThread(THREAD_ARGUMENTS parameters) {
+THREAD_RETURN mariachi::stages::renderRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the render adapter
     RenderAdapter *renderAdapter = ((RenderAdapter **) parameters)[3];
 

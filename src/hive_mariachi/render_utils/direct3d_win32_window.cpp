@@ -33,6 +33,8 @@
 
 using namespace mariachi;
 using namespace mariachi::exceptions;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
 
 Direct3dWin32Window *direct3dWin32Window;
 

@@ -29,6 +29,7 @@
 
 using namespace mariachi;
 using namespace mariachi::util;
+using namespace mariachi::structures;
 
 float GeometryUtil::getEuclidianDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate) {
     return sqrt(pow(secondCoordinate->x - firstCoordinate->x, 2) + pow(secondCoordinate->y - firstCoordinate->y, 2));

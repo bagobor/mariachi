@@ -28,17 +28,19 @@
 #ifdef MARIACHI_PLATFORM_OPENGLES
 
 namespace mariachi {
-    class OpenglesWindow {
-        private:
+    namespace render_utils {
+        class OpenglesWindow {
+            private:
 
-        public:
-            OpenglesWindow();
-            ~OpenglesWindow();
-            virtual void start(void *arguments) { };
-            virtual void stop(void *arguments) { };
-            virtual void loop(void *arguments) { };
-            virtual void fullScreen(void *arguments) { };
-    };
+            public:
+                OpenglesWindow();
+                ~OpenglesWindow();
+                virtual void start(void *arguments) { };
+                virtual void stop(void *arguments) { };
+                virtual void loop(void *arguments) { };
+                virtual void fullScreen(void *arguments) { };
+        };
+    }
 }
 
 #endif

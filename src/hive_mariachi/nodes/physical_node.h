@@ -36,23 +36,23 @@ namespace mariachi {
                 //std::vector<RigElement_t *> rigList;
                 float viscosity;
                 float mass;
-                Coordinate3d_t inertia;
+                structures::Coordinate3d_t inertia;
                 std::list<float> *angularForces;
                 std::list<float> *linearForces;
-                Coordinate3d_t linearVelocity;
-                Coordinate3d_t angularVelocity;
+                structures::Coordinate3d_t linearVelocity;
+                structures::Coordinate3d_t angularVelocity;
 
             public:
                 PhysicalNode();
                 PhysicalNode(const std::string &name);
                 ~PhysicalNode();
                 inline void initMass();
-                void addImpulse(const Coordinate3d_t &impulse);
-                void addTorque(const Coordinate3d_t &torque);
+                void addImpulse(const structures::Coordinate3d_t &impulse);
+                void addTorque(const structures::Coordinate3d_t &torque);
                 float getMass();
                 void setMass(float mass);
-                Coordinate3d_t &getInertia();
-                void setInertia(const Coordinate3d_t &inertia);
+                structures::Coordinate3d_t &getInertia();
+                void setInertia(const structures::Coordinate3d_t &inertia);
                 virtual inline unsigned int getNodeType() { return PHYSICAL_NODE_TYPE; };
         };
     }

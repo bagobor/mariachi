@@ -31,23 +31,4 @@
 */
 # define JSON_USE_EXCEPTION 1
 
-/*
-# ifdef JSON_IN_CPPTL
-#  include <cpptl/config.h>
-#  ifndef JSON_USE_CPPTL
-#   define JSON_USE_CPPTL 1
-#  endi
-# endif*/
-
 #define JSON_API
-
-/*
-# ifdef JSON_IN_CPPTL
-#  define JSON_API CPPTL_API
-# elif defined(JSON_DLL_BUILD)
-#  define JSON_API __declspec(dllexport)
-# elif defined(JSON_DLL)
-#  define JSON_API __declspec(dllimport)
-# else
-#  define JSON_API
-# endif*/

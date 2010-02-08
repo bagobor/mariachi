@@ -54,21 +54,23 @@ void mouseButtonPressed(int button, int state, int x, int y);
 void mouseMoved(int x, int y);
 
 namespace mariachi {
-    class OpenglGlutWindow : public OpenglWindow {
-        private:
-            int window;
+    namespace render_utils {
+        class OpenglGlutWindow : public OpenglWindow {
+            private:
+                int window;
 
-        public:
-            OpenglAdapter *openglAdapter;
-            Engine *engine;
+            public:
+                render_adapters::OpenglAdapter *openglAdapter;
+                Engine *engine;
 
-            OpenglGlutWindow();
-            ~OpenglGlutWindow();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void loop(void *arguments);
-            void fullScreen(void *arguments);
-    };
+                OpenglGlutWindow();
+                ~OpenglGlutWindow();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void loop(void *arguments);
+                void fullScreen(void *arguments);
+        };
+    }
 }
 
 #endif

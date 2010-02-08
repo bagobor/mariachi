@@ -27,4 +27,4 @@
 
 #include "../lua_script_engine_mapping.h"
 
-bool lua_mariachi_new_Coordinate3d_t(lua_State *luaState, mariachi::Coordinate3d_t *value);
+bool lua_mariachi_new_Coordinate3d_t(lua_State *luaState, mariachi::structures::Coordinate3d_t *value);

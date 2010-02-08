@@ -48,28 +48,30 @@
 LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM wParam, LPARAM lParam);
 
 namespace mariachi {
-    class OpenglWin32Window : public OpenglWindow {
-        private:
-            HDC handlerDeviceContext;
-            HGLRC handlerOpengl;
-            HWND handlerWindow;
-            HWND handlerFullScreen;
+    namespace render_utils {
+        class OpenglWin32Window : public OpenglWindow {
+            private:
+                HDC handlerDeviceContext;
+                HGLRC handlerOpengl;
+                HWND handlerWindow;
+                HWND handlerFullScreen;
 
-        public:
-            OpenglAdapter *openglAdapter;
-            Engine *engine;
+            public:
+                render_adapters::OpenglAdapter *openglAdapter;
+                Engine *engine;
 
-            OpenglWin32Window();
-            ~OpenglWin32Window();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void loop(void *arguments);
-            void fullScreen(void *arguments);
-            void createWindow(char *title, int x, int y, int width, int height);
-            void createFullScreen(char *title, int width, int height);
-            void enableOpengl();
-            void changeDisplayResolution(int width, int height, int colorBits);
-    };
+                OpenglWin32Window();
+                ~OpenglWin32Window();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void loop(void *arguments);
+                void fullScreen(void *arguments);
+                void createWindow(char *title, int x, int y, int width, int height);
+                void createFullScreen(char *title, int width, int height);
+                void enableOpengl();
+                void changeDisplayResolution(int width, int height, int colorBits);
+        };
+    }
 }
 
 #endif

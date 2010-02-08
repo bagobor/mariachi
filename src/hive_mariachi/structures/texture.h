@@ -31,15 +31,15 @@
 namespace mariachi {
     class Texture {
         private:
-            IntSize2d_t size;
-            ImageColor_t *imageBuffer;
+            structures::IntSize2d_t size;
+            structures::ImageColor_t *imageBuffer;
 
         public:
             Texture();
             ~Texture();
-            IntSize2d_t getSize();
-            void setSize(IntSize2d_t size);
-            ImageColor_t *getImageBuffer();
-            void setImageBuffer(ImageColor_t * imageBuffer);
+            structures::IntSize2d_t getSize();
+            void setSize(structures::IntSize2d_t size);
+            structures::ImageColor_t *getImageBuffer();
+            void setImageBuffer(structures::ImageColor_t * imageBuffer);
     };
 }

@@ -48,21 +48,23 @@
 #define REFERENCE_HEIGHT_2D 100.0
 
 namespace mariachi {
-    class RenderAdapter {
-        private:
-            Engine *engine;
+    namespace render_adapters {
+        class RenderAdapter {
+            private:
+                Engine *engine;
 
-        protected:
-            render::RenderInformation *renderInformation;
-            unsigned int frameCount;
-            time_t baseClock;
+            protected:
+                render::RenderInformation *renderInformation;
+                unsigned int frameCount;
+                time_t baseClock;
 
-        public:
-            RenderAdapter();
-            ~RenderAdapter();
-            virtual void start(void *arguments) { };
-            virtual void stop(void *arguments) { };
-            Engine *getEngine();
-            void setEngine(Engine *engine);
-    };
+            public:
+                RenderAdapter();
+                ~RenderAdapter();
+                virtual void start(void *arguments) { };
+                virtual void stop(void *arguments) { };
+                Engine *getEngine();
+                void setEngine(Engine *engine);
+        };
+    }
 }

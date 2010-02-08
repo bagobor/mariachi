@@ -37,6 +37,8 @@ struct CUSTOMVERTEX { FLOAT X, Y, Z, RHW; DWORD COLOR; };
 
 using namespace mariachi;
 using namespace mariachi::render;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
 
 Direct3d9Adapter::Direct3d9Adapter() : Direct3dAdapter() {
     this->triangleVertexBuffer = NULL;
@@ -75,8 +77,6 @@ void Direct3d9Adapter::start(void *arguments) {
 
     // starts the direct3d window
     this->window->start(&argumentsMap);
-
-
 
     // starts the loop in the opengl window
     this->window->loop(&argumentsMap);

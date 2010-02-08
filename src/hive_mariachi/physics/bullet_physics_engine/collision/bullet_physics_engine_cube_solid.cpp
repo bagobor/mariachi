@@ -29,6 +29,7 @@
 
 using namespace mariachi;
 using namespace mariachi::physics;
+using namespace mariachi::structures;
 
 BulletPhysicsEngineCubeSolid::BulletPhysicsEngineCubeSolid() : BulletPhysicsEngineCollisionSolid(), CubeSolid() {
 

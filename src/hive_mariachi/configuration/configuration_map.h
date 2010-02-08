@@ -32,16 +32,16 @@ namespace mariachi {
     namespace configuration {
         class ConfigurationMap : public ConfigurationStructure {
             private:
-                std::map<std::string, ConfigurationValue_t *> configurationMap;
-                std::list<ConfigurationValue_t *> configurationList;
+                std::map<std::string, structures::ConfigurationValue_t *> configurationMap;
+                std::list<structures::ConfigurationValue_t *> configurationList;
 
             public:
                 ConfigurationMap();
                 ~ConfigurationMap();
                 inline void cleanMap();
-                ConfigurationValue_t *_getProperty(const std::string &key);
-                ConfigurationValue_t *getProperty(const std::string &key);
-                void setProperty(const std::string &key, ConfigurationValue_t *value);
+                structures::ConfigurationValue_t *_getProperty(const std::string &key);
+                structures::ConfigurationValue_t *getProperty(const std::string &key);
+                void setProperty(const std::string &key, structures::ConfigurationValue_t *value);
                 void removeProperty(const std::string &key);
                 void setIntProperty(const std::string &key, int intValue);
                 void setStringProperty(const std::string &key, const std::string &stringValue);

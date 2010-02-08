@@ -26,19 +26,21 @@
 #pragma once
 
 namespace mariachi {
-    class Task {
-        private:
+    namespace tasks {
+        class Task {
+            private:
 
-        protected:
-            std::string name;
+            protected:
+                std::string name;
 
-        public:
-            Task();
-            Task(const std::string &name);
-            ~Task();
-            virtual void start(void *parameters) { };
-            virtual void stop(void *parameters) { };
-            std::string &getName();
-            void setName(const std::string &name);
-    };
+            public:
+                Task();
+                Task(const std::string &name);
+                ~Task();
+                virtual void start(void *parameters) { };
+                virtual void stop(void *parameters) { };
+                std::string &getName();
+                void setName(const std::string &name);
+        };
+    }
 }

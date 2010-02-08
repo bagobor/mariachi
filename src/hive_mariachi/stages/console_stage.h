@@ -32,22 +32,24 @@
 #include "stage.h"
 
 namespace mariachi {
-    class ConsoleStage : public Stage {
-        private:
-            /**
-            * The console manager to be used.
-            */
-            console::ConsoleManager *consoleManager;
+    namespace stages {
+        class ConsoleStage : public Stage {
+            private:
+                /**
+                * The console manager to be used.
+                */
+                console::ConsoleManager *consoleManager;
 
-            inline void initThread();
+                inline void initThread();
 
-        public:
-            ConsoleStage();
-            ConsoleStage(Engine *engine);
-            ConsoleStage(Engine *engine, const std::string &name);
-            ~ConsoleStage();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void update(void *arguments);
-    };
+            public:
+                ConsoleStage();
+                ConsoleStage(Engine *engine);
+                ConsoleStage(Engine *engine, const std::string &name);
+                ~ConsoleStage();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void update(void *arguments);
+        };
+    }
 }

@@ -33,42 +33,44 @@
 #define BLUE_COLOR_FLOAT { 0.0, 0.0, 1.0 }
 
 namespace mariachi {
-    typedef struct CharColor_t {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-    } CharColor;
+    namespace structures {
+        typedef struct CharColor_t {
+            unsigned char red;
+            unsigned char green;
+            unsigned char blue;
+        } CharColor;
 
-    typedef struct CharColorAlpha_t {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-        unsigned char alpha;
-    } CharColorAlpha;
+        typedef struct CharColorAlpha_t {
+            unsigned char red;
+            unsigned char green;
+            unsigned char blue;
+            unsigned char alpha;
+        } CharColorAlpha;
 
-    typedef struct IntColor_t {
-        unsigned int red;
-        unsigned int green;
-        unsigned int blue;
-    } IntColor;
+        typedef struct IntColor_t {
+            unsigned int red;
+            unsigned int green;
+            unsigned int blue;
+        } IntColor;
 
-    typedef struct IntColorAlpha_t {
-        unsigned int red;
-        unsigned int green;
-        unsigned int blue;
-        unsigned int alpha;
-    } IntColorAlpha;
+        typedef struct IntColorAlpha_t {
+            unsigned int red;
+            unsigned int green;
+            unsigned int blue;
+            unsigned int alpha;
+        } IntColorAlpha;
 
-    typedef struct FloatColor_t {
-        float red;
-        float green;
-        float blue;
-    } FloatColor;
+        typedef struct FloatColor_t {
+            float red;
+            float green;
+            float blue;
+        } FloatColor;
 
-    typedef struct FloatColorAlpha_t {
-        float red;
-        float green;
-        float blue;
-        float alpha;
-    } FloatColorAlpha;
+        typedef struct FloatColorAlpha_t {
+            float red;
+            float green;
+            float blue;
+            float alpha;
+        } FloatColorAlpha;
+    }
 }

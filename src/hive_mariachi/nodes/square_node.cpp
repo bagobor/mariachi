@@ -29,6 +29,7 @@
 
 using namespace mariachi;
 using namespace mariachi::nodes;
+using namespace mariachi::structures;
 
 SquareNode::SquareNode() : Node() {
     // intializes the position reference

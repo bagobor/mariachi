@@ -39,26 +39,28 @@
 #define DEFAULT_ZOOM_LEVEL 170.0
 
 namespace mariachi {
-    class Opengles1Adapter : public OpenglesAdapter {
-        private:
-            OpenglesWindow *window;
-            std::map<Texture *, int> textureTextureIdMap;
+    namespace render_adapters {
+        class Opengles1Adapter : public OpenglesAdapter {
+            private:
+                OpenglesWindow *window;
+                std::map<Texture *, int> textureTextureIdMap;
 
-            inline time_t clockSeconds();
-            inline void updateFrameRate();
+                inline time_t clockSeconds();
+                inline void updateFrameRate();
 
-        public:
-            Opengles1Adapter();
-            ~Opengles1Adapter();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void init();
-            void clean();
-            void display();
-            void resizeScene(int windowWidth, int windowHeight);
-            void keyPressed(unsigned char key, int x, int y);
-            inline void setTexture(Texture *texture);
-    };
+            public:
+                Opengles1Adapter();
+                ~Opengles1Adapter();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void init();
+                void clean();
+                void display();
+                void resizeScene(int windowWidth, int windowHeight);
+                void keyPressed(unsigned char key, int x, int y);
+                inline void setTexture(Texture *texture);
+        };
+    }
 }
 
 #endif

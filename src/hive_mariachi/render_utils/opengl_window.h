@@ -28,21 +28,23 @@
 #ifdef MARIACHI_PLATFORM_OPENGL
 
 namespace mariachi {
-    class OpenglWindow {
-        private:
-            inline void initRunningFlag();
+    namespace render_utils {
+        class OpenglWindow {
+            private:
+                inline void initRunningFlag();
 
-        protected:
-            bool runningFlag;
+            protected:
+                bool runningFlag;
 
-        public:
-            OpenglWindow();
-            ~OpenglWindow();
-            virtual void start(void *arguments) { };
-            virtual void stop(void *arguments) { };
-            virtual void loop(void *arguments) { };
-            virtual void fullScreen(void *arguments) { };
-    };
+            public:
+                OpenglWindow();
+                ~OpenglWindow();
+                virtual void start(void *arguments) { };
+                virtual void stop(void *arguments) { };
+                virtual void loop(void *arguments) { };
+                virtual void fullScreen(void *arguments) { };
+        };
+    }
 }
 
 #endif

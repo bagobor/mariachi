@@ -35,6 +35,8 @@
 using namespace mariachi;
 using namespace mariachi::devices;
 using namespace mariachi::exceptions;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
 
 OpenglWin32Window *openglWin32Window;
 

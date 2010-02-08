@@ -26,31 +26,33 @@
 #pragma once
 
 namespace mariachi {
-    /**
-     * Represents a rotation in a 2d space.
-     *
-     * @param angle The angle value of the rotation.
-     * @param x The x value of the rotation axis.
-     * @param y The y value of the rotation axis.
-     */
-    typedef struct Rotation2d_t {
-        float angle;
-        float x;
-        float y;
-    } Rotation2d;
+    namespace structures {
+        /**
+         * Represents a rotation in a 2d space.
+         *
+         * @param angle The angle value of the rotation.
+         * @param x The x value of the rotation axis.
+         * @param y The y value of the rotation axis.
+         */
+        typedef struct Rotation2d_t {
+            float angle;
+            float x;
+            float y;
+        } Rotation2d;
 
-    /**
-     * Represents a rotation in a 3d space.
-     *
-     * @param angle The angle value of the rotation.
-     * @param x The x value of the rotation axis.
-     * @param y The y value of the rotation axis.
-     * @param z The z value of the rotation axis.
-     */
-    typedef struct Rotation3d_t {
-        float angle;
-        float x;
-        float y;
-        float z;
-    } Rotation3d;
+        /**
+         * Represents a rotation in a 3d space.
+         *
+         * @param angle The angle value of the rotation.
+         * @param x The x value of the rotation axis.
+         * @param y The y value of the rotation axis.
+         * @param z The z value of the rotation axis.
+         */
+        typedef struct Rotation3d_t {
+            float angle;
+            float x;
+            float y;
+            float z;
+        } Rotation3d;
+    }
 }
