@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = João Magalhães <joamag@hive.pt> & Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -41,6 +41,8 @@ namespace mariachi {
                 std::list<float> *linearForces;
                 structures::Coordinate3d_t linearVelocity;
                 structures::Coordinate3d_t angularVelocity;
+                bool physicalPositionEnabled;
+                bool physicalRotationEnabled;
 
             public:
                 PhysicalNode();
@@ -53,6 +55,10 @@ namespace mariachi {
                 void setMass(float mass);
                 structures::Coordinate3d_t &getInertia();
                 void setInertia(const structures::Coordinate3d_t &inertia);
+                bool getPhysicalPositionEnabled();
+                void setPhysicalPositionEnabled(bool physicalPositionEnabled);
+                bool getPhysicalRotationEnabled();
+                void setPhysicalRotationEnabled(bool physicalRotationEnabled);
                 virtual inline unsigned int getNodeType() { return PHYSICAL_NODE_TYPE; };
         };
     }
