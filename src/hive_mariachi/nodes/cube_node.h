@@ -46,8 +46,8 @@ namespace mariachi {
             void setPosition(float x, float y, float z);
             Rotation3d_t &getRotation();
             void setRotation(Rotation3d_t &rotation);
-            void setRotation(float x, float y, float z);
             void setRotation(float angle, float x, float y, float z);
+            void setRotation(float xAxisDegrees, float yAxisDegrees, float zAxisDegrees);
             Coordinate3d_t &getScale();
             void setScale(Coordinate3d_t &scale);
             void setScale(float scaleX, float scaleY, float scaleZ);

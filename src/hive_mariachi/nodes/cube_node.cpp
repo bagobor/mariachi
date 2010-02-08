@@ -96,11 +96,59 @@ void CubeNode::setRotation(float angle, float x, float y, float z) {
     this->rotation = rotation;
 }
 
-void CubeNode::setRotation(float x, float y, float z) {
-    // @todo: convert the rotation vector into an angle rotation
-    // rotation would be (x, 1.0f, 0.0f, 0.0f);
-    // rotation would be (y, 0.0f, 1.0f, 0.0f);
-    // rotation would be (z, 0.0f, 0.0f, 1.0f);
+/**
+* Defines the rotation in terms of euler angles, i.e.,
+* a sequence of rotations across the three axis.
+* @see wikipedia - http://en.wikipedia.org/wiki/Euler_angles
+* @see EuclideanSpace - http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToAngle/index.htm
+*/
+void CubeNode::setRotation(float xAxisDegrees, float yAxisDegrees, float zAxisDegrees) {
+    // converts the angles to radians
+    float xAxisRadians = xAxisDegrees / 180.0f * (float) M_PI;
+    float yAxisRadians = yAxisDegrees / 180.0f * (float) M_PI;
+    float zAxisRadians = zAxisDegrees / 180.0f * (float) M_PI;
+
+    float c1 = cos(yAxisRadians/2);
+    float s1 = sin(yAxisRadians/2);
+    float c2 = cos(zAxisRadians/2);
+    float s2 = sin(zAxisRadians/2);
+    float c3 = cos(xAxisRadians/2);
+    float s3 = sin(xAxisRadians/2);
+
+    float c1c2 = c1*c2;
+    float s1s2 = s1*s2;
+
+    // determines the rotation w of the quaternion
+    float w = c1c2*c3 - s1s2*s3;
+
+    // determines the rotation vector of the quaternion
+    float x = c1c2*s3 + s1s2*c3;
+    float y = s1*c2*c3 + c1*s2*s3;
+    float z = c1*s2*c3 - s1*c2*s3;
+
+    // determines the angle for the rotation
+    float angleRadians = 2 * acos(w);
+    float angleDegrees = angleRadians / (float) M_PI * 180.0f;
+
+    // determines the rotation vector norm
+    float norm = x*x+y*y+z*z;
+
+    // normalizes the vector
+    if (norm > 0) {
+        norm = sqrt(norm);
+        x /= norm;
+        y /= norm;
+        z /= norm;
+    }
+    // avoids division by zero
+    else {
+        x = 1;
+        y = 0;
+        z = 0;
+    }
+
+    // sets the computed rotation values
+    this->setRotation(angleDegrees, x, y, z);
 }
 
 Coordinate3d_t &CubeNode::getScale() {
