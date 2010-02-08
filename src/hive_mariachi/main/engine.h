@@ -53,7 +53,7 @@
 /**
 * The realse information value.
 */
-#define MARIACHI_RELEASE_INFO "(Hive Solutions Lda. r1:Jan 19 2010)"
+#define MARIACHI_RELEASE_INFO "(Hive Solutions Lda. r1:" ## __DATE__ ## " " ## __TIME__ ## ")"
 
 /**
 * The help text value.
