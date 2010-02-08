@@ -26,18 +26,28 @@
 #pragma once
 
 #include "../structures/structures.h"
-#include "cube_node.h"
+
+#include "model_node.h"
 
 namespace mariachi {
-    class ActorNode : public CubeNode {
+    class ActorNode : public ModelNode {
         private:
+            std::vector<Frame_t *> *frameList;
+            unsigned int currentFrame;
 
         public:
             ActorNode();
             ActorNode(const std::string &name);
             ~ActorNode();
             inline void initRenderable();
+            inline void initCurrentFrame();
+            inline Frame_t *getCurrentFrame();
+            inline void incrementFrame();
+            std::vector<Mesh_t *> *getMeshList();
+            std::vector<Frame_t *> *getFrameList();
+            void setFrameList(std::vector<Frame_t *> *frameList);
+            void updateFrame();
             void loop(const std::string &animationName);
-            virtual inline unsigned int getNodeType() { return MODEL_NODE_TYPE; };
+            virtual inline unsigned int getNodeType() { return ACTOR_NODE_TYPE; };
     };
 }

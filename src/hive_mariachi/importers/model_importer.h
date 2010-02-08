@@ -35,5 +35,6 @@ namespace mariachi {
             ModelImporter();
             ~ModelImporter();
             virtual ModelNode *getModelNode() { return NULL; };
+            virtual ActorNode *getActorNode() { return NULL; };
     };
 }

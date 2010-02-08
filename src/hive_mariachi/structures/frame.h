@@ -30,13 +30,13 @@
 
 namespace mariachi {
     typedef enum FrameType_t {
-        NORMAL = 1
+        FRAME_TYPE_NORMAL = 1
     } FrameType;
 
     typedef struct Frame_t {
         FrameType_t type;
         std::string name;
-        std::vector<Mesh_t *> meshList;
+        std::vector<Mesh_t *> *meshList;
         Texture *texture;
     } Frame;
 }
