@@ -53,12 +53,14 @@
 /**
 * The realse information value.
 */
-#define MARIACHI_RELEASE_INFO "(Hive Solutions Lda. r1:" ## __DATE__ ## " " ## __TIME__ ## ")"
+#define MARIACHI_RELEASE_INFO "Hive Solutions Lda. r1: "
 
 /**
 * The help text value.
 */
 #define MARIACHI_HELP_TEXT "Type \"help\" for more information."
+
+#define MARIACHI_QUOTE(text) #text
 
 THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
 THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);

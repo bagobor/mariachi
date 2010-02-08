@@ -269,7 +269,7 @@ void Engine::update() {
 */
 void Engine::printInformation() {
     // prints the branding information
-    std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " " << MARIACHI_RELEASE_INFO << std::endl;
+    std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " (" << MARIACHI_RELEASE_INFO << __DATE__ << " " << __TIME__ << ")" << std::endl;
 
     // prints the help text
     std::cout << MARIACHI_HELP_TEXT << std::endl;
