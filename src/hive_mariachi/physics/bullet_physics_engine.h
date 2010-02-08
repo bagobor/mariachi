@@ -72,7 +72,7 @@ namespace mariachi {
                 */
                 std::map<btRigidBody *, nodes::PhysicalNode *> rigidBodyPhysicalNodeMap;
 
-                btRigidBody *BulletPhysicsEngine::getRigidBody(nodes::PhysicalNode *physicalNode, nodes::CollisionNode *collisionNode, void *arguments);
+                btRigidBody *getRigidBody(nodes::PhysicalNode *physicalNode, nodes::CollisionNode *collisionNode, void *arguments);
                 void setRigidBodyCollisionFlags(btRigidBody *rigidBody, nodes::CollisionNode *collisionNode);
 
             public:
