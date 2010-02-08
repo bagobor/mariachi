@@ -27,7 +27,6 @@
 
 #include "render_adapter.h"
 
-using namespace mariachi;
 using namespace mariachi::render_adapters;
 
 /**

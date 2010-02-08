@@ -28,30 +28,32 @@
 #include "../main/main.h"
 
 namespace mariachi {
-    typedef struct Script_t {
-        char *scriptName;
-        unsigned int scriptSize;
-        void *attributes;
-    } Script;
+    namespace script {
+        typedef struct Script_t {
+            char *scriptName;
+            unsigned int scriptSize;
+            void *attributes;
+        } Script;
 
-    class ScriptEngine {
-        private:
+        class ScriptEngine {
+            private:
 
-        protected:
-            Engine *engine;
+            protected:
+                Engine *engine;
 
-        public:
-            ScriptEngine();
-            ScriptEngine(Engine *engine);
-            ~ScriptEngine();
-            virtual void load(void *arguments) {};
-            virtual void unload(void *arguments) {};
-            virtual void addExtraPaths(std::vector<std::string *> &extraPaths) { };
-            virtual bool runScript(Script_t *script) { return true; };
-            virtual bool runScriptFile(const std::string &scriptPath) { return true; };
-            virtual bool runScriptString(const std::string &scriptString) { return true; };
-            virtual std::string getLastError() { return NULL; };
-            Engine *getEngine();
-            void setEngine(Engine *engine);
-    };
+            public:
+                ScriptEngine();
+                ScriptEngine(Engine *engine);
+                ~ScriptEngine();
+                virtual void load(void *arguments) {};
+                virtual void unload(void *arguments) {};
+                virtual void addExtraPaths(std::vector<std::string *> &extraPaths) { };
+                virtual bool runScript(Script_t *script) { return true; };
+                virtual bool runScriptFile(const std::string &scriptPath) { return true; };
+                virtual bool runScriptString(const std::string &scriptString) { return true; };
+                virtual std::string getLastError() { return NULL; };
+                Engine *getEngine();
+                void setEngine(Engine *engine);
+        };
+    }
 }

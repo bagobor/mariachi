@@ -27,7 +27,6 @@
 
 #include "sphere_solid.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 
 /**

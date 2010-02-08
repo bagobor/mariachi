@@ -80,7 +80,7 @@ namespace mariachi {
             private:
                 Engine *engine;
                 std::map<std::string, CommandProcessInformation_t> processInformationMap;
-                ScriptEngine *currentScriptEngine;
+                script::ScriptEngine *currentScriptEngine;
                 std::string currentScriptEngineName;
                 std::string currentScriptString;
                 bool extraCarret;

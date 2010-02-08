@@ -28,7 +28,6 @@
 #include "../util/util.h"
 #include "oct_tree_node.h"
 
-using namespace mariachi;
 using namespace mariachi::util;
 using namespace mariachi::structures;
 

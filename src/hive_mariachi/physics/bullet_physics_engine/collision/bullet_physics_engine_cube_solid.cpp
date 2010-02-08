@@ -27,7 +27,6 @@
 
 #include "bullet_physics_engine_cube_solid.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 using namespace mariachi::structures;
 

@@ -27,7 +27,6 @@
 
 #include "ui_view_port_node.h"
 
-using namespace mariachi;
 using namespace mariachi::ui;
 
 /**

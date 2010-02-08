@@ -29,4 +29,16 @@
 
 #define LUA_SCRIPT_ENGINE_SCENE_NODE_TYPE "_t_SCENE_NODE"
 
-bool lua_mariachi_new_SceneNode(lua_State *luaState, mariachi::nodes::SceneNode *value);
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            class LuaSceneNode {
+                private:
+
+                public:
+                    static bool allocate(lua_State *luaState, nodes::SceneNode *value);
+                    static int construct(lua_State *luaState);
+            };
+        }
+    }
+}

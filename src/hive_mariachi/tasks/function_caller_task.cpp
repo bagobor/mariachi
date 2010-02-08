@@ -27,7 +27,6 @@
 
 #include "function_caller_task.h"
 
-using namespace mariachi;
 using namespace mariachi::tasks;
 
 /**

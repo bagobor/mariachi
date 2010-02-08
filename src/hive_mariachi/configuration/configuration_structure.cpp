@@ -27,7 +27,6 @@
 
 #include "configuration_structure.h"
 
-using namespace mariachi;
 using namespace mariachi::structures;
 using namespace mariachi::configuration;
 

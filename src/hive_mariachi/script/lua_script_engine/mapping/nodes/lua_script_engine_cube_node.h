@@ -29,8 +29,18 @@
 
 #define LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE "_t_CUBE_NODE"
 
-bool lua_mariachi_new_CubeNode(lua_State *luaState, mariachi::nodes::CubeNode *value);
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            class LuaCubeNode {
+                private:
 
-int lua_mariachi_cube_node_construct(lua_State *luaState);
-int lua_mariachi_cube_node_get_position(lua_State *luaState);
-int lua_mariachi_cube_node_set_position(lua_State *luaState);
+                public:
+                    static bool allocate(lua_State *luaState, nodes::CubeNode *value);
+                    static int construct(lua_State *luaState);
+                    static int getPosition(lua_State *luaState);
+                    static int setPosition(lua_State *luaState);
+            };
+        }
+    }
+}

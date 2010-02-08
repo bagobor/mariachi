@@ -27,10 +27,10 @@
 
 #include "lua_script_engine_position.h"
 
-using namespace mariachi;
 using namespace mariachi::structures;
+using namespace mariachi::script::lua;
 
-bool lua_mariachi_new_Coordinate3d_t(lua_State *luaState, Coordinate3d_t *value) {
+bool LuaCoordinate3d_t::allocate(lua_State *luaState, Coordinate3d_t *value) {
     bool return_value;
 
     if((return_value = lua_mariachi_get_reference(luaState, value))) {
@@ -41,4 +41,18 @@ bool lua_mariachi_new_Coordinate3d_t(lua_State *luaState, Coordinate3d_t *value)
     lua_setnamefloat(luaState, "z", value->z);
 
     return return_value;
+}
+
+int LuaCoordinate3d_t::construct(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargs(luaState, 0);
+
+    // creates a new coordinate 3d
+    Coordinate3d_t *coordinate3d = new Coordinate3d_t();
+
+    // creates and loads the coordinate 3d (in lua)
+    LuaCoordinate3d_t::allocate(luaState, coordinate3d);
+
+    // returns the number of return values
+    return 1;
 }

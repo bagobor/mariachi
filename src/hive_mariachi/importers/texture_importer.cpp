@@ -27,7 +27,6 @@
 
 #include "texture_importer.h"
 
-using namespace mariachi;
 using namespace mariachi::importers;
 
 TextureImporter::TextureImporter() {

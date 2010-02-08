@@ -29,7 +29,6 @@
 
 #include "stage_runner.h"
 
-using namespace mariachi;
 using namespace mariachi::stages;
 
 /**

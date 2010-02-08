@@ -27,16 +27,16 @@
 
 #include "lua_script_engine_node.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
+using namespace mariachi::script::lua;
 
-bool lua_mariachi_new_Node(lua_State *luaState, Node *value) {
+bool LuaNode::allocate(lua_State *luaState, Node *value) {
     bool return_value;
 
     // in case the reference is new
-    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_NODE_TYPE, lua_mariachi_new_Object) {
+    lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_NODE_TYPE, lua_mariachi_new_Object) {
         // sets the methods
-        lua_setnamefunction(luaState, "get_children_list", lua_mariachi_node_get_children_list);
+        lua_setnamefunction(luaState, "get_children_list", LuaNode::getChildrenList);
 
         // sets the type of the node
         lua_settype(luaState, LUA_SCRIPT_ENGINE_NODE_TYPE);
@@ -45,21 +45,35 @@ bool lua_mariachi_new_Node(lua_State *luaState, Node *value) {
     return return_value;
 }
 
-int lua_mariachi_node_get_children_list(lua_State *luaState) {
+int LuaNode::construct(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargs(luaState, 0);
+
+    // creates a new node
+    Node *node = new Node();
+
+    // creates and loads the node (in lua)
+    LuaNode::allocate(luaState, node);
+
+    // returns the number of return values
+    return 1;
+}
+
+int LuaNode::getChildrenList(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 0);
 
     // retrieves self
-    Node *self = (Node *) lua_get_self(luaState);
+    Node *self = (Node *) lua_getself(luaState);
 
     // retrieves the children list
     std::list<Node *> &childrenList = self->getChildrenList();
 
     // creates a new lua list object
-    LuaList<Node *> *luaList = new LuaList<Node *>(&childrenList, (LuaConstructor_t) lua_mariachi_new_Node);
+    LuaListStructure<Node *> *luaList = new LuaListStructure<Node *>(&childrenList, (LuaConstructor_t) LuaNode::allocate);
 
     // creates and loads a list
-    lua_mariachi_new_List<Node *>(luaState, luaList);
+    LuaList::allocate<Node *>(luaState, luaList);
 
     // returns the number of return values
     return 1;
