@@ -36,6 +36,7 @@
 struct CUSTOMVERTEX { FLOAT X, Y, Z, RHW; DWORD COLOR; };
 
 using namespace mariachi;
+using namespace mariachi::render;
 
 Direct3d9Adapter::Direct3d9Adapter() : Direct3dAdapter() {
     this->triangleVertexBuffer = NULL;

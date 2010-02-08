@@ -30,6 +30,8 @@
 #include "bmp_loader.h"
 
 using namespace mariachi;
+using namespace mariachi::importers;
+using namespace mariachi::exceptions;
 
 /**
 * Constructor of the class.

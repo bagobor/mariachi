@@ -28,12 +28,14 @@
 #include "../structures/texture.h"
 
 namespace mariachi {
-    class TextureImporter {
-        private:
+    namespace importers {
+        class TextureImporter {
+            private:
 
-        public:
-            TextureImporter();
-            ~TextureImporter();
-            virtual Texture *getTexture() { return NULL; };
-    };
+            public:
+                TextureImporter();
+                ~TextureImporter();
+                virtual Texture *getTexture() { return NULL; };
+        };
+    }
 }

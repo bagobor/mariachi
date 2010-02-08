@@ -26,39 +26,41 @@
 #pragma once
 
 namespace mariachi {
-    typedef struct CallbackInformation_t {
-        void (*callbackFunction)(void *);
-        void *callbackArguments;
-    } CallbackInformation;
+    namespace patterns {
+        typedef struct CallbackInformation_t {
+            void (*callbackFunction)(void *);
+            void *callbackArguments;
+        } CallbackInformation;
 
-    /**
-    * Abstract class that implements the observable pattern.
-    * It is used in event driven programming, where a client (user), registers
-    * for a given event and is notified about any changes.
-    */
-    class Observable {
-        private:
-            /**
-            * The event registration handle event handler map, that associates
-            * a given event registration handle (a single number that identifies a registration)
-            * with the pointer to the callback information.
-            */
-            std::map<unsigned int, CallbackInformation_t> eventRegistrationHandleEventHandlersMap;
+        /**
+        * Abstract class that implements the observable pattern.
+        * It is used in event driven programming, where a client (user), registers
+        * for a given event and is notified about any changes.
+        */
+        class Observable {
+            private:
+                /**
+                * The event registration handle event handler map, that associates
+                * a given event registration handle (a single number that identifies a registration)
+                * with the pointer to the callback information.
+                */
+                std::map<unsigned int, CallbackInformation_t> eventRegistrationHandleEventHandlersMap;
 
-            /**
-            * The event handlers map that associates the event name with
-            * a list containing pointers to the callback informations for the given
-            * event name.
-            */
-            std::map<std::string, std::list<CallbackInformation_t> *> eventHandlersMap;
+                /**
+                * The event handlers map that associates the event name with
+                * a list containing pointers to the callback informations for the given
+                * event name.
+                */
+                std::map<std::string, std::list<CallbackInformation_t> *> eventHandlersMap;
 
-        public:
-            Observable();
-            ~Observable();
-            void registerForEvent(const std::string &eventName, void (*callbackFunction)(void *), void *callbackArguments);
-            void registerForEventProperties(const std::string &eventName, void *properties, void (*callbackFunction)(void *), void *callbackArguments);
-            void unregisterForEvent(const std::string &eventName, unsigned int eventRegistrationHandle);
-            void fireEvent(const std::string &eventName);
-            inline void notifyCallback(CallbackInformation_t callbackInformation);
-    };
+            public:
+                Observable();
+                ~Observable();
+                void registerForEvent(const std::string &eventName, void (*callbackFunction)(void *), void *callbackArguments);
+                void registerForEventProperties(const std::string &eventName, void *properties, void (*callbackFunction)(void *), void *callbackArguments);
+                void unregisterForEvent(const std::string &eventName, unsigned int eventRegistrationHandle);
+                void fireEvent(const std::string &eventName);
+                inline void notifyCallback(CallbackInformation_t callbackInformation);
+        };
+    }
 }

@@ -43,7 +43,7 @@ namespace mariachi {
         private:
             RenderSystem renderSystem;
             RenderAdapter *renderAdapter;
-            RenderInformation *renderInformation;
+            render::RenderInformation *renderInformation;
             THREAD_HANDLE renderAdapterThreadHandle;
             THREAD_IDENTIFIER renderAdapterThreadIdentifier;
 
@@ -59,6 +59,6 @@ namespace mariachi {
             void start(void *arguments);
             void stop(void *arguments);
             void update(void *arguments);
-            void updateRenderInformation(RenderInformation *renderInformation);
+            void updateRenderInformation(render::RenderInformation *renderInformation);
     };
 }

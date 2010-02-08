@@ -29,7 +29,7 @@
 
 #define LUA_SCRIPT_ENGINE_CUBE_NODE_TYPE "_t_CUBE_NODE"
 
-bool lua_mariachi_new_CubeNode(lua_State *luaState, mariachi::CubeNode *value);
+bool lua_mariachi_new_CubeNode(lua_State *luaState, mariachi::nodes::CubeNode *value);
 
 int lua_mariachi_cube_node_construct(lua_State *luaState);
 int lua_mariachi_cube_node_get_position(lua_State *luaState);

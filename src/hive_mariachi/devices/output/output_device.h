@@ -29,11 +29,13 @@
 #include "../device.h"
 
 namespace mariachi {
-    class OutputDevice : public Device, public Observable {
-        private:
+    namespace devices {
+        class OutputDevice : public Device, public patterns::Observable {
+            private:
 
-        public:
-            OutputDevice();
-            ~OutputDevice();
-    };
+            public:
+                OutputDevice();
+                ~OutputDevice();
+        };
+    }
 }

@@ -30,6 +30,7 @@
 #include "bit_util.h"
 
 using namespace mariachi::util;
+using namespace mariachi::exceptions;
 
 /**
 * Constructor of the class.

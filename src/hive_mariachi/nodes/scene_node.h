@@ -28,12 +28,14 @@
 #include "cube_node.h"
 
 namespace mariachi {
-    class SceneNode : public CubeNode {
-        private:
-        public:
-            SceneNode();
-            SceneNode(const std::string &name);
-            ~SceneNode();
-            virtual inline unsigned int getNodeType() { return SCENE_NODE_TYPE; };
-    };
+    namespace nodes {
+        class SceneNode : public CubeNode {
+            private:
+            public:
+                SceneNode();
+                SceneNode(const std::string &name);
+                ~SceneNode();
+                virtual inline unsigned int getNodeType() { return SCENE_NODE_TYPE; };
+        };
+    }
 }

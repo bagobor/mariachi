@@ -28,6 +28,7 @@
 #include "exception.h"
 
 using namespace mariachi;
+using namespace mariachi::exceptions;
 
 Exception::Exception() : std::exception() {
 }

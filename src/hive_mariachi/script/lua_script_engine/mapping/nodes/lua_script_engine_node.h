@@ -29,6 +29,6 @@
 
 #define LUA_SCRIPT_ENGINE_NODE_TYPE "_t_NODE"
 
-bool lua_mariachi_new_Node(lua_State *luaState, mariachi::Node *value);
+bool lua_mariachi_new_Node(lua_State *luaState, mariachi::nodes::Node *value);
 
 int lua_mariachi_node_get_children_list(lua_State *luaState);

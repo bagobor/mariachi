@@ -28,6 +28,7 @@
 #include "observable.h"
 
 using namespace mariachi;
+using namespace mariachi::patterns;
 
 /**
 * Constructor of the class.

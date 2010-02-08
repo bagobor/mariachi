@@ -29,7 +29,7 @@
 
 #include "debug_engine.h"
 
-using namespace mariachi;
+using namespace mariachi::debugging;
 
 /**
 * Constructor of the class.

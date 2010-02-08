@@ -31,21 +31,21 @@ namespace mariachi {
     namespace physics {
         class PhysicalNodeMotionState : public btMotionState {
             private:
-                PhysicalNode *physicalNode;
+                nodes::PhysicalNode *physicalNode;
                 btTransform worldTransform;
 
                 inline void initWorldTransform(const btTransform &worldTransform);
-                inline void initPhysicalNode(PhysicalNode *physicalNode);
+                inline void initPhysicalNode(nodes::PhysicalNode *physicalNode);
 
             public:
                 PhysicalNodeMotionState(const btTransform &worldTransform);
-                PhysicalNodeMotionState(const btTransform &worldTransform, PhysicalNode *physicalNode);
+                PhysicalNodeMotionState(const btTransform &worldTransform, nodes::PhysicalNode *physicalNode);
                 ~PhysicalNodeMotionState();
                 void getWorldTransform(btTransform &worldTransform) const;
                 void setWorldTransform(const btTransform &worldTransform);
                 void setPosition(const Coordinate3d_t &position);
-                PhysicalNode *getPhysicalNode();
-                void setPhysicalNode(PhysicalNode *physicalNode);
+                nodes::PhysicalNode *getPhysicalNode();
+                void setPhysicalNode(nodes::PhysicalNode *physicalNode);
         };
     }
 }

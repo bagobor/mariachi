@@ -28,20 +28,22 @@
 #include "devices/debug_device.h"
 
 namespace mariachi {
-    /**
-    * Controls the engine for debugging.
-    */
-    class DebugEngine {
-        private:
-            std::map<std::string, DebugDevice *> debugDevicesMap;
+    namespace debugging {
+        /**
+        * Controls the engine for debugging.
+        */
+        class DebugEngine {
+            private:
+                std::map<std::string, DebugDevice *> debugDevicesMap;
 
-        public:
-            DebugEngine();
-            ~DebugEngine();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void startDebugDevices();
-            DebugDevice *getDebugDevice(const std::string &debugDeviceName);
-            void setDebugDevice(const std::string &debugDeviceName, DebugDevice *debugDevice);
-    };
+            public:
+                DebugEngine();
+                ~DebugEngine();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void startDebugDevices();
+                DebugDevice *getDebugDevice(const std::string &debugDeviceName);
+                void setDebugDevice(const std::string &debugDeviceName, DebugDevice *debugDevice);
+        };
+    }
 }

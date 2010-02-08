@@ -28,13 +28,15 @@
 #include "cube_node.h"
 
 namespace mariachi {
-    class LensNode : public CubeNode {
-        private:
+    namespace nodes {
+        class LensNode : public CubeNode {
+            private:
 
-        public:
-            LensNode();
-            LensNode(const std::string &name);
-            ~LensNode();
-            virtual inline unsigned int getNodeType() { return LENS_NODE_TYPE; };
-    };
+            public:
+                LensNode();
+                LensNode(const std::string &name);
+                ~LensNode();
+                virtual inline unsigned int getNodeType() { return LENS_NODE_TYPE; };
+        };
+    }
 }

@@ -30,6 +30,7 @@
 #include "lua_script_engine_util.h"
 
 using namespace mariachi;
+using namespace mariachi::exceptions;
 
 void lua_assertargs(lua_State *luaState, unsigned int expectedArgc) {
     // retrieves the number of arguments

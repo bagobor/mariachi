@@ -32,63 +32,65 @@
 #define DEFAULT_MOUSE_MOVE_CAPTURE true
 
 namespace mariachi {
-    typedef enum MouseEventType_t {
-        MOUSE_MOVED_TYPE = 1,
-        BUTTON_DOWN_TYPE,
-        BUTTON_UP_TYPE,
-        BUTTON_PRESSED_TYPE
-    } MouseEventType;
+    namespace devices {
+        typedef enum MouseEventType_t {
+            MOUSE_MOVED_TYPE = 1,
+            BUTTON_DOWN_TYPE,
+            BUTTON_UP_TYPE,
+            BUTTON_PRESSED_TYPE
+        } MouseEventType;
 
-    typedef enum MouseButtonCode_t {
-        BUTTON_CODE_LBUTTON = 1,
-        BUTTON_CODE_RBUTTON,
-        BUTTON_CODE_MBUTTON
-    } MouseButtonCode;
+        typedef enum MouseButtonCode_t {
+            BUTTON_CODE_LBUTTON = 1,
+            BUTTON_CODE_RBUTTON,
+            BUTTON_CODE_MBUTTON
+        } MouseButtonCode;
 
-    typedef struct MousePosition_t {
-        unsigned short mousePositionX;
-        unsigned short mousePositionY;
-    } MousePosition;
+        typedef struct MousePosition_t {
+            unsigned short mousePositionX;
+            unsigned short mousePositionY;
+        } MousePosition;
 
-    typedef struct MouseEvent_t {
-        MouseEventType_t eventType;
-        MouseButtonCode_t buttonCode;
-        MousePosition_t position;
-    } MouseEvent;
+        typedef struct MouseEvent_t {
+            MouseEventType_t eventType;
+            MouseButtonCode_t buttonCode;
+            MousePosition_t position;
+        } MouseEvent;
 
-    class Mouse : public InputDevice {
-        private:
-            MouseEvent_t *mouseEventBuffer;
-            unsigned int mouseEventBufferSize;
-            unsigned int mouseEventBufferPosition;
+        class Mouse : public InputDevice {
+            private:
+                MouseEvent_t *mouseEventBuffer;
+                unsigned int mouseEventBufferSize;
+                unsigned int mouseEventBufferPosition;
 
-            /**
-            * The current mouse position.
-            */
-            MousePosition_t currentPosition;
+                /**
+                * The current mouse position.
+                */
+                MousePosition_t currentPosition;
 
-            /**
-            * Flag that controls the capture of the mouse move event.
-            */
-            bool mouseMoveCapture;
+                /**
+                * Flag that controls the capture of the mouse move event.
+                */
+                bool mouseMoveCapture;
 
-        public:
-            Mouse();
-            Mouse(unsigned int keyboardEventBufferSize);
-            ~Mouse();
-            inline void initMouseEventBuffer();
-            inline void initMouseMoveCapture();
-            inline MouseEvent *getMouseEvent();
-            virtual void clearInputEventQueue();
-            void addMoveEvent(const MousePosition_t &position);
-            void addButtonEvent(const MouseEventType_t &eventType, const MouseButtonCode_t &buttonCode, const MousePosition_t &position);
-            void addButtonDownEvent(const MouseButtonCode_t &buttonCode, const MousePosition_t &position);
-            void addButtonUpEvent(const MouseButtonCode_t &buttonCode, const MousePosition_t &position);
-            void startMouseMoveCapture();
-            void stopMouseMoveCapture();
-            MousePosition_t &getCurrentPosition();
-            void setCurrentPosition(const MousePosition_t &currentPosition);
-            bool getMouseMoveCapture();
-            void setMouseMoveCapture(bool mouseMoveCapture);
-    };
+            public:
+                Mouse();
+                Mouse(unsigned int keyboardEventBufferSize);
+                ~Mouse();
+                inline void initMouseEventBuffer();
+                inline void initMouseMoveCapture();
+                inline MouseEvent *getMouseEvent();
+                virtual void clearInputEventQueue();
+                void addMoveEvent(const MousePosition_t &position);
+                void addButtonEvent(const MouseEventType_t &eventType, const MouseButtonCode_t &buttonCode, const MousePosition_t &position);
+                void addButtonDownEvent(const MouseButtonCode_t &buttonCode, const MousePosition_t &position);
+                void addButtonUpEvent(const MouseButtonCode_t &buttonCode, const MousePosition_t &position);
+                void startMouseMoveCapture();
+                void stopMouseMoveCapture();
+                MousePosition_t &getCurrentPosition();
+                void setCurrentPosition(const MousePosition_t &currentPosition);
+                bool getMouseMoveCapture();
+                void setMouseMoveCapture(bool mouseMoveCapture);
+        };
+    }
 }

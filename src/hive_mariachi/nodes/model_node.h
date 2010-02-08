@@ -30,20 +30,22 @@
 #include "physical_node.h"
 
 namespace mariachi {
-    class ModelNode : public PhysicalNode {
-        private:
-            std::vector<Mesh_t *> *meshList;
-            Texture *texture;
+    namespace nodes {
+        class ModelNode : public PhysicalNode {
+            private:
+                std::vector<Mesh_t *> *meshList;
+                Texture *texture;
 
-        public:
-            ModelNode();
-            ModelNode(const std::string &name);
-            ~ModelNode();
-            inline void initRenderable();
-            virtual std::vector<Mesh_t *> *getMeshList();
-            virtual void setMeshList(std::vector<Mesh_t *> *meshList);
-            virtual Texture *getTexture();
-            virtual void setTexture(Texture *texture);
-            virtual inline unsigned int getNodeType() { return MODEL_NODE_TYPE; };
-    };
+            public:
+                ModelNode();
+                ModelNode(const std::string &name);
+                ~ModelNode();
+                inline void initRenderable();
+                virtual std::vector<Mesh_t *> *getMeshList();
+                virtual void setMeshList(std::vector<Mesh_t *> *meshList);
+                virtual Texture *getTexture();
+                virtual void setTexture(Texture *texture);
+                virtual inline unsigned int getNodeType() { return MODEL_NODE_TYPE; };
+        };
+    }
 }

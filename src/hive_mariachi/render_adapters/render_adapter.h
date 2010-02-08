@@ -53,7 +53,7 @@ namespace mariachi {
             Engine *engine;
 
         protected:
-            RenderInformation *renderInformation;
+            render::RenderInformation *renderInformation;
             unsigned int frameCount;
             time_t baseClock;
 

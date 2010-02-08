@@ -33,6 +33,8 @@
 #include "opengl_win32_window.h"
 
 using namespace mariachi;
+using namespace mariachi::devices;
+using namespace mariachi::exceptions;
 
 OpenglWin32Window *openglWin32Window;
 

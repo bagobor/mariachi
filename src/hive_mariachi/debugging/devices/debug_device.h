@@ -28,14 +28,16 @@
 #include "../../devices/device.h"
 
 namespace mariachi {
-    /**
-    * Represents the abstract class for the debug devices.
-    */
-    class DebugDevice : public Device {
-        private:
+    namespace debugging {
+        /**
+        * Represents the abstract class for the debug devices.
+        */
+        class DebugDevice : public devices::Device {
+            private:
 
-        public:
-            DebugDevice();
-            ~DebugDevice();
+            public:
+                DebugDevice();
+                ~DebugDevice();
+        };
     };
 }

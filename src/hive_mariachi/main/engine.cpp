@@ -37,9 +37,15 @@
 #include "engine.h"
 
 using namespace mariachi;
-using namespace mariachi::configuration;
+
+using namespace mariachi::nodes;
 using namespace mariachi::console;
+using namespace mariachi::devices;
+using namespace mariachi::logging;
 using namespace mariachi::physics;
+using namespace mariachi::debugging;
+using namespace mariachi::exceptions;
+using namespace mariachi::configuration;
 
 /**
 * Thread that handles the main engine workload.
@@ -303,7 +309,7 @@ void Engine::startConfigurationManager() {
     this->configurationManager = new ConfigurationManager(this);
 
     // creates the configuration arguments
-    ConfigurationArguments_t configurationArguments = { std::string(std::string(HIVE_MARIACHI_BASE_PATH) + "/config.json").c_str() };
+    ConfigurationArguments_t configurationArguments = { std::string(std::string(HIVE_MARIACHI_BASE_PATH) + "/configuration/config.json").c_str() };
 
     // loads the configuration manager
     this->configurationManager->load(&configurationArguments);

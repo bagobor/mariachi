@@ -28,6 +28,7 @@
 #include "model_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 ModelNode::ModelNode() : PhysicalNode() {
     this->initRenderable();

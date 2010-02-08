@@ -26,23 +26,25 @@
 #pragma once
 
 namespace mariachi {
-    typedef enum DeviceState_t {
-        UP = 1,
-        DOWN,
-        READY,
-        NOT_READY
-    } DeviceState;
+    namespace devices {
+        typedef enum DeviceState_t {
+            UP = 1,
+            DOWN,
+            READY,
+            NOT_READY
+        } DeviceState;
 
-    class Device {
-        private:
-            DeviceState state;
+        class Device {
+            private:
+                DeviceState state;
 
-        public:
-            Device();
-            ~Device();
-            virtual void start(void *arguments) { this->state = UP; };
-            virtual void stop(void *arguments) { this->state = DOWN; };
-            virtual DeviceState getState() { return this->state; };
-            virtual void setState(DeviceState statestate) { this->state = state; };
-    };
+            public:
+                Device();
+                ~Device();
+                virtual void start(void *arguments) { this->state = UP; };
+                virtual void stop(void *arguments) { this->state = DOWN; };
+                virtual DeviceState getState() { return this->state; };
+                virtual void setState(DeviceState statestate) { this->state = state; };
+        };
+    }
 }

@@ -31,6 +31,7 @@
 #include "render_stage.h"
 
 using namespace mariachi;
+using namespace mariachi::render;
 
 THREAD_RETURN renderRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the render adapter

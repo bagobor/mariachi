@@ -52,7 +52,7 @@ namespace mariachi {
     */
     typedef struct Collision3d_t {
         CollisionPoint3d collisionPointList[COLLISION_POINT_LIST_SIZE];
-        PhysicalNode *firstPhysicalNode;
-        PhysicalNode *secondPhysicalNode;
+        nodes::PhysicalNode *firstPhysicalNode;
+        nodes::PhysicalNode *secondPhysicalNode;
     } Collision3d;
 }

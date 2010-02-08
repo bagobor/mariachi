@@ -29,26 +29,28 @@
 #include "../device.h"
 
 namespace mariachi {
-    typedef struct InputDeviceEvent_t {
-        void *event;
-        unsigned int eventType;
-    } InputDeviceEvent;
+    namespace devices {
+        typedef struct InputDeviceEvent_t {
+            void *event;
+            unsigned int eventType;
+        } InputDeviceEvent;
 
-    typedef enum BasicInputEventType_t {
-        KEYBOARD = 1,
-        MOUSE,
-        GAMEPAD
-    } BasicInputEventType;
+        typedef enum BasicInputEventType_t {
+            KEYBOARD = 1,
+            MOUSE,
+            GAMEPAD
+        } BasicInputEventType;
 
-    class InputDevice : public Device, public Observable {
-        private:
-            std::list<InputDeviceEvent_t> inputEventQueue;
+        class InputDevice : public Device, public patterns::Observable {
+            private:
+                std::list<InputDeviceEvent_t> inputEventQueue;
 
-        public:
-            InputDevice();
-            ~InputDevice();
-            virtual void addInputEvent(InputDeviceEvent_t inputEvent) { this->inputEventQueue.push_back(inputEvent); };
-            virtual std::list<InputDeviceEvent_t> *getInputEventQueue() { return &this->inputEventQueue; };
-            virtual void clearInputEventQueue() { this->inputEventQueue.clear(); };
-    };
+            public:
+                InputDevice();
+                ~InputDevice();
+                virtual void addInputEvent(InputDeviceEvent_t inputEvent) { this->inputEventQueue.push_back(inputEvent); };
+                virtual std::list<InputDeviceEvent_t> *getInputEventQueue() { return &this->inputEventQueue; };
+                virtual void clearInputEventQueue() { this->inputEventQueue.clear(); };
+        };
+    }
 }

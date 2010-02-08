@@ -28,6 +28,7 @@
 #include "lua_script_engine_node.h"
 
 using namespace mariachi;
+using namespace mariachi::nodes;
 
 bool lua_mariachi_new_Node(lua_State *luaState, Node *value) {
     bool return_value;

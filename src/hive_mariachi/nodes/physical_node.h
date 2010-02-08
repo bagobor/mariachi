@@ -30,28 +30,30 @@
 #define PHYSICAL_NODE_DEFAULT_MASS 0.0f
 
 namespace mariachi {
-    class PhysicalNode : public CubeNode {
-        private:
-            //std::vector<RigElement_t *> rigList;
-            float viscosity;
-            float mass;
-            Coordinate3d_t inertia;
-            std::list<float> *angularForces;
-            std::list<float> *linearForces;
-            Coordinate3d_t linearVelocity;
-            Coordinate3d_t angularVelocity;
+    namespace nodes {
+        class PhysicalNode : public CubeNode {
+            private:
+                //std::vector<RigElement_t *> rigList;
+                float viscosity;
+                float mass;
+                Coordinate3d_t inertia;
+                std::list<float> *angularForces;
+                std::list<float> *linearForces;
+                Coordinate3d_t linearVelocity;
+                Coordinate3d_t angularVelocity;
 
-        public:
-            PhysicalNode();
-            PhysicalNode(const std::string &name);
-            ~PhysicalNode();
-            inline void initMass();
-            void addImpulse(const Coordinate3d_t &impulse);
-            void addTorque(const Coordinate3d_t &torque);
-            float getMass();
-            void setMass(float mass);
-            Coordinate3d_t &getInertia();
-            void setInertia(const Coordinate3d_t &inertia);
-            virtual inline unsigned int getNodeType() { return PHYSICAL_NODE_TYPE; };
-    };
+            public:
+                PhysicalNode();
+                PhysicalNode(const std::string &name);
+                ~PhysicalNode();
+                inline void initMass();
+                void addImpulse(const Coordinate3d_t &impulse);
+                void addTorque(const Coordinate3d_t &torque);
+                float getMass();
+                void setMass(float mass);
+                Coordinate3d_t &getInertia();
+                void setInertia(const Coordinate3d_t &inertia);
+                virtual inline unsigned int getNodeType() { return PHYSICAL_NODE_TYPE; };
+        };
+    }
 }
