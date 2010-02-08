@@ -29,6 +29,7 @@
 
 using namespace mariachi;
 using namespace mariachi::nodes;
+using namespace mariachi::structures;
 
 /**
 * Constructor of the class.

@@ -34,31 +34,33 @@
 #include "../render/render.h"
 #include "stage.h"
 
-THREAD_RETURN renderRunnerThread(THREAD_ARGUMENTS parameters);
-
 namespace mariachi {
-    enum RenderSystem {OpenGl = 1, DirectX};
+    namespace stages {
+        enum RenderSystem {OpenGl = 1, DirectX};
 
-    class RenderStage : public Stage {
-        private:
-            RenderSystem renderSystem;
-            RenderAdapter *renderAdapter;
-            render::RenderInformation *renderInformation;
-            THREAD_HANDLE renderAdapterThreadHandle;
-            THREAD_IDENTIFIER renderAdapterThreadIdentifier;
+        class RenderStage : public Stage {
+            private:
+                RenderSystem renderSystem;
+                render_adapters::RenderAdapter *renderAdapter;
+                render::RenderInformation *renderInformation;
+                THREAD_HANDLE renderAdapterThreadHandle;
+                THREAD_IDENTIFIER renderAdapterThreadIdentifier;
 
-            inline void initThread();
-            inline void initRenderInformation();
+                inline void initThread();
+                inline void initRenderInformation();
 
-        public:
-            RenderStage();
-            RenderStage(Engine *engine);
-            RenderStage(Engine *engine, const std::string &name);
-            RenderStage(Engine *engine, const std::string &name, RenderSystem renderSystem);
-            ~RenderStage();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void update(void *arguments);
-            void updateRenderInformation(render::RenderInformation *renderInformation);
-    };
+            public:
+                RenderStage();
+                RenderStage(Engine *engine);
+                RenderStage(Engine *engine, const std::string &name);
+                RenderStage(Engine *engine, const std::string &name, RenderSystem renderSystem);
+                ~RenderStage();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void update(void *arguments);
+                void updateRenderInformation(render::RenderInformation *renderInformation);
+        };
+
+        THREAD_RETURN renderRunnerThread(THREAD_ARGUMENTS parameters);
+    }
 }

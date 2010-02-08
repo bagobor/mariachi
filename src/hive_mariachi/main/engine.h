@@ -70,9 +70,6 @@
 */
 #define MARIACHI_HELP_TEXT "Type \"help\" for more information."
 
-THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
-THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
-
 namespace mariachi {
     namespace configuration {
         class ConfigurationManager;
@@ -87,8 +84,11 @@ namespace mariachi {
     }
 
     class ScriptEngine;
-    class StageRunner;
-    class Stage;
+
+    namespace stages {
+        class StageRunner;
+        class Stage;
+    }
 
     class Engine {
         private:
@@ -151,13 +151,13 @@ namespace mariachi {
             * The map associating the stage with the
             * stage runner.
             */
-            std::map<Stage *, StageRunner *> stageRunnersMap;
+            std::map<stages::Stage *, stages::StageRunner *> stageRunnersMap;
 
             /**
             * The map associating the stage name with the
             * stage reference.
             */
-            std::map<std::string, Stage *> stagesMap;
+            std::map<std::string, stages::Stage *> stagesMap;
 
             /**
             * The map associating the device name with the
@@ -180,17 +180,17 @@ namespace mariachi {
             /**
             * The list of currently available tasks.
             */
-            std::list<Task *> taskList;
+            std::list<tasks::Task *> taskList;
 
             /**
             * The list of stages to be run in the main thread.
             */
-            std::list<Stage *> mainThreadStagesList;
+            std::list<stages::Stage *> mainThreadStagesList;
 
             /**
             * The map associating the thread handle with the associated stage.
             */
-            std::map<THREAD_REFERENCE, Stage *> threadHandleStageMap;
+            std::map<THREAD_REFERENCE, stages::Stage *> threadHandleStageMap;
 
             /**
             * The currently active physics engine, to be used in physics operations.
@@ -224,13 +224,13 @@ namespace mariachi {
             void startDebugEngine();
             void stopDebugEngine();
             void startRunLoop();
-            void addTask(Task *task);
-            void removeTask(Task *task);
+            void addTask(tasks::Task *task);
+            void removeTask(tasks::Task *task);
             void getCurrentProcessIdString(std::string &currentProcessIdString);
-            StageRunner *getStageRunner(Stage *stage);
-            void setStageRunner(Stage *stage, StageRunner *stageRunner);
-            Stage *getStage(const std::string &stageName);
-            void setStage(const std::string &stageName, Stage *stage);
+            stages::StageRunner *getStageRunner(stages::Stage *stage);
+            void setStageRunner(stages::Stage *stage, stages::StageRunner *stageRunner);
+            stages::Stage *getStage(const std::string &stageName);
+            void setStage(const std::string &stageName, stages::Stage *stage);
             devices::Device *getDevice(const std::string &deviceName);
             void setDevice(const std::string &deviceName, devices::Device *device);
             ScriptEngine *getScriptEngine(const std::string &scriptEngineName);
@@ -252,4 +252,7 @@ namespace mariachi {
             int getArgc();
             char **getArgv();
     };
+
+    THREAD_RETURN mainRunnerThread(THREAD_ARGUMENTS parameters);
+    THREAD_RETURN stageRunnerThread(THREAD_ARGUMENTS parameters);
 }

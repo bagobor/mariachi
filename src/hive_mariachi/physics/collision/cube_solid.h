@@ -33,13 +33,13 @@ namespace mariachi {
     namespace physics {
         class CubeSolid : public CollisionSolid {
             private:
-                Box3d_t boundingBox;
+                structures::Box3d_t boundingBox;
 
             public:
                 CubeSolid();
                 ~CubeSolid();
-                virtual Box3d_t &getBoundingBox();
-                virtual void setBoundingBox(Box3d_t &boundingBox);
+                virtual structures::Box3d_t &getBoundingBox();
+                virtual void setBoundingBox(structures::Box3d_t &boundingBox);
         };
     }
 }

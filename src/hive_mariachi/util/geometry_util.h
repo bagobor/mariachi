@@ -33,10 +33,10 @@ namespace mariachi {
             private:
 
             public:
-                static float getEuclidianDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate);
-                static float getEuclidianDistance(Coordinate3d_t *firstCoordinate, Coordinate3d_t *secondCoordinate);
-                static float getManhattanDistance(Coordinate2d_t *firstCoordinate, Coordinate2d_t *secondCoordinate);
-                static float getManhattanDistance(Coordinate3d_t *firstCoordinate, Coordinate3d_t *secondCoordinate);
+                static float getEuclidianDistance(structures::Coordinate2d_t *firstCoordinate, structures::Coordinate2d_t *secondCoordinate);
+                static float getEuclidianDistance(structures::Coordinate3d_t *firstCoordinate, structures::Coordinate3d_t *secondCoordinate);
+                static float getManhattanDistance(structures::Coordinate2d_t *firstCoordinate, structures::Coordinate2d_t *secondCoordinate);
+                static float getManhattanDistance(structures::Coordinate3d_t *firstCoordinate, structures::Coordinate3d_t *secondCoordinate);
         };
     }
 }

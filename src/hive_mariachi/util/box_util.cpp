@@ -29,6 +29,7 @@
 
 using namespace mariachi;
 using namespace mariachi::util;
+using namespace mariachi::structures;
 
 /**
 * Creates a new a box for the provided extents, and centered in the origin of the world coordinates.

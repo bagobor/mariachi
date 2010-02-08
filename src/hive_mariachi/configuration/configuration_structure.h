@@ -36,16 +36,16 @@ namespace mariachi {
             private:
 
         protected:
-            void cleanConfigurationValue(ConfigurationValue_t *configurationValue);
+            void cleanConfigurationValue(structures::ConfigurationValue_t *configurationValue);
 
             public:
                 ConfigurationStructure();
                 ~ConfigurationStructure();
-                static ConfigurationValue_t *getIntValue(int intValue);
-                static ConfigurationValue_t *getStringValue(const std::string &stringValue);
-                static ConfigurationValue_t *getBooleanValue(bool booleanValue);
-                static ConfigurationValue_t *getListValue(ConfigurationList *listValue);
-                static ConfigurationValue_t *getObjectValue(ConfigurationMap *objectValue);
+                static structures::ConfigurationValue_t *getIntValue(int intValue);
+                static structures::ConfigurationValue_t *getStringValue(const std::string &stringValue);
+                static structures::ConfigurationValue_t *getBooleanValue(bool booleanValue);
+                static structures::ConfigurationValue_t *getListValue(ConfigurationList *listValue);
+                static structures::ConfigurationValue_t *getObjectValue(ConfigurationMap *objectValue);
         };
     }
 }

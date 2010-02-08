@@ -26,28 +26,30 @@
 #pragma once
 
 namespace mariachi {
-    typedef union ConfigurationValueStructure_t {
-        int intValue;
-        std::string *stringValue;
-        bool booleanValue;
-        void *listValue;
-        void *objectValue;
-    } ConfigurationValueStructure;
+    namespace structures {
+        typedef union ConfigurationValueStructure_t {
+            int intValue;
+            std::string *stringValue;
+            bool booleanValue;
+            void *listValue;
+            void *objectValue;
+        } ConfigurationValueStructure;
 
-    typedef enum ConfigurationValueType_t {
-        CONFIGURATION_VALUE_INT_TYPE = 1,
-        CONFIGURATION_VALUE_STRING_TYPE,
-        CONFIGURATION_VALUE_BOOLEAN_TYPE,
-        CONFIGURATION_VALUE_LIST_TYPE,
-        CONFIGURATION_VALUE_OBJECT_TYPE
-    } ConfigurationValueType;
+        typedef enum ConfigurationValueType_t {
+            CONFIGURATION_VALUE_INT_TYPE = 1,
+            CONFIGURATION_VALUE_STRING_TYPE,
+            CONFIGURATION_VALUE_BOOLEAN_TYPE,
+            CONFIGURATION_VALUE_LIST_TYPE,
+            CONFIGURATION_VALUE_OBJECT_TYPE
+        } ConfigurationValueType;
 
-    typedef struct ConfigurationValue_t {
-        ConfigurationValueStructure_t structure;
-        ConfigurationValueType_t type;
-    } ConfigurationValue;
+        typedef struct ConfigurationValue_t {
+            ConfigurationValueStructure_t structure;
+            ConfigurationValueType_t type;
+        } ConfigurationValue;
 
-    typedef struct ConfigurationArguments_t {
-        std::string filePath;
-    } ConfigurationArguments;
+        typedef struct ConfigurationArguments_t {
+            std::string filePath;
+        } ConfigurationArguments;
+    }
 }

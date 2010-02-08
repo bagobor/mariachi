@@ -33,20 +33,22 @@
 #include "opengl_window.h"
 
 namespace mariachi {
-    class OpenglCocoaWindow : public OpenglWindow {
-        private:
-            OpenglAdapter *openglAdapter;
-            Engine *engine;
-            FunctionCallerTask *functionCallerTask;
+    namespace render_utils {
+        class OpenglCocoaWindow : public OpenglWindow {
+            private:
+                OpenglAdapter *openglAdapter;
+                Engine *engine;
+                FunctionCallerTask *functionCallerTask;
 
-        public:
-            OpenglCocoaWindow();
-            ~OpenglCocoaWindow();
-            void start(void *arguments);
-            void stop(void *arguments);
-            void loop(void *arguments);
-            void fullScreen(void *arguments);
-    };
+            public:
+                OpenglCocoaWindow();
+                ~OpenglCocoaWindow();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void loop(void *arguments);
+                void fullScreen(void *arguments);
+        };
+    }
 }
 
 #endif

@@ -148,8 +148,8 @@ namespace mariachi {
             public:
                 std::vector<float> coordinatesList;
                 std::vector<float *> vertexList;
-                std::vector<Mesh_t *> meshList;
-                Frame_t frame;
+                std::vector<structures::Mesh_t *> meshList;
+                structures::Frame_t frame;
                 int vertexCount;
                 int meshCount;
 
@@ -159,7 +159,7 @@ namespace mariachi {
                 void generateMeshList(const std::vector<void *> &glCommandsList);
                 void countMeshes(const std::vector<void *> &glCommandsList);
                 void compileDisplayList();
-                Frame_t *getFrame();
+                structures::Frame_t *getFrame();
                 void cleanVertextList();
                 void cleanMeshList();
         };
@@ -172,7 +172,7 @@ namespace mariachi {
         */
         class Md2Importer : public ModelImporter {
             private:
-                std::vector<Frame_t *> framesList;
+                std::vector<structures::Frame_t *> framesList;
                 std::vector<Md2Frame *> md2FramesList;
                 std::vector<void *> glCommandsList;
                 int frameCount;

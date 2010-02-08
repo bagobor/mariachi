@@ -28,18 +28,20 @@
 #ifdef MARIACHI_PLATFORM_DIRECT3D
 
 namespace mariachi {
-    class Direct3dWindow {
-        private:
+    namespace render_utils {
+        class Direct3dWindow {
+            private:
 
-        public:
-            Direct3dWindow();
-            ~Direct3dWindow();
-            virtual void start(void *arguments) { };
-            virtual void stop(void *arguments) { };
-            virtual void loop(void *arguments) { };
-            virtual void fullScreen(void *arguments) { };
-            virtual HWND getHandlerWindow() { return NULL; };
-    };
+            public:
+                Direct3dWindow();
+                ~Direct3dWindow();
+                virtual void start(void *arguments) { };
+                virtual void stop(void *arguments) { };
+                virtual void loop(void *arguments) { };
+                virtual void fullScreen(void *arguments) { };
+                virtual HWND getHandlerWindow() { return NULL; };
+        };
+    }
 }
 
 #endif

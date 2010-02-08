@@ -37,54 +37,56 @@
 #define MIN_SUBDIVIDABLE_VOLUME MIN_VOLUME * 8.0f
 
 namespace mariachi {
-    struct OctTreeNodeBox3d_t;
+    namespace structures {
+        struct OctTreeNodeBox3d_t;
 
-    /**
-    * Represents a node of an oct tree in 3d space.
-    * Used to implement the underlying behaviour of the tree.
-    */
-    class OctTreeNode {
-        private:
-            /**
-            * The node's children.
-            */
-            std::vector<OctTreeNode *> childNodes;
+        /**
+        * Represents a node of an oct tree in 3d space.
+        * Used to implement the underlying behaviour of the tree.
+        */
+        class OctTreeNode {
+            private:
+                /**
+                * The node's children.
+                */
+                std::vector<OctTreeNode *> childNodes;
 
-            /**
-            * The elements's contained by the space delimited by the node
-            */
-            std::vector<void *> elements;
+                /**
+                * The elements's contained by the space delimited by the node
+                */
+                std::vector<void *> elements;
 
-            /**
-            * The node's bounding box.
-            */
-            Box3d_t boundingBox;
+                /**
+                * The node's bounding box.
+                */
+                Box3d_t boundingBox;
 
-            inline OctTreeNode *createChildNode(Box3d_t &boundingBox);
-            inline void generateChildNodes();
-            inline int getPointOctant(const Coordinate3d_t &point);
-            inline void pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3d_t *boxes, OctTreeNodeBox3d_t *nodeBoxes, std::vector<OctTreeNodeBox3d_t> &nodesStack);
-            inline bool isSubdividable();
+                inline OctTreeNode *createChildNode(Box3d_t &boundingBox);
+                inline void generateChildNodes();
+                inline int getPointOctant(const Coordinate3d_t &point);
+                inline void pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3d_t *boxes, OctTreeNodeBox3d_t *nodeBoxes, std::vector<OctTreeNodeBox3d_t> &nodesStack);
+                inline bool isSubdividable();
 
-        public:
-            OctTreeNode();
-            OctTreeNode(Box3d_t boundingBox);
-            OctTreeNode(float boxWidth, float boxHeight, float boxDepth);
-            ~OctTreeNode();
-            void insertElementBox(void *element, Box3d_t *elementBoundingBox);
-            std::vector<void *> getBoxElements(Box3d_t *queryBox);
-            std::string toString(std::string padding);
-    };
+            public:
+                OctTreeNode();
+                OctTreeNode(Box3d_t boundingBox);
+                OctTreeNode(float boxWidth, float boxHeight, float boxDepth);
+                ~OctTreeNode();
+                void insertElementBox(void *element, Box3d_t *elementBoundingBox);
+                std::vector<void *> getBoxElements(Box3d_t *queryBox);
+                std::string toString(std::string padding);
+        };
 
-    /**
-    * A structure for internal use containing an oct tree node, and a box.
-    * Used as the elements for the stack based traversal of the oct tree.
-    *
-    * @param node The oct tree node at which the iteration is currently at.
-    * @param box The box that is currently being processed.
-    */
-    typedef struct OctTreeNodeBox3d_t {
-        OctTreeNode *node;
-        Box3d_t box;
-    } OctTreeNodeBox;
+        /**
+        * A structure for internal use containing an oct tree node, and a box.
+        * Used as the elements for the stack based traversal of the oct tree.
+        *
+        * @param node The oct tree node at which the iteration is currently at.
+        * @param box The box that is currently being processed.
+        */
+        typedef struct OctTreeNodeBox3d_t {
+            OctTreeNode *node;
+            Box3d_t box;
+        } OctTreeNodeBox;
+    }
 }

@@ -33,7 +33,7 @@ namespace mariachi {
     namespace nodes {
         class ActorNode : public ModelNode {
             private:
-                std::vector<Frame_t *> *frameList;
+                std::vector<structures::Frame_t *> *frameList;
                 unsigned int currentFrame;
 
             public:
@@ -42,11 +42,11 @@ namespace mariachi {
                 ~ActorNode();
                 inline void initRenderable();
                 inline void initCurrentFrame();
-                inline Frame_t *getCurrentFrame();
+                inline structures::Frame_t *getCurrentFrame();
                 inline void incrementFrame();
-                std::vector<Mesh_t *> *getMeshList();
-                std::vector<Frame_t *> *getFrameList();
-                void setFrameList(std::vector<Frame_t *> *frameList);
+                std::vector<structures::Mesh_t *> *getMeshList();
+                std::vector<structures::Frame_t *> *getFrameList();
+                void setFrameList(std::vector<structures::Frame_t *> *frameList);
                 void updateFrame();
                 void loop(const std::string &animationName);
                 virtual inline unsigned int getNodeType() { return ACTOR_NODE_TYPE; };

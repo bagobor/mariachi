@@ -28,6 +28,7 @@
 #include "stage.h"
 
 using namespace mariachi;
+using namespace mariachi::stages;
 
 /**
 * Constructor of the class.

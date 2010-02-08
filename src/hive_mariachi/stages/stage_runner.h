@@ -28,16 +28,18 @@
 #include "stage.h"
 
 namespace mariachi {
-    class StageRunner {
-        private:
-            Stage *stage;
-            bool runningFlag;
+    namespace stages {
+        class StageRunner {
+            private:
+                Stage *stage;
+                bool runningFlag;
 
-        public:
-            StageRunner();
-            StageRunner(Stage *stage);
-            ~StageRunner();
-            void start(void *arguments);
-            void stop(void *arguments);
-    };
+            public:
+                StageRunner();
+                StageRunner(Stage *stage);
+                ~StageRunner();
+                void start(void *arguments);
+                void stop(void *arguments);
+        };
+    }
 }

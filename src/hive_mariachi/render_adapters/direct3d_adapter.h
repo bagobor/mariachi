@@ -30,20 +30,22 @@
 #include "render_adapter.h"
 
 namespace mariachi {
-    class Direct3dAdapter : public RenderAdapter {
-        private:
+    namespace render_adapters {
+        class Direct3dAdapter : public RenderAdapter {
+            private:
 
-        public:
-            Direct3dAdapter();
-            ~Direct3dAdapter();
-            virtual void start(void *arguments) { };
-            virtual void stop(void *arguments) { };
-            virtual void init() { };
-            virtual void clean() { };
-            virtual void display() { };
-            virtual void resizeScene(int windowWidth, int windowHeight) { };
-            virtual void keyPressed(unsigned char key, int x, int y) { };
-    };
+            public:
+                Direct3dAdapter();
+                ~Direct3dAdapter();
+                virtual void start(void *arguments) { };
+                virtual void stop(void *arguments) { };
+                virtual void init() { };
+                virtual void clean() { };
+                virtual void display() { };
+                virtual void resizeScene(int windowWidth, int windowHeight) { };
+                virtual void keyPressed(unsigned char key, int x, int y) { };
+        };
+    }
 }
 
 #endif

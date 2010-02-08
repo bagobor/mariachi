@@ -29,17 +29,19 @@
 #include "position.h"
 
 namespace mariachi {
-    typedef enum MeshType_t {
-        TRIANGLE = 1,
-        TRIANGLE_STRIP,
-        TRIANGLE_FAN
-    } MeshType;
+    namespace structures {
+        typedef enum MeshType_t {
+            TRIANGLE = 1,
+            TRIANGLE_STRIP,
+            TRIANGLE_FAN
+        } MeshType;
 
-    typedef struct Mesh_t {
-        MeshType_t type;
-        Coordinate3d_t position;
-        unsigned int numberVertices;
-        float *vertexList;
-        float *textureVertexList;
-    } Mesh;
+        typedef struct Mesh_t {
+            MeshType_t type;
+            Coordinate3d_t position;
+            unsigned int numberVertices;
+            float *vertexList;
+            float *textureVertexList;
+        } Mesh;
+    }
 }

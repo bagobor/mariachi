@@ -26,15 +26,17 @@
 #pragma once
 
 namespace mariachi {
-    typedef struct PathNode_t {
-       void *value;
-       std::map<unsigned int, float> *neighboursMap;
-    } PathNode;
+    namespace structures {
+        typedef struct PathNode_t {
+           void *value;
+           std::map<unsigned int, float> *neighboursMap;
+        } PathNode;
 
-    typedef struct Path_t {
-       unsigned int numberPathNodes;
-       unsigned int *pathNodes;
-    } Path;
+        typedef struct Path_t {
+           unsigned int numberPathNodes;
+           unsigned int *pathNodes;
+        } Path;
 
-    typedef std::map<unsigned int, PathNode_t *> PathNodesGraph;
+        typedef std::map<unsigned int, PathNode_t *> PathNodesGraph;
+    }
 }

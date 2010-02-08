@@ -28,21 +28,23 @@
 #include "task.h"
 
 namespace mariachi {
-    class FunctionCallerTask : public Task {
-        private:
-            void (*callerFunction)(void *arguments);
-            void *callerArguments;
+    namespace tasks {
+        class FunctionCallerTask : public Task {
+            private:
+                void (*callerFunction)(void *arguments);
+                void *callerArguments;
 
-        public:
-            FunctionCallerTask();
-            FunctionCallerTask(const std::string &name);
-            ~FunctionCallerTask();
-            inline void initCallerArguments();
-            void start(void *parameters);
-            void stop(void *parameters);
-            void (*getCallerFunction())(void *);
-            void setCallerFunction(void (*callerFunction)(void *));
-            void *getCallerArguments();
-            void setCallerArguments(void *callerArguments);
-    };
+            public:
+                FunctionCallerTask();
+                FunctionCallerTask(const std::string &name);
+                ~FunctionCallerTask();
+                inline void initCallerArguments();
+                void start(void *parameters);
+                void stop(void *parameters);
+                void (*getCallerFunction())(void *);
+                void setCallerFunction(void (*callerFunction)(void *));
+                void *getCallerArguments();
+                void setCallerArguments(void *callerArguments);
+        };
+    }
 }
