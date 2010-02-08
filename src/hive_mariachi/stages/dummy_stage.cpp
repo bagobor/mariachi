@@ -65,11 +65,18 @@ DummyStage::~DummyStage() {
 void DummyStage::start(void *arguments) {
     Stage::start(arguments);
 
+
     // creates the importer
     Md2Importer *importer = new Md2Importer();
 
+
+
+
+
+
+
     // generates the model
-    importer->generateModel(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/pallette.md2"));
+    importer->generateModel(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/man_animated.md2"));
 
     // generates the vertex list
     importer->generateVertexList();
@@ -77,9 +84,15 @@ void DummyStage::start(void *arguments) {
     // generates the mesh list
     importer->generateMeshList();
 
-    // retrieves the model node
-    ModelNode *modelNode = importer->getModelNode();
+    // generates the frame list
+    importer->generateFrameList();
 
+    // retrieves the actor node
+    ActorNode *actorNode = importer->getActorNode();
+
+
+
+/*
     // creates the importer
     Md2Importer *importer2 = new Md2Importer();
 
@@ -93,33 +106,36 @@ void DummyStage::start(void *arguments) {
     importer2->generateMeshList();
 
     // retrieves the model node
-    ModelNode *modelNode2 = importer2->getModelNode();
+    ModelNode *modelNode2 = importer2->getModelNode();*/
+
+
+
 
     BmpLoader *bmpLoader = new BmpLoader();
-    bmpLoader->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/pallette.bmp"));
+    bmpLoader->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/man.bmp"));
     Texture *texture = bmpLoader->getTexture();
 
     // sets the texture in the model node
-    modelNode->setTexture(texture);
+    actorNode->setTexture(texture);
 
-    BmpLoader *bmpLoader2 = new BmpLoader();
+ /*   BmpLoader *bmpLoader2 = new BmpLoader();
     bmpLoader2->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/light6.bmp"));
     Texture *texture2 = bmpLoader2->getTexture();
 
     // sets the texture in the model node
-    modelNode2->setTexture(texture2);
+    modelNode2->setTexture(texture2);*/
 
-    modelNode->setPosition(25.0, 0.0, 0.0);
-    modelNode2->setPosition(-25.0, 0.0, 0.0);
+    actorNode->setPosition(0.0, 0.0, 0.0);
+    //modelNode2->setPosition(-25.0, 0.0, 0.0);
 
     // retrieves the render
     SceneNode *render = this->engine->getRender();
 
     // adds the model node to the render
-    render->addChild(modelNode);
+    render->addChild(actorNode);
 
     // adds the model node to the render
-    render->addChild(modelNode2);
+   // render->addChild(modelNode2);
 
     // prints an info message
     this->info("Dummy stage started successfully");
@@ -153,7 +169,7 @@ void DummyStage::start(void *arguments) {
 
 
 
-    BmpLoader *bmpLoader34 = new BmpLoader();
+/*    BmpLoader *bmpLoader34 = new BmpLoader();
     bmpLoader34->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/white.bmp"));
     Texture *panelTexture = bmpLoader34->getTexture();
 
@@ -218,7 +234,7 @@ void DummyStage::start(void *arguments) {
     buttonNode->setTexture(buttonTexture);
 
     // adds the view port node to the render
-    panelNode->addChild(buttonNode);
+    panelNode->addChild(buttonNode);*/
 
     /*PacketNetwork *packetNetwork = new PacketNetwork();
 
@@ -244,32 +260,33 @@ void DummyStage::start(void *arguments) {
 
     gCameraNode = gCameraNode3;
 
-    modelNode->setPosition(25.0f, 0.0f, 0.0f);
-    modelNode2->setPosition(-25.0f, 0.0f, 0.0f);
+    //modelNode->setPosition(25.0f, 0.0f, 0.0f);
+  //  modelNode2->setPosition(-25.0f, 0.0f, 0.0f);
 
     Coordinate3d zeroVector = { 0.0f, 0.0f, 0.0f };
 
-    gCameraNode1->setPosition(-100.0f, 0.0f, 0.0f);
-    gCameraNode2->setPosition(0.0f, -100.0f, 15.0f);
+    gCameraNode1->setPosition(-10.0f, 0.0f, 0.0f);
+    gCameraNode2->setPosition(-1.0f, 0.0f, 0.0f);
     gCameraNode3->setPosition(0.0f, 0.0f, 100.0f);
 
     gCameraNode1->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
     gCameraNode2->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
     gCameraNode3->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
 
-    gCameraNode1->enableAutoTracking(modelNode2, zeroVector);
-    gCameraNode2->enableAutoTracking(modelNode2, zeroVector);
-    gCameraNode3->enableAutoTracking(modelNode2, zeroVector);
-    gTempCameraNode->enableAutoTracking(modelNode2, zeroVector);
+    gCameraNode1->enableAutoTracking(actorNode, zeroVector);
+    gCameraNode2->enableAutoTracking(actorNode, zeroVector);
+    gCameraNode3->enableAutoTracking(actorNode, zeroVector);
+    gTempCameraNode->enableAutoTracking(actorNode, zeroVector);
 
     gCameraNode1->setUpVector(0.0, 0.0, 1.0);
     gCameraNode2->setUpVector(0.0, 0.0, 1.0);
-    gCameraNode3->setUpVector(0.0, 1.0, 0.0);
+    gCameraNode3->setUpVector(0.0, 0.0, 1.0);
 
     // TESTING OVERHEAD SHOOTER CAMERA
-    gModelNode = modelNode2;
-    Coordinate3d cameraNode3Offset = { 0.0f, -50.0f, 150.0f };
-    gCameraNode3->enableAutoFollowing(modelNode2, cameraNode3Offset);
+    gModelNode = actorNode;
+    Coordinate3d cameraNode3Offset = { -2.0f, -8.0f, 8.0f };
+    gCameraNode3->enableAutoFollowing(actorNode, cameraNode3Offset);
+    //gCameraNode2->enableAutoFollowing(modelNode, cameraNode3Offset);
 }
 
 void DummyStage::stop(void *arguments) {
@@ -279,26 +296,23 @@ void DummyStage::stop(void *arguments) {
 void DummyStage::update(void *arguments) {
     Stage::update(arguments);
 
-
+    // updates the frame
+    ((ActorNode *)gModelNode)->updateFrame();
 
     gCameraNode1->_autoTrack();
     gCameraNode2->_autoTrack();
     gCameraNode3->_autoTrack();
 
     gCameraNode1->_autoFollow();
-    gCameraNode2->_autoFollow();
+   // gCameraNode2->_autoFollow();
     gCameraNode3->_autoFollow();
 
+    gCameraNode2->setPosition(posx, posy, posz);
+
     // TESTING OVERHEAD SHOOTER CAMERA
-    posx += 0.5;
-    gModelNode->setPosition(posx, posy, posz);
+    posx += 5.0f;
 
-
-
-
-
-
-
+    gModelNode->setRotation(posx, 1.0, 1.0, 1.0);
 
     std::list<InputDeviceEvent_t> *inputEventQueue;
 

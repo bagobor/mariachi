@@ -37,10 +37,14 @@ Coordinate3d_t VectorUtil::normalize(const Coordinate3d_t &vector) {
     float magnitude = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
 
     // normalizes the vector
-    if (magnitude) {
+    if(magnitude) {
         normalizedVector.x = vector.x / magnitude;
         normalizedVector.y = vector.y / magnitude;
         normalizedVector.z = vector.z / magnitude;
+    } else {
+        normalizedVector.x = 0.0f;
+        normalizedVector.y = 0.0f;
+        normalizedVector.z = 0.0f;
     }
 
     // returns the normalized vector
