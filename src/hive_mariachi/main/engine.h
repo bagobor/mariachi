@@ -51,6 +51,16 @@
 #define MARIACHI_VERSION "1.0.0"
 
 /**
+* The date value.
+*/
+#define MARIACHI_DATE __DATE__
+
+/**
+* The time value.
+*/
+#define MARIACHI_TIME __TIME__
+
+/**
 * The realse information value.
 */
 #define MARIACHI_RELEASE_INFO "Hive Solutions Lda. r1: "
