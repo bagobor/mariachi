@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = João Magalhães <joamag@hive.pt> & Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -70,4 +70,20 @@ Coordinate3d_t &PhysicalNode::getInertia() {
 
 void PhysicalNode::setInertia(const Coordinate3d_t &inertia) {
     this->inertia = inertia;
+}
+
+bool PhysicalNode::getPhysicalPositionEnabled() {
+    return this->physicalPositionEnabled;
+}
+
+void PhysicalNode::setPhysicalPositionEnabled(bool physicalPositionEnabled) {
+    this->physicalPositionEnabled = physicalPositionEnabled;
+}
+
+bool PhysicalNode::getPhysicalRotationEnabled() {
+    return this->physicalRotationEnabled;
+}
+
+void PhysicalNode::setPhysicalRotationEnabled(bool physicalRotationEnabled) {
+    this->physicalRotationEnabled = physicalRotationEnabled;
 }
