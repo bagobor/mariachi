@@ -29,7 +29,7 @@
 import os.path
 import re
 
-SOURCE_FILE_EXTENSIONS = ["cpp", "c"]
+SOURCE_FILE_EXTENSIONS = ["cpp", "c", "mm"]
 SOURCE_DIRS = ["src/hive_mariachi", "src/hive_mariachi_runner", "lib/libbullet/src", "lib/liblua/src"]
 base_path = "none"
 
