@@ -166,6 +166,14 @@
 			ReferencedProjectIdentifier="{C287CE74-DB05-4978-8A02-65FC15B99CC2}"
 			RelativePathToProject=".\lib_vorbis.vcproj"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{A484FB09-E8B8-43E9-AC0F-0FD5B6C20009}"
+			RelativePathToProject=".\lib_jpeg.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}"
+			RelativePathToProject=".\lib_theora.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
