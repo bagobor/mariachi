@@ -30,7 +30,7 @@
 
 #include "camera_node.h"
 
-using namespace mariachi;
+using namespace mariachi::util;
 using namespace mariachi::nodes;
 using namespace mariachi::structures;
 

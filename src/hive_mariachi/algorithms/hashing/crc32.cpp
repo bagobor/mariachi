@@ -31,7 +31,6 @@
 
 #include "crc32.h"
 
-using namespace mariachi;
 using namespace mariachi::algorithms;
 using namespace mariachi::util;
 

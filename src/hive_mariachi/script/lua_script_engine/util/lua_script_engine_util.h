@@ -29,14 +29,24 @@ extern "C" {
     #include "../../../../../lib/liblua/src/lua.h"
 }
 
+/**
+* The name for the self variable used to address the
+* object reference.
+*/
 #define LUA_SCRIPT_ENGINE_SELF_VARIABLE "_self"
 
-void lua_assertargs(lua_State *luaState, unsigned int expectedArgc);
-void lua_assertargsmethod(lua_State *luaState, unsigned int expectedArgc);
-void *lua_get_self(lua_State *luaState);
-void lua_set_self(lua_State *luaState, void *selfPointer);
-int lua_hastype(lua_State *luaState, const char *type);
-void lua_settype(lua_State *luaState, const char *type);
-void lua_setnamestring(lua_State *luaState, const char *name, const char *value);
-void lua_setnamefloat(lua_State *luaState, const char *name, float value);
-void lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value);
+namespace mariachi {
+    namespace script {
+        namespace lua {
+            void lua_assertargs(lua_State *luaState, unsigned int expectedArgc);
+            void lua_assertargsmethod(lua_State *luaState, unsigned int expectedArgc);
+            void *lua_getself(lua_State *luaState);
+            void lua_setself(lua_State *luaState, void *selfPointer);
+            int lua_hastype(lua_State *luaState, const char *type);
+            void lua_settype(lua_State *luaState, const char *type);
+            void lua_setnamestring(lua_State *luaState, const char *name, const char *value);
+            void lua_setnamefloat(lua_State *luaState, const char *name, float value);
+            void lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value);
+        }
+    }
+}

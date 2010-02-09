@@ -27,7 +27,6 @@
 
 #include "physical_node_motion_state.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
 using namespace mariachi::physics;
 using namespace mariachi::structures;

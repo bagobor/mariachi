@@ -27,7 +27,6 @@
 
 #include "input_output_device.h"
 
-using namespace mariachi;
 using namespace mariachi::devices;
 
 /**

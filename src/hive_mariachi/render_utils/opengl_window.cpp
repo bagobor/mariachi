@@ -29,7 +29,6 @@
 
 #include "opengl_window.h"
 
-using namespace mariachi;
 using namespace mariachi::render_utils;
 
 /**

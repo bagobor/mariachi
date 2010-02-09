@@ -27,7 +27,6 @@
 
 #include "ui_box_component_node.h"
 
-using namespace mariachi;
 using namespace mariachi::ui;
 
 /**

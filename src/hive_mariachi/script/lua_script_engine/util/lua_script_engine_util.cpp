@@ -29,10 +29,10 @@
 
 #include "lua_script_engine_util.h"
 
-using namespace mariachi;
 using namespace mariachi::exceptions;
+using namespace mariachi::script::lua;
 
-void lua_assertargs(lua_State *luaState, unsigned int expectedArgc) {
+void mariachi::script::lua::lua_assertargs(lua_State *luaState, unsigned int expectedArgc) {
     // retrieves the number of arguments
     int argc = lua_gettop(luaState);
 
@@ -42,13 +42,13 @@ void lua_assertargs(lua_State *luaState, unsigned int expectedArgc) {
     }
 }
 
-void lua_assertargsmethod(lua_State *luaState, unsigned int expectedArgc) {
+void mariachi::script::lua::lua_assertargsmethod(lua_State *luaState, unsigned int expectedArgc) {
     // calls the arguments assertion with one more argument
     // (the self reference)
     lua_assertargs(luaState, expectedArgc + 1);
 }
 
-void *lua_get_self(lua_State *luaState) {
+void *mariachi::script::lua::lua_getself(lua_State *luaState) {
     // loads the self variable table
     lua_pushstring(luaState, LUA_SCRIPT_ENGINE_SELF_VARIABLE);
     lua_gettable(luaState, 1);
@@ -63,13 +63,13 @@ void *lua_get_self(lua_State *luaState) {
     return self_value;
 }
 
-void lua_set_self(lua_State *luaState, void *selfPointer) {
+void mariachi::script::lua::lua_setself(lua_State *luaState, void *selfPointer) {
     lua_pushstring(luaState, LUA_SCRIPT_ENGINE_SELF_VARIABLE);
     lua_pushinteger(luaState, (long long) selfPointer);
     lua_settable(luaState, -3);
 }
 
-int lua_hastype(lua_State *luaState, const char *type) {
+int mariachi::script::lua::lua_hastype(lua_State *luaState, const char *type) {
     lua_pushstring(luaState, type);
     lua_gettable(luaState, -2);
 
@@ -83,7 +83,7 @@ int lua_hastype(lua_State *luaState, const char *type) {
     return return_value;
 }
 
-void lua_settype(lua_State *luaState, const char *type) {
+void mariachi::script::lua::lua_settype(lua_State *luaState, const char *type) {
     lua_pushstring(luaState, type);
     lua_pushinteger(luaState, 1);
     lua_settable(luaState, -3);
@@ -96,7 +96,7 @@ void lua_settype(lua_State *luaState, const char *type) {
 * @param name The mapping name to be used.
 * @param value The string value to be used.
 */
-void lua_setnamestring(lua_State *luaState, const char *name, const char *value) {
+void mariachi::script::lua::lua_setnamestring(lua_State *luaState, const char *name, const char *value) {
     lua_pushstring(luaState, name);
     lua_pushstring(luaState, value);
     lua_settable(luaState, -3);
@@ -109,7 +109,7 @@ void lua_setnamestring(lua_State *luaState, const char *name, const char *value)
 * @param name The mapping name to be used.
 * @param value The float value to be used.
 */
-void lua_setnamefloat(lua_State *luaState, const char *name, float value) {
+void mariachi::script::lua::lua_setnamefloat(lua_State *luaState, const char *name, float value) {
     lua_pushstring(luaState, name);
     lua_pushnumber(luaState, value);
     lua_settable(luaState, -3);
@@ -122,7 +122,7 @@ void lua_setnamefloat(lua_State *luaState, const char *name, float value) {
 * @param name The mapping name to be used.
 * @param value The function value to be used.
 */
-void lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value) {
+void mariachi::script::lua::lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value) {
     lua_pushstring(luaState, name);
     lua_pushcfunction(luaState, value);
     lua_settable(luaState, -3);
