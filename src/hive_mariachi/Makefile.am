@@ -72,6 +72,7 @@ devices/output/output_device.cpp \
 exceptions/exception.cpp \
 exceptions/runtime_exception.cpp \
 importers/bmp_loader.cpp \
+importers/importer.cpp \
 importers/md2_importer.cpp \
 importers/model_importer.cpp \
 importers/texture_importer.cpp \
@@ -114,12 +115,17 @@ render_adapters/opengles_adapter.cpp \
 render_adapters/render_adapter.cpp \
 render_utils/direct3d_win32_window.cpp \
 render_utils/direct3d_window.cpp \
+render_utils/factories/opengl_cocoa_window_factory.mm \
+render_utils/factories/opengles_uikit_window_factory.mm \
 render_utils/opengl_cocoa_window.cpp \
 render_utils/opengl_glut_window.cpp \
 render_utils/opengl_win32_window.cpp \
 render_utils/opengl_window.cpp \
 render_utils/opengles_uikit_window.cpp \
 render_utils/opengles_window.cpp \
+render_utils/views/opengl_cocoa_window_view.mm \
+render_utils/views/opengles_uikit_window_view.mm \
+render_utils/views/renders/opengles1_uikit_renderer.mm \
 script/script_engine.cpp \
 serialization/json_reader.cpp \
 serialization/json_value.cpp \
@@ -146,11 +152,13 @@ user_interface/ui_panel_node.cpp \
 user_interface/ui_view_port_node.cpp \
 util/bit_util.cpp \
 util/box_util.cpp \
+util/byte_util.cpp \
 util/cpu_util.cpp \
 util/geometry_util.cpp \
 util/string_util.cpp \
-util/vector_util.cpp
+util/vector_util.cpp 
 
 if LINK_LUA
     libmariachi_a_SOURCES += $(lua_sources)
 endif
+
