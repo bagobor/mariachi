@@ -35,10 +35,12 @@ using namespace mariachi::structures;
 */
 PhysicalNode::PhysicalNode() : CubeNode() {
     this->initMass();
+    this->initTransforms();
 }
 
 PhysicalNode::PhysicalNode(const std::string &name) : CubeNode(name) {
     this->initMass();
+    this->initTransforms();
 }
 
 /**
@@ -50,6 +52,12 @@ PhysicalNode::~PhysicalNode() {
 inline void PhysicalNode::initMass() {
     this->mass = PHYSICAL_NODE_DEFAULT_MASS;
 }
+
+inline void PhysicalNode::initTransforms() {
+    this->physicalPositionEnabled = DEFAULT_PHYSICAL_POSITION_ENABLED;
+    this->physicalRotationEnabled = DEFAULT_PHYSICAL_ROTATION_ENABLED;
+}
+
 void PhysicalNode::addImpulse(const Coordinate3d_t &impulse) {
 }
 
