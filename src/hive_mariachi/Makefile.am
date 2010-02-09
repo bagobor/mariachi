@@ -42,8 +42,7 @@ script/lua_script_engine/mapping/nodes/lua_script_engine_scene_node.cpp \
 script/lua_script_engine/mapping/structures/lua_script_engine_position.cpp \
 script/lua_script_engine/util/lua_script_engine_util.cpp
 
-libmariachi_a_SOURCES = model_viewer.cpp \
-stdafx.cpp \
+libmariachi_a_SOURCES = stdafx.cpp \
 algorithms/compression/huffman.cpp \
 algorithms/hashing/crc32.cpp \
 algorithms/hashing/hash_function.cpp \
@@ -155,4 +154,3 @@ util/vector_util.cpp
 if LINK_LUA
     libmariachi_a_SOURCES += $(lua_sources)
 endif
-
