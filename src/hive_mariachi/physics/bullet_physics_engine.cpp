@@ -232,8 +232,8 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
         std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
 
         // retrieves the collision flags
-        collisionFilterGroup = (int) argumentsMap["collision_filter_group"];
-        collisionFilterMask = (int) argumentsMap["collision_filter_mask"];
+        collisionFilterGroup = (long long) argumentsMap["collision_filter_group"];
+        collisionFilterMask = (long long) argumentsMap["collision_filter_mask"];
     }
     // the physical node rigid body reference
     btRigidBody *physicalNodeRigidBody;

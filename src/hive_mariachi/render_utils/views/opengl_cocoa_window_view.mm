@@ -31,6 +31,9 @@
 
 #include <OpenGL/Glu.h>
 
+using namespace mariachi;
+using namespace mariachi::render_adapters;
+
 @implementation OpenglCocoaWindowView
 
 - (id) initWithFrame: (NSRect) frameRect {
