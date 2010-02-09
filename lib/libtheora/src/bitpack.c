@@ -20,6 +20,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+
 #include "bitpack.h"
 
 void theorapackB_readinit(oggpack_buffer *_b,unsigned char *_buf,int _bytes){
@@ -33,7 +34,7 @@ int theorapackB_look1(oggpack_buffer *_b,long *_ret){
     *_ret=0L;
     return -1;
   }
-  *_ret=(_b->ptr[0]>>7-_b->endbit)&1;
+  *_ret=(_b->ptr[0]>>(7-_b->endbit))&1;
   return 0;
 }
 
@@ -68,18 +69,18 @@ int theorapackB_read(oggpack_buffer *_b,int _bits,long *_ret){
       return 0;
     }
   }
-  ret=_b->ptr[0]<<24+_b->endbit;
+  ret=_b->ptr[0]<<(24+_b->endbit);
   if(_bits>8){
-    ret|=_b->ptr[1]<<16+_b->endbit;
+    ret|=_b->ptr[1]<<(16+_b->endbit);
     if(_bits>16){
-      ret|=_b->ptr[2]<<8+_b->endbit;
+      ret|=_b->ptr[2]<<(8+_b->endbit);
       if(_bits>24){
         ret|=_b->ptr[3]<<_b->endbit;
-        if(_bits>32)ret|=_b->ptr[4]>>8-_b->endbit;
+        if(_bits>32)ret|=_b->ptr[4]>>(8-_b->endbit);
       }
     }
   }
-  *_ret=((ret&0xFFFFFFFFUL)>>(m>>1))>>(m+1>>1);
+  *_ret=((ret&0xFFFFFFFFUL)>>(m>>1))>>((m+1)>>1);
   fail=0;
 overflow:
   _b->ptr+=_bits>>3;
@@ -96,7 +97,7 @@ int theorapackB_read1(oggpack_buffer *_b,long *_ret){
     fail=-1;
   }
   else{
-    *_ret=(_b->ptr[0]>>7-_b->endbit)&1;
+    *_ret=(_b->ptr[0]>>(7-_b->endbit))&1;
     fail=0;
   }
   _b->endbit++;
@@ -109,7 +110,7 @@ int theorapackB_read1(oggpack_buffer *_b,long *_ret){
 }
 
 long theorapackB_bytes(oggpack_buffer *_b){
-  return _b->endbyte+(_b->endbit+7>>3);
+  return _b->endbyte+((_b->endbit+7)>>3);
 }
 
 long theorapackB_bits(oggpack_buffer *_b){
