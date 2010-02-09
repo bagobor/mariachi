@@ -91,8 +91,6 @@ namespace mariachi {
                 unsigned int state[4];
 
                 void transform(const unsigned char *block, unsigned int blocksize);
-                static void decode(unsigned int *output, const unsigned char *input, unsigned int size);
-                static void encode(unsigned char *output, const unsigned int *input, unsigned int size);
 
                 static inline unsigned int F(unsigned int x, unsigned int y, unsigned int z);
                 static inline unsigned int G(unsigned int x, unsigned int y, unsigned int z);

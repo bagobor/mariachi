@@ -23,66 +23,25 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
-#include "ui_component_node.h"
+namespace mariachi {
+    namespace importers {
+        /**
+        * The abstract importer class.
+        * Creates the basic abstraction for the importing classes.
+        */
+        class Importer {
+            private:
 
-using namespace mariachi::ui;
-using namespace mariachi::structures;
+            public:
+                Importer();
+                ~Importer();
+                virtual void reset() { };
+                virtual std::string toString() const { return std::string(); };
+                friend std::ostream &operator<<(std::ostream &outStream, const Importer &value);
+        };
 
-/**
-* Constructor of the class.
-*/
-ComponentNode::ComponentNode() : UiNode() {
-    this->initRenderable();
-}
-
-ComponentNode::ComponentNode(const std::string &name) : UiNode(name) {
-    this->initRenderable();
-}
-
-/**
-* Destructor of the class.
-*/
-ComponentNode::~ComponentNode() {
-}
-
-inline void ComponentNode::initRenderable() {
-    this->renderable = true;
-}
-
-/**
-* Retrieves the color.
-*
-* @return The color.
-*/
-FloatColor_t &ComponentNode::getColor() {
-    return this->color;
-}
-
-/**
-* Sets the color.
-*
-* @param color The color.
-*/
-void ComponentNode::setColor(const FloatColor_t &color) {
-    this->color = color;
-}
-
-/**
-* Retrieves the texture.
-*
-* @return The texture.
-*/
-Texture *ComponentNode::getTexture() {
-    return this->texture;
-}
-
-/**
-* Sets the texture.
-*
-* @param texture The texture.
-*/
-void ComponentNode::setTexture(Texture *texture) {
-    this->texture = texture;
+        std::ostream &operator<<(std::ostream &outStream, const Importer &value);
+    }
 }

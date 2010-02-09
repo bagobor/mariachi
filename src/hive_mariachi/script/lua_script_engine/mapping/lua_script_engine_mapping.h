@@ -60,17 +60,27 @@ namespace mariachi {
                 lua_CFunction luaConstructor;
             } LuaTypeInformation;
 
-            bool lua_mariachi_get_reference(lua_State *luaState, void *value);
-            bool lua_mariachi_new_Object(lua_State *luaState, void *value);
-            int lua_mariachi_object_cast_as(lua_State *luaState);
-            int lua_mariachi_object_type_id(lua_State *luaState);
-            int lua_mariachi_get_engine(lua_State *luaState);
+            class LuaObject {
+                private:
 
-            LuaScriptEngine *lua_getscriptengine(lua_State *luaState);
-            void lua_generateconstructors(lua_State *luaState);
-            unsigned int lua_getinttype(const char *charType);
-            LuaConstructor_t lua_getconstructor(const char *charType);
-            void lua_constructtypeinformationmap();
+                public:
+                    static bool allocate(lua_State *luaState, void *value);
+                    static int castAs(lua_State *luaState);
+                    static int typeId(lua_State *luaState);
+            };
+
+            class LuaMapping {
+                private:
+
+                public:
+                    static bool getReference(lua_State *luaState, void *value);
+                    static int getEngine(lua_State *luaState);
+                    static LuaScriptEngine *getScriptEngine(lua_State *luaState);
+                    static void generateConstructors(lua_State *luaState);
+                    static unsigned int getIntType(const char *charType);
+                    static LuaConstructor_t getConstructor(const char *charType);
+                    static void constructTypeInformationMap();
+            };
         }
     }
 }

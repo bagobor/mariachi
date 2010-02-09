@@ -25,64 +25,23 @@
 
 #include "stdafx.h"
 
-#include "ui_component_node.h"
+#include "importer.h"
 
-using namespace mariachi::ui;
-using namespace mariachi::structures;
+using namespace mariachi::importers;
 
 /**
 * Constructor of the class.
 */
-ComponentNode::ComponentNode() : UiNode() {
-    this->initRenderable();
-}
-
-ComponentNode::ComponentNode(const std::string &name) : UiNode(name) {
-    this->initRenderable();
+Importer::Importer() {
 }
 
 /**
 * Destructor of the class.
 */
-ComponentNode::~ComponentNode() {
+Importer::~Importer() {
 }
 
-inline void ComponentNode::initRenderable() {
-    this->renderable = true;
-}
-
-/**
-* Retrieves the color.
-*
-* @return The color.
-*/
-FloatColor_t &ComponentNode::getColor() {
-    return this->color;
-}
-
-/**
-* Sets the color.
-*
-* @param color The color.
-*/
-void ComponentNode::setColor(const FloatColor_t &color) {
-    this->color = color;
-}
-
-/**
-* Retrieves the texture.
-*
-* @return The texture.
-*/
-Texture *ComponentNode::getTexture() {
-    return this->texture;
-}
-
-/**
-* Sets the texture.
-*
-* @param texture The texture.
-*/
-void ComponentNode::setTexture(Texture *texture) {
-    this->texture = texture;
+std::ostream &mariachi::importers::operator<<(std::ostream &outStream, const Importer &value) {
+    // puts the to string value in the ouput stream
+    return outStream << value.toString();
 }

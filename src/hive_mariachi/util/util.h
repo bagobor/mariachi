@@ -27,6 +27,7 @@
 
 #include "bit_util.h"
 #include "box_util.h"
+#include "byte_util.h"
 #include "cpu_util.h"
 #include "geometry_util.h"
 #include "string_util.h"

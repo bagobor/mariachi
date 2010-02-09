@@ -108,7 +108,7 @@ void Md5::update(const unsigned char *buffer, unsigned int size) {
 void Md5::finalize() {
     // saves the number of bits
     unsigned char bits[8];
-    this->encode(bits, this->count, 8);
+    ByteUtil::encode(bits, this->count, 8);
 
     // pads out to 56 modulus 64
     unsigned int index = this->count[0] / 8 % 64;
@@ -121,7 +121,7 @@ void Md5::finalize() {
     this->update(bits, 8);
 
     // store the state in the digest
-    this->encode(this->digest, this->state, MD5_DIGEST_SIZE);
+    ByteUtil::encode(this->digest, this->state, MD5_DIGEST_SIZE);
 
     // invalidates sensitive information
     memset(this->hashBuffer, 0, sizeof(this->hashBuffer));
@@ -149,38 +149,6 @@ void Md5::reset() {
     HashFunction::reset();
 }
 
-/**
-* Decodes multiple unsigned characters into an unsigned integer buffer.
-* Assumes size is a multiple of 4.
-*
-* @param output The output buffer.
-* @param input The input buffer.
-* @param size The size of the input buffer (in bytes).
-*/
-void Md5::decode(unsigned int *output, const unsigned char *input, unsigned int size) {
-    for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
-        output[i] = ((unsigned int) input[j]) | (((unsigned int) input[j + 1]) << 8) |
-            (((unsigned int) input[j + 2]) << 16) | (((unsigned int) input[j + 3]) << 24);
-    }
-}
-
-/**
-* Encodes multiple unsigned integers into an unsigned character buffer.
-* Assumes size is a multiple of 4.
-*
-* @param output The output buffer.
-* @param input The input buffer.
-* @param size The size of the input buffer (in bytes).
-*/
-void Md5::encode(unsigned char *output, const unsigned int *input, unsigned int size) {
-    for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
-        output[j] = input[i] & 0xff;
-        output[j+1] = (input[i] >> 8) & 0xff;
-        output[j+2] = (input[i] >> 16) & 0xff;
-        output[j+3] = (input[i] >> 24) & 0xff;
-    }
-}
-
 void Md5::transform(const unsigned char *block, unsigned int blocksize) {
     unsigned int a = this->state[0];
     unsigned int b = this->state[1];
@@ -189,7 +157,7 @@ void Md5::transform(const unsigned char *block, unsigned int blocksize) {
 
     unsigned int x[MD5_DIGEST_SIZE];
 
-    this->decode(x, block, blocksize);
+    ByteUtil::decode(x, block, blocksize);
 
     // the first round of md5 computation
     Md5::FF(a, b, c, d, x[0], MD5_S11, 0xd76aa478);

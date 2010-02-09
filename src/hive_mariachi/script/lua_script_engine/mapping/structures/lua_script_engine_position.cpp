@@ -33,7 +33,7 @@ using namespace mariachi::script::lua;
 bool LuaCoordinate3d_t::allocate(lua_State *luaState, Coordinate3d_t *value) {
     bool return_value;
 
-    if((return_value = lua_mariachi_get_reference(luaState, value))) {
+    if((return_value = LuaMapping::getReference(luaState, value))) {
     }
 
     lua_setnamefloat(luaState, "x", value->x);

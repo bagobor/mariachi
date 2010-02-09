@@ -79,7 +79,7 @@ namespace mariachi {
                         bool return_value;
 
                         // in case the reference is new
-                        lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_LIST_TYPE, lua_mariachi_new_Object) {
+                        lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_LIST_TYPE, LuaObject::allocate) {
                             // sets the type of the node
                             lua_settype(luaState, LUA_SCRIPT_ENGINE_LIST_TYPE);
 

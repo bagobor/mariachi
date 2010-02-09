@@ -45,9 +45,9 @@ std::map<std::string, LuaTypeInformation_t> lua_typeinformationmap;
 * @param value The pointer to the c++ object.
 * @return If a new reference was created.
 */
-bool mariachi::script::lua::lua_mariachi_get_reference(lua_State *luaState, void *value) {
+bool LuaMapping::getReference(lua_State *luaState, void *value) {
     // retrieves the lua script engine
-    LuaScriptEngine *luaScriptEngine = lua_getscriptengine(luaState);
+    LuaScriptEngine *luaScriptEngine = LuaMapping::getScriptEngine(luaState);
 
     // allocates the reference
     int reference;
@@ -76,80 +76,12 @@ bool mariachi::script::lua::lua_mariachi_get_reference(lua_State *luaState, void
     }
 }
 
-bool mariachi::script::lua::lua_mariachi_new_Object(lua_State *luaState, void *value) {
-    bool return_value;
-
-    // in case the reference is new
-    if((return_value = lua_mariachi_get_reference(luaState, value))) {
-        // sets the self value
-        lua_setself(luaState, value);
-
-        // sets the methods
-        lua_setnamefunction(luaState, "cast_as", lua_mariachi_object_cast_as);
-        lua_setnamefunction(luaState, "type_id", lua_mariachi_object_type_id);
-    }
-
-    return return_value;
-}
-
-/**
-* Lua method to cast an object as a different object.
-* This method is a convenience to allow conversion and
-* type casting between types.
-*
-* @param luaState The current lua state reference.
-* @return The number of returning values.
-*/
-int mariachi::script::lua::lua_mariachi_object_cast_as(lua_State *luaState) {
-    // validates the number of arguments
-    lua_assertargsmethod(luaState, 1);
-
-    // retrieves self
-    void *self = (void *) lua_getself(luaState);
-
-    // retrieves the cast as value
-    const char *castAs = lua_tostring(luaState, -1);
-
-    // retrieves the constructor for the cast value
-    LuaConstructor_t constructor = lua_getconstructor(castAs);
-
-    // calls the constructor for the cast value
-    constructor(luaState, self);
-
-    // returns the number of return values
-    return 1;
-}
-
-/**
-* Lua method to retrieve the c++ type of the current object.
-* Use this method carefully as it is dangerous.
-*
-* @param luaState The current lua state reference.
-* @return The number of returning values.
-*/
-int mariachi::script::lua::lua_mariachi_object_type_id(lua_State *luaState) {
-    // validates the number of arguments
-    lua_assertargsmethod(luaState, 0);
-
-    // retrieves self
-    void *self = (void *) lua_getself(luaState);
-
-    // retrieves the type id value for self
-    const char *typeIdValue = typeid(self).name();
-
-    // pushes the type id value
-    lua_pushfstring(luaState, typeIdValue);
-
-    // returns the number of return values
-    return 1;
-}
-
-int mariachi::script::lua::lua_mariachi_get_engine(lua_State *luaState) {
+int LuaMapping::getEngine(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargs(luaState, 0);
 
     // retrieves the lua script engine
-    LuaScriptEngine *luaScriptEngine = lua_getscriptengine(luaState);
+    LuaScriptEngine *luaScriptEngine = LuaMapping::getScriptEngine(luaState);
 
     // creates a new table (the engine object)
     lua_newtable(luaState);
@@ -166,7 +98,7 @@ int mariachi::script::lua::lua_mariachi_get_engine(lua_State *luaState) {
 * @param luaState The current lua state reference.
 * @return The lua script engine for the current lua interpreter.
 */
-LuaScriptEngine *mariachi::script::lua::lua_getscriptengine(lua_State *luaState) {
+LuaScriptEngine *LuaMapping::getScriptEngine(lua_State *luaState) {
     // loads the global variable
     lua_getglobal(luaState, LUA_SCRIPT_ENGINE_GLOBAL_VARIABLE);
 
@@ -186,11 +118,11 @@ LuaScriptEngine *mariachi::script::lua::lua_getscriptengine(lua_State *luaState)
 *
 * @param luaState The current lua state reference.
 */
-void mariachi::script::lua::lua_generateconstructors(lua_State *luaState) {
+void LuaMapping::generateConstructors(lua_State *luaState) {
     // in case the type information map is empty
     if(lua_typeinformationmap.size() == 0) {
         // constructs the type information map
-        lua_constructtypeinformationmap();
+        LuaMapping::constructTypeInformationMap();
     }
 
     // retrieves the lua type information map iterator
@@ -230,11 +162,11 @@ void mariachi::script::lua::lua_generateconstructors(lua_State *luaState) {
 * int type.
 * @return The int type for the given character type.
 */
-unsigned int mariachi::script::lua::lua_getinttype(const char *charType) {
+unsigned int LuaMapping::getIntType(const char *charType) {
     // in case the type information map is empty
     if(lua_typeinformationmap.size() == 0) {
         // constructs the type information map
-        lua_constructtypeinformationmap();
+         LuaMapping::constructTypeInformationMap();
     }
 
     return lua_typeinformationmap[charType].intType;
@@ -248,11 +180,11 @@ unsigned int mariachi::script::lua::lua_getinttype(const char *charType) {
 * constructor.
 * @return The constructor for the given character type.
 */
-LuaConstructor_t mariachi::script::lua::lua_getconstructor(const char *charType) {
+LuaConstructor_t LuaMapping::getConstructor(const char *charType) {
     // in case the type information map is empty
     if(lua_typeinformationmap.size() == 0) {
         // constructs the type information map
-        lua_constructtypeinformationmap();
+         LuaMapping::constructTypeInformationMap();
     }
 
     // returns the contructor for the char type
@@ -263,7 +195,7 @@ LuaConstructor_t mariachi::script::lua::lua_getconstructor(const char *charType)
 * Constructs the type information map for all the lua type values
 * the constructed map, includes information about the type.
 */
-void mariachi::script::lua::lua_constructtypeinformationmap() {
+void LuaMapping::constructTypeInformationMap() {
     LuaTypeInformation_t listTypeInformation = { LUA_SCRIPT_ENGINE_LIST_TYPE_INT, NULL, NULL };
     LuaTypeInformation_t mapTypeInformation = { LUA_SCRIPT_ENGINE_MAP_TYPE_INT, NULL, NULL };
     LuaTypeInformation_t vectorTypeInformation = { LUA_SCRIPT_ENGINE_VECTOR_TYPE_INT, NULL, NULL };
@@ -277,4 +209,72 @@ void mariachi::script::lua::lua_constructtypeinformationmap() {
     lua_typeinformationmap["Node"] = nodeTypeInformation;
     lua_typeinformationmap["CubeNode"] = cubeNodeTypeInformation;
     lua_typeinformationmap["SceneNode"] = sceneNodeTypeInformation;
+}
+
+bool LuaObject::allocate(lua_State *luaState, void *value) {
+    bool return_value;
+
+    // in case the reference is new
+    if((return_value = LuaMapping::getReference(luaState, value))) {
+        // sets the self value
+        lua_setself(luaState, value);
+
+        // sets the methods
+        lua_setnamefunction(luaState, "cast_as", LuaObject::castAs);
+        lua_setnamefunction(luaState, "type_id", LuaObject::typeId);
+    }
+
+    return return_value;
+}
+
+/**
+* Lua method to cast an object as a different object.
+* This method is a convenience to allow conversion and
+* type casting between types.
+*
+* @param luaState The current lua state reference.
+* @return The number of returning values.
+*/
+int LuaObject::castAs(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 1);
+
+    // retrieves self
+    void *self = (void *) lua_getself(luaState);
+
+    // retrieves the cast as value
+    const char *castAs = lua_tostring(luaState, -1);
+
+    // retrieves the constructor for the cast value
+    LuaConstructor_t constructor = LuaMapping::getConstructor(castAs);
+
+    // calls the constructor for the cast value
+    constructor(luaState, self);
+
+    // returns the number of return values
+    return 1;
+}
+
+/**
+* Lua method to retrieve the c++ type of the current object.
+* Use this method carefully as it is dangerous.
+*
+* @param luaState The current lua state reference.
+* @return The number of returning values.
+*/
+int LuaObject::typeId(lua_State *luaState) {
+    // validates the number of arguments
+    lua_assertargsmethod(luaState, 0);
+
+    // retrieves self
+    void *self = (void *) lua_getself(luaState);
+
+    // retrieves the type id value for self
+    const char *typeIdValue = typeid(self).name();
+
+    // pushes the type id value
+    lua_pushfstring(luaState, typeIdValue);
+
+    // returns the number of return values
+    return 1;
 }

@@ -23,66 +23,16 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
-#include "ui_component_node.h"
+namespace mariachi {
+    namespace util {
+        class ByteUtil {
+            private:
 
-using namespace mariachi::ui;
-using namespace mariachi::structures;
-
-/**
-* Constructor of the class.
-*/
-ComponentNode::ComponentNode() : UiNode() {
-    this->initRenderable();
-}
-
-ComponentNode::ComponentNode(const std::string &name) : UiNode(name) {
-    this->initRenderable();
-}
-
-/**
-* Destructor of the class.
-*/
-ComponentNode::~ComponentNode() {
-}
-
-inline void ComponentNode::initRenderable() {
-    this->renderable = true;
-}
-
-/**
-* Retrieves the color.
-*
-* @return The color.
-*/
-FloatColor_t &ComponentNode::getColor() {
-    return this->color;
-}
-
-/**
-* Sets the color.
-*
-* @param color The color.
-*/
-void ComponentNode::setColor(const FloatColor_t &color) {
-    this->color = color;
-}
-
-/**
-* Retrieves the texture.
-*
-* @return The texture.
-*/
-Texture *ComponentNode::getTexture() {
-    return this->texture;
-}
-
-/**
-* Sets the texture.
-*
-* @param texture The texture.
-*/
-void ComponentNode::setTexture(Texture *texture) {
-    this->texture = texture;
+            public:
+                static void decode(unsigned int *output, const unsigned char *input, unsigned int size);
+                static void encode(unsigned char *output, const unsigned int *input, unsigned int size);
+        };
+    }
 }

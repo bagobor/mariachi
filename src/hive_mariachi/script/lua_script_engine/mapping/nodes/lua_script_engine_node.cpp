@@ -34,7 +34,7 @@ bool LuaNode::allocate(lua_State *luaState, Node *value) {
     bool return_value;
 
     // in case the reference is new
-    lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_NODE_TYPE, lua_mariachi_new_Object) {
+    lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_NODE_TYPE, LuaObject::allocate) {
         // sets the methods
         lua_setnamefunction(luaState, "get_children_list", LuaNode::getChildrenList);
 

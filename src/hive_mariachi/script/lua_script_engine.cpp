@@ -67,11 +67,11 @@ void LuaScriptEngine::load(void *arguments) {
 
     // creates a new table and registers the entry point global function
     lua_newtable(luaState);
-    lua_setnamefunction(luaState, LUA_SCRIPT_ENGINE_GET_ENGINE_METHOD, lua_mariachi_get_engine);
+    lua_setnamefunction(luaState, LUA_SCRIPT_ENGINE_GET_ENGINE_METHOD, LuaMapping::getEngine);
     lua_setglobal(luaState, LUA_SCRIPT_ENGINE_BASE_NAMESPACE);
 
     // generates the constructors
-    lua_generateconstructors(luaState);
+    LuaMapping::generateConstructors(luaState);
 }
 
 void LuaScriptEngine::unload(void *arguments) {
