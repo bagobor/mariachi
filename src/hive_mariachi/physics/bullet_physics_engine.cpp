@@ -350,6 +350,12 @@ void BulletPhysicsEngine::setPhysicalNodeVelocity(PhysicalNode *physicalNode, co
 
     // adds an impulse to the physical node
     physicalNodeRigidBody->setLinearVelocity(velocityVector);
+
+    // in case the rigid body has been deemed inactive by the constraint solver
+    if(physicalNodeRigidBody->getActivationState() == ISLAND_SLEEPING) {
+        // activates the rigid body
+        physicalNodeRigidBody->setActivationState(ACTIVE_TAG);
+    }
 }
 
 void BulletPhysicsEngine::setGravity(const Coordinate3d_t &gravity) {
