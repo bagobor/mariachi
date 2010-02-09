@@ -33,8 +33,8 @@
 #import "../../render_adapters/opengl_adapter.h"
 
 @interface OpenglCocoaWindowView : NSOpenGLView {
-	mariachi::Engine *engine;
-	mariachi::render_adapters::OpenglAdapter *openglAdapter;
+    mariachi::Engine *engine;
+    mariachi::render_adapters::OpenglAdapter *openglAdapter;
 }
 
 - (void) registerTimer;
