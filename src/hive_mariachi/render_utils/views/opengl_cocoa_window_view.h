@@ -33,8 +33,8 @@
 #import "../../render_adapters/opengl_adapter.h"
 
 @interface OpenglCocoaWindowView : NSOpenGLView {
-    Engine *engine;
-    OpenglAdapter *openglAdapter;
+	mariachi::Engine *engine;
+	mariachi::render_adapters::OpenglAdapter *openglAdapter;
 }
 
 - (void) registerTimer;
@@ -43,10 +43,10 @@
 - (void) viewResized: (NSNotification *) notif;
 - (void) initialize;
 - (void) display;
-- (Engine *) engine;
-- (void) setEngine: (Engine *) anEngine;
-- (OpenglAdapter *) openglAdapter;
-- (void) setOpenglAdapter: (OpenglAdapter *) anOpenglAdapter;
+- (mariachi::Engine *) engine;
+- (void) setEngine: (mariachi::Engine *) anEngine;
+- (mariachi::render_adapters::OpenglAdapter *) openglAdapter;
+- (void) setOpenglAdapter: (mariachi::render_adapters::OpenglAdapter *) anOpenglAdapter;
 + (NSOpenGLPixelFormat *) basicPixelFormat;
 
 @end
