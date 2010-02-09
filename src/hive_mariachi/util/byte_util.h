@@ -28,11 +28,40 @@
 namespace mariachi {
     namespace util {
         class ByteUtil {
-            private:
+			private:
 
-            public:
-                static void decode(unsigned int *output, const unsigned char *input, unsigned int size);
-                static void encode(unsigned char *output, const unsigned int *input, unsigned int size);
+			public:
+				/**
+				* Decodes multiple unsigned characters into an unsigned integer buffer.
+				* Assumes size is a multiple of 4.
+				*
+				* @param output The output buffer.
+				* @param input The input buffer.
+				* @param size The size of the input buffer (in bytes).
+				*/
+				inline static void decode(unsigned int *output, const unsigned char *input, unsigned int size) {
+					for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
+						output[i] = ((unsigned int) input[j]) | (((unsigned int) input[j + 1]) << 8) |
+							(((unsigned int) input[j + 2]) << 16) | (((unsigned int) input[j + 3]) << 24);
+					}
+				}
+
+				/**
+				* Encodes multiple unsigned integers into an unsigned character buffer.
+				* Assumes size is a multiple of 4.
+				*
+				* @param output The output buffer.
+				* @param input The input buffer.
+				* @param size The size of the input buffer (in bytes).
+				*/
+				inline static void encode(unsigned char *output, const unsigned int *input, unsigned int size) {
+					for(unsigned int i = 0, j = 0; j < size; i++, j += 4) {
+						output[j] = input[i] & 0xff;
+						output[j+1] = (input[i] >> 8) & 0xff;
+						output[j+2] = (input[i] >> 16) & 0xff;
+						output[j+3] = (input[i] >> 24) & 0xff;
+					}
+				}
         };
     }
 }
