@@ -29,7 +29,6 @@
 
 #include "logger.h"
 
-using namespace mariachi;
 using namespace mariachi::logging;
 
 /**

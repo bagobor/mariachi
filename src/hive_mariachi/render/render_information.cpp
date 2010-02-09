@@ -27,7 +27,6 @@
 
 #include "render_information.h"
 
-using namespace mariachi;
 using namespace mariachi::nodes;
 using namespace mariachi::render;
 

@@ -25,10 +25,6 @@
 
 #pragma once
 
-#ifdef MARIACHI_PLATFORM_WIN32
-#pragma comment(lib, "lib_lua.lib")
-#endif
-
 extern "C" {
     #include "../../../lib/liblua/src/lua.h"
     #include "../../../lib/liblua/src/lualib.h"
@@ -50,26 +46,26 @@ extern "C" {
 #define LUA_SCRIPT_ENGINE_GET_ENGINE_METHOD "get_engine"
 
 namespace mariachi {
-    class LuaScriptEngine : public ScriptEngine {
-        private:
-            lua_State *luaState;
-            std::map<void *, int> objectMap;
+    namespace script {
+        class LuaScriptEngine : public ScriptEngine {
+            private:
+                lua_State *luaState;
+                std::map<void *, int> objectMap;
 
-        public:
-            LuaScriptEngine();
-            LuaScriptEngine(Engine *engine);
-            ~LuaScriptEngine();
-            void load(void *arguments);
-            void unload(void *arguments);
-            void addExtraPaths(std::vector<std::string *> &extraPaths);
-            bool runScript(Script_t *script);
-            bool runScriptFile(const std::string &scriptPath);
-            bool runScriptString(const std::string &scriptString);
-            std::string getLastError();
-            int getObjectReference(void *cObjectReference);
-            void setObjectReference(void *cObjectReference, int luaObjectIndex);
-            inline void openLuaLibs(luaL_reg *luaLibs);
-    };
+            public:
+                LuaScriptEngine();
+                LuaScriptEngine(Engine *engine);
+                ~LuaScriptEngine();
+                void load(void *arguments);
+                void unload(void *arguments);
+                void addExtraPaths(std::vector<std::string *> &extraPaths);
+                bool runScript(Script_t *script);
+                bool runScriptFile(const std::string &scriptPath);
+                bool runScriptString(const std::string &scriptString);
+                std::string getLastError();
+                int getObjectReference(void *cObjectReference);
+                void setObjectReference(void *cObjectReference, int luaObjectIndex);
+                inline void openLuaLibs(luaL_reg *luaLibs);
+        };
+    }
 }
-
-inline mariachi::LuaScriptEngine *lua_getscriptengine(lua_State *luaState);

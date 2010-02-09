@@ -30,93 +30,98 @@
 #define LUA_SCRIPT_ENGINE_LIST_TYPE "_t_LIST"
 
 namespace mariachi {
-    /**
-    * Structural class used to be passed as argument to create
-    * a new list in lua.
-    */
-    template<typename T> class LuaList {
-        public:
+    namespace script {
+        namespace lua {
             /**
-            * The stl list value to be encapsulated.
+            * Structural class used to be passed as argument to create
+            * a new list in lua.
             */
-            std::list<T> *listValue;
+            template<typename T> class LuaListStructure {
+                public:
+                    /**
+                    * The stl list value to be encapsulated.
+                    */
+                    std::list<T> *listValue;
 
-            /**
-            * The constructor function to be used to construct the list elements.
-            */
-            bool (*constructor)(lua_State *luaState, void *value);
+                    /**
+                    * The constructor function to be used to construct the list elements.
+                    */
+                    bool (*constructor)(lua_State *luaState, void *value);
 
-            /**
-            * Constructor of the class.
-            */
-            LuaList() { };
+                    /**
+                    * Constructor of the class.
+                    */
+                    LuaListStructure() { };
 
-            /**
-            * Constructor of the class.
-            *
-            * @param listValue The stl list value to be encapsulated.
-            * @param constructor The constructor function to be used to construct
-            * the list elements.
-            */
-            LuaList(std::list<T> *listValue, LuaConstructor_t constructor) {
-                this->listValue = listValue;
-                this->constructor = constructor;
-            }
+                    /**
+                    * Constructor of the class.
+                    *
+                    * @param listValue The stl list value to be encapsulated.
+                    * @param constructor The constructor function to be used to construct
+                    * the list elements.
+                    */
+                    LuaListStructure(std::list<T> *listValue, LuaConstructor_t constructor) {
+                        this->listValue = listValue;
+                        this->constructor = constructor;
+                    }
 
-            /**
-            * The destructor of the class.
-            */
-            ~LuaList() { };
-    };
-}
+                    /**
+                    * The destructor of the class.
+                    */
+                    ~LuaListStructure() { };
+            };
 
-template<class T> bool lua_mariachi_new_List(lua_State *luaState, mariachi::LuaList<T> *value);
-template<typename T> int lua_mariachi_list_front(lua_State *luaState);
-template<typename T> int lua_mariachi_list_get(lua_State *luaState);
+            class LuaList {
+                private:
 
-template<class T> bool lua_mariachi_new_List(lua_State *luaState, mariachi::LuaList<T> *value) {
-    bool return_value;
+                public:
+                    template<class T> static bool allocate(lua_State *luaState, LuaListStructure<T> *value) {
+                        bool return_value;
 
-    // in case the reference is new
-    validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_LIST_TYPE, lua_mariachi_new_Object) {
-        // sets the type of the node
-        lua_settype(luaState, LUA_SCRIPT_ENGINE_LIST_TYPE);
+                        // in case the reference is new
+                        lua_mariachi_validate_reference(return_value, luaState, value, LUA_SCRIPT_ENGINE_LIST_TYPE, lua_mariachi_new_Object) {
+                            // sets the type of the node
+                            lua_settype(luaState, LUA_SCRIPT_ENGINE_LIST_TYPE);
 
-        // sets the methods
-        lua_setnamefunction(luaState, "front", lua_mariachi_list_front<T>);
-        lua_setnamefunction(luaState, "get", lua_mariachi_list_get<T>);
+                            // sets the methods
+                            lua_setnamefunction(luaState, "front", LuaList::front<T>);
+                            lua_setnamefunction(luaState, "get", LuaList::get<T>);
+                        }
+
+                        return return_value;
+                    }
+
+                    template<typename T> static int front(lua_State *luaState) {
+                        // validates the number of arguments
+                        lua_assertargsmethod(luaState, 0);
+
+                        // retrieves self
+                        LuaListStructure<T> *self = (LuaListStructure<T> *) lua_getself(luaState);
+
+                        // retrieves the front value
+                        T frontValue = self->listValue->front();
+
+                        // constructs the value
+                        self->constructor(luaState, frontValue);
+
+                        // returns the number of return values
+                        return 1;
+                    }
+
+                    template<typename T> static int get(lua_State *luaState) {
+                        // validates the number of arguments
+                        lua_assertargsmethod(luaState, 1);
+
+                        // retrieves self
+                        std::list<T> *self = (std::list<T> *) lua_getself(luaState);
+
+                        // retrieves the index
+                        int index = (int) lua_tointeger(luaState, -1);
+
+                        // returns the number of return values
+                        return 1;
+                    }
+            };
+        }
     }
-
-    return return_value;
-}
-
-template<typename T> int lua_mariachi_list_front(lua_State *luaState) {
-    // validates the number of arguments
-    lua_assertargsmethod(luaState, 0);
-
-    // retrieves self
-    mariachi::LuaList<T> *self = (mariachi::LuaList<T> *) lua_get_self(luaState);
-
-    // retrieves the front value
-    T frontValue = self->listValue->front();
-
-    // constructs the value
-    self->constructor(luaState, frontValue);
-
-    // returns the number of return values
-    return 1;
-}
-
-template<typename T> int lua_mariachi_list_get(lua_State *luaState) {
-    // validates the number of arguments
-    lua_assertargsmethod(luaState, 1);
-
-    // retrieves self
-    std::list<T> *self = (std::list<T> *) lua_get_self(luaState);
-
-    // retrieves the index
-    int index = (int) lua_tointeger(luaState, -1);
-
-    // returns the number of return values
-    return 1;
 }

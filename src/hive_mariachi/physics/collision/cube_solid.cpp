@@ -27,7 +27,6 @@
 
 #include "cube_solid.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 using namespace mariachi::structures;
 

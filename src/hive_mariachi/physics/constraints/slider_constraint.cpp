@@ -27,7 +27,6 @@
 
 #include "slider_constraint.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 
 /**

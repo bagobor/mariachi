@@ -29,17 +29,19 @@
 #include "image.h"
 
 namespace mariachi {
-    class Texture {
-        private:
-            structures::IntSize2d_t size;
-            structures::ImageColor_t *imageBuffer;
+    namespace structures {
+        class Texture {
+            private:
+                structures::IntSize2d_t size;
+                structures::ImageColor_t *imageBuffer;
 
-        public:
-            Texture();
-            ~Texture();
-            structures::IntSize2d_t getSize();
-            void setSize(structures::IntSize2d_t size);
-            structures::ImageColor_t *getImageBuffer();
-            void setImageBuffer(structures::ImageColor_t * imageBuffer);
-    };
+            public:
+                Texture();
+                ~Texture();
+                structures::IntSize2d_t getSize();
+                void setSize(structures::IntSize2d_t size);
+                structures::ImageColor_t *getImageBuffer();
+                void setImageBuffer(structures::ImageColor_t * imageBuffer);
+        };
+    }
 }

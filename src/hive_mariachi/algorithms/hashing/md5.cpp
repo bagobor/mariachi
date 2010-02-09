@@ -30,8 +30,8 @@
 
 #include "md5.h"
 
-using namespace mariachi::algorithms;
 using namespace mariachi::util;
+using namespace mariachi::algorithms;
 
 const unsigned char Md5::md5Padding[] = {
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

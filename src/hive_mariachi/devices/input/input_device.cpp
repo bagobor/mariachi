@@ -27,7 +27,6 @@
 
 #include "input_device.h"
 
-using namespace mariachi;
 using namespace mariachi::devices;
 
 InputDevice::InputDevice() : Device(), Observable() {

@@ -27,7 +27,6 @@
 
 #include "texture.h"
 
-using namespace mariachi;
 using namespace mariachi::structures;
 
 /**

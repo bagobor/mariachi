@@ -114,7 +114,7 @@ namespace mariachi {
                 BmpLoader();
                 ~BmpLoader();
                 void generateImage(const std::string &filePath);
-                Texture *getTexture();
+                structures::Texture *getTexture();
                 BmpColor_t *getBitmapData();
                 BmpSize_t getBitmapSize();
         };

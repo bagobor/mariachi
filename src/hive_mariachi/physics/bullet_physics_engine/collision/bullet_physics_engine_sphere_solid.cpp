@@ -27,7 +27,6 @@
 
 #include "bullet_physics_engine_sphere_solid.h"
 
-using namespace mariachi;
 using namespace mariachi::physics;
 
 BulletPhysicsEngineSphereSolid::BulletPhysicsEngineSphereSolid() : BulletPhysicsEngineCollisionSolid(), SphereSolid() {
