@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include "stdafx.h"
+
 #include "algorithms/algorithms.h"
 #include "configuration/configuration.h"
 #include "console/console.h"
