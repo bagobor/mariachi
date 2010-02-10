@@ -380,6 +380,9 @@
 		561ECF201121E94C006F53EA /* string_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 561ECDD91121E94C006F53EA /* string_util.h */; };
 		561ECF211121E94C006F53EA /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 561ECDDA1121E94C006F53EA /* util.h */; };
 		561ECF221121E94C006F53EA /* byte_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 561ECDDB1121E94C006F53EA /* byte_util.h */; };
+		565025BE11232B5C0014F4D6 /* libbullet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 565025BD11232B5C0014F4D6 /* libbullet.a */; };
+		565025C011232B6E0014F4D6 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 565025BF11232B6E0014F4D6 /* liblua.a */; };
+		56502619112330DD0014F4D6 /* libhive_mariachi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DE9CC91107B3D500172B76 /* libhive_mariachi.a */; };
 		56FE6BF3111F37BF005F5594 /* btActivatingCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56FE6AE3111F37BF005F5594 /* btActivatingCollisionAlgorithm.cpp */; };
 		56FE6BF5111F37BF005F5594 /* btAlignedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56FE6AE5111F37BF005F5594 /* btAlignedAllocator.cpp */; };
 		56FE6BF8111F37BF005F5594 /* btAxisSweep3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56FE6AE8111F37BF005F5594 /* btAxisSweep3.cpp */; };
@@ -491,7 +494,6 @@
 		56FE6CFA111F37BF005F5594 /* btVoronoiSimplexSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56FE6BEA111F37BF005F5594 /* btVoronoiSimplexSolver.cpp */; };
 		56FE6CFC111F37BF005F5594 /* btWheelInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56FE6BEC111F37BF005F5594 /* btWheelInfo.cpp */; };
 		56FE6CFE111F37BF005F5594 /* SphereTriangleDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56FE6BEF111F37BF005F5594 /* SphereTriangleDetector.cpp */; };
-		56FE6DD7111F3D5E005F5594 /* libbullet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56FE6ADC111F3798005F5594 /* libbullet.a */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		C219A7A411062ACA00F7A348 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		C219A7A611062ACA00F7A348 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C219A6B511062A9800F7A348 /* OpenGL.framework */; };
@@ -529,32 +531,30 @@
 		C2A88AF211077B0500CA7BAF /* lvm.c in Sources */ = {isa = PBXBuildFile; fileRef = C2A88ABB11077B0500CA7BAF /* lvm.c */; };
 		C2A88AF411077B0500CA7BAF /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = C2A88ABD11077B0500CA7BAF /* lzio.c */; };
 		C2A88AF611077B0500CA7BAF /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = C2A88ABF11077B0500CA7BAF /* print.c */; };
-		C2A88B0211077B8100CA7BAF /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2A88A8411077ADC00CA7BAF /* liblua.a */; };
 		C2DA3A3D1107B800000F10FD /* version.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2DA3A3C1107B800000F10FD /* version.plist */; };
 		C2DA3A441107B80E000F10FD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
-		C2DE9CCA1107B3D500172B76 /* libhive_mariachi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DE9CC91107B3D500172B76 /* libhive_mariachi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		56FE6D00111F37E9005F5594 /* PBXContainerItemProxy */ = {
+		56502611112330C90014F4D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 56FE6ADB111F3798005F5594;
-			remoteInfo = bullet;
-		};
-		C28DC52A1107AF8E00DDE61E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C28DC3E41107AE7400DDE61E;
+			remoteGlobalIDString = C28DC3E41107AE7400DDE61E /* hive_mariachi */;
 			remoteInfo = hive_mariachi;
 		};
-		C2A88AFE11077B6900CA7BAF /* PBXContainerItemProxy */ = {
+		56502613112330C90014F4D6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C2A88A8311077ADC00CA7BAF;
+			remoteGlobalIDString = 56FE6ADB111F3798005F5594 /* bullet */;
+			remoteInfo = bullet;
+		};
+		56502615112330CC0014F4D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2A88A8311077ADC00CA7BAF /* lua */;
 			remoteInfo = lua;
 		};
 /* End PBXContainerItemProxy section */
@@ -957,6 +957,8 @@
 		561ECDD91121E94C006F53EA /* string_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = string_util.h; sourceTree = "<group>"; };
 		561ECDDA1121E94C006F53EA /* util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		561ECDDB1121E94C006F53EA /* byte_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = byte_util.h; sourceTree = "<group>"; };
+		565025BD11232B5C0014F4D6 /* libbullet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbullet.a; path = /libbullet.a; sourceTree = "<absolute>"; };
+		565025BF11232B6E0014F4D6 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<absolute>"; };
 		56DAEE4B1104807900DAC101 /* hive_mariachi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hive_mariachi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56FE6AD7111F3789005F5594 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = ReadMe.txt; path = ../../lib/liblua/src/ReadMe.txt; sourceTree = SOURCE_ROOT; };
 		56FE6ADC111F3798005F5594 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1308,9 +1310,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56FE6DD7111F3D5E005F5594 /* libbullet.a in Frameworks */,
-				C2DE9CCA1107B3D500172B76 /* libhive_mariachi.a in Frameworks */,
-				C2A88B0211077B8100CA7BAF /* liblua.a in Frameworks */,
+				565025BE11232B5C0014F4D6 /* libbullet.a in Frameworks */,
+				56502619112330DD0014F4D6 /* libhive_mariachi.a in Frameworks */,
+				565025C011232B6E0014F4D6 /* liblua.a in Frameworks */,
 				C219A7A411062ACA00F7A348 /* Cocoa.framework in Frameworks */,
 				C219A7A711062ACA00F7A348 /* GLUT.framework in Frameworks */,
 				C219A7A611062ACA00F7A348 /* OpenGL.framework in Frameworks */,
@@ -1353,6 +1355,8 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				56DAEE391104802D00DAC101 /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				565025BD11232B5C0014F4D6 /* libbullet.a */,
+				565025BF11232B6E0014F4D6 /* liblua.a */,
 			);
 			name = hive_mariachi;
 			sourceTree = "<group>";
@@ -2862,6 +2866,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "hive_mariachi_runner" */;
 			buildPhases = (
+				5650259A112329B90014F4D6 /* Rez */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D1107290486CEB800E47090 /* Resources */,
 				C2A88A5E110779C700CA7BAF /* Copy Model Files */,
@@ -2870,9 +2875,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				56FE6D01111F37E9005F5594 /* PBXTargetDependency */,
-				C2A88AFF11077B6900CA7BAF /* PBXTargetDependency */,
-				C28DC52B1107AF8E00DDE61E /* PBXTargetDependency */,
+				56502616112330CC0014F4D6 /* PBXTargetDependency */,
+				56502614112330C90014F4D6 /* PBXTargetDependency */,
+				56502612112330C90014F4D6 /* PBXTargetDependency */,
 			);
 			name = hive_mariachi_runner;
 			productInstallPath = "$(HOME)/Applications";
@@ -2994,6 +2999,16 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		5650259A112329B90014F4D6 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		56FE6AD9111F3798005F5594 /* Sources */ = {
@@ -3298,20 +3313,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		56FE6D01111F37E9005F5594 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 56FE6ADB111F3798005F5594 /* bullet */;
-			targetProxy = 56FE6D00111F37E9005F5594 /* PBXContainerItemProxy */;
-		};
-		C28DC52B1107AF8E00DDE61E /* PBXTargetDependency */ = {
+		56502612112330C90014F4D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C28DC3E41107AE7400DDE61E /* hive_mariachi */;
-			targetProxy = C28DC52A1107AF8E00DDE61E /* PBXContainerItemProxy */;
+			targetProxy = 56502611112330C90014F4D6 /* PBXContainerItemProxy */;
 		};
-		C2A88AFF11077B6900CA7BAF /* PBXTargetDependency */ = {
+		56502614112330C90014F4D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 56FE6ADB111F3798005F5594 /* bullet */;
+			targetProxy = 56502613112330C90014F4D6 /* PBXContainerItemProxy */;
+		};
+		56502616112330CC0014F4D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C2A88A8311077ADC00CA7BAF /* lua */;
-			targetProxy = C2A88AFE11077B6900CA7BAF /* PBXContainerItemProxy */;
+			targetProxy = 56502615112330CC0014F4D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3336,6 +3351,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = bullet;
+				SYMROOT = "../../lib/libbullet/bin/$(ARCHS)/";
 			};
 			name = Debug;
 		};
@@ -3348,6 +3364,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = bullet;
+				SYMROOT = "../../lib/libbullet/bin/$(ARCHS)/";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3356,6 +3373,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/universal/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3364,11 +3382,14 @@
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/build/Release\"",
-					"\"$(SRCROOT)/build/Debug\"",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/$(CONFIGURATION)\"",
+					/,
+					"\"\"",
 				);
 				PRODUCT_NAME = hive_mariachi;
+				SYMROOT = ../../bin;
 			};
 			name = Debug;
 		};
@@ -3376,15 +3397,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/universal/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/build/Release\"",
-					"\"$(SRCROOT)/build/Debug\"",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/$(CONFIGURATION)\"",
+					/,
+					"\"\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -3394,6 +3418,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
+				SYMROOT = ../../bin;
 			};
 			name = Release;
 		};
@@ -3409,6 +3434,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				SYMROOT = "../../bin/$(ARCHS)/";
 			};
 			name = Debug;
 		};
@@ -3422,6 +3448,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1.2;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+				SYMROOT = "../../bin/$(ARCHS)/";
 			};
 			name = Release;
 		};
@@ -3429,12 +3456,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = "/remote_home/lmartinho/Documents/workspace/mariachi/src/hive_mariachi/**";
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
+				SYMROOT = ../../bin/hive_mariachi/;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -3443,11 +3472,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
+				SYMROOT = ../../bin/hive_mariachi/;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3461,6 +3492,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = lua;
+				SYMROOT = "../../lib/liblua/bin/$(ARCHS)/";
 			};
 			name = Debug;
 		};
@@ -3473,6 +3505,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = lua;
+				SYMROOT = "../../lib/liblua/bin/$(ARCHS)/";
 				ZERO_LINK = NO;
 			};
 			name = Release;
