@@ -27,6 +27,7 @@
 
 #include "physical_node_motion_state.h"
 
+using namespace mariachi;
 using namespace mariachi::nodes;
 using namespace mariachi::physics;
 using namespace mariachi::structures;
@@ -61,32 +62,38 @@ void PhysicalNodeMotionState::setWorldTransform(const btTransform &worldTransfor
         return;
     }
 
-    // retrieves the bullet position
-    btVector3 positionBullet = worldTransform.getOrigin();
+    // in case the physical node allows physical positioning
+    if(this->physicalNode->getPhysicalPositionEnabled()) {
+        // retrieves the bullet position
+        btVector3 positionBullet = worldTransform.getOrigin();
 
-    // retrieves the bullet rotation
-    btQuaternion rotationBullet = worldTransform.getRotation();
+        // creates the position from the bullet position
+        Coordinate3d_t position = { positionBullet.x(), positionBullet.y(), positionBullet.z() };
 
-    // creates the position from the bullet position
-    Coordinate3d_t position = { positionBullet.x(), positionBullet.y(), positionBullet.z() };
+        // sets the position in the cube node
+        this->physicalNode->setPosition(position);
+    }
 
-    // retrieves the rotation angle
-    float angle = 2.0f * acos(rotationBullet.w()) * 180.0f / (float) M_PI;
+    // in case the physical node allows physical rotation
+    if(this->physicalNode->getPhysicalRotationEnabled()) {
+        // retrieves the bullet rotation
+        btQuaternion rotationBullet = worldTransform.getRotation();
 
-    // retrieves the rotation axis vector
-    float norm = sqrt(pow(rotationBullet.x(), 2.0f) + pow(rotationBullet.y(), 2.0f) + pow(rotationBullet.z(), 2.0f));
-    float normalizedX = rotationBullet.x() / norm;
-    float normalizedY = rotationBullet.y() / norm;
-    float normalizedZ = rotationBullet.z() / norm;
+        // retrieves the rotation angle
+        float angle = 2.0f * acos(rotationBullet.w()) * 180.0f / (float) M_PI;
 
-    // creates the rotation for the physical node
-    Rotation3d_t rotation = { angle, normalizedX, normalizedY, normalizedZ };
+        // retrieves the rotation axis vector
+        float norm = sqrt(pow(rotationBullet.x(), 2.0f) + pow(rotationBullet.y(), 2.0f) + pow(rotationBullet.z(), 2.0f));
+        float normalizedX = rotationBullet.x() / norm;
+        float normalizedY = rotationBullet.y() / norm;
+        float normalizedZ = rotationBullet.z() / norm;
 
-    // sets the position in the cube node
-    this->physicalNode->setPosition(position);
+        // creates the rotation for the physical node
+        Rotation3d_t rotation = { angle, normalizedX, normalizedY, normalizedZ };
 
-    // sets the orientation in the cube node
-    this->physicalNode->setRotation(rotation);
+        // sets the rotation in the physical node
+        this->physicalNode->setRotation(rotation);
+    }
 }
 
 /**

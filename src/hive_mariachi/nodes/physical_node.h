@@ -28,6 +28,8 @@
 #include "cube_node.h"
 
 #define PHYSICAL_NODE_DEFAULT_MASS 0.0f
+#define DEFAULT_PHYSICAL_POSITION_ENABLED true
+#define DEFAULT_PHYSICAL_ROTATION_ENABLED true
 
 namespace mariachi {
     namespace nodes {
@@ -49,6 +51,7 @@ namespace mariachi {
                 PhysicalNode(const std::string &name);
                 ~PhysicalNode();
                 inline void initMass();
+                inline void initTransforms();
                 void addImpulse(const structures::Coordinate3d_t &impulse);
                 void addTorque(const structures::Coordinate3d_t &torque);
                 float getMass();

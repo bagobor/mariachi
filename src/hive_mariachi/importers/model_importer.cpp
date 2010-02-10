@@ -32,7 +32,7 @@ using namespace mariachi::importers;
 /**
 * Constructor of the class.
 */
-ModelImporter::ModelImporter() {
+ModelImporter::ModelImporter() : Importer() {
 }
 
 /**

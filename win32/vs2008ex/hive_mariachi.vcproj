@@ -150,6 +150,30 @@
 			ReferencedProjectIdentifier="{346F07F3-B0E0-45A7-9F21-533D706DDE36}"
 			RelativePathToProject=".\lib_bullet.vcproj"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{08E139B3-D91A-436A-B468-24240B327F5D}"
+			RelativePathToProject=".\lib_png.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{078C34D9-695F-4948-9B3F-34EE1A39B7EA}"
+			RelativePathToProject=".\lib_zlib.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{3EC06427-26F1-49F1-B8EA-ABA2B08C4F6E}"
+			RelativePathToProject=".\lib_ogg.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C287CE74-DB05-4978-8A02-65FC15B99CC2}"
+			RelativePathToProject=".\lib_vorbis.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{A484FB09-E8B8-43E9-AC0F-0FD5B6C20009}"
+			RelativePathToProject=".\lib_jpeg.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}"
+			RelativePathToProject=".\lib_theora.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -190,6 +214,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\importers\md2_importer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\importers\md3_importer.cpp"
 					>
 				</File>
 				<File
@@ -896,6 +924,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\importers\md2_importer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\importers\md3_importer.h"
 					>
 				</File>
 				<File
