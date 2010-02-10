@@ -389,6 +389,7 @@
 		561ED2911121EB67006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2891121EB67006F53EA /* ReadMe.txt */; };
 		561ED2921121EB67006F53EA /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28A1121EB67006F53EA /* stdafx.cpp */; };
 		561ED2931121EB67006F53EA /* iphone_application_util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28D1121EB67006F53EA /* iphone_application_util.mm */; };
+		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
 		56680458111F434C00F4B02A /* btActivatingCollisionAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56680348111F434C00F4B02A /* btActivatingCollisionAlgorithm.cpp */; };
 		5668045A111F434C00F4B02A /* btAlignedAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5668034A111F434C00F4B02A /* btAlignedAllocator.cpp */; };
 		5668045D111F434C00F4B02A /* btAxisSweep3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5668034D111F434C00F4B02A /* btAxisSweep3.cpp */; };
@@ -3082,6 +3083,7 @@
 				561ED28F1121EB67006F53EA /* iphone_application_delegate.mm in Sources */,
 				561ED2921121EB67006F53EA /* stdafx.cpp in Sources */,
 				561ED2931121EB67006F53EA /* iphone_application_util.mm in Sources */,
+				5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
