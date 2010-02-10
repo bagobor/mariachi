@@ -60,6 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\..\lib\libbullet\bin\x86\win32\$(ConfigurationName)\lib_bullet.lib ..\..\lib\libjpeg\bin\x86\win32\$(ConfigurationName)\lib_jpeg.lib ..\..\lib\liblua\bin\x86\win32\$(ConfigurationName)\lib_lua.lib ..\..\lib\libogg\bin\x86\win32\$(ConfigurationName)\lib_ogg.lib ..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)\lib_png.lib"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -133,6 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\..\lib\libbullet\bin\x86\win32\$(ConfigurationName)\lib_bullet.lib ..\..\lib\libjpeg\bin\x86\win32\$(ConfigurationName)\lib_jpeg.lib ..\..\lib\liblua\bin\x86\win32\$(ConfigurationName)\lib_lua.lib ..\..\lib\libogg\bin\x86\win32\$(ConfigurationName)\lib_ogg.lib ..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)\lib_png.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
