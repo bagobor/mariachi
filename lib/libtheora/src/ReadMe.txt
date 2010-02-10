@@ -22,20 +22,3 @@
 // __date__      = $LastChangedDate$
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
-
-#pragma once
-
-// sets windows version to windows xp and 2003 or above
-#ifndef WINVER
-#define WINVER 0x0501
-#endif
-
-// sets windows nt version to windows xp and 2003 or above
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x0501
-#endif
-
-// sets windows 32 version to windows 98 or above
-#ifndef _WIN32_WINDOWS
-#define _WIN32_WINDOWS 0x0410
-#endif

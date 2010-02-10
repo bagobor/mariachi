@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -79,7 +79,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -141,7 +141,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug (Dynamic)|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -183,7 +183,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="C:\Users\joamag\Desktop\hive_mariachi\lib\libzlib\bin\x86\win32\Release\lib_zlib.lib"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
 			/>
@@ -211,7 +210,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release (Dynamic)|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libpng\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -381,6 +380,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath="..\..\lib\libpng\src\ReadMe.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

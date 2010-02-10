@@ -118,8 +118,8 @@ namespace mariachi {
                         // retrieves the index
                         unsigned int index = (int) lua_tointeger(luaState, -1);
 
-						// retrieves the list value size
-						unsigned int listValueSize = self->listValue->size();
+                        // retrieves the list value size
+                        unsigned int listValueSize = self->listValue->size();
 
                         // in case the index is out of bounds
                         if(index >= listValueSize || listValueSize <= 0) {

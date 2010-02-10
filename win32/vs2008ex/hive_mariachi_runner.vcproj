@@ -45,7 +45,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\lib\libbullet\bin\x86\win32\$(ConfigurationName)\lib_bullet.lib ..\..\lib\libjpeg\bin\x86\win32\$(ConfigurationName)\lib_jpeg.lib ..\..\lib\liblua\bin\x86\win32\$(ConfigurationName)\lib_lua.lib ..\..\lib\libogg\bin\x86\win32\$(ConfigurationName)\lib_ogg.lib ..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)\lib_png.lib"
+				AdditionalDependencies="..\..\lib\libbullet\bin\i386\win32\$(ConfigurationName)\lib_bullet.lib ..\..\lib\libjpeg\bin\i386\win32\$(ConfigurationName)\lib_jpeg.lib ..\..\lib\liblua\bin\i386\win32\$(ConfigurationName)\lib_lua.lib ..\..\lib\libogg\bin\i386\win32\$(ConfigurationName)\lib_ogg.lib ..\..\lib\libpng\bin\i386\win32\$(ConfigurationName)\lib_png.lib"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -119,7 +119,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\lib\libbullet\bin\x86\win32\$(ConfigurationName)\lib_bullet.lib ..\..\lib\libjpeg\bin\x86\win32\$(ConfigurationName)\lib_jpeg.lib ..\..\lib\liblua\bin\x86\win32\$(ConfigurationName)\lib_lua.lib ..\..\lib\libogg\bin\x86\win32\$(ConfigurationName)\lib_ogg.lib ..\..\lib\libpng\bin\x86\win32\$(ConfigurationName)\lib_png.lib"
+				AdditionalDependencies="..\..\lib\libbullet\bin\i386\win32\$(ConfigurationName)\lib_bullet.lib ..\..\lib\libjpeg\bin\i386\win32\$(ConfigurationName)\lib_jpeg.lib ..\..\lib\liblua\bin\i386\win32\$(ConfigurationName)\lib_lua.lib ..\..\lib\libogg\bin\i386\win32\$(ConfigurationName)\lib_ogg.lib ..\..\lib\libpng\bin\i386\win32\$(ConfigurationName)\lib_png.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -177,26 +177,6 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
-			<File
-				RelativePath="..\..\src\hive_mariachi_runner\stdafx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-			</File>
 			<Filter
 				Name="Global"
 				>
@@ -235,29 +215,9 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\..\src\hive_mariachi_runner\stdafx.h"
-				>
-			</File>
 			<Filter
 				Name="Global"
 				>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\global\definitions.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\global\platforms.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\global\resource.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\global\targetver.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter

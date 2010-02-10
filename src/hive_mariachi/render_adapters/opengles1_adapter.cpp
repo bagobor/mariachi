@@ -56,8 +56,8 @@ Opengles1Adapter::~Opengles1Adapter() {
 void Opengles1Adapter::start(void *arguments) {
     int argc = ((int *) arguments)[0];
     char **argv = ((char ***) arguments)[1];
-	RenderInformation *renderInformation = ((RenderInformation **) arguments)[2];
-	RenderAdapter *renderAdapter = ((RenderAdapter **) arguments)[3];
+    RenderInformation *renderInformation = ((RenderInformation **) arguments)[2];
+    RenderAdapter *renderAdapter = ((RenderAdapter **) arguments)[3];
     Engine *engine = ((Engine **) arguments)[4];
 
     // creates the arguments map
