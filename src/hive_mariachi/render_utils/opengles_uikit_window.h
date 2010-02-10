@@ -36,9 +36,9 @@ namespace mariachi {
     namespace render_utils {
         class OpenglesUikitWindow : public OpenglesWindow {
             private:
-                OpenglesAdapter *openglesAdapter;
+				render_adapters::OpenglesAdapter *openglesAdapter;
                 Engine *engine;
-                FunctionCallerTask *functionCallerTask;
+				tasks::FunctionCallerTask *functionCallerTask;
 
             public:
                 OpenglesUikitWindow();
