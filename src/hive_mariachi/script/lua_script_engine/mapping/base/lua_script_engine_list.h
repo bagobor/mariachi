@@ -128,7 +128,7 @@ namespace mariachi {
                         }
 
                         // retrieves the list value iterator
-                        std::list<T>::iterator listValueIterator = self->listValue->begin();
+                        typename std::list<T>::iterator listValueIterator = self->listValue->begin();
 
                         // allocates space for the current list value
                         T currentListValue;
