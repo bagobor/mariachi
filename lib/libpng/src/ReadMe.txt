@@ -22,13 +22,3 @@
 // __date__      = $LastChangedDate$
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
-
-#pragma once
-
-#ifdef MARIACHI_PLATFORM_WIN32
-#define DEFAULT_RENDER_OPENGL_WINDOW_CLASS OpenglGlutWindow
-#elif MARIACHI_PLATFORM_LINUX
-#define DEFAULT_RENDER_OPENGL_WINDOW_CLASS OpenglGlutWindow
-#elif MARIACHI_PLATFORM_MACOSX
-#define DEFAULT_RENDER_OPENGL_WINDOW_CLASS OpenglCocoaWindow
-#endif

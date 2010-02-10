@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -79,7 +79,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -141,7 +141,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug (Dynamic)|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -183,7 +183,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="C:\Users\joamag\Desktop\hive_mariachi\lib\libvorbis\bin\x86\win32\Release\lib_vorbis.lib"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
 			/>
@@ -211,7 +210,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release (Dynamic)|Win32"
-			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\x86\win32\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)..\..\lib\libtheora\bin\i386\win32\$(ConfigurationName)"
 			IntermediateDirectory="$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -281,6 +280,10 @@
 		</Configuration>
 	</Configurations>
 	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{C287CE74-DB05-4978-8A02-65FC15B99CC2}"
+			RelativePathToProject=".\lib_vorbis.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -421,6 +424,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath="..\..\lib\libtheora\src\ReadMe.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
