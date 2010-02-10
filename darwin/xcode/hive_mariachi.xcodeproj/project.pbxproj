@@ -2297,12 +2297,12 @@
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)\"",
-					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)\"",
-					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)\"",
+					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				PRODUCT_NAME = hive_mariachi;
-				SYMROOT = ../../bin;
+				SYMROOT = ../../bin/hive_mariachi_runner;
 			};
 			name = Debug;
 		};
@@ -2317,9 +2317,9 @@
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)\"",
-					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)\"",
-					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)\"",
+					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -2329,7 +2329,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
-				SYMROOT = ../../bin;
+				SYMROOT = ../../bin/hive_mariachi_runner;
 			};
 			name = Release;
 		};
@@ -2346,7 +2346,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
-				SYMROOT = "../../bin/$(ARCHS)/";
 			};
 			name = Debug;
 		};
@@ -2361,7 +2360,6 @@
 				OBJROOT = build;
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
-				SYMROOT = "../../bin/$(ARCHS)/";
 			};
 			name = Release;
 		};
