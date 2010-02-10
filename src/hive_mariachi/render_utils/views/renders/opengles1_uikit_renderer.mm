@@ -29,6 +29,8 @@
 #import "../../../render_adapters/opengles_adapter.h"
 #import "opengles1_uikit_renderer.h"
 
+using namespace mariachi::render_adapters;
+
 extern OpenglesAdapter *openglesAdapter;
 
 @implementation Opengles1UikitRenderer

@@ -29,6 +29,8 @@
 
 #include "opengles_window.h"
 
+using namespace mariachi::render_utils;
+
 /**
 * Constructor of the class.
 */
