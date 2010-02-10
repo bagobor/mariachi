@@ -1,0 +1,22 @@
+# uses regular expression syntax
+syntax: regexp
+
+# ignores main binaries
+^bin/
+
+# ignores lib binaries
+^lib/lib\w+/bin/
+
+# ignores xcode working directories
+^darwin/xcode_iphone/build/
+^darwin/xcode/build/
+
+# ignores xcode local files
+\.mode1v3$
+\.pbxuser$
+
+# ignores windows metadata files
+Thumbs\.db
+
+# ignores mac os x metadata files
+\.DS_Store
