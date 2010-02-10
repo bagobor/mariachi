@@ -3402,6 +3402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -3410,10 +3411,13 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(inherited)",
-					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
+				SYMROOT = ../../bin/hive_mariachi_runner;
 			};
 			name = Debug;
 		};
@@ -3421,16 +3425,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(inherited)",
-					"\"$(SRCROOT)/build/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
+				SYMROOT = ../../bin/hive_mariachi_runner;
 			};
 			name = Release;
 		};
@@ -3438,11 +3446,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = bullet;
+				SYMROOT = ../../lib/libbullet/bin;
 			};
 			name = Debug;
 		};
@@ -3450,11 +3460,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = bullet;
+				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3468,6 +3480,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OBJROOT = build;
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
 			};
@@ -3481,6 +3494,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OBJROOT = build;
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.0;
 			};
@@ -3490,11 +3504,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
+				SYMROOT = ../../bin/hive_mariachi;
 			};
 			name = Debug;
 		};
@@ -3502,11 +3518,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
+				SYMROOT = ../../bin/hive_mariachi;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -3515,11 +3533,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PREBINDING = NO;
 				PRODUCT_NAME = lua;
+				SYMROOT = ../../lib/libbullet/bin;
 			};
 			name = Debug;
 		};
@@ -3527,11 +3547,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
 				PRODUCT_NAME = lua;
+				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
 			name = Release;
