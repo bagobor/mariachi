@@ -21,7 +21,6 @@
 		561ECBD61121E3C9006F53EA /* pallette.md2 in Resources */ = {isa = PBXBuildFile; fileRef = 561ECBA61121E3C9006F53EA /* pallette.md2 */; };
 		561ECBD71121E3C9006F53EA /* man_animated.md2 in Resources */ = {isa = PBXBuildFile; fileRef = 561ECBA71121E3C9006F53EA /* man_animated.md2 */; };
 		561ECBD81121E3C9006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ECBA81121E3C9006F53EA /* ReadMe.txt */; };
-		561ECBD91121E3C9006F53EA /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561ECBA91121E3C9006F53EA /* stdafx.cpp */; };
 		561ECBDA1121E3C9006F53EA /* highscores_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 561ECBAC1121E3C9006F53EA /* highscores_hover.png */; };
 		561ECBDB1121E3C9006F53EA /* resume_game_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 561ECBAD1121E3C9006F53EA /* resume_game_hover.png */; };
 		561ECBDC1121E3C9006F53EA /* highscores.png in Resources */ = {isa = PBXBuildFile; fileRef = 561ECBAE1121E3C9006F53EA /* highscores.png */; };
@@ -420,10 +419,6 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* hive_mariachi_runner_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hive_mariachi_runner_Prefix.pch; sourceTree = "<group>"; };
 		561ECB941121E3C9006F53EA /* config.json */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; path = config.json; sourceTree = "<group>"; };
-		561ECB961121E3C9006F53EA /* definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
-		561ECB971121E3C9006F53EA /* resource.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
-		561ECB981121E3C9006F53EA /* platforms.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = platforms.h; sourceTree = "<group>"; };
-		561ECB991121E3C9006F53EA /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
 		561ECB9A1121E3C9006F53EA /* hive_mariachi_runner.exe.manifest */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text.xml; name = hive_mariachi_runner.exe.manifest; path = ../../src/hive_mariachi_runner/hive_mariachi_runner.exe.manifest; sourceTree = SOURCE_ROOT; };
 		561ECB9B1121E3C9006F53EA /* hive_mariachi_runner.rc */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = hive_mariachi_runner.rc; path = ../../src/hive_mariachi_runner/hive_mariachi_runner.rc; sourceTree = SOURCE_ROOT; };
 		561ECB9D1121E3C9006F53EA /* runner.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = runner.cpp; sourceTree = "<group>"; };
@@ -437,8 +432,6 @@
 		561ECBA61121E3C9006F53EA /* pallette.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = pallette.md2; sourceTree = "<group>"; };
 		561ECBA71121E3C9006F53EA /* man_animated.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = man_animated.md2; sourceTree = "<group>"; };
 		561ECBA81121E3C9006F53EA /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi_runner/ReadMe.txt; sourceTree = SOURCE_ROOT; };
-		561ECBA91121E3C9006F53EA /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../src/hive_mariachi_runner/stdafx.cpp; sourceTree = SOURCE_ROOT; };
-		561ECBAA1121E3C9006F53EA /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../src/hive_mariachi_runner/stdafx.h; sourceTree = SOURCE_ROOT; };
 		561ECBAC1121E3C9006F53EA /* highscores_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscores_hover.png; sourceTree = "<group>"; };
 		561ECBAD1121E3C9006F53EA /* resume_game_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resume_game_hover.png; sourceTree = "<group>"; };
 		561ECBAE1121E3C9006F53EA /* highscores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscores.png; sourceTree = "<group>"; };
@@ -892,14 +885,11 @@
 			isa = PBXGroup;
 			children = (
 				561ECB931121E3C9006F53EA /* configuration */,
-				561ECB951121E3C9006F53EA /* global */,
 				561ECB9A1121E3C9006F53EA /* hive_mariachi_runner.exe.manifest */,
 				561ECB9B1121E3C9006F53EA /* hive_mariachi_runner.rc */,
 				561ECB9C1121E3C9006F53EA /* main */,
 				561ECB9E1121E3C9006F53EA /* models */,
 				561ECBA81121E3C9006F53EA /* ReadMe.txt */,
-				561ECBA91121E3C9006F53EA /* stdafx.cpp */,
-				561ECBAA1121E3C9006F53EA /* stdafx.h */,
 				561ECBAB1121E3C9006F53EA /* ui */,
 			);
 			name = hive_mariachi_runner;
@@ -912,18 +902,6 @@
 			);
 			name = configuration;
 			path = ../../src/hive_mariachi_runner/configuration;
-			sourceTree = SOURCE_ROOT;
-		};
-		561ECB951121E3C9006F53EA /* global */ = {
-			isa = PBXGroup;
-			children = (
-				561ECB961121E3C9006F53EA /* definitions.h */,
-				561ECB971121E3C9006F53EA /* resource.h */,
-				561ECB981121E3C9006F53EA /* platforms.h */,
-				561ECB991121E3C9006F53EA /* targetver.h */,
-			);
-			name = global;
-			path = ../../src/hive_mariachi_runner/global;
 			sourceTree = SOURCE_ROOT;
 		};
 		561ECB9C1121E3C9006F53EA /* main */ = {
@@ -2125,7 +2103,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				561ECBCE1121E3C9006F53EA /* runner.cpp in Sources */,
-				561ECBD91121E3C9006F53EA /* stdafx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
