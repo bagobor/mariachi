@@ -20,6 +20,8 @@ syntax: regexp
 ^win32/vs2008ex/.*.suo$
 
 # ignores visual studio user files
+^win32/vs2008ex/hive_mariachi\.vcproj\..*\..*.user
+^win32/vs2008ex/hive_mariachi_runner\.vcproj\..*\..*.user
 ^win32/vs2008ex/lib_\w+\.vcproj\..*\..*.user
 
 # ignores xcode working directories
