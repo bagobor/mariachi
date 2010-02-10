@@ -32,6 +32,10 @@
 #include "factories/opengl_cocoa_window_factory.h"
 #include "opengl_cocoa_window.h"
 
+using namespace mariachi::tasks;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
+
 OpenglCocoaWindow::OpenglCocoaWindow() : OpenglWindow() {
 }
 

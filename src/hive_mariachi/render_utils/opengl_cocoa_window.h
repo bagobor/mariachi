@@ -36,9 +36,9 @@ namespace mariachi {
     namespace render_utils {
         class OpenglCocoaWindow : public OpenglWindow {
             private:
-                OpenglAdapter *openglAdapter;
+                render_adapters::OpenglAdapter *openglAdapter;
                 Engine *engine;
-                FunctionCallerTask *functionCallerTask;
+                tasks::FunctionCallerTask *functionCallerTask;
 
             public:
                 OpenglCocoaWindow();

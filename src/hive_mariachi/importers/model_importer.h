@@ -26,10 +26,11 @@
 #pragma once
 
 #include "../nodes/nodes.h"
+#include "importer.h"
 
 namespace mariachi {
     namespace importers {
-        class ModelImporter {
+        class ModelImporter : public Importer {
             private:
 
             public:
