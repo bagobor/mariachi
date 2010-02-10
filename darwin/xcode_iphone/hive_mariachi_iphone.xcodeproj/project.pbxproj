@@ -391,6 +391,12 @@
 		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
 		569F8EC511233DCE0046739E /* libbullet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC411233DCE0046739E /* libbullet.a */; };
 		569F8EC711233DCE0046739E /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC611233DCE0046739E /* liblua.a */; };
+		56AF33901123709100889163 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF338F1123709100889163 /* libjpeg.a */; };
+		56AF3392112370A300889163 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3391112370A300889163 /* libogg.a */; };
+		56AF3394112370B400889163 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3393112370B400889163 /* libpng.a */; };
+		56AF3396112370C500889163 /* libtheora.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3395112370C500889163 /* libtheora.a */; };
+		56AF3398112370D500889163 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3397112370D500889163 /* libvorbis.a */; };
+		56AF339A112370E600889163 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3399112370E600889163 /* libzlib.a */; };
 		C22A5E9B1108874F005BB421 /* mariachi_iphone_57.jpg in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */; };
 		C28DC27B1107ACB200DDE61E /* libhive_mariachi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C219A22A110627A200F7A348 /* libhive_mariachi.a */; };
 /* End PBXBuildFile section */
@@ -876,6 +882,12 @@
 		561ED28E1121EB67006F53EA /* iphone_application_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = iphone_application_util.h; sourceTree = "<group>"; };
 		569F8EC411233DCE0046739E /* libbullet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbullet.a; sourceTree = "<absolute>"; };
 		569F8EC611233DCE0046739E /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<absolute>"; };
+		56AF338F1123709100889163 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<absolute>"; };
+		56AF3391112370A300889163 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libogg.a; sourceTree = "<absolute>"; };
+		56AF3393112370B400889163 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<absolute>"; };
+		56AF3395112370C500889163 /* libtheora.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtheora.a; sourceTree = "<absolute>"; };
+		56AF3397112370D500889163 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbis.a; sourceTree = "<absolute>"; };
+		56AF3399112370E600889163 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* hive_mariachi_runner-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "hive_mariachi_runner-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C219A22A110627A200F7A348 /* libhive_mariachi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhive_mariachi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mariachi_iphone_57.jpg; path = ../../res/hive_mariachi_runner/icons/mariachi_iphone/jpg/mariachi_iphone_57.jpg; sourceTree = SOURCE_ROOT; };
@@ -893,6 +905,12 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				569F8EC511233DCE0046739E /* libbullet.a in Frameworks */,
 				569F8EC711233DCE0046739E /* liblua.a in Frameworks */,
+				56AF33901123709100889163 /* libjpeg.a in Frameworks */,
+				56AF3392112370A300889163 /* libogg.a in Frameworks */,
+				56AF3394112370B400889163 /* libpng.a in Frameworks */,
+				56AF3396112370C500889163 /* libtheora.a in Frameworks */,
+				56AF3398112370D500889163 /* libvorbis.a in Frameworks */,
+				56AF339A112370E600889163 /* libzlib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,8 +942,6 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				569F8EC411233DCE0046739E /* libbullet.a */,
-				569F8EC611233DCE0046739E /* liblua.a */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -950,6 +966,14 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				569F8EC411233DCE0046739E /* libbullet.a */,
+				56AF338F1123709100889163 /* libjpeg.a */,
+				569F8EC611233DCE0046739E /* liblua.a */,
+				56AF3391112370A300889163 /* libogg.a */,
+				56AF3393112370B400889163 /* libpng.a */,
+				56AF3395112370C500889163 /* libtheora.a */,
+				56AF3397112370D500889163 /* libvorbis.a */,
+				56AF3399112370E600889163 /* libzlib.a */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				28FD14FF0DC6FC520079059D /* OpenGLES.framework */,
 				28FD15070DC6FC5B0079059D /* QuartzCore.framework */,
@@ -1177,8 +1201,8 @@
 			isa = PBXGroup;
 			children = (
 				561ECF971121EB3F006F53EA /* output_device.cpp */,
-				561ECF981121EB3F006F53EA /* output_device.h */,
 				561ECF991121EB3F006F53EA /* output.h */,
+				561ECF981121EB3F006F53EA /* output_device.h */,
 			);
 			path = output;
 			sourceTree = "<group>";
@@ -1301,9 +1325,9 @@
 		561ECFDF1121EB3F006F53EA /* patterns */ = {
 			isa = PBXGroup;
 			children = (
-				561ECFE01121EB3F006F53EA /* patterns.h */,
 				561ECFE11121EB3F006F53EA /* observable.cpp */,
 				561ECFE21121EB3F006F53EA /* observable.h */,
+				561ECFE01121EB3F006F53EA /* patterns.h */,
 			);
 			name = patterns;
 			path = ../../src/hive_mariachi/patterns;
@@ -1637,25 +1661,25 @@
 		561ED08A1121EB40006F53EA /* structures */ = {
 			isa = PBXGroup;
 			children = (
-				561ED08B1121EB40006F53EA /* configuration.h */,
-				561ED08C1121EB40006F53EA /* position.h */,
-				561ED08D1121EB40006F53EA /* texture.h */,
-				561ED08E1121EB40006F53EA /* size.h */,
 				561ED08F1121EB40006F53EA /* oct_tree.cpp */,
-				561ED0901121EB40006F53EA /* path.h */,
-				561ED0911121EB40006F53EA /* data.h */,
+				561ED0941121EB40006F53EA /* oct_tree_node.cpp */,
+				561ED09A1121EB40006F53EA /* texture.cpp */,
+				561ED09D1121EB40006F53EA /* box.h */,
 				561ED0921121EB40006F53EA /* collision.h */,
 				561ED0931121EB40006F53EA /* color.h */,
-				561ED0941121EB40006F53EA /* oct_tree_node.cpp */,
-				561ED0951121EB40006F53EA /* structures.h */,
-				561ED0961121EB40006F53EA /* mesh.h */,
+				561ED08B1121EB40006F53EA /* configuration.h */,
+				561ED0911121EB40006F53EA /* data.h */,
 				561ED0971121EB40006F53EA /* frame.h */,
-				561ED0981121EB40006F53EA /* oct_tree_node.h */,
-				561ED0991121EB40006F53EA /* rotation.h */,
-				561ED09A1121EB40006F53EA /* texture.cpp */,
 				561ED09B1121EB40006F53EA /* image.h */,
+				561ED0961121EB40006F53EA /* mesh.h */,
 				561ED09C1121EB40006F53EA /* oct_tree.h */,
-				561ED09D1121EB40006F53EA /* box.h */,
+				561ED0981121EB40006F53EA /* oct_tree_node.h */,
+				561ED0901121EB40006F53EA /* path.h */,
+				561ED08C1121EB40006F53EA /* position.h */,
+				561ED0991121EB40006F53EA /* rotation.h */,
+				561ED08E1121EB40006F53EA /* size.h */,
+				561ED0951121EB40006F53EA /* structures.h */,
+				561ED08D1121EB40006F53EA /* texture.h */,
 			);
 			name = structures;
 			path = ../../src/hive_mariachi/structures;
@@ -2340,6 +2364,12 @@
 					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(inherited)",
+					"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
 				SYMROOT = ../../bin/hive_mariachi_runner;
@@ -2361,6 +2391,12 @@
 					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 					"$(inherited)",
+					"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
 				SYMROOT = ../../bin/hive_mariachi_runner;
