@@ -262,9 +262,6 @@ void Md2Importer::generateMeshList() {
     // retrieves the md2 frames list iterator
     std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
 
-    // starts the gl command index
-    unsigned int glCommandIndex = 0;
-
     // iterates over all the md2 frames
     while(md2FramesListIterator != this->md2FramesList.end()) {
         // retrieves the current md2 frame
@@ -320,9 +317,6 @@ ModelNode *Md2Importer::getModelNode() {
 }
 
 ActorNode *Md2Importer::getActorNode() {
-    // retrieves the main md2 frame
-    Md2Frame *mainMd2Frame = this->getMainMd2Frame();
-
     // creates a new actor node
     ActorNode *actorNode = new ActorNode();
 
@@ -534,9 +528,7 @@ void Md2Frame::generateMeshList(const std::vector<void *> &glCommandsList) {
 
         // iterates over all the vertices
         for(int index = 0; index < numberVertices; index++) {
-            // retrieves the vertex texture information
-            float vertexTextureX = *(float *) glCommandsList[glCommandIndex + 0];
-            float vertexTextureY = *(float *) glCommandsList[glCommandIndex + 1];
+            // retrieves the vertex index
             int vertexIndex = *(int *) glCommandsList[glCommandIndex + 2];
 
             // retrieves the vertex
