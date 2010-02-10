@@ -3432,6 +3432,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = "/remote_home/lmartinho/Documents/workspace/mariachi/src/hive_mariachi/**";
 				PREBINDING = NO;
 				PRODUCT_NAME = hive_mariachi;
 				USER_HEADER_SEARCH_PATHS = "";
