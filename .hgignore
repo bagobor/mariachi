@@ -9,11 +9,17 @@ syntax: regexp
 
 # ignores visual studio 2008 working directories
 ^win32/vs2008ex/hive_mariachi/Debug/
+^win32/vs2008ex/hive_mariachi/Debug \(Dynamic\)/
 ^win32/vs2008ex/hive_mariachi/Release/
+^win32/vs2008ex/hive_mariachi/Release \(Dynamic\)/
 ^win32/vs2008ex/hive_mariachi_runner/Debug/
+^win32/vs2008ex/hive_mariachi_runner/Debug \(Dynamic\)/
 ^win32/vs2008ex/hive_mariachi_runner/Release/
+^win32/vs2008ex/hive_mariachi_runner/Release \(Dynamic\)/
 ^win32/vs2008ex/lib_\w+/Debug/
+^win32/vs2008ex/lib_\w+/Debug \(Dynamic\)/
 ^win32/vs2008ex/lib_\w+/Release/
+^win32/vs2008ex/lib_\w+/Release \(Dynamic\)/
 
 # ignores visual studio 2008 auxiliary files
 ^win32/vs2008ex/.*.ncb$
