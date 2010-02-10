@@ -27,7 +27,7 @@
 #if defined(_WIN32)
 
 #  if defined(__CYGWIN__)
-#    include <stdint.h>
+#    include <cstdint.h>
      typedef int16_t ogg_int16_t;
      typedef uint16_t ogg_uint16_t;
      typedef int32_t ogg_int32_t;

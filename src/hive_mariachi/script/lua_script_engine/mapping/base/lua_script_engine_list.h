@@ -113,36 +113,38 @@ namespace mariachi {
                         lua_assertargsmethod(luaState, 1);
 
                         // retrieves self
-                        std::list<T> *self = (std::list<T> *) lua_getself(luaState);
+                        LuaListStructure<T> *self = (LuaListStructure<T> *) lua_getself(luaState);
 
                         // retrieves the index
-                        int index = (int) lua_tointeger(luaState, -1);
-						
-						// in case the index is out of bounds
-						if(index >= self->listValue.size()) {
-							// returns no arguments
-							return 0;
-						}
-						
-						// retrieves the list value iterator
-						std::list<T>::iterator listValueIterator = self->listValue->begin();
-						
-						// allocates space for the current list value
-						T currentListValue;
-						
-						// iterates over all the values in the list
-						for(unsigned int _index = 0; _index < index && listValueIterator != self->listValue->end(); _index++) {
-							// retrieves the current list value
-							currentListValue = *listValueIterator;
-							
-							
-							// increments the list value iterator
-							listValueIterator++;
-						}
-						
-						// constructs the value
+                        unsigned int index = (int) lua_tointeger(luaState, -1);
+
+						// retrieves the list value size
+						unsigned int listValueSize = self->listValue->size();
+
+                        // in case the index is out of bounds
+                        if(index >= listValueSize || listValueSize <= 0) {
+                            // returns no arguments
+                            return 0;
+                        }
+
+                        // retrieves the list value iterator
+                        std::list<T>::iterator listValueIterator = self->listValue->begin();
+
+                        // allocates space for the current list value
+                        T currentListValue;
+
+                        // iterates over all the values in the list
+                        for(unsigned int _index = 0; _index < index && listValueIterator != self->listValue->end(); _index++) {
+                            // retrieves the current list value
+                            currentListValue = *listValueIterator;
+
+                            // increments the list value iterator
+                            listValueIterator++;
+                        }
+
+                        // constructs the value
                         self->constructor(luaState, currentListValue);
-						
+
                         // returns the number of return values
                         return 1;
                     }
