@@ -31,6 +31,12 @@
 #include "definitions/opengles1_adapter_definitions.h"
 #include "opengles1_adapter.h"
 
+using namespace mariachi::nodes;
+using namespace mariachi::render;
+using namespace mariachi::structures;
+using namespace mariachi::render_utils;
+using namespace mariachi::render_adapters;
+
 float rotx = 0.0;
 float roty = 0.0;
 float rotz = 0.0;
@@ -50,8 +56,8 @@ Opengles1Adapter::~Opengles1Adapter() {
 void Opengles1Adapter::start(void *arguments) {
     int argc = ((int *) arguments)[0];
     char **argv = ((char ***) arguments)[1];
-    RenderInformation *renderInformation = ((RenderInformation **) arguments)[2];
-    RenderAdapter *renderAdapter = ((RenderAdapter **) arguments)[3];
+	RenderInformation *renderInformation = ((RenderInformation **) arguments)[2];
+	RenderAdapter *renderAdapter = ((RenderAdapter **) arguments)[3];
     Engine *engine = ((Engine **) arguments)[4];
 
     // creates the arguments map
