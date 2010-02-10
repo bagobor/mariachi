@@ -7,9 +7,24 @@ syntax: regexp
 # ignores lib binaries
 ^lib/lib\w+/bin/
 
+# ignores visual studio 2008 working directories
+^win32/vs2008ex/hive_mariachi/Debug/
+^win32/vs2008ex/hive_mariachi/Release/
+^win32/vs2008ex/hive_mariachi_runner/Debug/
+^win32/vs2008ex/hive_mariachi_runner/Release/
+^win32/vs2008ex/lib_\w+/Debug/
+^win32/vs2008ex/lib_\w+/Release/
+
+# ignores visual studio 2008 auxiliary files
+^win32/vs2008ex/.*.ncb$
+^win32/vs2008ex/.*.suo$
+
+# ignores visual studio user files
+^win32/vs2008ex/lib_\w+\.vcproj\..*\..*.user
+
 # ignores xcode working directories
-^darwin/xcode_iphone/build/
 ^darwin/xcode/build/
+^darwin/xcode_iphone/build/
 
 # ignores xcode local files
 \.mode1v3$
