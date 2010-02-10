@@ -180,14 +180,6 @@
 			<Filter
 				Name="Global"
 				>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\global\resource.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\hive_mariachi_runner\global\targetver.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Main"
@@ -226,6 +218,14 @@
 			<Filter
 				Name="Global"
 				>
+				<File
+					RelativePath="..\..\src\hive_mariachi_runner\global\resource.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi_runner\global\targetver.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
