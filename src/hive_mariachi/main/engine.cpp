@@ -33,11 +33,13 @@
 #include "../console/console.h"
 #include "../script/script.h"
 #include "../physics/physics.h"
+#include "../util/util.h"
 
 #include "engine.h"
 
 using namespace mariachi;
 
+using namespace mariachi::util;
 using namespace mariachi::nodes;
 using namespace mariachi::tasks;
 using namespace mariachi::script;
@@ -316,6 +318,43 @@ void Engine::startPathsList() {
 
     // adds the mariachi base path
     this->addPath(HIVE_MARIACHI_BASE_PATH);
+
+    // allocates the mariachi path environment size
+    size_t mariachiPathEnvironmentSize;
+
+    // allocates the mariachi path environment buffer
+    char *mariachiPathEnvironment = NULL;
+
+    // retrieves the mariachi path environment variable
+    GET_ENV(mariachiPathEnvironment, mariachiPathEnvironmentSize, HIVE_MARIACHI_ENVIRONMENT_PATH);
+
+    // in case the mariachi path environment
+    // is not defined
+    if(!mariachiPathEnvironment) {
+        // returns immediately
+        return;
+    }
+
+    // allocates the mariachi path enviroment list
+    std::vector<std::string> mariachiPathEnvironmentList;
+
+    // tokenizes the mariachi path environment using the mariachi environment separator
+    StringUtil::tokenize(mariachiPathEnvironment, mariachiPathEnvironmentList, MARIACHI_ENVIRONMENT_SEPARATOR);
+
+    // retrieves the mariachi path environment list iterator
+    std::vector<std::string>::iterator mariachiPathEnvironmentListIterator = mariachiPathEnvironmentList.begin();
+
+    // iterates over all the paths in the mariachi path environment list
+    while(mariachiPathEnvironmentListIterator != mariachiPathEnvironmentList.end()) {
+        // retrieves the current mariachi path
+        std::string &currentMariachiPath = *mariachiPathEnvironmentListIterator;
+
+        // adds the current mariachi path to the paths list
+        this->addPath(currentMariachiPath);
+
+        // increments the mariachi path environment list iterator
+        mariachiPathEnvironmentListIterator++;
+    }
 }
 
 /**
