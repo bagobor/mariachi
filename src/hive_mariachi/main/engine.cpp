@@ -33,11 +33,13 @@
 #include "../console/console.h"
 #include "../script/script.h"
 #include "../physics/physics.h"
+#include "../util/util.h"
 
 #include "engine.h"
 
 using namespace mariachi;
 
+using namespace mariachi::util;
 using namespace mariachi::nodes;
 using namespace mariachi::tasks;
 using namespace mariachi::script;
@@ -316,6 +318,10 @@ void Engine::startPathsList() {
 
     // adds the mariachi base path
     this->addPath(HIVE_MARIACHI_BASE_PATH);
+
+    // updates the paths list base in the environment
+    // variable
+    this->updatePathsListEnvironment();
 }
 
 /**
@@ -335,7 +341,7 @@ void Engine::startConfigurationManager() {
 
     // updates the paths list using the information
     // provided in the configuration manager
-    this->updatePathsList();
+    this->updatePathsListConfiguration();
 }
 
 /**
@@ -619,9 +625,52 @@ void Engine::startRunLoop() {
 
 /**
 * Updates the paths list using the information in the
+* environment variable.
+*/
+void Engine::updatePathsListEnvironment() {
+    // allocates the mariachi path environment size
+    size_t mariachiPathEnvironmentSize;
+
+    // allocates the mariachi path environment buffer
+    char *mariachiPathEnvironment = NULL;
+
+    // retrieves the mariachi path environment variable
+    GET_ENV(mariachiPathEnvironment, mariachiPathEnvironmentSize, HIVE_MARIACHI_ENVIRONMENT_PATH);
+
+    // in case the mariachi path environment
+    // is not defined
+    if(!mariachiPathEnvironment) {
+        // returns immediately
+        return;
+    }
+
+    // allocates the mariachi path enviroment list
+    std::vector<std::string> mariachiPathEnvironmentList;
+
+    // tokenizes the mariachi path environment using the mariachi environment separator
+    StringUtil::tokenize(mariachiPathEnvironment, mariachiPathEnvironmentList, MARIACHI_ENVIRONMENT_SEPARATOR);
+
+    // retrieves the mariachi path environment list iterator
+    std::vector<std::string>::iterator mariachiPathEnvironmentListIterator = mariachiPathEnvironmentList.begin();
+
+    // iterates over all the paths in the mariachi path environment list
+    while(mariachiPathEnvironmentListIterator != mariachiPathEnvironmentList.end()) {
+        // retrieves the current mariachi path
+        std::string &currentMariachiPath = *mariachiPathEnvironmentListIterator;
+
+        // adds the current mariachi path to the paths list
+        this->addPath(currentMariachiPath);
+
+        // increments the mariachi path environment list iterator
+        mariachiPathEnvironmentListIterator++;
+    }
+}
+
+/**
+* Updates the paths list using the information in the
 * configuration manager.
 */
-void Engine::updatePathsList() {
+void Engine::updatePathsListConfiguration() {
     // retrieves the extra paths value from the configuration
     ConfigurationValue_t *extraPaths = this->configurationManager->getProperty("extra_paths");
 
@@ -718,7 +767,7 @@ std::string Engine::getAbsolutePath(const std::string &relativePath) {
     // retrieves the paths list iterator
     std::list<std::string>::iterator pathsListIterator = this->pathsList.begin();
 
-    // allocates space for the absolute path
+    // allocates space fot the absolute path
     std::string absolutePath;
 
     // iterates over all the paths on the path list
@@ -731,16 +780,15 @@ std::string Engine::getAbsolutePath(const std::string &relativePath) {
 
         // in case the file exists
         if(FILE_EXISTS(absolutePath.c_str())) {
-			// returns the absolute path
-			return absolutePath;
+            break;
         }
 
         // increments the paths list iterator
         pathsListIterator++;
     }
-	
-    // throws a runtime exception indicating the no path was found
-    throw RuntimeException("Absolute path not found for relative path " + relativePath); 
+
+    // returns the absolute path
+    return absolutePath;
 }
 
 /**
