@@ -134,7 +134,7 @@ namespace mariachi {
                         T currentListValue;
 
                         // iterates over all the values in the list
-                        for(unsigned int _index = 0; _index < index && listValueIterator != self->listValue->end(); _index++) {
+                        for(unsigned int _index = 0; _index < index + 1 && listValueIterator != self->listValue->end(); _index++) {
                             // retrieves the current list value
                             currentListValue = *listValueIterator;
 

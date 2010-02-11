@@ -48,6 +48,7 @@
 #endif
 
 #ifdef MARIACHI_PLATFORM_UNIX
+#include <unistd.h>
 #include <pthread.h>
 #endif
 

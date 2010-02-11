@@ -63,6 +63,9 @@ THREAD_RETURN mariachi::mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
+        // start the path list in the engine
+        engine->startPathsList();
+
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
 
@@ -304,6 +307,18 @@ void Engine::handleException(Exception *exception) {
 }
 
 /**
+* Starts the paths list manager in the engine.
+* The paths list is used to locate file in relative positions to the engine.
+*/
+void Engine::startPathsList() {
+    // adds the root path
+    this->addPath(HIVE_MARIACHI_ROOT_PATH);
+
+    // adds the mariachi base path
+    this->addPath(HIVE_MARIACHI_BASE_PATH);
+}
+
+/**
 * Starts the configuration manager in the engine.
 * Starting the configuration manager implies booting the necessary
 * structures for data serialization.
@@ -313,10 +328,14 @@ void Engine::startConfigurationManager() {
     this->configurationManager = new ConfigurationManager(this);
 
     // creates the configuration arguments
-    ConfigurationArguments_t configurationArguments = { std::string(std::string(HIVE_MARIACHI_BASE_PATH) + "/configuration/config.json").c_str() };
+    ConfigurationArguments_t configurationArguments = { this->getAbsolutePath("configuration/config.json").c_str() };
 
     // loads the configuration manager
     this->configurationManager->load(&configurationArguments);
+
+    // updates the paths list using the information
+    // provided in the configuration manager
+    this->updatePathsList();
 }
 
 /**
@@ -599,6 +618,131 @@ void Engine::startRunLoop() {
 }
 
 /**
+* Updates the paths list using the information in the
+* configuration manager.
+*/
+void Engine::updatePathsList() {
+    // retrieves the extra paths value from the configuration
+    ConfigurationValue_t *extraPaths = this->configurationManager->getProperty("extra_paths");
+
+    // in case there are extra paths defined in the configuration
+    if(extraPaths) {
+        // retrieves the list value
+        ConfigurationList *listValue = (ConfigurationList *) extraPaths->structure.listValue;
+
+        // retrieves the string vector value
+        std::vector<std::string *> stringVectorValue = listValue->getAsStringVector();
+
+        // adds the extra paths
+        this->addPaths(stringVectorValue);
+    }
+}
+
+/**
+* Adds a path to the paths list.
+*
+* @param path The path to be added to the paths list.
+*/
+void Engine::addPath(const std::string &path) {
+    // adds the path to the paths list
+    this->pathsList.push_back(path);
+}
+
+/**
+* Removes a path from the paths list.
+*
+* @param pathThe path to be removed from the paths list.
+*/
+void Engine::removePath(const std::string &path) {
+    // removes the path from the paths list
+    this->pathsList.push_back(path);
+}
+
+/**
+* Adds a list of paths to the paths list.
+*
+* @param pathsList The list of paths to be added to
+* the paths list.
+*/
+void Engine::addPaths(std::vector<std::string *> &pathsList) {
+    // retrieves the paths list iterator
+    std::vector<std::string *>::iterator pathsListIterator = pathsList.begin();
+
+    // iterates over all the paths in the paths list
+    while(pathsListIterator != pathsList.end()) {
+        // retrieves the current path
+        std::string *currentPath = *pathsListIterator;
+
+        // adds the current path to the paths list
+        this->addPath(*currentPath);
+
+        // increments the paths list iterator
+        pathsListIterator++;
+    }
+}
+
+/**
+* Removes a list of paths from the paths list.
+*
+* @param pathsList The list of paths to be removed from
+* the paths list.
+*/
+void Engine::removePaths(std::vector<std::string *> &pathsList) {
+    // retrieves the paths list iterator
+    std::vector<std::string *>::iterator pathsListIterator = pathsList.begin();
+
+    // iterates over all the paths in the paths list
+    while(pathsListIterator != pathsList.end()) {
+        // retrieves the current path
+        std::string *currentPath = *pathsListIterator;
+
+        // removes the current path from the paths list
+        this->removePath(*currentPath);
+
+        // increments the paths list iterator
+        pathsListIterator++;
+    }
+}
+
+/**
+* Retrieves the absolute path to the file in the given relative
+* path.
+* This method uses the system path to locate the files in a relative
+* path to any of the paths in the system path.
+*
+* @param relativePath The relative path to be converted to absolute path.
+* @return The absolute path to the given relative path, in case of error
+* and empty string is returned.
+*/
+std::string Engine::getAbsolutePath(const std::string &relativePath) {
+    // retrieves the paths list iterator
+    std::list<std::string>::iterator pathsListIterator = this->pathsList.begin();
+
+    // allocates space fot the absolute path
+    std::string absolutePath;
+
+    // iterates over all the paths on the path list
+    while(pathsListIterator != this->pathsList.end()) {
+        // retrieves the current path
+        const std::string &path = *pathsListIterator;
+
+        // creates the absolute path
+        absolutePath = path + "/" + relativePath;
+
+        // in case the file exists
+        if(FILE_EXISTS(absolutePath.c_str())) {
+            break;
+        }
+
+        // increments the paths list iterator
+        pathsListIterator++;
+    }
+
+    // returns the absolute path
+    return absolutePath;
+}
+
+/**
 * Adds a main thread stage to the stages list.
 *
 * @param stage The stage to be added to stages list.
@@ -641,7 +785,6 @@ void Engine::removeMainThreadStage(Stage *stage) {
     // removes the stage from the main thread stages list
     this->mainThreadStagesList.remove(stage);
 }
-
 
 /**
 * Adds the given task to the task list.
@@ -843,6 +986,23 @@ void Engine::setConsoleManager(ConsoleManager *consoleManager) {
     this->consoleManager = consoleManager;
 }
 
+/**
+* Retrieves the paths list.
+*
+* @return The paths list.
+*/
+std::list<std::string> *Engine::getPathsList() {
+    return &this->pathsList;
+}
+
+/**
+* Sets the paths list.
+*
+* @param pathsList The paths list.
+*/
+void Engine::setPathsList(std::list<std::string> *pathsList) {
+    this->pathsList = *pathsList;
+}
 
 /**
 * Retrieves the logger.
