@@ -23,7 +23,7 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#define ADD_TO_STAGES_LIST(stage) stagesList.push_back(stage);
+#define ADD_TO_STAGES_LIST(stage) stagesList->push_back(stage);
 
 #ifdef MARIACHI_STAGE_RENDER
 ADD_TO_STAGES_LIST(new RenderStage(this, std::string("render")));
