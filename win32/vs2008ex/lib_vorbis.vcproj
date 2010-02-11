@@ -183,6 +183,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				ModuleDefinitionFile="..\..\lib\libvorbis\src\vorbis.def"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
 			/>
@@ -253,6 +254,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				ModuleDefinitionFile="..\..\lib\libvorbis\src\vorbis.def"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
 			/>
