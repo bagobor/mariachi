@@ -397,6 +397,7 @@
 		56AF3396112370C500889163 /* libtheora.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3395112370C500889163 /* libtheora.a */; };
 		56AF3398112370D500889163 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3397112370D500889163 /* libvorbis.a */; };
 		56AF339A112370E600889163 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3399112370E600889163 /* libzlib.a */; };
+		56E372DA11240D6B0026CDDB /* mariachi_iphone_57.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */; };
 		C22A5E9B1108874F005BB421 /* mariachi_iphone_57.jpg in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */; };
 		C28DC27B1107ACB200DDE61E /* libhive_mariachi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C219A22A110627A200F7A348 /* libhive_mariachi.a */; };
 /* End PBXBuildFile section */
@@ -2185,6 +2186,7 @@
 				561ED25E1121EB51006F53EA /* ReadMe.txt in Resources */,
 				561ED2901121EB67006F53EA /* MainWindow.xib in Resources */,
 				561ED2911121EB67006F53EA /* ReadMe.txt in Resources */,
+				56E372DA11240D6B0026CDDB /* mariachi_iphone_57.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2360,16 +2362,16 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
 					"$(inherited)",
-					"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
 				SYMROOT = ../../bin/hive_mariachi_runner;
@@ -2387,16 +2389,16 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
 					"$(inherited)",
-					"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
 				SYMROOT = ../../bin/hive_mariachi_runner;

@@ -2289,15 +2289,15 @@
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
 				PRODUCT_NAME = hive_mariachi;
 				SYMROOT = ../../bin/hive_mariachi_runner;
@@ -2315,15 +2315,15 @@
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/darwin/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
