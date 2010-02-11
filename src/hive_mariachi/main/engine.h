@@ -237,7 +237,8 @@ namespace mariachi {
             void startDebugEngine();
             void stopDebugEngine();
             void startRunLoop();
-            void updatePathsList();
+            void updatePathsListEnvironment();
+            void updatePathsListConfiguration();
             void addPath(const std::string &path);
             void removePath(const std::string &path);
             void addPaths(std::vector<std::string *> &pathsList);
