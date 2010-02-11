@@ -56,6 +56,6 @@ Box3d_t &CubeSolid::getBoundingBox() {
 *
 * @param boundingBox The bounding box.
 */
-void CubeSolid::setBoundingBox(Box3d_t &boundingBox) {
+void CubeSolid::setBoundingBox(const Box3d_t &boundingBox) {
     this->boundingBox = boundingBox;
 }
