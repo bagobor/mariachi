@@ -387,7 +387,6 @@
 		561ED2901121EB67006F53EA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2881121EB67006F53EA /* MainWindow.xib */; };
 		561ED2911121EB67006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2891121EB67006F53EA /* ReadMe.txt */; };
 		561ED2921121EB67006F53EA /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28A1121EB67006F53EA /* stdafx.cpp */; };
-		561ED2931121EB67006F53EA /* iphone_application_util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28D1121EB67006F53EA /* iphone_application_util.mm */; };
 		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
 		569F8EC511233DCE0046739E /* libbullet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC411233DCE0046739E /* libbullet.a */; };
 		569F8EC711233DCE0046739E /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC611233DCE0046739E /* liblua.a */; };
@@ -397,6 +396,7 @@
 		56AF3396112370C500889163 /* libtheora.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3395112370C500889163 /* libtheora.a */; };
 		56AF3398112370D500889163 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3397112370D500889163 /* libvorbis.a */; };
 		56AF339A112370E600889163 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3399112370E600889163 /* libzlib.a */; };
+		56E18D8011247B4400FA5148 /* iphone_application_util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28D1121EB67006F53EA /* iphone_application_util.mm */; };
 		56E372DA11240D6B0026CDDB /* mariachi_iphone_57.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */; };
 		C22A5E9B1108874F005BB421 /* mariachi_iphone_57.jpg in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = C22A5E9A1108874F005BB421 /* mariachi_iphone_57.jpg */; };
 		C28DC27B1107ACB200DDE61E /* libhive_mariachi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C219A22A110627A200F7A348 /* libhive_mariachi.a */; };
@@ -2200,7 +2200,6 @@
 				561ED2541121EB51006F53EA /* runner.cpp in Sources */,
 				561ED28F1121EB67006F53EA /* iphone_application_delegate.mm in Sources */,
 				561ED2921121EB67006F53EA /* stdafx.cpp in Sources */,
-				561ED2931121EB67006F53EA /* iphone_application_util.mm in Sources */,
 				5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2335,6 +2334,7 @@
 				561ED2111121EB40006F53EA /* byte_util.cpp in Sources */,
 				561ED2121121EB40006F53EA /* bit_util.cpp in Sources */,
 				561ED2141121EB40006F53EA /* geometry_util.cpp in Sources */,
+				56E18D8011247B4400FA5148 /* iphone_application_util.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2353,7 +2353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2362,16 +2362,16 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
 					"$(inherited)",
-					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
 				SYMROOT = ../../bin/hive_mariachi_runner;
@@ -2382,23 +2382,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = hive_mariachi_runner_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "hive_mariachi_runner-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/liblua/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libbullet/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../bin/hive_mariachi/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
 					"$(inherited)",
-					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/../../lib/libjpeg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libogg/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libpng/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libtheora/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libvorbis/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/../../lib/libzlib/bin/$(ARCHS)/iphone_os/$(CONFIGURATION)\"",
 				);
 				PRODUCT_NAME = hive_mariachi_runner;
 				SYMROOT = ../../bin/hive_mariachi_runner;
@@ -2438,7 +2438,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2452,7 +2452,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(ARCHS)/iphone_os/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
