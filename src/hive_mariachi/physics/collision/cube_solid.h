@@ -39,7 +39,7 @@ namespace mariachi {
                 CubeSolid();
                 ~CubeSolid();
                 virtual structures::Box3d_t &getBoundingBox();
-                virtual void setBoundingBox(structures::Box3d_t &boundingBox);
+                virtual void setBoundingBox(const structures::Box3d_t &boundingBox);
         };
     }
 }

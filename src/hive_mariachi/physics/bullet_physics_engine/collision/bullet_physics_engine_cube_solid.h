@@ -35,7 +35,7 @@ namespace mariachi {
             public:
                 BulletPhysicsEngineCubeSolid();
                 ~BulletPhysicsEngineCubeSolid();
-                void setBoundingBox(structures::Box3d_t &boundingBox);
+                void setBoundingBox(const structures::Box3d_t &boundingBox);
         };
     }
 }

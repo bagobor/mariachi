@@ -37,7 +37,7 @@ BulletPhysicsEngineCubeSolid::BulletPhysicsEngineCubeSolid() : BulletPhysicsEngi
 BulletPhysicsEngineCubeSolid::~BulletPhysicsEngineCubeSolid() {
 }
 
-void BulletPhysicsEngineCubeSolid::setBoundingBox(Box3d_t &boundingBox) {
+void BulletPhysicsEngineCubeSolid::setBoundingBox(const Box3d_t &boundingBox) {
     CubeSolid::setBoundingBox(boundingBox);
 
     btScalar width = fabs(boundingBox.x2 - boundingBox.x1);
