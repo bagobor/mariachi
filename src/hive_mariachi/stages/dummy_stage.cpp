@@ -82,7 +82,7 @@ void DummyStage::start(void *arguments) {
 
 
     // generates the model
-    importer->generateModel(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/windmill.md2"));
+    importer->generateModel(engine->getAbsolutePath("models/windmill.md2"));
 
     // generates the vertex list
     importer->generateVertexList();
@@ -103,7 +103,7 @@ void DummyStage::start(void *arguments) {
     Md2Importer *importer2 = new Md2Importer();
 
     // generates the model
-    importer2->generateModel(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/light6.md2"));
+    importer2->generateModel(engine->getAbsolutePath("models/light6.md2"));
 
     // generates the vertex list
     importer2->generateVertexList();
@@ -118,14 +118,14 @@ void DummyStage::start(void *arguments) {
 
 
     BmpLoader *bmpLoader = new BmpLoader();
-    bmpLoader->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/windmill.bmp"));
+    bmpLoader->generateImage(engine->getAbsolutePath("models/windmill.bmp"));
     Texture *texture = bmpLoader->getTexture();
 
     // sets the texture in the model node
     actorNode->setTexture(texture);
 
  /*   BmpLoader *bmpLoader2 = new BmpLoader();
-    bmpLoader2->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/models/light6.bmp"));
+    bmpLoader2->generateImage(engine->getAbsolutePath("models/light6.bmp"));
     Texture *texture2 = bmpLoader2->getTexture();
 
     // sets the texture in the model node
@@ -152,7 +152,7 @@ void DummyStage::start(void *arguments) {
 
 
     BmpLoader *bmpLoader4 = new BmpLoader();
-    bmpLoader4->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/background.bmp"));
+    bmpLoader4->generateImage(engine->getAbsolutePath("ui/background.bmp"));
     Texture *backgroundTexture = bmpLoader4->getTexture();
 
     // creates a new view port node
@@ -176,7 +176,7 @@ void DummyStage::start(void *arguments) {
 
 
 /*    BmpLoader *bmpLoader34 = new BmpLoader();
-    bmpLoader34->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/white.bmp"));
+    bmpLoader34->generateImage(engine->getAbsolutePath("ui/white.bmp"));
     Texture *panelTexture = bmpLoader34->getTexture();
 
     // creates a new panel node
@@ -201,7 +201,7 @@ void DummyStage::start(void *arguments) {
 
 
     BmpLoader *bmpLoader33 = new BmpLoader();
-    bmpLoader33->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/logo.bmp"));
+    bmpLoader33->generateImage(engine->getAbsolutePath("ui/logo.bmp"));
     Texture *logoTexture = bmpLoader33->getTexture();
 
     // creates a new button node
@@ -222,7 +222,7 @@ void DummyStage::start(void *arguments) {
 
 
     BmpLoader *bmpLoader3 = new BmpLoader();
-    bmpLoader3->generateImage(std::string(HIVE_MARIACHI_BASE_PATH) + std::string("/ui/about.bmp"));
+    bmpLoader3->generateImage(engine->getAbsolutePath("ui/about.bmp"));
     Texture *buttonTexture = bmpLoader3->getTexture();
 
     // creates a new button node

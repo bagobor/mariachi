@@ -27,6 +27,11 @@
 
 #include "platforms.h"
 
+/**
+* The root path being used.
+*/
+#define HIVE_MARIACHI_ROOT_PATH "."
+
 //@todo: this is a temporary hack
 #ifdef MARIACHI_PLATFORM_WIN32
 #define HIVE_MARIACHI_BASE_PATH "../../src/hive_mariachi_runner"

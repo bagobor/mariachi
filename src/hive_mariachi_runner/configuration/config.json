@@ -32,6 +32,9 @@
 
     // the logging support
     "logging" : { "verbosity" : 3, "file" : 0 },
+    
+    // the extra paths to be used to locate files
+    "extra_paths" : ["c:/", "c:/tobias"],
 
     // the scripting configuration
     "scripting" : { "lua" : { "extra_paths" : ["../../scripts/hive_mariachi_lua_scripts/src/?.lua"] } }

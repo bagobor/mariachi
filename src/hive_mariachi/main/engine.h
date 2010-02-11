@@ -110,6 +110,11 @@ namespace mariachi {
             bool runningFlag;
 
             /**
+            * The list of paths to be used in file localization.
+            */
+            std::list<std::string> pathsList;
+
+            /**
             * The logger used in the message logging.
             */
             logging::Logger *logger;
@@ -218,6 +223,7 @@ namespace mariachi {
             void update();
             void printInformation();
             void handleException(exceptions::Exception *exception);
+            void startPathsList();
             void startConfigurationManager();
             void stopConfigurationManager();
             void startConsoleManager();
@@ -231,6 +237,12 @@ namespace mariachi {
             void startDebugEngine();
             void stopDebugEngine();
             void startRunLoop();
+            void updatePathsList();
+            void addPath(const std::string &path);
+            void removePath(const std::string &path);
+            void addPaths(std::vector<std::string *> &pathsList);
+            void removePaths(std::vector<std::string *> &pathsList);
+            std::string getAbsolutePath(const std::string &relativePath);
             void addStage(stages::Stage *stage);
             void removeStage(stages::Stage *stage);
             void addMainThreadStage(stages::Stage *stage);
@@ -252,6 +264,8 @@ namespace mariachi {
             void setConfigurationManager(configuration::ConfigurationManager *configurationManager);
             console::ConsoleManager *getConsoleManager();
             void setConsoleManager(console::ConsoleManager *consoleManager);
+            std::list<std::string> *getPathsList();
+            void setPathsList(std::list<std::string> *pathsList);
             logging::Logger *getLogger();
             void setLogger(logging::Logger *logger);
             nodes::SceneNode *getRender();
