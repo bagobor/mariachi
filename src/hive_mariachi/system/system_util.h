@@ -31,6 +31,7 @@
 #define SLEEP(miliseconds) Sleep(miliseconds)
 #define GET_PID() GetCurrentProcessId()
 #define SPRINTF(buffer, size, format, ...) sprintf_s(buffer, size, format, __VA_ARGS__)
+#define GET_ENV(buffer, bufferSize, variableName) _dupenv_s(&buffer, &bufferSize, variableName)
 #define FILE_EXISTS(filePath) GetFileAttributes(filePath) != 0xffffffff
 #elif MARIACHI_PLATFORM_UNIX
 #define PID_TYPE pid_t
@@ -38,6 +39,7 @@
 #define SLEEP(miliseconds) usleep((useconds_t) miliseconds * 1000)
 #define GET_PID() getpid()
 #define SPRINTF(buffer, size, format, ...) sprintf(buffer, format, __VA_ARGS__)
+#define GET_ENV(buffer, bufferSize, variableName) buffer = getenv(variableName)
 #define FILE_EXISTS(filePath) access(filePath, F_OK) == 0
 #endif
 
