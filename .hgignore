@@ -5,7 +5,14 @@ syntax: regexp
 ^bin/
 
 # ignores lib binaries
-^lib/lib\w+/bin/
+^lib/libbullet/bin/
+^lib/libjpeg/bin/
+^lib/liblua/bin/
+^lib/libogg/bin/
+^lib/libpng/bin/
+^lib/libtheora/bin/
+^lib/libvorbis/bin/
+^lib/libzlib/bin/
 
 # ignores visual studio 2008 working directories
 ^win32/vs2008ex/hive_mariachi/Debug/
