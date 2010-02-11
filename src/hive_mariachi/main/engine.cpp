@@ -718,7 +718,7 @@ std::string Engine::getAbsolutePath(const std::string &relativePath) {
     // retrieves the paths list iterator
     std::list<std::string>::iterator pathsListIterator = this->pathsList.begin();
 
-    // allocates space fot the absolute path
+    // allocates space for the absolute path
     std::string absolutePath;
 
     // iterates over all the paths on the path list
@@ -731,15 +731,16 @@ std::string Engine::getAbsolutePath(const std::string &relativePath) {
 
         // in case the file exists
         if(FILE_EXISTS(absolutePath.c_str())) {
-            break;
+			// returns the absolute path
+			return absolutePath;
         }
 
         // increments the paths list iterator
         pathsListIterator++;
     }
-
-    // returns the absolute path
-    return absolutePath;
+	
+    // throws a runtime exception indicating the no path was found
+    throw RuntimeException("Absolute path not found for relative path " + relativePath); 
 }
 
 /**
