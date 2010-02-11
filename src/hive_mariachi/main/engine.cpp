@@ -788,8 +788,8 @@ std::string Engine::getAbsolutePath(const std::string &relativePath) {
         pathsListIterator++;
     }
 	
-    // throws a runtime exception indicating the no path was found
-    throw RuntimeException("Absolute path not found for relative path " + relativePath); 
+    // throws a runtime exception indicating the no absolute path was found
+	throw RuntimeException("Absolute path not found for relative path: " + relativePath); 
 }
 /**
 * Adds a main thread stage to the stages list.
