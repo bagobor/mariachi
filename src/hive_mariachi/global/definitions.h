@@ -38,5 +38,5 @@
 #elif MARIACHI_PLATFORM_IPHONE
 #define HIVE_MARIACHI_BASE_PATH getBundleDirectory()
 #elif MARIACHI_PLATFORM_UNIX
-#define HIVE_MARIACHI_BASE_PATH "/root/hive_mariachi/src/hive_mariachi_runner"
+#define HIVE_MARIACHI_BASE_PATH "../../../../src/hive_mariachi_runner"
 #endif
