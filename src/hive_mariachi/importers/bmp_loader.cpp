@@ -37,13 +37,20 @@ using namespace mariachi::structures;
 * Constructor of the class.
 */
 BmpLoader::BmpLoader() : TextureImporter() {
+    this->bitmapData = NULL;
 }
 
 /**
 * Destructor of the class.
 */
 BmpLoader::~BmpLoader() {
-    free(this->bitmapData);
+    if(this->bitmapData) {
+        free(this->bitmapData);
+    }
+}
+
+inline void BmpLoader::initBitmapData() {
+    this->bitmapData = NULL;
 }
 
 void BmpLoader::generateImage(const std::string &filePath) {
