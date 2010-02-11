@@ -156,6 +156,11 @@ namespace mariachi {
             std::map<stages::Stage *, stages::StageRunner *> stageRunnersMap;
 
             /**
+            * The list containing all the stages to be used.
+            */
+            std::list<stages::Stage *> stagesList;
+
+            /**
             * The map associating the stage name with the
             * stage reference.
             */
@@ -226,6 +231,10 @@ namespace mariachi {
             void startDebugEngine();
             void stopDebugEngine();
             void startRunLoop();
+            void addStage(stages::Stage *stage);
+            void removeStage(stages::Stage *stage);
+            void addMainThreadStage(stages::Stage *stage);
+            void removeMainThreadStage(stages::Stage *stage);
             void addTask(tasks::Task *task);
             void removeTask(tasks::Task *task);
             void getCurrentProcessIdString(std::string &currentProcessIdString);

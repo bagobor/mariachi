@@ -110,6 +110,8 @@ namespace mariachi {
                 BmpColor_t *bitmapData;
                 BmpSize_t bitmapSize;
 
+                inline void initBitmapData();
+
             public:
                 BmpLoader();
                 ~BmpLoader();
