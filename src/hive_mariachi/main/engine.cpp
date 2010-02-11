@@ -465,17 +465,17 @@ void Engine::startPhysicsEngines() {
 * for the ones than require a new thread to be created.
 */
 void Engine::startStages() {
-    // creates the stages list
-    std::vector<Stage *> stagesList;
+    // retrieves the stages list
+    std::list<Stage *> *stagesList = &this->stagesList;
 
     // includes the stages initialization
     #include "../stages/stages_init.h"
 
     // retrieves the stages list iterator
-    std::vector<Stage *>::iterator stagesListIterator = stagesList.begin();
+    std::list<Stage *>::iterator stagesListIterator = stagesList->begin();
 
     // iterates over all the stages in the stages list
-    while(stagesListIterator != stagesList.end()) {
+    while(stagesListIterator != stagesList->end()) {
         // retrieves the current stage
         Stage *currentStage = *stagesListIterator;
 
@@ -597,6 +597,51 @@ void Engine::startRunLoop() {
         SLEEP(30);
     }
 }
+
+/**
+* Adds a main thread stage to the stages list.
+*
+* @param stage The stage to be added to stages list.
+*/
+void Engine::addStage(Stage *stage) {
+    // adds the stage to the stages list
+    this->stagesList.push_back(stage);
+}
+
+/**
+* Removes a main thread stage from the stages list.
+*
+* @param stage The stage to be removed from stages list.
+*/
+void Engine::removeStage(Stage *stage) {
+    // removes the stage from the stages list
+    this->stagesList.remove(stage);
+}
+
+/**
+* Adds a main thread stage to the main
+* thread stages list.
+*
+* @param stage The stage to be added to the main thread
+* stages list.
+*/
+void Engine::addMainThreadStage(Stage *stage) {
+    // adds the stage to the main thread stages list
+    this->mainThreadStagesList.push_back(stage);
+}
+
+/**
+* Removes a main thread stage from the main
+* thread stages list.
+*
+* @param stage The stage to be removed from main thread
+* stages list.
+*/
+void Engine::removeMainThreadStage(Stage *stage) {
+    // removes the stage from the main thread stages list
+    this->mainThreadStagesList.remove(stage);
+}
+
 
 /**
 * Adds the given task to the task list.
