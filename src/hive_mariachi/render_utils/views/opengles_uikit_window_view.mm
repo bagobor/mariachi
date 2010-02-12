@@ -28,7 +28,7 @@
 
 #import "opengles_uikit_window_view.h"
 
-#import "opengles1_uikit_renderer.h"
+#import "renders/opengles1_uikit_renderer.h"
 
 @implementation OpenglesUikitWindowView
 
