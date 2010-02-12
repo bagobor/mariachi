@@ -267,7 +267,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		56AF2DD711235C1400889163 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56AF2DD711235C1400889163 /* libjpeg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjpeg.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AF2DD911235C6800889163 /* jcapimin.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = jcapimin.c; path = ../../lib/libjpeg/src/jcapimin.c; sourceTree = SOURCE_ROOT; };
 		56AF2DDA11235C6800889163 /* jcapistd.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = jcapistd.c; path = ../../lib/libjpeg/src/jcapistd.c; sourceTree = SOURCE_ROOT; };
 		56AF2DDB11235C6800889163 /* jccoefct.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = jccoefct.c; path = ../../lib/libjpeg/src/jccoefct.c; sourceTree = SOURCE_ROOT; };
@@ -325,13 +325,13 @@
 		56AF2E0F11235C6800889163 /* jutils.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = jutils.c; path = ../../lib/libjpeg/src/jutils.c; sourceTree = SOURCE_ROOT; };
 		56AF2E1011235C6800889163 /* jversion.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = jversion.h; path = ../../lib/libjpeg/src/jversion.h; sourceTree = SOURCE_ROOT; };
 		56AF2E1111235C6800889163 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../lib/libjpeg/src/ReadMe.txt; sourceTree = SOURCE_ROOT; };
-		56AF2E7411235E1400889163 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56AF2E7411235E1400889163 /* libogg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libogg.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AF2E7D11235F8600889163 /* bitwise.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = bitwise.c; path = ../../lib/libogg/src/bitwise.c; sourceTree = SOURCE_ROOT; };
 		56AF2E7E11235F8600889163 /* framing.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = framing.c; path = ../../lib/libogg/src/framing.c; sourceTree = SOURCE_ROOT; };
 		56AF2E7F11235F8600889163 /* ogg.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = ../../lib/libogg/src/ogg.h; sourceTree = SOURCE_ROOT; };
 		56AF2E8011235F8600889163 /* os_types.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = ../../lib/libogg/src/os_types.h; sourceTree = SOURCE_ROOT; };
 		56AF2E8111235F8600889163 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../lib/libogg/src/ReadMe.txt; sourceTree = SOURCE_ROOT; };
-		56AF2E8E11235FA200889163 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56AF2E8E11235FA200889163 /* libpng.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpng.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AF2E9011235FE000889163 /* png.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = png.c; path = ../../lib/libpng/src/png.c; sourceTree = SOURCE_ROOT; };
 		56AF2E9111235FE000889163 /* png.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = png.h; path = ../../lib/libpng/src/png.h; sourceTree = SOURCE_ROOT; };
 		56AF2E9211235FE000889163 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = pngconf.h; path = ../../lib/libpng/src/pngconf.h; sourceTree = SOURCE_ROOT; };
@@ -352,7 +352,7 @@
 		56AF2EA111235FE000889163 /* pngwtran.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = pngwtran.c; path = ../../lib/libpng/src/pngwtran.c; sourceTree = SOURCE_ROOT; };
 		56AF2EA211235FE000889163 /* pngwutil.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = pngwutil.c; path = ../../lib/libpng/src/pngwutil.c; sourceTree = SOURCE_ROOT; };
 		56AF2EA311235FE000889163 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../lib/libpng/src/ReadMe.txt; sourceTree = SOURCE_ROOT; };
-		56AF2ECE11235FF400889163 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56AF2ECE11235FF400889163 /* libtheora.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtheora.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AF2ED01123603400889163 /* apiwrapper.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = apiwrapper.c; path = ../../lib/libtheora/src/apiwrapper.c; sourceTree = SOURCE_ROOT; };
 		56AF2ED11123603400889163 /* apiwrapper.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = apiwrapper.h; path = ../../lib/libtheora/src/apiwrapper.h; sourceTree = SOURCE_ROOT; };
 		56AF2ED21123603400889163 /* bitpack.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = bitpack.c; path = ../../lib/libtheora/src/bitpack.c; sourceTree = SOURCE_ROOT; };
@@ -384,7 +384,7 @@
 		56AF2EEC1123603400889163 /* state.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = state.c; path = ../../lib/libtheora/src/state.c; sourceTree = SOURCE_ROOT; };
 		56AF2EED1123603400889163 /* theora.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = theora.h; path = ../../lib/libtheora/src/theora.h; sourceTree = SOURCE_ROOT; };
 		56AF2EEE1123603400889163 /* theoradec.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = theoradec.h; path = ../../lib/libtheora/src/theoradec.h; sourceTree = SOURCE_ROOT; };
-		56AF2F111123604200889163 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56AF2F111123604200889163 /* libvorbis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbis.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AF2F131123607000889163 /* analysis.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = analysis.c; path = ../../lib/libvorbis/src/analysis.c; sourceTree = SOURCE_ROOT; };
 		56AF2F141123607000889163 /* backends.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = backends.h; path = ../../lib/libvorbis/src/backends.h; sourceTree = SOURCE_ROOT; };
 		56AF2F151123607000889163 /* bitrate.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = bitrate.c; path = ../../lib/libvorbis/src/bitrate.c; sourceTree = SOURCE_ROOT; };
@@ -433,7 +433,7 @@
 		56AF2F401123607000889163 /* vorbisfile.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = vorbisfile.h; path = ../../lib/libvorbis/src/vorbisfile.h; sourceTree = SOURCE_ROOT; };
 		56AF2F411123607000889163 /* window.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = window.c; path = ../../lib/libvorbis/src/window.c; sourceTree = SOURCE_ROOT; };
 		56AF2F421123607000889163 /* window.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = window.h; path = ../../lib/libvorbis/src/window.h; sourceTree = SOURCE_ROOT; };
-		56AF2F841123607600889163 /* libbullet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbullet.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56AF2F841123607600889163 /* libzlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56AF2F90112360BF00889163 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ../../lib/libzlib/src/adler32.c; sourceTree = SOURCE_ROOT; };
 		56AF2F91112360BF00889163 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../../lib/libzlib/src/compress.c; sourceTree = SOURCE_ROOT; };
 		56AF2F92112360BF00889163 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = ../../lib/libzlib/src/crc32.c; sourceTree = SOURCE_ROOT; };
@@ -1121,13 +1121,13 @@
 			isa = PBXGroup;
 			children = (
 				56FE6ADC111F3798005F5594 /* libbullet.a */,
-				56AF2DD711235C1400889163 /* libbullet.a */,
+				56AF2DD711235C1400889163 /* libjpeg.a */,
 				C2A88A8411077ADC00CA7BAF /* liblua.a */,
-				56AF2E7411235E1400889163 /* libbullet.a */,
-				56AF2E8E11235FA200889163 /* libbullet.a */,
-				56AF2ECE11235FF400889163 /* libbullet.a */,
-				56AF2F111123604200889163 /* libbullet.a */,
-				56AF2F841123607600889163 /* libbullet.a */,
+				56AF2E7411235E1400889163 /* libogg.a */,
+				56AF2E8E11235FA200889163 /* libpng.a */,
+				56AF2ECE11235FF400889163 /* libtheora.a */,
+				56AF2F111123604200889163 /* libvorbis.a */,
+				56AF2F841123607600889163 /* libzlib.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1490,7 +1490,7 @@
 			);
 			name = jpeg;
 			productName = bullet;
-			productReference = 56AF2DD711235C1400889163 /* libbullet.a */;
+			productReference = 56AF2DD711235C1400889163 /* libjpeg.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		56AF2E4111235E1400889163 /* ogg */ = {
@@ -1506,7 +1506,7 @@
 			);
 			name = ogg;
 			productName = bullet;
-			productReference = 56AF2E7411235E1400889163 /* libbullet.a */;
+			productReference = 56AF2E7411235E1400889163 /* libogg.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		56AF2E8611235FA200889163 /* png */ = {
@@ -1522,7 +1522,7 @@
 			);
 			name = png;
 			productName = bullet;
-			productReference = 56AF2E8E11235FA200889163 /* libbullet.a */;
+			productReference = 56AF2E8E11235FA200889163 /* libpng.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		56AF2EB711235FF400889163 /* theora */ = {
@@ -1538,7 +1538,7 @@
 			);
 			name = theora;
 			productName = bullet;
-			productReference = 56AF2ECE11235FF400889163 /* libbullet.a */;
+			productReference = 56AF2ECE11235FF400889163 /* libtheora.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		56AF2EFE1123604200889163 /* vorbis */ = {
@@ -1554,7 +1554,7 @@
 			);
 			name = vorbis;
 			productName = bullet;
-			productReference = 56AF2F111123604200889163 /* libbullet.a */;
+			productReference = 56AF2F111123604200889163 /* libvorbis.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		56AF2F5A1123607600889163 /* zlib */ = {
@@ -1570,7 +1570,7 @@
 			);
 			name = zlib;
 			productName = bullet;
-			productReference = 56AF2F841123607600889163 /* libbullet.a */;
+			productReference = 56AF2F841123607600889163 /* libzlib.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		56FE6ADB111F3798005F5594 /* bullet */ = {
@@ -1971,7 +1971,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
-				PRODUCT_NAME = bullet;
+				PRODUCT_NAME = jpeg;
 				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
@@ -1998,7 +1998,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
-				PRODUCT_NAME = bullet;
+				PRODUCT_NAME = ogg;
 				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
@@ -2025,7 +2025,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
-				PRODUCT_NAME = bullet;
+				PRODUCT_NAME = png;
 				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
@@ -2052,7 +2052,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
-				PRODUCT_NAME = bullet;
+				PRODUCT_NAME = theora;
 				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
@@ -2079,7 +2079,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
-				PRODUCT_NAME = bullet;
+				PRODUCT_NAME = vorbis;
 				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
@@ -2106,7 +2106,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PREBINDING = NO;
-				PRODUCT_NAME = bullet;
+				PRODUCT_NAME = zlib;
 				SYMROOT = ../../lib/libbullet/bin;
 				ZERO_LINK = NO;
 			};
