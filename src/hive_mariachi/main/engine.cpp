@@ -766,30 +766,30 @@ void Engine::removePaths(std::vector<std::string *> &pathsList) {
 std::string Engine::getAbsolutePath(const std::string &relativePath) {
     // retrieves the paths list iterator
     std::list<std::string>::iterator pathsListIterator = this->pathsList.begin();
-	
+
     // allocates space for the absolute path
     std::string absolutePath;
-	
+
     // iterates over all the paths on the path list
     while(pathsListIterator != this->pathsList.end()) {
         // retrieves the current path
         const std::string &path = *pathsListIterator;
-		
+
         // creates the absolute path
         absolutePath = path + "/" + relativePath;
-		
+
         // in case the file exists
         if(FILE_EXISTS(absolutePath.c_str())) {
-			// returns the absolute path
-			return absolutePath;
+            // returns the absolute path
+            return absolutePath;
         }
-		
+
         // increments the paths list iterator
         pathsListIterator++;
     }
-	
+
     // throws a runtime exception indicating the no absolute path was found
-	throw RuntimeException("Absolute path not found for relative path: " + relativePath); 
+    throw RuntimeException("Absolute path not found for relative path: " + relativePath);
 }
 /**
 * Adds a main thread stage to the stages list.
