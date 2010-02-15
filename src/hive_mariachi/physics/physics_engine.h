@@ -39,8 +39,16 @@ namespace mariachi {
             private:
 
             protected:
+				/**
+				The current game engine.
+				*/
                 Engine *engine;
+
+				/**
+				* The current gravity in the simulated physics world.
+				*/
                 structures::Coordinate3d_t gravity;
+
                 /**
                 The configured physics rate.
                 */
@@ -53,6 +61,7 @@ namespace mariachi {
                 virtual void load(void *arguments) {};
                 virtual void unload(void *arguments) {};
                 virtual void update(float delta, void *arguments) {};
+				virtual void update(float delta) {};
                 virtual std::vector<structures::Collision3d_t> getCollisions(void *arguments) { return std::vector<structures::Collision3d_t>(); };
                 virtual void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments) {};
                 virtual void registerCollision(nodes::CollisionNode *collisionNode, void *arguments) {};
