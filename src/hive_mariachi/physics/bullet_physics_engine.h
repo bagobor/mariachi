@@ -81,7 +81,7 @@ namespace mariachi {
                 BulletPhysicsEngine();
                 BulletPhysicsEngine(Engine *engine);
                 ~BulletPhysicsEngine();
-				inline void initPhysicsRate();
+                inline void initPhysicsRate();
                 void load(void *arguments);
                 void unload(void *arguments);
                 void update(float delta, void *arguments);
@@ -95,8 +95,6 @@ namespace mariachi {
                 void addPhysicalNodeImpulse(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &impulse, const structures::Coordinate3d_t &relativePosition);
                 void setPhysicalNodeVelocity(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &velocity);
                 void setGravity(const structures::Coordinate3d_t &gravity);
-				float getPhysicsRate();
-				void setPhysicsRate(float physicsRate);
         };
     }
 }

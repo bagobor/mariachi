@@ -35,19 +35,19 @@ using namespace mariachi::physics;
 using namespace mariachi::structures;
 
 BulletPhysicsEngine::BulletPhysicsEngine() : PhysicsEngine() {
-	this->initPhysicsRate();
+    this->initPhysicsRate();
 }
 
 BulletPhysicsEngine::BulletPhysicsEngine(Engine *engine) : PhysicsEngine(engine) {
-	this->initPhysicsRate();
+    this->initPhysicsRate();
 }
 
 BulletPhysicsEngine::~BulletPhysicsEngine() {
 }
 
 inline void BulletPhysicsEngine::initPhysicsRate() {
-	this->physicsRate = BULLET_DEFAULT_PHYSICS_RATE;
-}	
+    this->physicsRate = BULLET_DEFAULT_PHYSICS_RATE;
+}
 
 void BulletPhysicsEngine::load(void *arguments) {
     // creates the collision configuration (contains default setup for memory collision setup)
@@ -375,12 +375,4 @@ void BulletPhysicsEngine::setGravity(const Coordinate3d_t &gravity) {
 
     // sets the gravity in the dynamic world
     this->dynamicsWorld->setGravity(gravityVector);
-}
-
-float BulletPhysicsEngine::getPhysicsRate() {
-	return this->physicsRate;
-}
-
-void BulletPhysicsEngine::setPhysicsRate(float physicsRate) {
-	this->physicsRate = physicsRate;
 }
