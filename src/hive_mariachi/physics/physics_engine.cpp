@@ -45,11 +45,3 @@ PhysicsEngine::PhysicsEngine(Engine *engine) {
 */
 PhysicsEngine::~PhysicsEngine() {
 }
-
-Engine *PhysicsEngine::getEngine() {
-    return this->engine;
-}
-
-void PhysicsEngine::setEngine(Engine *engine) {
-    this->engine = engine;
-}
