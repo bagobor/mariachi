@@ -41,6 +41,10 @@ namespace mariachi {
             protected:
                 Engine *engine;
                 structures::Coordinate3d_t gravity;
+				/**
+				The configured physics rate.
+				*/
+				float physicsRate;
 
             public:
                 PhysicsEngine();
@@ -60,8 +64,11 @@ namespace mariachi {
                 virtual void setPhysicalNodeVelocity(nodes::PhysicalNode *physicalNode, const structures::Coordinate3d_t &velocity) {};
                 virtual const structures::Coordinate3d_t &getGravity() { return this->gravity; };
                 virtual void setGravity(const structures::Coordinate3d_t &gravity) { };
+				virtual float getPhysicsRate();
+				virtual void setPhysicsRate(float physicsRate);
                 Engine *getEngine();
                 void setEngine(Engine *engine);
+
         };
     }
 }
