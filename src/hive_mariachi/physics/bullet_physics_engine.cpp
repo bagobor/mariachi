@@ -46,7 +46,11 @@ BulletPhysicsEngine::~BulletPhysicsEngine() {
 }
 
 inline void BulletPhysicsEngine::initPhysicsRate() {
+	// initializes the physics rate
     this->physicsRate = BULLET_DEFAULT_PHYSICS_RATE;
+
+	// initializes the underlying sub steps parameter
+	this->maximumSubSteps = BULLET_DEFAULT_MAXIMUM_SUB_STEPS;
 }
 
 void BulletPhysicsEngine::load(void *arguments) {
@@ -108,8 +112,7 @@ void BulletPhysicsEngine::unload(void *arguments) {
 }
 
 void BulletPhysicsEngine::update(float delta, void *arguments) {
-    // the default number of sub steps (complexity)
-    int maximumSubSteps = 1;
+	int maximumSubSteps = this->maximumSubSteps;
 
     // in case the arguments are valid
     if(arguments) {
@@ -121,7 +124,12 @@ void BulletPhysicsEngine::update(float delta, void *arguments) {
     }
 
     // runs a simulation step
-    this->dynamicsWorld->stepSimulation(delta, maximumSubSteps);
+    this->dynamicsWorld->stepSimulation(delta, this->maximumSubSteps, this->physicsRate);
+}
+
+void BulletPhysicsEngine::update(float delta) {
+    // runs a simulation step
+    this->dynamicsWorld->stepSimulation(delta, this->maximumSubSteps, this->physicsRate);
 }
 
 std::vector<Collision3d_t> BulletPhysicsEngine::getCollisions(void *arguments) {
