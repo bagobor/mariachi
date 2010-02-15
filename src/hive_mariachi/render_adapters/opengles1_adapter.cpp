@@ -141,13 +141,13 @@ void Opengles1Adapter::display() {
 
     // clears all pixels
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	// setups the display
-	this->setupDisplay3d();
 
-	if(gCameraNode) {
-		this->renderCameraNode(gCameraNode);
-	}
+    // setups the display
+    this->setupDisplay3d();
+
+    if(gCameraNode) {
+        this->renderCameraNode(gCameraNode);
+    }
 
     // waits for the render information mutex
     MUTEX_LOCK(this->renderInformation->getMutex());
@@ -268,34 +268,34 @@ void Opengles1Adapter::resizeScene(int windowWidth, int windowHeight) {
         // sets the window height to one
         windowHeight = 1;
     }
-	
+
     // resets the current viewport and perspective transformation
     glViewport(0, 0, windowWidth, windowHeight);
-	
+
     // sets the window size
     this->windowSize.width = windowWidth;
     this->windowSize.height = windowHeight;
-	
+
     // sets the window aspect ratio
     this->windowAspectRatio = (float) this->windowSize.width / (float) this->windowSize.height;
-	
+
     // calculates the width and height ration
     this->widthRatio = windowWidth / REFERENCE_WIDTH_2D;
     this->heightRatio = windowHeight / REFERENCE_HEIGHT_2D;
-	
+
     // retrieves the lowest ratio of the both
     this->lowestRatio = this->widthRatio < this->heightRatio ? this->widthRatio : this->heightRatio;
-	
+
     // retrieves the highest ratio of the both
     this->highestRatio = this->widthRatio > this->heightRatio ? this->widthRatio : this->heightRatio;
-	
+
     // calculates the best ratio of the both
     this->bestRatio = this->highestRatio >  REFERENCE_WIDTH_2D ? REFERENCE_WIDTH_2D : this->highestRatio;
-	
+
     this->lowestWidthRevertRatio = this->widthRatio / this->lowestRatio;
-	
+
     this->lowestHeightRevertRatio = this->heightRatio / this->lowestRatio;
-	
+
 }
 
 void Opengles1Adapter::keyPressed(unsigned char key, int x, int y) {
@@ -385,16 +385,16 @@ inline void Opengles1Adapter::updateFrameRate() {
 inline void Opengles1Adapter::setupDisplay3d() {
     // sets the matrix mode to projection
     glMatrixMode(GL_PROJECTION);
-	
+
     // loads the identity matrix
     glLoadIdentity();
-	
+
     // recalculates the glu perspective
     gluPerspective(45.0, this->windowAspectRatio, 0.3, 1000.0);
-	
+
     // sets the matrix mode to model view
     glMatrixMode(GL_MODELVIEW);
-	
+
     // resets the view
     glLoadIdentity();
 }
@@ -402,13 +402,13 @@ inline void Opengles1Adapter::setupDisplay3d() {
 inline void Opengles1Adapter::renderCameraNode(CameraNode *cameraNode) {
     // retrieves the position
     Coordinate3d_t &position = cameraNode->getPosition();
-	
+
     // retrieves the rotation
     Rotation3d_t &rotation = cameraNode->getRotation();
-	
+
     // performs the rotation to match the elements orientation
     glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
-	
+
     // moves into the screen
     glTranslatef(-position.x, -position.y, -position.z);
 }

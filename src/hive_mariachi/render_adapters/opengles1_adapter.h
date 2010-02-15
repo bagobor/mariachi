@@ -43,21 +43,21 @@ namespace mariachi {
         class Opengles1Adapter : public OpenglesAdapter {
             private:
                 render_utils::OpenglesWindow *window;
-				structures::IntSize2d_t windowSize;
-				float windowAspectRatio;
-				float widthRatio;
-				float heightRatio;
-				float lowestRatio;
-				float highestRatio;
-				float bestRatio;
-				float lowestWidthRevertRatio;
-				float lowestHeightRevertRatio;
+                structures::IntSize2d_t windowSize;
+                float windowAspectRatio;
+                float widthRatio;
+                float heightRatio;
+                float lowestRatio;
+                float highestRatio;
+                float bestRatio;
+                float lowestWidthRevertRatio;
+                float lowestHeightRevertRatio;
                 std::map<structures::Texture *, int> textureTextureIdMap;
 
                 inline time_t clockSeconds();
                 inline void updateFrameRate();
                 inline void setupDisplay3d();
-				inline void renderCameraNode(nodes::CameraNode *cameraNode);
+                inline void renderCameraNode(nodes::CameraNode *cameraNode);
 
             public:
                 Opengles1Adapter();
