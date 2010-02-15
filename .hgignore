@@ -5,6 +5,7 @@ syntax: regexp
 ^bin/
 
 # ignores lib binaries
+^lib/libal/bin/
 ^lib/libbullet/bin/
 ^lib/libjpeg/bin/
 ^lib/liblua/bin/

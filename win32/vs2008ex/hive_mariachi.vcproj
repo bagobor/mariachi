@@ -859,6 +859,10 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Sound"
+				>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1874,6 +1878,14 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\console\console_manager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sound"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound\sound.h"
 					>
 				</File>
 			</Filter>

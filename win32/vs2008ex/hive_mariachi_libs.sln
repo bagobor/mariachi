@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib_jpeg", "lib_jpeg.vcproj
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib_theora", "lib_theora.vcproj", "{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib_al", "lib_al.vcproj", "{75AAB39C-A23A-477F-918F-8ED541349DCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug (Dynamic)|Win32 = Debug (Dynamic)|Win32
@@ -89,6 +91,14 @@ Global
 		{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}.Release (Dynamic)|Win32.Build.0 = Release (Dynamic)|Win32
 		{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}.Release|Win32.ActiveCfg = Release|Win32
 		{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}.Release|Win32.Build.0 = Release|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug (Dynamic)|Win32.ActiveCfg = Debug|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug (Dynamic)|Win32.Build.0 = Debug|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug|Win32.Build.0 = Debug|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release (Dynamic)|Win32.ActiveCfg = Release|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release (Dynamic)|Win32.Build.0 = Release|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release|Win32.ActiveCfg = Release|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
