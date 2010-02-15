@@ -31,7 +31,9 @@
 
 #include "physics_engine.h"
 
-#define BULLET_DEFAULT_PHYSICS_RATE 1.0f / 25.0f
+#define BULLET_DEFAULT_PHYSICS_RATE 1.0f / 15.0f
+
+#define BULLET_DEFAULT_MAXIMUM_SUB_STEPS 4
 
 namespace mariachi {
     namespace physics {
@@ -74,6 +76,11 @@ namespace mariachi {
                 */
                 std::map<btRigidBody *, nodes::PhysicalNode *> rigidBodyPhysicalNodeMap;
 
+				/**
+				* The maximum sub steps allowed until full physics calculation, regulates interpolation in the bullet engine.
+				*/
+				int maximumSubSteps;
+
                 btRigidBody *getRigidBody(nodes::PhysicalNode *physicalNode, nodes::CollisionNode *collisionNode, void *arguments);
                 void setRigidBodyCollisionFlags(btRigidBody *rigidBody, nodes::CollisionNode *collisionNode);
 
@@ -85,6 +92,7 @@ namespace mariachi {
                 void load(void *arguments);
                 void unload(void *arguments);
                 void update(float delta, void *arguments);
+				void update(float delta);
                 std::vector<structures::Collision3d_t> getCollisions(void *arguments);
                 void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments);
                 void registerCollision(nodes::CollisionNode *collisionNode, void *arguments);
