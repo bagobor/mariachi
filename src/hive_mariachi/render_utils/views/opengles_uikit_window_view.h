@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Hive Mariachi Engine. If not, see <http://www.gnu.org/licenses/>.
 
-// __author__    = João Magalhães <joamag@hive.pt>
+// __author__    = João Magalhães <joamag@hive.pt> & Luís Martinho <lmartinho@hive.pt>
 // __version__   = 1.0.0
 // __revision__  = $LastChangedRevision$
 // __date__      = $LastChangedDate$
@@ -30,6 +30,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "renders/opengles_uikit_renderer.h"
+#import "../../mariachi.h"
+
+#define DEFAULT_TOUCH_LIST_SIZE 1000
 
 /**
  * Wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -78,7 +81,9 @@
 - (void) startAnimation;
 - (void) stopAnimation;
 - (void) drawView:(id)sender;
-
+- (void) wrapTouches:(NSSet *)touches touchPositions:(mariachi::devices::Touch_t *)touchPositions;
+- (mariachi::devices::TouchType_t) getTouchType:(UITouchPhase)touchPhase;
+ 
 @end
 
 #endif
