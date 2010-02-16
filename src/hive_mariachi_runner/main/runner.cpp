@@ -28,6 +28,9 @@
 using namespace mariachi;
 using namespace mariachi::exceptions;
 
+// @todo: remove this
+Engine *globalEngine;
+
 /**
 * The main entry point of the program.
 *
