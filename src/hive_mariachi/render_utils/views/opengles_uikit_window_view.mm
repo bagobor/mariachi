@@ -168,6 +168,24 @@ extern Engine *globalEngine;
     [super dealloc];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	// retrieves the engine
+	Engine *engine = (Engine *) globalEngine; //[self engine];
+	
+	// retrieves the multi touch device
+	MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+	
+	// wraps the touches in mariachi touch structures
+	Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
+	
+	[self wrapTouches:touches touchList:touchList];
+	
+	unsigned int numberTouches = [touches count];
+	
+	// adds the multi touch event to the multi touch
+	multiTouch->addTouchesMovedEvent(touchList, numberTouches);
+}
+
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 	// retrieves the engine
 	Engine *engine = (Engine *) globalEngine; //[self engine];
@@ -185,6 +203,25 @@ extern Engine *globalEngine;
 	// adds the multi touch event to the multi touch
 	multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	// retrieves the engine
+	Engine *engine = (Engine *) globalEngine; //[self engine];
+	
+	// retrieves the multi touch device
+	MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+	
+	// wraps the touches in mariachi touch structures
+	Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
+	
+	[self wrapTouches:touches touchList:touchList];
+	
+	unsigned int numberTouches = [touches count];
+	
+	// adds the multi touch event to the multi touch
+	multiTouch->addTouchesMovedEvent(touchList, numberTouches);
+}
+
 
 - (void) wrapTouches:(NSSet *)touches touchList:(Touch_t *)touchList {
 	// retrieves all the touch objects from the set 
