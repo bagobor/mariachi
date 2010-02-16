@@ -432,12 +432,18 @@ void Engine::startInputDevices() {
 
     // creates a new mouse
     Mouse *mouse = new Mouse();
+	
+    // creates a new multi touch
+    MultiTouch *multiTouch = new MultiTouch();
 
     // sets the keyboard in the devices registry
     this->setDevice("keyboard", keyboard);
 
     // sets the mouse in the devices registry
     this->setDevice("mouse", mouse);
+
+	// sets the multi touch in the devices registry
+	this->setDevice("multi_touch", multiTouch);
 }
 
 /**

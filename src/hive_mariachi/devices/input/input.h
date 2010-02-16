@@ -29,3 +29,4 @@
 #include "input_device.h"
 #include "keyboard.h"
 #include "mouse.h"
+#include "multi_touch.h"

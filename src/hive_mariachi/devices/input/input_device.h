@@ -38,7 +38,8 @@ namespace mariachi {
         typedef enum BasicInputEventType_t {
             KEYBOARD = 1,
             MOUSE,
-            GAMEPAD
+            GAMEPAD,
+			MULTI_TOUCH
         } BasicInputEventType;
 
         class InputDevice : public Device, public patterns::Observable {

@@ -390,6 +390,8 @@
 		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
 		569F8EC511233DCE0046739E /* libbullet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC411233DCE0046739E /* libbullet.a */; };
 		569F8EC711233DCE0046739E /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC611233DCE0046739E /* liblua.a */; };
+		56AEED88112B33C200DFD01F /* multi_touch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56AEED86112B33C200DFD01F /* multi_touch.cpp */; };
+		56AEED89112B33C200DFD01F /* multi_touch.h in Headers */ = {isa = PBXBuildFile; fileRef = 56AEED87112B33C200DFD01F /* multi_touch.h */; };
 		56AF33901123709100889163 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF338F1123709100889163 /* libjpeg.a */; };
 		56AF3392112370A300889163 /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3391112370A300889163 /* libogg.a */; };
 		56AF3394112370B400889163 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56AF3393112370B400889163 /* libpng.a */; };
@@ -883,6 +885,8 @@
 		561ED28E1121EB67006F53EA /* iphone_application_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = iphone_application_util.h; sourceTree = "<group>"; };
 		569F8EC411233DCE0046739E /* libbullet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbullet.a; sourceTree = "<absolute>"; };
 		569F8EC611233DCE0046739E /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<absolute>"; };
+		56AEED86112B33C200DFD01F /* multi_touch.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = multi_touch.cpp; sourceTree = "<group>"; };
+		56AEED87112B33C200DFD01F /* multi_touch.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = multi_touch.h; sourceTree = "<group>"; };
 		56AF338F1123709100889163 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<absolute>"; };
 		56AF3391112370A300889163 /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libogg.a; sourceTree = "<absolute>"; };
 		56AF3393112370B400889163 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<absolute>"; };
@@ -1211,6 +1215,8 @@
 		561ECF9A1121EB3F006F53EA /* input */ = {
 			isa = PBXGroup;
 			children = (
+				56AEED86112B33C200DFD01F /* multi_touch.cpp */,
+				56AEED87112B33C200DFD01F /* multi_touch.h */,
 				561ECF9B1121EB3F006F53EA /* keyboard.h */,
 				561ECF9C1121EB3F006F53EA /* mouse.cpp */,
 				561ECF9D1121EB3F006F53EA /* gamepad.h */,
@@ -2111,6 +2117,7 @@
 				561ED2151121EB40006F53EA /* string_util.h in Headers */,
 				561ED2161121EB40006F53EA /* util.h in Headers */,
 				561ED2171121EB40006F53EA /* byte_util.h in Headers */,
+				56AEED89112B33C200DFD01F /* multi_touch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2335,6 +2342,7 @@
 				561ED2121121EB40006F53EA /* bit_util.cpp in Sources */,
 				561ED2141121EB40006F53EA /* geometry_util.cpp in Sources */,
 				56E18D8011247B4400FA5148 /* iphone_application_util.mm in Sources */,
+				56AEED88112B33C200DFD01F /* multi_touch.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
