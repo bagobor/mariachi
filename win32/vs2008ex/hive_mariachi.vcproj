@@ -863,6 +863,18 @@
 				Name="Sound"
 				>
 			</Filter>
+			<Filter
+				Name="Sound Adapters"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_adapters\openal_adapter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_adapters\sound_adapter.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1886,6 +1898,22 @@
 				>
 				<File
 					RelativePath="..\..\src\hive_mariachi\sound\sound.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sound Adapters"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_adapters\openal_adapter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_adapters\sound_adapter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_adapters\sound_adapters.h"
 					>
 				</File>
 			</Filter>
