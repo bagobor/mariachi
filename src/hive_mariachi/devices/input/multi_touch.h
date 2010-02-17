@@ -34,45 +34,45 @@
 #define MAX_EVENT_TOUCHES 256
 
 namespace mariachi {
-    namespace devices {		
-		typedef enum TouchType_t {
-			TOUCH_BEGAN_TYPE = 1,
-			TOUCH_MOVED_TYPE,
-			TOUCH_STATIONARY_TYPE,
-			TOUCH_ENDED_TYPE,
-			TOUCH_CANCELLED_TYPE
-		} TouchType;
+    namespace devices {
+        typedef enum TouchType_t {
+            TOUCH_BEGAN_TYPE = 1,
+            TOUCH_MOVED_TYPE,
+            TOUCH_STATIONARY_TYPE,
+            TOUCH_ENDED_TYPE,
+            TOUCH_CANCELLED_TYPE
+        } TouchType;
 
         typedef struct TouchPosition_t {
             unsigned short touchPositionX;
             unsigned short touchPositionY;
         } TouchPosition;
 
-		typedef struct Touch_t {
-			TouchType_t touchType;
-			TouchPosition_t position;
-		} Touch;
+        typedef struct Touch_t {
+            TouchType_t touchType;
+            TouchPosition_t position;
+        } Touch;
 
         typedef struct MultiTouchEvent_t {
-			Touch_t *touches;
-			unsigned int numberTouches;
+            Touch_t *touches;
+            unsigned int numberTouches;
         } MultiTouchEvent;
 
         class MultiTouch : public InputDevice {
             private:
-				/**
-				* The buffer of multi touch events.
-				*/
+                /**
+                * The buffer of multi touch events.
+                */
                 MultiTouchEvent_t *multiTouchEventBuffer;
 
-				/**
-				* The size of the events buffer.
-				*/
+                /**
+                * The size of the events buffer.
+                */
                 unsigned int multiTouchEventBufferSize;
 
-				/**
-				* The current position in the event buffer.
-				*/
+                /**
+                * The current position in the event buffer.
+                */
                 unsigned int multiTouchEventBufferPosition;
 
                 /**
@@ -88,7 +88,7 @@ namespace mariachi {
                 inline void initTouchesMovedCapture();
                 inline MultiTouchEvent_t *getMultiTouchEvent();
                 virtual void clearInputEventQueue();
-				void addTouchesMovedEvent(Touch_t *touches, const unsigned int numberTouches);
+                void addTouchesMovedEvent(Touch_t *touches, const unsigned int numberTouches);
                 void startTouchesMovedCapture();
                 void stopTouchesMovedCapture();
                 bool getTouchesMovedCapture();

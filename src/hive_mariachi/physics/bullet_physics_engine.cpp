@@ -46,11 +46,11 @@ BulletPhysicsEngine::~BulletPhysicsEngine() {
 }
 
 inline void BulletPhysicsEngine::initPhysicsRate() {
-	// initializes the physics rate
+    // initializes the physics rate
     this->physicsRate = BULLET_DEFAULT_PHYSICS_RATE;
 
-	// initializes the underlying sub steps parameter
-	this->maximumSubSteps = BULLET_DEFAULT_MAXIMUM_SUB_STEPS;
+    // initializes the underlying sub steps parameter
+    this->maximumSubSteps = BULLET_DEFAULT_MAXIMUM_SUB_STEPS;
 }
 
 void BulletPhysicsEngine::load(void *arguments) {
@@ -112,7 +112,7 @@ void BulletPhysicsEngine::unload(void *arguments) {
 }
 
 void BulletPhysicsEngine::update(float delta, void *arguments) {
-	int maximumSubSteps = this->maximumSubSteps;
+    int maximumSubSteps = this->maximumSubSteps;
 
     // in case the arguments are valid
     if(arguments) {

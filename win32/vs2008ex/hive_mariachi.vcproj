@@ -529,6 +529,10 @@
 						RelativePath="..\..\src\hive_mariachi\devices\input\mouse.cpp"
 						>
 					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\devices\input\multi_touch.cpp"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Output"
@@ -1393,6 +1397,10 @@
 					</File>
 					<File
 						RelativePath="..\..\src\hive_mariachi\devices\input\mouse.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\hive_mariachi\devices\input\multi_touch.h"
 						>
 					</File>
 				</Filter>
