@@ -65,6 +65,9 @@ THREAD_RETURN mariachi::mainRunnerThread(THREAD_ARGUMENTS parameters) {
     Engine *engine = (Engine *) parameters;
 
     try {
+        // starts the fifos in the egine
+        engine->startFifos();
+
         // start the path list in the engine
         engine->startPathsList();
 
@@ -214,8 +217,8 @@ void Engine::start(void *arguments) {
     // creates the task list mutex
     MUTEX_CREATE(this->taskListMutex);
 
-    // creates the task list ready condition
-    CONDITION_CREATE(this->taskListReadyCondition);
+    // creates the task list ready event
+    EVENT_CREATE(this->taskListReadyEvent);
 
     // allocates space for the thread id
     THREAD_IDENTIFIER threadId;
@@ -238,12 +241,15 @@ void Engine::start(void *arguments) {
             currentTask->start(NULL);
         }
 
-        // waits for the task list ready condition
-        CONDITION_WAIT(this->taskListReadyCondition);
+        // waits for the task list ready event
+        EVENT_WAIT(this->taskListReadyEvent);
 
-        // resets the condition
-        CONDITION_RESET(this->taskListReadyCondition);
+        // resets the event
+        EVENT_RESET(this->taskListReadyEvent);
     }
+
+    // closes the task list ready event
+    EVENT_CLOSE(this->taskListReadyEvent);
 }
 
 /**
@@ -255,8 +261,8 @@ void Engine::stop(void *arguments) {
     // unsets the running flag
     this->runningFlag = false;
 
-    // signals the task list ready condition (to unblock the thread)
-    CONDITION_SIGNAL(this->taskListReadyCondition);
+    // signals the task list ready event (to unblock the thread)
+    EVENT_SIGNAL(this->taskListReadyEvent);
 }
 
 /**
@@ -307,6 +313,18 @@ void Engine::handleException(Exception *exception) {
         std::cerr << "[Exception]: " + exception->getMessage();
     }
 }
+
+
+
+
+
+void Engine::startFifos() {
+    this->fifo = new Fifo<bool>();
+}
+
+
+
+
 
 /**
 * Starts the paths list manager in the engine.
@@ -629,56 +647,69 @@ void Engine::startRunLoop() {
     // iterates while the running flag is active
     while(this->runningFlag) {
 #ifdef MARIACHI_PLATFORM_WIN32
-		SLEEP(30);
+        SLEEP(30);
 #else
-		// allocates the update start time struct
-		timeval updateStartTime;
-		
-		// allocates the update end time struct
-		timeval updateEndTime;
+        // allocates the update start time struct
+        timeval updateStartTime;
 
-		// retrieves the update start time
-		gettimeofday(&updateStartTime, NULL); 
-		
-		// updates the engine state
-		this->update();
-			
-		// retrieves the update end time
-		gettimeofday(&updateEndTime, NULL);
-		
-		// retrieves the elapsed update time
-		long long elapsedTimeMicroSeconds = (updateEndTime.tv_usec + 1000000 * updateEndTime.tv_sec) - (updateStartTime.tv_usec + 1000000 * updateStartTime.tv_sec);
-		
-		// initializes average elapsed time
-		if(engineUpdateAverageElapsedTimeMicroSeconds == NULL) {
-			engineUpdateAverageElapsedTimeMicroSeconds = elapsedTimeMicroSeconds;
-		}
+        // allocates the update end time struct
+        timeval updateEndTime;
 
-		// adds the elapsed time for the current update to the total
-		engineUpdateTotalElapsedTimeMicroSeconds += elapsedTimeMicroSeconds;
-		
-		// increments the update counter
-		engineUpdateCounter += 1;
-		
-		// in case the sample size has been reached
-		if(engineUpdateCounter == SAMPLE_SIZE) {
-			engineUpdateAverageElapsedTimeMicroSeconds = engineUpdateTotalElapsedTimeMicroSeconds / SAMPLE_SIZE;
-			engineUpdateCounter = 0;
-		}
-		
-		// retrieves the missing value for the target frame rate
-		long long missingTime = (1 / TARGET_FRAME_RATE * 1000000) - engineUpdateAverageElapsedTimeMicroSeconds;
-		
-		// in case the current frame rate is not adjusted to the computation time
-		if(missingTime < 0) {
-			missingTime = 0;
-		}
+        // retrieves the update start time
+        gettimeofday(&updateStartTime, NULL);
 
-		printf("elapsed: %d us\n", elapsedTimeMicroSeconds);
-		printf("sleeping: %d us\n", missingTime);
+        CRITICAL_SECTION_ENTER(this->fifo->queueCriticalSection);
+
+        while(this->fifo->queue.size() == this->fifo->size || this->fifo->stopFlag) {
+            CONDITION_WAIT(this->fifo->notFullCondition, this->fifo->queueCriticalSection);
+        }
+
+        printf("render logico");
+        this->update();
+
+        this->fifo->queue.push_back(true);
+
+        CRITICAL_SECTION_LEAVE(this->fifo->queueCriticalSection);
+
+        CONDITION_SIGNAL(this->fifo->notEmptyCondition);
+
+        // retrieves the update end time
+        gettimeofday(&updateEndTime, NULL);
+
+        // retrieves the elapsed update time
+        long long elapsedTimeMicroSeconds = (updateEndTime.tv_usec + 1000000 * updateEndTime.tv_sec) - (updateStartTime.tv_usec + 1000000 * updateStartTime.tv_sec);
+
+        // initializes average elapsed time
+        if(engineUpdateAverageElapsedTimeMicroSeconds == NULL) {
+            engineUpdateAverageElapsedTimeMicroSeconds = elapsedTimeMicroSeconds;
+        }
+
+        // adds the elapsed time for the current update to the total
+        engineUpdateTotalElapsedTimeMicroSeconds += elapsedTimeMicroSeconds;
+
+        // increments the update counter
+        engineUpdateCounter += 1;
+
+        // in case the sample size has been reached
+        if(engineUpdateCounter == SAMPLE_SIZE) {
+            engineUpdateAverageElapsedTimeMicroSeconds = engineUpdateTotalElapsedTimeMicroSeconds / SAMPLE_SIZE;
+            engineUpdateTotalElapsedTimeMicroSeconds = 0;
+            engineUpdateCounter = 0;
+        }
+
+        // retrieves the missing value for the target frame rate
+        long long missingTime = (1 / TARGET_FRAME_RATE * 1000000) - elapsedTimeMicroSeconds;
+
+        // in case the current frame rate is not adjusted to the computation time
+        if(missingTime < 0) {
+            missingTime = 0;
+        }
+
+        printf("elapsed: %d us\n", elapsedTimeMicroSeconds);
+        printf("sleeping: %d us\n", missingTime);
 
         // @todo change this hardcoded sleep
-		// sleeps to fill the missing time for the target frame rate
+        // sleeps to fill the missing time for the target frame rate
         SLEEP(missingTime / 1000);
 #endif
     }
@@ -908,8 +939,8 @@ void Engine::addTask(Task *task) {
     // adds the task to the task list
     this->taskList.push_back(task);
 
-    // signals the task list ready condition
-    CONDITION_SIGNAL(this->taskListReadyCondition);
+    // signals the task list ready event
+    EVENT_SIGNAL(this->taskListReadyEvent);
 
     // unlocks the task list mutex
     MUTEX_UNLOCK(this->taskListMutex);
