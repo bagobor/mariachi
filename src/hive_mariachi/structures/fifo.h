@@ -45,6 +45,26 @@ namespace mariachi {
                 CONDITION_HANDLE notEmptyCondition;
                 CONDITION_HANDLE notFullCondition;
 
+#ifdef MARIACHI_ASSYNC_PARALLEL_PROCESSING
+                Fifo() { };
+                Fifo(unsigned int size) { };
+
+                inline void signal(T value) {
+                    this->queue.push_back(value);
+                }
+
+                inline T wait() {
+                    // retrieves the front value
+                    T frontValue = this->queue.front();
+
+                    // pops the first value in the queue
+                    this->queue.pop_front();
+
+                    // returns the front value
+                    return frontValue;
+                }
+#endif
+#ifdef MARIACHI_SYNC_PARALLEL_PROCESSING
                 /**
                 * Constructor of the class.
                 */
@@ -73,24 +93,30 @@ namespace mariachi {
                 }
 
                 inline void signal(T value) {
+                    // enters the queue critical section
                     CRITICAL_SECTION_ENTER(this->queueCriticalSection);
 
-                    while(this->queue.size() == this->size || this->stopFlag) {
+                    // iterates while the queue is full and the stop flag is not active
+                    while(this->queue.size() == this->size && !this->stopFlag) {
                         CONDITION_WAIT(this->notFullCondition, this->queueCriticalSection);
                     }
 
+                    // adds the value to the queue
                     this->queue.push_back(value);
 
+                    // leaves the queue critical section
                     CRITICAL_SECTION_LEAVE(this->queueCriticalSection);
 
+                    // signals the not empty condition
                     CONDITION_SIGNAL(this->notEmptyCondition);
                 }
 
                 inline T wait() {
+                    // enters the queue critical section
                     CRITICAL_SECTION_ENTER(this->queueCriticalSection);
 
-                    // in case the queue is empty (waits or the signal)
-                    if(this->queue.empty()) {
+                    // iterates while the queue is empty and the stop flag is not active
+                    while(this->queue.empty() && !this->stopFlag) {
                         CONDITION_WAIT(this->notEmptyCondition, this->queueCriticalSection);
                     }
 
@@ -100,14 +126,16 @@ namespace mariachi {
                     // pops the first value in the queue
                     this->queue.pop_front();
 
+                    // leaves the queue critical section
                     CRITICAL_SECTION_LEAVE(this->queueCriticalSection);
 
+                    // signals the not full condition
                     CONDITION_SIGNAL(this->notFullCondition);
 
                     // returns the front value
                     return frontValue;
                 }
-
+#endif
                 inline void start() {
                     this->stopFlag = false;
                 }

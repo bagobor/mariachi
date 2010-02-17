@@ -647,6 +647,8 @@ void Engine::startRunLoop() {
     // iterates while the running flag is active
     while(this->runningFlag) {
 #ifdef MARIACHI_PLATFORM_WIN32
+        this->update();
+
         SLEEP(30);
 #else
         // allocates the update start time struct
