@@ -33,6 +33,7 @@
 #include "../user_interface/user_interface.h"
 #include "../tasks/task.h"
 #include "../debugging/debugging.h"
+#include "../structures/fifo.h"
 
 #ifdef MARIACHI_PLATFORM_WIN32
 #define threadHandleStageMapPut(threadHandle, threadId, currentStage) this->threadHandleStageMap[threadHandle] = currentStage
@@ -150,9 +151,9 @@ namespace mariachi {
             MUTEX_HANDLE taskListMutex;
 
             /**
-            * The task list ready condition.
+            * The task list ready event.
             */
-            CONDITION_HANDLE taskListReadyCondition;
+            EVENT_HANDLE taskListReadyEvent;
 
             /**
             * The map associating the stage with the
@@ -215,6 +216,9 @@ namespace mariachi {
             inline void initArgs(int argc, char** argv);
 
         public:
+            structures::Fifo<bool> *fifo;
+            void startFifos();
+
             Engine();
             Engine(int argc, char** argv);
             ~Engine();

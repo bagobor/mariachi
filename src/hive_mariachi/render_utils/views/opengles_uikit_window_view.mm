@@ -86,7 +86,22 @@ extern Engine *globalEngine;
  * @param sender The sender object id.
  **/
 - (void) drawView: (id) sender {
+	// tenho de obeter o tempo actual
+	
+	// tenho de esperar por trabalho
+	globalEngine->fifo->wait();
+
+	// renders the frame
     [renderer render];
+	
+	// tenho de obter o tempo final
+	
+	// tenho de calular a diferenca
+	
+	// tenho de fazer sleep da diferenca
+	
+	// creates the animation timer for the animation (at sixty frames per second)
+	[NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval) (1.0 / 60.0) target:self selector:@selector(drawView:) userInfo:nil repeats:FALSE];
 }
 
 /**
@@ -139,10 +154,10 @@ extern Engine *globalEngine;
             displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:self selector:@selector(drawView:)];
             [displayLink setFrameInterval:animationFrameInterval];
             [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        }
-        else
-            // creates the animation timer for the animation (at sixty frames per second)
-            animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * animationFrameInterval) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
+        } else {
+			// start the animation
+			[self drawView:nil];
+		}
 
         // sets the animating flag
         animating = TRUE;
