@@ -615,17 +615,72 @@ void Engine::stopDebugEngine() {
     delete this->debugEngine;
 }
 
+#define TARGET_FRAME_RATE 60.0f
+#define SAMPLE_SIZE 60
+
+int engineUpdateCounter = 0;
+long long engineUpdateTotalElapsedTimeMicroSeconds = 0;
+long long engineUpdateAverageElapsedTimeMicroSeconds = NULL;
+
 /**
 * Starts the engine run loop (where it runs the main stages).
 */
 void Engine::startRunLoop() {
     // iterates while the running flag is active
     while(this->runningFlag) {
-        // updates the engine state
-        this->update();
+#ifdef MARIACHI_PLATFORM_WIN32
+		SLEEP(30);
+#else
+		// allocates the update start time struct
+		timeval updateStartTime;
+		
+		// allocates the update end time struct
+		timeval updateEndTime;
 
-        // @todo changes this hardcoded sleep
-        SLEEP(30);
+		// retrieves the update start time
+		gettimeofday(&updateStartTime, NULL); 
+		
+		// updates the engine state
+		this->update();
+			
+		// retrieves the update end time
+		gettimeofday(&updateEndTime, NULL);
+		
+		// retrieves the elapsed update time
+		long long elapsedTimeMicroSeconds = (updateEndTime.tv_usec + 1000000 * updateEndTime.tv_sec) - (updateStartTime.tv_usec + 1000000 * updateStartTime.tv_sec);
+		
+		// initializes average elapsed time
+		if(engineUpdateAverageElapsedTimeMicroSeconds == NULL) {
+			engineUpdateAverageElapsedTimeMicroSeconds = elapsedTimeMicroSeconds;
+		}
+
+		// adds the elapsed time for the current update to the total
+		engineUpdateTotalElapsedTimeMicroSeconds += elapsedTimeMicroSeconds;
+		
+		// increments the update counter
+		engineUpdateCounter += 1;
+		
+		// in case the sample size has been reached
+		if(engineUpdateCounter == SAMPLE_SIZE) {
+			engineUpdateAverageElapsedTimeMicroSeconds = engineUpdateTotalElapsedTimeMicroSeconds / SAMPLE_SIZE;
+			engineUpdateCounter = 0;
+		}
+		
+		// retrieves the missing value for the target frame rate
+		long long missingTime = (1 / TARGET_FRAME_RATE * 1000000) - engineUpdateAverageElapsedTimeMicroSeconds;
+		
+		// in case the current frame rate is not adjusted to the computation time
+		if(missingTime < 0) {
+			missingTime = 0;
+		}
+
+		printf("elapsed: %d us\n", elapsedTimeMicroSeconds);
+		printf("sleeping: %d us\n", missingTime);
+
+        // @todo change this hardcoded sleep
+		// sleeps to fill the missing time for the target frame rate
+        SLEEP(missingTime / 1000);
+#endif
     }
 }
 
