@@ -111,12 +111,12 @@ void MultiTouch::addTouchesMovedEvent(Touch_t *touches, const unsigned int numbe
     // retrieves the current multi touch event pointer
     MultiTouchEvent_t *multiTouchEvent = this->getMultiTouchEvent();
 
-	// adds the touches to the event
-	multiTouchEvent->touches = touches;
-	
-	// sets the number of touches of the event
-	multiTouchEvent->numberTouches = numberTouches;
-	
+    // adds the touches to the event
+    multiTouchEvent->touches = touches;
+
+    // sets the number of touches of the event
+    multiTouchEvent->numberTouches = numberTouches;
+
     // sets the multi touch event in the input device event
     inputDeviceEvent.event = multiTouchEvent;
 

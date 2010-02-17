@@ -83,7 +83,7 @@
 - (void) drawView:(id)sender;
 - (void) wrapTouches:(NSSet *)touches touchPositions:(mariachi::devices::Touch_t *)touchPositions;
 - (mariachi::devices::TouchType_t) getTouchType:(UITouchPhase)touchPhase;
- 
+
 @end
 
 #endif

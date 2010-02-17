@@ -39,7 +39,7 @@ namespace mariachi {
             KEYBOARD = 1,
             MOUSE,
             GAMEPAD,
-			MULTI_TOUCH
+            MULTI_TOUCH
         } BasicInputEventType;
 
         class InputDevice : public Device, public patterns::Observable {

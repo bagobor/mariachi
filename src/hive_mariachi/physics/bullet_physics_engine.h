@@ -76,10 +76,10 @@ namespace mariachi {
                 */
                 std::map<btRigidBody *, nodes::PhysicalNode *> rigidBodyPhysicalNodeMap;
 
-				/**
-				* The maximum sub steps allowed until full physics calculation, regulates interpolation in the bullet engine.
-				*/
-				int maximumSubSteps;
+                /**
+                * The maximum sub steps allowed until full physics calculation, regulates interpolation in the bullet engine.
+                */
+                int maximumSubSteps;
 
                 btRigidBody *getRigidBody(nodes::PhysicalNode *physicalNode, nodes::CollisionNode *collisionNode, void *arguments);
                 void setRigidBodyCollisionFlags(btRigidBody *rigidBody, nodes::CollisionNode *collisionNode);
@@ -92,7 +92,7 @@ namespace mariachi {
                 void load(void *arguments);
                 void unload(void *arguments);
                 void update(float delta, void *arguments);
-				void update(float delta);
+                void update(float delta);
                 std::vector<structures::Collision3d_t> getCollisions(void *arguments);
                 void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments);
                 void registerCollision(nodes::CollisionNode *collisionNode, void *arguments);

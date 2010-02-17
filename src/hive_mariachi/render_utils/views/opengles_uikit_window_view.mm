@@ -169,90 +169,90 @@ extern Engine *globalEngine;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	// retrieves the engine
-	Engine *engine = (Engine *) globalEngine; //[self engine];
-	
-	// retrieves the multi touch device
-	MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
-	
-	// wraps the touches in mariachi touch structures
-	Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
-	
-	[self wrapTouches:touches touchList:touchList];
-	
-	unsigned int numberTouches = [touches count];
-	
-	// adds the multi touch event to the multi touch
-	multiTouch->addTouchesMovedEvent(touchList, numberTouches);
+    // retrieves the engine
+    Engine *engine = (Engine *) globalEngine; //[self engine];
+
+    // retrieves the multi touch device
+    MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+
+    // wraps the touches in mariachi touch structures
+    Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
+
+    [self wrapTouches:touches touchList:touchList];
+
+    unsigned int numberTouches = [touches count];
+
+    // adds the multi touch event to the multi touch
+    multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	// retrieves the engine
-	Engine *engine = (Engine *) globalEngine; //[self engine];
+    // retrieves the engine
+    Engine *engine = (Engine *) globalEngine; //[self engine];
 
-	// retrieves the multi touch device
-	MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+    // retrieves the multi touch device
+    MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
 
-	// wraps the touches in mariachi touch structures
-	Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
+    // wraps the touches in mariachi touch structures
+    Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
 
-	[self wrapTouches:touches touchList:touchList];
+    [self wrapTouches:touches touchList:touchList];
 
-	unsigned int numberTouches = [touches count];
+    unsigned int numberTouches = [touches count];
 
-	// adds the multi touch event to the multi touch
-	multiTouch->addTouchesMovedEvent(touchList, numberTouches);
+    // adds the multi touch event to the multi touch
+    multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	// retrieves the engine
-	Engine *engine = (Engine *) globalEngine; //[self engine];
-	
-	// retrieves the multi touch device
-	MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
-	
-	// wraps the touches in mariachi touch structures
-	Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
-	
-	[self wrapTouches:touches touchList:touchList];
-	
-	unsigned int numberTouches = [touches count];
-	
-	// adds the multi touch event to the multi touch
-	multiTouch->addTouchesMovedEvent(touchList, numberTouches);
+    // retrieves the engine
+    Engine *engine = (Engine *) globalEngine; //[self engine];
+
+    // retrieves the multi touch device
+    MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+
+    // wraps the touches in mariachi touch structures
+    Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
+
+    [self wrapTouches:touches touchList:touchList];
+
+    unsigned int numberTouches = [touches count];
+
+    // adds the multi touch event to the multi touch
+    multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
 
 
 - (void) wrapTouches:(NSSet *)touches touchList:(Touch_t *)touchList {
-	// retrieves all the touch objects from the set 
-	NSArray *touchesAllObjects = [touches allObjects];
-	
-	// retrieves the number of touches
-	int numberTouches = [touchesAllObjects count];
-	
-	// iterates for all the touches
+    // retrieves all the touch objects from the set
+    NSArray *touchesAllObjects = [touches allObjects];
+
+    // retrieves the number of touches
+    int numberTouches = [touchesAllObjects count];
+
+    // iterates for all the touches
     for(int i = 0; i < numberTouches; i++) {
-		// retrieves the touch element
-		UITouch *touchElement = (UITouch *) [touchesAllObjects objectAtIndex:i];
-		
-		// retrieves the touch element's phase
-		UITouchPhase touchElementPhase = [touchElement phase];
-		
-		// retrieves the corresponding touch type for the provided phase
-		TouchType_t touchType = [self getTouchType:touchElementPhase];
-		
-		// retrieves the touch element's position
-		CGPoint touchElementPosition = [touchElement locationInView:nil];
-		
-		// creates the mariachi touch position
-		TouchPosition_t touchPosition = { touchElementPosition.x, touchElementPosition.y };
-		
-		// creates the mariachi touch struct
-		Touch_t touch = { touchType, touchPosition };
-		
-		// sets the touch in the touch array
-		touchList[i] = touch;
-	}
+        // retrieves the touch element
+        UITouch *touchElement = (UITouch *) [touchesAllObjects objectAtIndex:i];
+
+        // retrieves the touch element's phase
+        UITouchPhase touchElementPhase = [touchElement phase];
+
+        // retrieves the corresponding touch type for the provided phase
+        TouchType_t touchType = [self getTouchType:touchElementPhase];
+
+        // retrieves the touch element's position
+        CGPoint touchElementPosition = [touchElement locationInView:nil];
+
+        // creates the mariachi touch position
+        TouchPosition_t touchPosition = { touchElementPosition.x, touchElementPosition.y };
+
+        // creates the mariachi touch struct
+        Touch_t touch = { touchType, touchPosition };
+
+        // sets the touch in the touch array
+        touchList[i] = touch;
+    }
 }
 
 - (TouchType_t) getTouchType:(UITouchPhase)touchPhase {
