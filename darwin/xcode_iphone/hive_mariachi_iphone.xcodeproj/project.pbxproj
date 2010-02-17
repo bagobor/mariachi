@@ -388,6 +388,8 @@
 		561ED2911121EB67006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2891121EB67006F53EA /* ReadMe.txt */; };
 		561ED2921121EB67006F53EA /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28A1121EB67006F53EA /* stdafx.cpp */; };
 		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
+		567A399B112C5C0C0039D0A6 /* fifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567A3999112C5C0C0039D0A6 /* fifo.cpp */; };
+		567A399C112C5C0C0039D0A6 /* fifo.h in Headers */ = {isa = PBXBuildFile; fileRef = 567A399A112C5C0C0039D0A6 /* fifo.h */; };
 		569F8EC511233DCE0046739E /* libbullet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC411233DCE0046739E /* libbullet.a */; };
 		569F8EC711233DCE0046739E /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 569F8EC611233DCE0046739E /* liblua.a */; };
 		56AEED88112B33C200DFD01F /* multi_touch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56AEED86112B33C200DFD01F /* multi_touch.cpp */; };
@@ -883,6 +885,8 @@
 		561ED28B1121EB67006F53EA /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../src/hive_mariachi_iphone/stdafx.h; sourceTree = SOURCE_ROOT; };
 		561ED28D1121EB67006F53EA /* iphone_application_util.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; path = iphone_application_util.mm; sourceTree = "<group>"; };
 		561ED28E1121EB67006F53EA /* iphone_application_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = iphone_application_util.h; sourceTree = "<group>"; };
+		567A3999112C5C0C0039D0A6 /* fifo.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = fifo.cpp; sourceTree = "<group>"; };
+		567A399A112C5C0C0039D0A6 /* fifo.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = fifo.h; sourceTree = "<group>"; };
 		569F8EC411233DCE0046739E /* libbullet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbullet.a; sourceTree = "<absolute>"; };
 		569F8EC611233DCE0046739E /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = liblua.a; sourceTree = "<absolute>"; };
 		56AEED86112B33C200DFD01F /* multi_touch.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = multi_touch.cpp; sourceTree = "<group>"; };
@@ -1000,7 +1004,6 @@
 				561ECFB01121EB3F006F53EA /* importers */,
 				561ECFBC1121EB3F006F53EA /* logging */,
 				561ECFC01121EB3F006F53EA /* main */,
-				561ECFC61121EB3F006F53EA /* mariachi.h */,
 				561ECFC71121EB3F006F53EA /* nodes */,
 				561ECFDF1121EB3F006F53EA /* patterns */,
 				561ECFE31121EB3F006F53EA /* physics */,
@@ -1277,6 +1280,7 @@
 		561ECFBC1121EB3F006F53EA /* logging */ = {
 			isa = PBXGroup;
 			children = (
+				561ECFC61121EB3F006F53EA /* mariachi.h */,
 				561ECFBD1121EB3F006F53EA /* logger.h */,
 				561ECFBE1121EB3F006F53EA /* logging.h */,
 				561ECFBF1121EB3F006F53EA /* logger.cpp */,
@@ -1668,6 +1672,8 @@
 		561ED08A1121EB40006F53EA /* structures */ = {
 			isa = PBXGroup;
 			children = (
+				567A3999112C5C0C0039D0A6 /* fifo.cpp */,
+				567A399A112C5C0C0039D0A6 /* fifo.h */,
 				561ED08F1121EB40006F53EA /* oct_tree.cpp */,
 				561ED0941121EB40006F53EA /* oct_tree_node.cpp */,
 				561ED09A1121EB40006F53EA /* texture.cpp */,
@@ -2118,6 +2124,7 @@
 				561ED2161121EB40006F53EA /* util.h in Headers */,
 				561ED2171121EB40006F53EA /* byte_util.h in Headers */,
 				56AEED89112B33C200DFD01F /* multi_touch.h in Headers */,
+				567A399C112C5C0C0039D0A6 /* fifo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2343,6 +2350,7 @@
 				561ED2141121EB40006F53EA /* geometry_util.cpp in Sources */,
 				56E18D8011247B4400FA5148 /* iphone_application_util.mm in Sources */,
 				56AEED88112B33C200DFD01F /* multi_touch.cpp in Sources */,
+				567A399B112C5C0C0039D0A6 /* fifo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
