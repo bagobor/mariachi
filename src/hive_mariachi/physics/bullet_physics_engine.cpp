@@ -236,10 +236,10 @@ SphereSolid *BulletPhysicsEngine::createSphereSolid() {
 
 btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, CollisionNode *collisionNode, void *arguments) {
     // the collision filter group flags
-    short int collisionFilterGroup = NULL;
+    short collisionFilterGroup = NULL;
 
     // the collision filter mask flags
-    short int collisionFilterMask = NULL;
+    short collisionFilterMask = NULL;
 
     // in case there are valid arguments available
     if(arguments != NULL) {
@@ -247,8 +247,8 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
         std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
 
         // retrieves the collision flags
-        collisionFilterGroup = (short int) (long long) argumentsMap["collision_filter_group"];
-        collisionFilterMask = (short int) (long long) argumentsMap["collision_filter_mask"];
+        collisionFilterGroup = (short) argumentsMap["collision_filter_group"];
+        collisionFilterMask = (short) argumentsMap["collision_filter_mask"];
     }
 
     // the physical node rigid body reference
@@ -284,7 +284,7 @@ btRigidBody *BulletPhysicsEngine::getRigidBody(PhysicalNode *physicalNode, Colli
     physicalNodeTransform.setIdentity();
     physicalNodeTransform.setOrigin(physicalNodePositionVector);
 
-    // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+    // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes "active" objects
     PhysicalNodeMotionState *physicalNodeMotionState = new PhysicalNodeMotionState(physicalNodeTransform, physicalNode);
 
     // retrieves the physical node mass
