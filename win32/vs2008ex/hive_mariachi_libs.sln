@@ -91,12 +91,12 @@ Global
 		{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}.Release (Dynamic)|Win32.Build.0 = Release (Dynamic)|Win32
 		{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}.Release|Win32.ActiveCfg = Release|Win32
 		{CADFFDE4-5054-43B5-AF0C-259B4446D8F3}.Release|Win32.Build.0 = Release|Win32
-		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug (Dynamic)|Win32.ActiveCfg = Debug|Win32
-		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug (Dynamic)|Win32.Build.0 = Debug|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug (Dynamic)|Win32.ActiveCfg = Debug (Dynamic)|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug (Dynamic)|Win32.Build.0 = Debug (Dynamic)|Win32
 		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug|Win32.ActiveCfg = Debug|Win32
 		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Debug|Win32.Build.0 = Debug|Win32
-		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release (Dynamic)|Win32.ActiveCfg = Release|Win32
-		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release (Dynamic)|Win32.Build.0 = Release|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release (Dynamic)|Win32.ActiveCfg = Release (Dynamic)|Win32
+		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release (Dynamic)|Win32.Build.0 = Release (Dynamic)|Win32
 		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release|Win32.ActiveCfg = Release|Win32
 		{75AAB39C-A23A-477F-918F-8ED541349DCC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
