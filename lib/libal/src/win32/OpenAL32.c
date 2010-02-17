@@ -26,14 +26,14 @@ CRITICAL_SECTION g_mutex;
 
 
 void initStatic() {
-	ALTHUNK_INIT();
-	InitializeCriticalSection(&g_mutex);
+    ALTHUNK_INIT();
+    InitializeCriticalSection(&g_mutex);
 }
 
 void exitStatic() {
-	ReleaseALBuffers();
+    ReleaseALBuffers();
     ALTHUNK_EXIT();
-	DeleteCriticalSection(&g_mutex);
+    DeleteCriticalSection(&g_mutex);
 }
 
 
@@ -44,7 +44,7 @@ BOOL APIENTRY DllMain(HANDLE hModule,DWORD ul_reason_for_call,LPVOID lpReserved)
     {
         case DLL_PROCESS_ATTACH:
             ALTHUNK_INIT();
-			InitializeCriticalSection(&g_mutex);
+            InitializeCriticalSection(&g_mutex);
             break;
 
         case DLL_THREAD_ATTACH:
@@ -54,11 +54,10 @@ BOOL APIENTRY DllMain(HANDLE hModule,DWORD ul_reason_for_call,LPVOID lpReserved)
             break;
 
         case DLL_PROCESS_DETACH:
-			ReleaseALBuffers();
+            ReleaseALBuffers();
             ALTHUNK_EXIT();
-			DeleteCriticalSection(&g_mutex);
+            DeleteCriticalSection(&g_mutex);
             break;
     }
-	return TRUE;
+    return TRUE;
 }
-
