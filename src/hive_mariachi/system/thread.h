@@ -49,6 +49,16 @@
 #define EVENT_SIGNAL(eventHandle) SetEvent(eventHandle)
 #define EVENT_RESET(eventHandle) ResetEvent(eventHandle)
 #define EVENT_CLOSE(eventHandle) CloseHandle(eventHandle)
+#define CRITICAL_SECTION_HANDLE CRITICAL_SECTION
+#define CRITICAL_SECTION_CREATE(criticalSectionHandle) InitializeCriticalSection(&criticalSectionHandle)
+#define CRITICAL_SECTION_ENTER(criticalSectionHandle) EnterCriticalSection(&criticalSectionHandle)
+#define CRITICAL_SECTION_LEAVE(criticalSectionHandle) LeaveCriticalSection(&criticalSectionHandle)
+#define CRITICAL_SECTION_CLOSE(criticalSectionHandle) DeleteCriticalSection(&criticalSectionHandle)
+#define CONDITION_HANDLE CONDITION_VARIABLE
+#define CONDITION_CREATE(conditionHandle) InitializeConditionVariable(&conditionHandle)
+#define CONDITION_WAIT(conditionHandle, criticalSectionHandle) SleepConditionVariableCS(&conditionHandle, &criticalSectionHandle, INFINITE)
+#define CONDITION_SIGNAL(conditionHandle) WakeConditionVariable(&conditionHandle)
+#define CONDITION_CLOSE(conditionHandle)
 #elif MARIACHI_PLATFORM_UNIX
 typedef struct EventHandle_t {
     pthread_cond_t event;
@@ -86,17 +96,11 @@ typedef struct EventHandle_t {
 #define EVENT_CLOSE(eventHandle) pthread_mutex_destroy(&eventHandle->mutex);\
     pthread_cond_destroy(&eventHandle->event);\
     free(eventHandle)
-
-
-
-
 #define CRITICAL_SECTION_HANDLE MUTEX_HANDLE
 #define CRITICAL_SECTION_CREATE(criticalSectionHandle) MUTEX_CREATE(criticalSectionHandle)
 #define CRITICAL_SECTION_ENTER(criticalSectionHandle) MUTEX_LOCK(criticalSectionHandle)
 #define CRITICAL_SECTION_LEAVE(criticalSectionHandle) MUTEX_UNLOCK(criticalSectionHandle)
 #define CRITICAL_SECTION_CLOSE(criticalSectionHandle) MUTEX_CLOSE(criticalSectionHandle)
-
-
 #define CONDITION_HANDLE pthread_cond_t *
 #define CONDITION_CREATE(conditionHandle) conditionHandle = (CONDITION_HANDLE) malloc(sizeof(pthread_cond_t));\
 pthread_cond_init(conditionHandle, NULL)
@@ -104,10 +108,4 @@ pthread_cond_init(conditionHandle, NULL)
 #define CONDITION_SIGNAL(conditionHandle) pthread_cond_signal(conditionHandle)
 #define CONDITION_CLOSE(conditionHandle) pthread_cond_destroy(conditionHandle);\
 free(conditionHandle)
-
-
-
-
-
-
 #endif

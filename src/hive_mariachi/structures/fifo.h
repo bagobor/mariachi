@@ -27,6 +27,9 @@
 
 #include "../system/thread.h"
 
+/**
+* The default fifo size.
+*/
 #define DEFAULT_FIFO_SIZE 1
 
 namespace mariachi {
