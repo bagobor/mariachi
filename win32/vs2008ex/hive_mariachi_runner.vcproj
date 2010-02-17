@@ -87,6 +87,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="xcopy /S /Y &quot;..\..\src\hive_mariachi_runner\configuration&quot; &quot;$(OutDir)\configuration\&quot;&#x0D;&#x0A;xcopy /S /Y &quot;..\..\src\hive_mariachi_runner\models&quot; &quot;$(OutDir)\models\&quot;&#x0D;&#x0A;xcopy /S /Y &quot;..\..\src\hive_mariachi_runner\ui&quot; &quot;$(OutDir)\ui\&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -162,6 +163,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="xcopy /S /Y &quot;..\..\src\hive_mariachi_runner\configuration&quot; &quot;$(OutDir)\configuration\&quot;&#x0D;&#x0A;xcopy /S /Y &quot;..\..\src\hive_mariachi_runner\models&quot; &quot;$(OutDir)\models\&quot;&#x0D;&#x0A;xcopy /S /Y &quot;..\..\src\hive_mariachi_runner\ui&quot; &quot;$(OutDir)\ui\&quot;"
 			/>
 		</Configuration>
 	</Configurations>
