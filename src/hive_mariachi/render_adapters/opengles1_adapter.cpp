@@ -37,10 +37,6 @@ using namespace mariachi::structures;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
 
-float rotx = 0.0;
-float roty = 0.0;
-float rotz = 0.0;
-
 extern CameraNode *gCameraNode;
 
 /**
@@ -136,6 +132,7 @@ void Opengles1Adapter::clean() {
 }
 
 void Opengles1Adapter::display() {
+    printf("render graphico");
     // updates the frame rate
     this->updateFrameRate();
 
@@ -188,6 +185,10 @@ void Opengles1Adapter::display() {
             // puts the element in the screen
             glTranslatef(position.x, position.y, position.z);
 
+            // enables the client states
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glEnableClientState(GL_VERTEX_ARRAY);
+
             // iterates over all the meshes
             for(unsigned int index = 0; index < meshListSize; index++) {
                 // retrieves the current mesh
@@ -207,10 +208,6 @@ void Opengles1Adapter::display() {
 
                 // in case the number of vertices is valid
                 if(numberVertices) {
-                    // enables the client states
-                    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-                    glEnableClientState(GL_VERTEX_ARRAY);
-
                     // creates the vertex pointer
                     glVertexPointer(3, GL_FLOAT, 0, vertexList);
 
@@ -228,12 +225,12 @@ void Opengles1Adapter::display() {
                             glDrawArrays(GL_TRIANGLE_FAN, 0, numberVertices);
                             break;
                     }
-
-                    // disables the client states
-                    glDisableClientState(GL_VERTEX_ARRAY);
-                    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
                 }
             }
+
+            // disables the client states
+            glDisableClientState(GL_VERTEX_ARRAY);
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
             // pops the matrix
             glPopMatrix();
@@ -242,10 +239,6 @@ void Opengles1Adapter::display() {
         // increments the render children list iterator
         renderChildrenListIterator++;
     }
-
-    rotx += 0.2;
-    roty += 0.2;
-    rotz += 0.2;
 
     // releases the render information mutex
     MUTEX_UNLOCK(this->renderInformation->getMutex());
