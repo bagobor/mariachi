@@ -323,6 +323,10 @@
 				Name="Structures"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\structures\fifo.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\structures\oct_tree.cpp"
 					>
 				</File>
@@ -1082,6 +1086,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\structures\data.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\structures\fifo.h"
 					>
 				</File>
 				<File
