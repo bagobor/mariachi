@@ -43,6 +43,9 @@ int main(int argc, char** argv) {
         // creates a new engine
         Engine engine(argc, argv);
 
+        // @todo: remove this
+        globalEngine = &engine;
+
         // starts the engine
         engine.start(NULL);
     } catch(Exception exception) {
