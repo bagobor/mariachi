@@ -633,36 +633,35 @@ void Engine::stopDebugEngine() {
     delete this->debugEngine;
 }
 
-#define TARGET_FRAME_RATE 60.0f
-#define SAMPLE_SIZE 60
-
-int engineUpdateCounter = 0;
-long long engineUpdateTotalElapsedTimeMicroSeconds = 0;
-long long engineUpdateAverageElapsedTimeMicroSeconds = NULL;
-
 /**
 * Starts the engine run loop (where it runs the main stages).
 */
 void Engine::startRunLoop() {
     // iterates while the running flag is active
     while(this->runningFlag) {
-#ifdef MARIACHI_PLATFORM_WIN32
+#if defined(MARIACHI_ASSYNC_PARALLEL_PROCESSING)
         this->update();
 
         SLEEP(30);
-#else
+#elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
+		// enters the critical section
         CRITICAL_SECTION_ENTER(this->fifo->queueCriticalSection);
 
-        while(this->fifo->queue.size() == this->fifo->size || this->fifo->stopFlag) {
+		// iterates while the queue is full and the stop flag is not set
+        while(this->fifo->queue.size() == this->fifo->size && !this->fifo->stopFlag) {
             CONDITION_WAIT(this->fifo->notFullCondition, this->fifo->queueCriticalSection);
         }
 
+		// updates the engine state
         this->update();
 
+		// adds the true value to the fifo
         this->fifo->queue.push_back(true);
 
+		// leaves the critical section
         CRITICAL_SECTION_LEAVE(this->fifo->queueCriticalSection);
 
+		// sends the condition signal
         CONDITION_SIGNAL(this->fifo->notEmptyCondition);
 #endif
     }
