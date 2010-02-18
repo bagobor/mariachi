@@ -33,8 +33,8 @@ using namespace mariachi::render_adapters;
 * Constructor of the class.
 */
 RenderAdapter::RenderAdapter() {
-	// initializes the layout
-	this->initLayout();
+    // initializes the layout
+    this->initLayout();
 }
 
 /**
@@ -44,15 +44,15 @@ RenderAdapter::~RenderAdapter() {
 }
 
 inline void RenderAdapter::initLayout() {
-	// initializes the layout to the default value
-	this->layout = ROTATED_LAYOUT;
+    // initializes the layout to the default value
+    this->layout = ROTATED_LAYOUT;
 }
 
 unsigned int RenderAdapter::getLayout() {
-	return this->layout;
+    return this->layout;
 }
 
 void RenderAdapter::setLayout(unsigned int layout) {
-	this->layout = layout;
+    this->layout = layout;
 }
 
