@@ -299,15 +299,15 @@ void Opengles1Adapter::resizeScene(int windowWidth, int windowHeight) {
     // resets the current viewport and perspective transformation
     glViewport(0, 0, windowWidth, windowHeight);
 
-	// in case the current layout is rotated
-	if(this->layout == ROTATED_LAYOUT) {
-		// creates a backup value for the window width
-		int _windowWidth = windowWidth;
-		
-		// inverts the dimensions of thw window
-		windowWidth = windowHeight;
-		windowHeight = _windowWidth;
-	}
+    // in case the current layout is rotated
+    if(this->layout == ROTATED_LAYOUT) {
+        // creates a backup value for the window width
+        int _windowWidth = windowWidth;
+
+        // inverts the dimensions of thw window
+        windowWidth = windowHeight;
+        windowHeight = _windowWidth;
+    }
 
     // sets the window size
     this->windowSize.width = windowWidth;
@@ -441,11 +441,11 @@ inline void Opengles1Adapter::setupDisplay2d() {
     // loads the identity matrix
     glLoadIdentity();
 
-	// in case the current layout is rotated
-	if(this->layout == ROTATED_LAYOUT) {
-		// rotates the open gl projection accordingly
-		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
-	}
+    // in case the current layout is rotated
+    if(this->layout == ROTATED_LAYOUT) {
+        // rotates the open gl projection accordingly
+        glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+    }
 
     // setup the orthogonal perspective
     glOrthof(0, (float) this->windowSize.width, (float) this->windowSize.height, 0, -1, 1);
@@ -467,11 +467,11 @@ inline void Opengles1Adapter::setupDisplay3d() {
     // loads the identity matrix
     glLoadIdentity();
 
-	// in case the current layout is rotated
-	if(this->layout == ROTATED_LAYOUT) {
-		// rotates the open gl projection accordingly
-		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
-	}
+    // in case the current layout is rotated
+    if(this->layout == ROTATED_LAYOUT) {
+        // rotates the open gl projection accordingly
+        glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+    }
 
     // recalculates the glu perspective
     gluPerspective(45.0, this->windowAspectRatio, 0.3, 1000.0);
