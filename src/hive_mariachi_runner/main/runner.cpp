@@ -28,9 +28,6 @@
 using namespace mariachi;
 using namespace mariachi::exceptions;
 
-// @todo: remove this
-Engine *globalEngine;
-
 /**
 * The main entry point of the program.
 *
@@ -42,9 +39,6 @@ int main(int argc, char** argv) {
     try {
         // creates a new engine
         Engine engine(argc, argv);
-
-        // @todo: remove this
-        globalEngine = &engine;
 
         // starts the engine
         engine.start(NULL);
