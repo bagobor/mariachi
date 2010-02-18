@@ -33,8 +33,7 @@
 using namespace mariachi;
 using namespace mariachi::devices;
 
-// @todo: remove this
-extern Engine *globalEngine;
+extern Engine *engine;
 
 @implementation OpenglesUikitWindowView
 
@@ -50,7 +49,7 @@ extern Engine *globalEngine;
  * When it's unarchived it's sent initWithCoder.
  */
 - (id) initWithCoder: (NSCoder *) coder {
-    if ((self = [super initWithCoder:coder])) {
+    if((self = [super initWithCoder:coder])) {
         // retrieves the current layer
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *) self.layer;
 
@@ -77,6 +76,10 @@ extern Engine *globalEngine;
             displayLinkSupported = TRUE;
     }
 
+    // sets the engine
+    [self setEngine:engine];
+
+    // returns the instance
     return self;
 }
 
@@ -86,11 +89,11 @@ extern Engine *globalEngine;
  * @param sender The sender object id.
  **/
 - (void) drawView: (id) sender {
-	// waits for work available
-	globalEngine->fifo->wait();
+    // waits for work available
+    _engine->fifo->wait();
 
-	// renders the frame
-	[renderer render];
+    // renders the frame
+    [renderer render];
 }
 
 /**
@@ -99,8 +102,6 @@ extern Engine *globalEngine;
  */
 - (void) layoutSubviews {
     [renderer resizeFromLayer: (CAEAGLLayer *) self.layer];
-	// @todo: remove this
-//    [self drawView:nil];
 }
 
 /**
@@ -145,9 +146,9 @@ extern Engine *globalEngine;
             [displayLink setFrameInterval:animationFrameInterval];
             [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         } else {
-			// creates the animation timer for the animation (at sixty frames per second)
-			[NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval) (1.0 / 60.0) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
-		}
+            // creates the animation timer for the animation (at sixty frames per second)
+            [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval) (1.0 / 60.0) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
+        }
 
         // sets the animating flag
         animating = TRUE;
@@ -173,12 +174,9 @@ extern Engine *globalEngine;
     [super dealloc];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // retrieves the engine
-    Engine *engine = (Engine *) globalEngine; //[self engine];
-
+- (void)touchesBegan: (NSSet *) touches withEvent: (UIEvent *) event {
     // retrieves the multi touch device
-    MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+    MultiTouch *multiTouch = (MultiTouch *) _engine->getDevice("multi_touch");
 
     // wraps the touches in mariachi touch structures
     Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
@@ -191,12 +189,9 @@ extern Engine *globalEngine;
     multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    // retrieves the engine
-    Engine *engine = (Engine *) globalEngine; //[self engine];
-
+- (void)touchesMoved:(NSSet *) touches withEvent: (UIEvent *) event {
     // retrieves the multi touch device
-    MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+    MultiTouch *multiTouch = (MultiTouch *) _engine->getDevice("multi_touch");
 
     // wraps the touches in mariachi touch structures
     Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
@@ -209,26 +204,25 @@ extern Engine *globalEngine;
     multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    // retrieves the engine
-    Engine *engine = (Engine *) globalEngine; //[self engine];
-
+- (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event {
     // retrieves the multi touch device
-    MultiTouch *multiTouch = (MultiTouch *) engine->getDevice("multi_touch");
+    MultiTouch *multiTouch = (MultiTouch *) _engine->getDevice("multi_touch");
 
     // wraps the touches in mariachi touch structures
     Touch_t touchList[DEFAULT_TOUCH_LIST_SIZE];
 
+    // adapts the touches from the cocoa implementation
+    // to the mariachi implementation
     [self wrapTouches:touches touchList:touchList];
 
+    // retrieves the number of touches in the touche list
     unsigned int numberTouches = [touches count];
 
     // adds the multi touch event to the multi touch
     multiTouch->addTouchesMovedEvent(touchList, numberTouches);
 }
 
-
-- (void) wrapTouches:(NSSet *)touches touchList:(Touch_t *)touchList {
+- (void) wrapTouches: (NSSet *) touches touchList: (Touch_t *) touchList {
     // retrieves all the touch objects from the set
     NSArray *touchesAllObjects = [touches allObjects];
 
@@ -260,9 +254,17 @@ extern Engine *globalEngine;
     }
 }
 
-- (TouchType_t) getTouchType:(UITouchPhase)touchPhase {
-       // @todo: replace this hard code with touch type adaption
-       return TOUCH_MOVED_TYPE;
+- (TouchType_t) getTouchType: (UITouchPhase) touchPhase {
+    // @todo: replace this hard code with touch type adaption
+    return TOUCH_MOVED_TYPE;
+}
+
+- (Engine *) engine {
+    return _engine;
+}
+
+- (void) setEngine: (Engine *) anEngine {
+    _engine = anEngine;
 }
 
 @end
