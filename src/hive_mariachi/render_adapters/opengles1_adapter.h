@@ -30,6 +30,10 @@
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
+#include "../nodes/nodes.h"
+#include "../user_interface/user_interface.h"
+#include "../structures/texture.h"
+#include "../structures/size.h"
 #include "../render_utils/opengles_window.h"
 #include "opengles_adapter.h"
 
@@ -56,8 +60,18 @@ namespace mariachi {
 
                 inline time_t clockSeconds();
                 inline void updateFrameRate();
+                inline void display2d();
+                inline void display3d();
+                inline void setupDisplay2d();
                 inline void setupDisplay3d();
                 inline void renderCameraNode(nodes::CameraNode *cameraNode);
+                inline void renderNode2d(nodes::Node *node);
+                inline void renderSquare(float x1, float y1, float x2, float y2);
+                inline void renderViewPortNode(ui::ViewPortNode *viewPortNode, nodes::SquareNode *targetNode);
+                inline void renderPanelNode(ui::PanelNode *panelNode, nodes::SquareNode *targetNode);
+                inline void renderButtonNode(ui::ButtonNode *buttonNode, nodes::SquareNode *targetNode);
+                inline structures::Coordinate2d_t getRealPosition2d(nodes::SquareNode *squareNode, nodes::SquareNode *targetNode);
+                inline structures::FloatSize2d_t getRealSize2d(nodes::SquareNode *squareNode);
 
             public:
                 Opengles1Adapter();
