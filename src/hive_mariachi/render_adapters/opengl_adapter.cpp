@@ -224,16 +224,14 @@ inline void OpenglAdapter::setTexture(Texture *texture) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureSize.width, textureSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char *) imageBuffer);
 
         // sets some texture parameters
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+/*
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
+*/
         // sets the texture id for the current texture in the texture
         // texture id map
         this->textureTextureIdMap[texture] = textureId;
@@ -305,7 +303,7 @@ inline void OpenglAdapter::display3d() {
     // retrieves the render (node)
     SceneNode *render = this->renderInformation->getRender();
 
-    std::list<Node *> renderChildrenList = render->getChildrenList();
+    std::list<Node *> &renderChildrenList = render->getChildrenList();
 
     std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
 
@@ -380,7 +378,7 @@ inline void OpenglAdapter::renderCameraNode(CameraNode *cameraNode) {
 
 inline void OpenglAdapter::renderNode2d(Node *node) {
     // retrieves the node children list
-    std::list<Node *> nodeChildrenList = node->getChildrenList();
+    std::list<Node *> &nodeChildrenList = node->getChildrenList();
 
     // retrieves the node children list iterator
     std::list<Node *>::iterator nodeChildrenListIterator = nodeChildrenList.begin();

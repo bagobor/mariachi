@@ -47,16 +47,22 @@
 */
 #define REFERENCE_HEIGHT_2D 100.0
 
+#define NORMAL_LAYOUT 1
+
+#define ROTATED_LAYOUT 2
+
 namespace mariachi {
     namespace render_adapters {
         class RenderAdapter {
             private:
                 Engine *engine;
+				inline void initLayout();
 
             protected:
                 render::RenderInformation *renderInformation;
                 unsigned int frameCount;
                 time_t baseClock;
+				unsigned int layout;
 
             public:
                 RenderAdapter();
@@ -65,6 +71,8 @@ namespace mariachi {
                 virtual void stop(void *arguments) { };
                 Engine *getEngine();
                 void setEngine(Engine *engine);
+				unsigned int getLayout();
+				void setLayout(unsigned int layout);
         };
     }
 }
