@@ -25,13 +25,16 @@
 
 #pragma once
 
-#include "../main/main.h"
+#include "../main/engine.h"
+#include "../main/module.h"
+#include "../structures/fifo.h"
 
 namespace mariachi {
     namespace stages {
         class Stage : public Module {
             private:
                 std::string name;
+                structures::Fifo<bool> fifo;
 
                 inline void initThread();
                 inline void initEngine(Engine *engine);
@@ -60,6 +63,32 @@ namespace mariachi {
                 void setName(std::string &name);
                 Engine *getEngine();
                 void setEngine(Engine *engine);
+
+                inline void startDependencySync() {
+#ifdef MARIACHI_SYNC_PARALLEL_PROCESSING
+                    // enters the critical section
+                    CRITICAL_SECTION_ENTER(this->fifo.queueCriticalSection);
+
+                    // iterates while the queue is full, the stop flag is not set
+                    // and the running flag is active
+                    while(this->fifo.queue.size() == this->fifo.size && !this->fifo.stopFlag) {
+                        CONDITION_WAIT(this->fifo.notFullCondition, this->fifo.queueCriticalSection);
+                    }
+#endif
+                }
+
+                inline void endDependencySync() {
+#ifdef MARIACHI_SYNC_PARALLEL_PROCESSING
+                    // adds the true value to the fifo
+                    this->fifo.queue.push_back(true);
+
+                    // leaves the critical section
+                    CRITICAL_SECTION_LEAVE(this->fifo.queueCriticalSection);
+
+                    // sends the condition signal
+                    CONDITION_SIGNAL(this->fifo.notEmptyCondition);
+#endif
+                }
         };
     }
 }

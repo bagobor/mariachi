@@ -26,3 +26,15 @@
 #include "stdafx.h"
 
 #include "sound_adapter.h"
+
+namespace mariachi {
+    namespace sound_adapters {
+        class SoundAdapter {
+            private:
+
+            public:
+                SoundAdapter();
+                ~SoundAdapter();
+        };
+    }
+}
