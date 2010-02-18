@@ -25,7 +25,10 @@
 
 #include "../../hive_mariachi/mariachi.h"
 
+#include "../stages/runner_stage.h"
+
 using namespace mariachi;
+using namespace mariachi::runner;
 using namespace mariachi::exceptions;
 
 /**
@@ -39,6 +42,12 @@ int main(int argc, char** argv) {
     try {
         // creates a new engine
         Engine engine(argc, argv);
+
+        // creates the runner stage
+        RunnerStage runnerStage(&engine, "runner");
+
+        // adds the runner stage to the engine
+        engine.addStage(&runnerStage);
 
         // starts the engine
         engine.start(NULL);

@@ -644,24 +644,24 @@ void Engine::startRunLoop() {
 
         SLEEP(30);
 #elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
-		// enters the critical section
+        // enters the critical section
         CRITICAL_SECTION_ENTER(this->fifo->queueCriticalSection);
 
-		// iterates while the queue is full and the stop flag is not set
+        // iterates while the queue is full and the stop flag is not set
         while(this->fifo->queue.size() == this->fifo->size && !this->fifo->stopFlag) {
             CONDITION_WAIT(this->fifo->notFullCondition, this->fifo->queueCriticalSection);
         }
 
-		// updates the engine state
+        // updates the engine state
         this->update();
 
-		// adds the true value to the fifo
+        // adds the true value to the fifo
         this->fifo->queue.push_back(true);
 
-		// leaves the critical section
+        // leaves the critical section
         CRITICAL_SECTION_LEAVE(this->fifo->queueCriticalSection);
 
-		// sends the condition signal
+        // sends the condition signal
         CONDITION_SIGNAL(this->fifo->notEmptyCondition);
 #endif
     }

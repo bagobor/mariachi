@@ -23,43 +23,6 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#include "stdafx.h"
+#pragma once
 
-#include "../structures/structures.h"
-#include "../importers/importers.h"
-#include "../devices/devices.h"
-#include "../user_interface/user_interface.h"
-
-#include "dummy_stage.h"
-
-using namespace mariachi;
-using namespace mariachi::ui;
-using namespace mariachi::nodes;
-using namespace mariachi::stages;
-using namespace mariachi::devices;
-using namespace mariachi::importers;
-using namespace mariachi::structures;
-
-DummyStage::DummyStage() : Stage() {
-}
-
-DummyStage::DummyStage(Engine *engine) : Stage(engine) {
-}
-
-DummyStage::DummyStage(Engine *engine, const std::string &name) : Stage(engine, name) {
-}
-
-DummyStage::~DummyStage() {
-}
-
-void DummyStage::start(void *arguments) {
-    Stage::start(arguments);
-}
-
-void DummyStage::stop(void *arguments) {
-    Stage::stop(arguments);
-}
-
-void DummyStage::update(void *arguments) {
-    Stage::update(arguments);
-}
+#include "runner_stage.h"
