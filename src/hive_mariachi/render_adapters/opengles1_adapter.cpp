@@ -27,10 +27,14 @@
 
 #ifdef MARIACHI_PLATFORM_OPENGLES
 
+#include "../main/engine.h"
+#include "../system/system.h"
+#include "../render/render.h"
 #include "../render_utils/opengles_uikit_window.h"
 #include "definitions/opengles1_adapter_definitions.h"
 #include "opengles1_adapter.h"
 
+using namespace mariachi::ui;
 using namespace mariachi::nodes;
 using namespace mariachi::render;
 using namespace mariachi::structures;
@@ -132,13 +136,36 @@ void Opengles1Adapter::clean() {
 }
 
 void Opengles1Adapter::display() {
-    printf("render graphico");
     // updates the frame rate
     this->updateFrameRate();
 
     // clears all pixels
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // waits for the render information mutex
+    MUTEX_LOCK(this->renderInformation->getMutex());
+
+    // displays the 3d scene
+    this->display3d();
+
+    // displays the 2d scene
+    this->display2d();
+
+    // releases the render information mutex
+    MUTEX_UNLOCK(this->renderInformation->getMutex());
+}
+
+inline void Opengles1Adapter::display2d() {
+    // setup the display 2d
+    this->setupDisplay2d();
+
+    // retrieves the render 2d (node)
+    Scene2dNode *render2d = this->renderInformation->getRender2d();
+
+    this->renderNode2d(render2d);
+}
+
+inline void Opengles1Adapter::display3d() {
     // setups the display
     this->setupDisplay3d();
 
@@ -146,17 +173,15 @@ void Opengles1Adapter::display() {
         this->renderCameraNode(gCameraNode);
     }
 
-    // waits for the render information mutex
-    MUTEX_LOCK(this->renderInformation->getMutex());
-
     // retrieves the render (node)
     SceneNode *render = this->renderInformation->getRender();
 
-    std::list<Node *> renderChildrenList = render->getChildrenList();
+    std::list<Node *> &renderChildrenList = render->getChildrenList();
 
     std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
 
     while(renderChildrenListIterator != renderChildrenList.end()) {
+        // retrieves the current node
         Node *node = *renderChildrenListIterator;
 
         // in case the node is renderable
@@ -173,6 +198,12 @@ void Opengles1Adapter::display() {
             // retrieves the position
             Coordinate3d_t &position = modelNode->getPosition();
 
+            // retrieves the rotation
+            Rotation3d_t &rotation = modelNode->getRotation();
+
+            // retrieves the scale
+            Coordinate3d_t &scale = modelNode->getScale();
+
             // retrieves the mesh list size
             size_t meshListSize = meshList->size();
 
@@ -184,6 +215,12 @@ void Opengles1Adapter::display() {
 
             // puts the element in the screen
             glTranslatef(position.x, position.y, position.z);
+
+            // scales the element
+            glScalef(scale.x, scale.y, scale.z);
+
+            // rotates the element
+            glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
 
             // enables the client states
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -239,9 +276,6 @@ void Opengles1Adapter::display() {
         // increments the render children list iterator
         renderChildrenListIterator++;
     }
-
-    // releases the render information mutex
-    MUTEX_UNLOCK(this->renderInformation->getMutex());
 }
 
 void gluPerspective(float fovy, float aspect, float zNear, float zFar) {
@@ -264,6 +298,16 @@ void Opengles1Adapter::resizeScene(int windowWidth, int windowHeight) {
 
     // resets the current viewport and perspective transformation
     glViewport(0, 0, windowWidth, windowHeight);
+
+	// in case the current layout is rotated
+	if(this->layout == ROTATED_LAYOUT) {
+		// creates a backup value for the window width
+		int _windowWidth = windowWidth;
+		
+		// inverts the dimensions of thw window
+		windowWidth = windowHeight;
+		windowHeight = _windowWidth;
+	}
 
     // sets the window size
     this->windowSize.width = windowWidth;
@@ -300,6 +344,7 @@ inline void Opengles1Adapter::setTexture(Texture *texture) {
 
     // in case the texture is already rendered in open gl
     if(!(textureId = this->textureTextureIdMap[texture])) {
+        glEnable(GL_BLEND);
         // retrieves the texture sizes
         IntSize2d_t textureSize = texture->getSize();
 
@@ -318,22 +363,36 @@ inline void Opengles1Adapter::setTexture(Texture *texture) {
         // loads the texture
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureSize.width, textureSize.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char *) imageBuffer);
 
+        // checks if there was an error
+        if(int errorValue = glGetError()) {
+            printf("ocourreum um erro a carregar a textura %x", errorValue);
+        }
+
         // sets some texture parameters
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         // sets the texture id for the current texture in the texture
         // texture id map
         this->textureTextureIdMap[texture] = textureId;
     }
     else {
+        glEnable(GL_BLEND);
+
         // binds the current context to the current texture
         glBindTexture(GL_TEXTURE_2D, textureId);
+
+        // sets some texture parameters
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     }
 }
 
@@ -365,7 +424,7 @@ inline void Opengles1Adapter::updateFrameRate() {
         float frameRate = (float) frameCount / deltaClock;
 
         // prints the frame rate
-        //printf("Frame rate: %.2f\n", frameRate);
+        printf("Frame rate: %.2f\n", frameRate);
 
         // resets the frame count
         this->frameCount = 0;
@@ -375,12 +434,44 @@ inline void Opengles1Adapter::updateFrameRate() {
     }
 }
 
+inline void Opengles1Adapter::setupDisplay2d() {
+    // sets the matrix mode to projection
+    glMatrixMode(GL_PROJECTION);
+
+    // loads the identity matrix
+    glLoadIdentity();
+
+	// in case the current layout is rotated
+	if(this->layout == ROTATED_LAYOUT) {
+		// rotates the open gl projection accordingly
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+	}
+
+    // setup the orthogonal perspective
+    glOrthof(0, (float) this->windowSize.width, (float) this->windowSize.height, 0, -1, 1);
+
+    // sets the matrix mode to model view
+    glMatrixMode(GL_MODELVIEW);
+
+    // loads the identity matrix
+    glLoadIdentity();
+
+    // scales the projection
+    glScalef(this->lowestRatio, this->lowestRatio, 0.0);
+}
+
 inline void Opengles1Adapter::setupDisplay3d() {
     // sets the matrix mode to projection
     glMatrixMode(GL_PROJECTION);
 
     // loads the identity matrix
     glLoadIdentity();
+
+	// in case the current layout is rotated
+	if(this->layout == ROTATED_LAYOUT) {
+		// rotates the open gl projection accordingly
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+	}
 
     // recalculates the glu perspective
     gluPerspective(45.0, this->windowAspectRatio, 0.3, 1000.0);
@@ -404,6 +495,243 @@ inline void Opengles1Adapter::renderCameraNode(CameraNode *cameraNode) {
 
     // moves into the screen
     glTranslatef(-position.x, -position.y, -position.z);
+}
+
+inline void Opengles1Adapter::renderNode2d(Node *node) {
+    // retrieves the node children list
+    std::list<Node *> &nodeChildrenList = node->getChildrenList();
+
+    // retrieves the node children list iterator
+    std::list<Node *>::iterator nodeChildrenListIterator = nodeChildrenList.begin();
+
+    // iterates over all the node children
+    while(nodeChildrenListIterator != nodeChildrenList.end()) {
+        // tenho de sacar o no
+        // tenho de desenhar as bounderies
+        // tenho de ver se tem layout se tiver tenho de fazer os devidos calculos
+
+        // retrieves the current node
+        Node *currentNode = *nodeChildrenListIterator;
+
+        Coordinate2d_t position;
+
+        // in case the node is renderable
+        if(currentNode->renderable) {
+            // retrieves the node type
+            unsigned int nodeType = currentNode->getNodeType();
+
+            // switches over the node type
+            switch(nodeType) {
+                    // in case it's a component node type
+                case UI_COMPONENT_NODE_TYPE:
+                    break;
+
+                    // in case it's a box component node type
+                case UI_BOX_COMPONENT_NODE_TYPE:
+                    break;
+
+                    // in case it's a view port node type
+                case UI_VIEW_PORT_NODE_TYPE:
+                    // renders the view port node
+                    this->renderViewPortNode((ViewPortNode *) currentNode, (SquareNode *) node);
+
+                    // retrieves the view port position
+                    position = this->getRealPosition2d((ViewPortNode *) currentNode, (SquareNode *) node);
+
+                    glPushMatrix();
+
+                    glTranslatef(position.x * this->lowestWidthRevertRatio, position.y * this->lowestWidthRevertRatio, 0.0);
+
+                    this->renderNode2d(currentNode);
+
+                    glPopMatrix();
+
+                    break;
+
+                    // in case it's a container node type
+                case UI_CONTAINER_NODE_TYPE:
+                    break;
+
+                    // in case it's a panel node type
+                case UI_PANEL_NODE_TYPE:
+                    // renders the panel node
+                    this->renderPanelNode((PanelNode *) currentNode, (SquareNode *) node);
+
+                    // retrieves the panel position
+                    position = this->getRealPosition2d((PanelNode *) currentNode, (SquareNode *) node);
+
+                    glPushMatrix();
+
+                    glTranslatef(position.x, position.y, 0.0);
+
+                    this->renderNode2d(currentNode);
+
+                    glPopMatrix();
+
+                    break;
+
+                    // in case it's a button node type
+                case UI_BUTTON_NODE_TYPE:
+                    // renders the button node
+                    this->renderButtonNode((ButtonNode *) currentNode, (SquareNode *) node);
+
+                    break;
+            }
+        }
+
+        // increments the node children list iterator
+        nodeChildrenListIterator++;
+    }
+}
+
+/**
+ * Renders a square with the default mapping coordinates.
+ *
+ * @param x1 The initial x position.
+ * @param y1 The initial y position.
+ * @param x2 The final x position.
+ * @param y2 The final y position.
+ */
+inline void Opengles1Adapter::renderSquare(float x1, float y1, float x2, float y2) {
+    float vertexList[] = { x1, y2, x2, y2, x1, y1, x2, y1 };
+    float textureVertexList[] = { 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f };
+
+    // enables the client states
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+
+    // creates the vertex pointer
+    glVertexPointer(2, GL_FLOAT, 0, vertexList);
+
+    // creates the texture coordinate pointer
+    glTexCoordPointer(2, GL_FLOAT, 0, textureVertexList);
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    // disables the client states
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+inline void Opengles1Adapter::renderViewPortNode(ViewPortNode *viewPortNode, SquareNode *targetNode) {
+    // retrieves the view port color
+    FloatColor_t color = viewPortNode->getColor();
+
+    // retrieves the view port texture
+    Texture *texture = viewPortNode->getTexture();
+
+    // sets the texture
+    this->setTexture(texture);
+
+    // retrieves the position
+    Coordinate2d_t position = this->getRealPosition2d(viewPortNode, targetNode);
+    FloatSize2d_t size = this->getRealSize2d(viewPortNode);
+
+    // renders a square with the texture mapping
+    this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+}
+
+inline void Opengles1Adapter::renderPanelNode(PanelNode *panelNode, SquareNode *targetNode) {
+    // retrieves the component size
+    FloatSize2d_t size = panelNode->getSize();
+
+    // retrieves the button color
+    FloatColor_t color = panelNode->getColor();
+
+    // retrieves the button texture
+    Texture *texture = panelNode->getTexture();
+
+    // retrieves the button position reference
+    PositionReferenceType_t positionReference = panelNode->getPositionReference();
+
+    // retrieves the position
+    Coordinate2d_t position = this->getRealPosition2d(panelNode, targetNode);
+
+    // sets the texture
+    this->setTexture(texture);
+
+    // renders a square with the texture mapping
+    this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+}
+
+inline void Opengles1Adapter::renderButtonNode(ButtonNode *buttonNode, SquareNode *targetNode) {
+    // retrieves the button size
+    FloatSize2d_t size = buttonNode->getSize();
+
+    // retrieves the button color
+    FloatColor_t color = buttonNode->getColor();
+
+    // retrieves the button texture
+    Texture *texture = buttonNode->getTexture();
+
+    // retrieves the position
+    Coordinate2d_t position = this->getRealPosition2d(buttonNode, targetNode);
+
+    // sets the texture
+    this->setTexture(texture);
+
+    // renders a square with the texture mapping
+    this->renderSquare(position.x, position.y, position.x + size.width, position.y + size.height);
+}
+
+inline Coordinate2d_t Opengles1Adapter::getRealPosition2d(SquareNode *squareNode, SquareNode *targetNode) {
+    // retrieves the square node size
+    FloatSize2d_t size = squareNode->getSize();
+
+    // retrieves the target node position
+    Coordinate2d_t targetPosition = targetNode->getPosition();
+
+    // retrieves the target node size
+    FloatSize2d_t targetSize = targetNode->getSize();
+
+    // retrieves the square node position
+    Coordinate2d_t basePosition = squareNode->getPosition();
+
+    // retrieves the button position reference
+    PositionReferenceType_t positionReference = squareNode->getPositionReference();
+
+    // the position value
+    Coordinate2d_t position;
+
+    float targetPositionX = targetPosition.x <= 100.0 && targetPosition.x >= 0.0 ? targetPosition.x : 0.0;
+    float targetPositionY = targetPosition.y <= 100.0 && targetPosition.y >= 0.0 ? targetPosition.y : 0.0;
+
+    float ratio1Width = targetSize.width <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.width : 100.0;
+    float ratio1Height = targetSize.height <= 100.0 && targetSize.width >= 0.0 ? 100.0 / targetSize.height : 100.0;
+
+    float basePosition_x = basePosition.x / ratio1Width + targetPositionX;
+    float basePosition_y = basePosition.y / ratio1Height + targetPositionY;
+
+    // switches over the position reference
+    switch(positionReference) {
+        case TOP_LEFT_REFERENCE_POSITION:
+            position.x = basePosition.x * this->lowestWidthRevertRatio;
+            position.y = basePosition.y * this->lowestHeightRevertRatio;
+
+            break;
+
+        case CENTER_REFERENCE_POSITION:
+            position.x = basePosition.x * this->lowestWidthRevertRatio - size.width / 2.0;
+            position.y = basePosition.y * this->lowestHeightRevertRatio - size.height / 2.0;
+
+            break;
+    }
+
+    // returns the position
+    return position;
+}
+
+inline FloatSize2d_t Opengles1Adapter::getRealSize2d(SquareNode *squareNode) {
+    // retrieves the square node size
+    FloatSize2d_t baseSize = squareNode->getSize();
+
+    FloatSize2d_t size;
+
+    size.width = baseSize.width * this->lowestWidthRevertRatio;
+    size.height = baseSize.height * this->lowestHeightRevertRatio;
+
+    // returns the size
+    return size;
 }
 
 #endif
