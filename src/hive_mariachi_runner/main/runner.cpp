@@ -49,6 +49,14 @@ int main(int argc, char** argv) {
         // adds the runner stage to the engine
         engine.addStage(&runnerStage);
 
+        // sets the runner stage as dependent of
+        // render, this ensures that sync is made
+        // (in case sync is active)
+        //engine.addStageDependency("render", "runner");
+
+        // sets the size of the fifo uses to maintain sync
+        //runnerStage.setFifoSize(1);
+
         // starts the engine
         engine.start(NULL);
     } catch(Exception exception) {

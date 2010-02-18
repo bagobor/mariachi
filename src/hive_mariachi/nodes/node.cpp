@@ -33,10 +33,12 @@ using namespace mariachi::nodes;
 * Constructor of the class.
 */
 Node::Node() {
+    this->initChildrenListMutex();
     this->initRenderable();
 }
 
 Node::Node(const std::string &name) {
+    this->initChildrenListMutex();
     this->initRenderable();
     this->name = name;
 }
@@ -45,6 +47,13 @@ Node::Node(const std::string &name) {
 * Destructor of the class.
 */
 Node::~Node() {
+    // closes the children list mutex
+    MUTEX_CLOSE(this->childrenListMutexHandle);
+}
+
+inline void Node::initChildrenListMutex() {
+    // creates the children list mutex
+    MUTEX_CREATE(this->childrenListMutexHandle);
 }
 
 inline void Node::initRenderable() {
@@ -63,14 +72,154 @@ void Node::reparentTo(Node *parent) {
     parent->addChild(this);
 }
 
+/**
+* Adds a child node to the current node.
+*
+* @param child The child node to be added.
+*/
 void Node::addChild(Node *child) {
+    // locks the children list mutex
+    MUTEX_LOCK(childrenListMutexHandle);
+
+    // adds the child node to the children list
     this->childrenList.push_back(child);
+
+    // sets the child node parent
+    child->setParent(this);
+
+    // unlocks the children list mutex
+    MUTEX_UNLOCK(childrenListMutexHandle);
+}
+
+/**
+* Adds a child node to the current node.
+* This operation is unsafe as it does not use the access
+* mutex to write the list. Use this method carrefully.
+*
+* @param child The child node to be added.
+*/
+void Node::_addChild(Node *child) {
+    // adds the child node to the children list
+    this->childrenList.push_back(child);
+
+    // sets the child node parent
     child->setParent(this);
 }
 
+/**
+* Adds a vector of child nodes to the current node.
+*
+* @param _childrenList The list of children nodes to be added.
+*/
+void Node::addChildren(std::vector<Node *> &_childrenList) {
+    // locks the children list mutex
+    MUTEX_LOCK(childrenListMutexHandle);
+
+    // retrieves the children list iterator
+    std::vector<Node *>::iterator &childrenListIterator = _childrenList.begin();
+
+    // iterates over all the child nodes in the children list
+    while(childrenListIterator != _childrenList.end()) {
+        // retrieves the current child node
+        Node *child = *childrenListIterator;
+
+        // adds the child node to the children list
+        this->childrenList.push_back(child);
+
+        // sets the child node parent
+        child->setParent(this);
+
+        // increments the children list iterator
+        childrenListIterator++;
+    }
+
+    // unlocks the children list mutex
+    MUTEX_UNLOCK(childrenListMutexHandle);
+}
+
+/**
+* Removes a child node from the current node.
+* This operation is unsafe as it does not use the access
+* mutex to write the list. Use this method carrefully.
+*
+* @param child The child node to be removed.
+*/
 void Node::removeChild(Node *child) {
+    // locks the children list mutex
+    MUTEX_LOCK(childrenListMutexHandle);
+
+    // removes the child node from the children list
     this->childrenList.remove(child);
+
+    // resets the child node parent
     child->setParent(NULL);
+
+    // unlocks the children list mutex
+    MUTEX_UNLOCK(childrenListMutexHandle);
+}
+
+/**
+* Removes a child node from the current node.
+*
+* @param child The child node to be removed.
+*/
+void Node::_removeChild(Node *child) {
+    // removes the child node from the children list
+    this->childrenList.remove(child);
+
+    // resets the child node parent
+    child->setParent(NULL);
+}
+
+/**
+* Removes a vector of child nodes from the current node.
+*
+* @param _childrenList The list of children nodes to be removed.
+*/
+void Node::removeChildren(std::vector<Node *> &_childrenList) {
+    // locks the children list mutex
+    MUTEX_LOCK(childrenListMutexHandle);
+
+    // retrieves the children list iterator
+    std::vector<Node *>::iterator &childrenListIterator = _childrenList.begin();
+
+    // iterates over all the child nodes in the children list
+    while(childrenListIterator != _childrenList.end()) {
+        // retrieves the current child node
+        Node *child = *childrenListIterator;
+
+        // removes the child node from the children list
+        this->childrenList.remove(child);
+
+        // resets the child node parent
+        child->setParent(NULL);
+
+        // increments the children list iterator
+        childrenListIterator++;
+    }
+
+    // unlocks the children list mutex
+    MUTEX_UNLOCK(childrenListMutexHandle);
+}
+
+/**
+* Locks the node access to the children list.
+*/
+void Node::lock() {
+    // locks the children list mutex
+    MUTEX_LOCK(childrenListMutexHandle);
+}
+
+/**
+* Locks the node access to the children list.
+*/
+void Node::unlock() {
+    // unlock the children list mutex
+    MUTEX_UNLOCK(childrenListMutexHandle);
+}
+
+bool Node::isRenderable() {
+    return this->renderable;
 }
 
 std::list<Node *> &Node::getChildrenList() {
@@ -79,4 +228,12 @@ std::list<Node *> &Node::getChildrenList() {
 
 void Node::setChildrenList(std::list<Node *> &childrenList) {
     this->childrenList = childrenList;
+}
+
+bool Node::getRenderable() {
+    return this->renderable;
+}
+
+void Node::setRenderable(bool renderable) {
+    this->renderable = renderable;
 }

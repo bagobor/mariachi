@@ -300,8 +300,13 @@ inline void OpenglAdapter::display3d() {
     // retrieves the render (node)
     SceneNode *render = this->renderInformation->getRender();
 
+    // locks the render node
+    render->lock();
+
+    // retrieves the render children list
     std::list<Node *> &renderChildrenList = render->getChildrenList();
 
+    // retrieves the render children list iterator
     std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
 
     while(renderChildrenListIterator != renderChildrenList.end()) {
@@ -320,6 +325,9 @@ inline void OpenglAdapter::display3d() {
         // increments the render children list iterator
         renderChildrenListIterator++;
     }
+
+    // unlocks the render node
+    render->unlock();
 }
 
 inline void OpenglAdapter::setupDisplay2d() {
@@ -374,6 +382,9 @@ inline void OpenglAdapter::renderCameraNode(CameraNode *cameraNode) {
 }
 
 inline void OpenglAdapter::renderNode2d(Node *node) {
+    // locks the node
+    node->lock();
+
     // retrieves the node children list
     std::list<Node *> &nodeChildrenList = node->getChildrenList();
 
@@ -458,6 +469,9 @@ inline void OpenglAdapter::renderNode2d(Node *node) {
         // increments the node children list iterator
         nodeChildrenListIterator++;
     }
+
+    // unlocks the node
+    node->unlock();
 }
 
 /**

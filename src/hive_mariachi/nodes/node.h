@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include "../system/thread.h"
+
 namespace mariachi {
     namespace nodes {
         typedef enum BasicNodesType_t {
@@ -43,22 +45,51 @@ namespace mariachi {
 
         class Node {
             private:
+                /**
+                * The parent node (owner) of the node.
+                */
                 Node *parent;
+
+                /**
+                * The list containing the children elements
+                * of the node.
+                */
                 std::list<Node *> childrenList;
 
+                /**
+                * The handle to the  mutex used in the
+                * access to the children list.
+                */
+                MUTEX_HANDLE childrenListMutexHandle;
+
+                inline void initChildrenListMutex();
+                inline void initRenderable();
+
             public:
+                /**
+                * The name of the node.
+                */
                 std::string name;
+
+                /**
+                * Flag to control if the node is renderable.
+                */
                 bool renderable;
 
                 Node();
                 Node(const std::string &name);
                 ~Node();
-                inline void initRenderable();
                 Node *getParent();
                 void setParent(Node *parent);
                 void reparentTo(Node *parent);
                 void addChild(Node *child);
+                void _addChild(Node *child);
+                void addChildren(std::vector<Node *> &_childrenList);
                 void removeChild(Node *child);
+                void _removeChild(Node *child);
+                void removeChildren(std::vector<Node *> &_childrenList);
+                void lock();
+                void unlock();
                 bool isRenderable();
                 std::list<Node *> &getChildrenList();
                 void setChildrenList(std::list<Node *> &childrenList);
