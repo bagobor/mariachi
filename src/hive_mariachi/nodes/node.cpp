@@ -116,7 +116,7 @@ void Node::addChildren(std::vector<Node *> &_childrenList) {
     MUTEX_LOCK(childrenListMutexHandle);
 
     // retrieves the children list iterator
-    std::vector<Node *>::iterator &childrenListIterator = _childrenList.begin();
+    std::vector<Node *>::iterator childrenListIterator = _childrenList.begin();
 
     // iterates over all the child nodes in the children list
     while(childrenListIterator != _childrenList.end()) {
@@ -181,7 +181,7 @@ void Node::removeChildren(std::vector<Node *> &_childrenList) {
     MUTEX_LOCK(childrenListMutexHandle);
 
     // retrieves the children list iterator
-    std::vector<Node *>::iterator &childrenListIterator = _childrenList.begin();
+    std::vector<Node *>::iterator childrenListIterator = _childrenList.begin();
 
     // iterates over all the child nodes in the children list
     while(childrenListIterator != _childrenList.end()) {
