@@ -271,7 +271,7 @@ void Engine::stop(void *arguments) {
 */
 void Engine::update() {
     // retrieves the main thread stages list iterator
-    std::list<Stage *>::iterator mainThreadStagesListIterator = this->mainThreadStagesList.begin();
+    std::list<Stage *>::iterator &mainThreadStagesListIterator = this->mainThreadStagesList.begin();
 
     // iterates over all the main thread stages
     while(mainThreadStagesListIterator != this->mainThreadStagesList.end()) {
@@ -521,7 +521,7 @@ void Engine::startStages() {
     #include "../stages/stages_init.h"
 
     // retrieves the stages list iterator
-    std::list<Stage *>::iterator stagesListIterator = stagesList->begin();
+    std::list<Stage *>::iterator &stagesListIterator = stagesList->begin();
 
     // iterates over all the stages in the stages list
     while(stagesListIterator != stagesList->end()) {
@@ -563,7 +563,7 @@ void Engine::startStages() {
 */
 void Engine::stopStages() {
     // retrieves the thread handle stage map iterator
-    std::map<THREAD_REFERENCE, Stage *>::iterator threadHandleStageMapIterator = this->threadHandleStageMap.begin();
+    std::map<THREAD_REFERENCE, Stage *>::iterator &threadHandleStageMapIterator = this->threadHandleStageMap.begin();
 
     // iterates over all the stage thread handles
     while(threadHandleStageMapIterator != this->threadHandleStageMap.end()) {
@@ -596,7 +596,7 @@ void Engine::stopStages() {
     }
 
     // retrieves the main thread stages list iterator
-    std::list<Stage *>::iterator mainThreadStagesListIterator = this->mainThreadStagesList.begin();
+    std::list<Stage *>::iterator &mainThreadStagesListIterator = this->mainThreadStagesList.begin();
 
     // iterates over all the main thread stages
     while(mainThreadStagesListIterator != this->mainThreadStagesList.end()) {
@@ -640,15 +640,15 @@ void Engine::startRunLoop() {
     // iterates while the running flag is active
     while(this->runningFlag) {
 #if defined(MARIACHI_ASSYNC_PARALLEL_PROCESSING)
+        // updates the engine state
         this->update();
-
-        SLEEP(30);
 #elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
         // enters the critical section
         CRITICAL_SECTION_ENTER(this->fifo->queueCriticalSection);
 
-        // iterates while the queue is full and the stop flag is not set
-        while(this->fifo->queue.size() == this->fifo->size && !this->fifo->stopFlag) {
+        // iterates while the queue is full, the stop flag is not set
+        // and the running flag is active
+        while(this->fifo->queue.size() == this->fifo->size && !this->fifo->stopFlag && this->runningFlag) {
             CONDITION_WAIT(this->fifo->notFullCondition, this->fifo->queueCriticalSection);
         }
 
@@ -695,7 +695,7 @@ void Engine::updatePathsListEnvironment() {
     StringUtil::tokenize(mariachiPathEnvironment, mariachiPathEnvironmentList, MARIACHI_ENVIRONMENT_SEPARATOR);
 
     // retrieves the mariachi path environment list iterator
-    std::vector<std::string>::iterator mariachiPathEnvironmentListIterator = mariachiPathEnvironmentList.begin();
+    std::vector<std::string>::iterator &mariachiPathEnvironmentListIterator = mariachiPathEnvironmentList.begin();
 
     // iterates over all the paths in the mariachi path environment list
     while(mariachiPathEnvironmentListIterator != mariachiPathEnvironmentList.end()) {
@@ -759,7 +759,7 @@ void Engine::removePath(const std::string &path) {
 */
 void Engine::addPaths(std::vector<std::string *> &pathsList) {
     // retrieves the paths list iterator
-    std::vector<std::string *>::iterator pathsListIterator = pathsList.begin();
+    std::vector<std::string *>::iterator &pathsListIterator = pathsList.begin();
 
     // iterates over all the paths in the paths list
     while(pathsListIterator != pathsList.end()) {
@@ -782,7 +782,7 @@ void Engine::addPaths(std::vector<std::string *> &pathsList) {
 */
 void Engine::removePaths(std::vector<std::string *> &pathsList) {
     // retrieves the paths list iterator
-    std::vector<std::string *>::iterator pathsListIterator = pathsList.begin();
+    std::vector<std::string *>::iterator &pathsListIterator = pathsList.begin();
 
     // iterates over all the paths in the paths list
     while(pathsListIterator != pathsList.end()) {
@@ -809,7 +809,7 @@ void Engine::removePaths(std::vector<std::string *> &pathsList) {
 */
 std::string Engine::getAbsolutePath(const std::string &relativePath) {
     // retrieves the paths list iterator
-    std::list<std::string>::iterator pathsListIterator = this->pathsList.begin();
+    std::list<std::string>::iterator &pathsListIterator = this->pathsList.begin();
 
     // allocates space for the absolute path
     std::string absolutePath;
