@@ -278,8 +278,14 @@ void Engine::update() {
         // retrieves the main thread stage
         Stage *mainThreadStage = *mainThreadStagesListIterator;
 
+        // starts the dependency sync
+        //mainThreadStage->startDependencySync();
+
         // updates the current main thread stage
         mainThreadStage->update(NULL);
+
+        // ends the dependency sync
+        //mainThreadStage->endDependencySync();
 
         // increments the main thread stages list iterator
         mainThreadStagesListIterator++;
