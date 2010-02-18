@@ -1099,16 +1099,16 @@
 		561ECF691121EB3F006F53EA /* configuration */ = {
 			isa = PBXGroup;
 			children = (
-				561ECF6A1121EB3F006F53EA /* configuration.h */,
-				561ECF6B1121EB3F006F53EA /* configuration_list.cpp */,
-				561ECF6C1121EB3F006F53EA /* configuration_structure.cpp */,
-				561ECF6D1121EB3F006F53EA /* configuration_map.h */,
-				561ECF6E1121EB3F006F53EA /* configuration_list.h */,
 				561ECF6F1121EB3F006F53EA /* parsers */,
-				561ECF751121EB3F006F53EA /* configuration_structure.h */,
-				561ECF761121EB3F006F53EA /* configuration_map.cpp */,
+				561ECF6B1121EB3F006F53EA /* configuration_list.cpp */,
 				561ECF771121EB3F006F53EA /* configuration_manager.cpp */,
+				561ECF761121EB3F006F53EA /* configuration_map.cpp */,
+				561ECF6C1121EB3F006F53EA /* configuration_structure.cpp */,
+				561ECF6A1121EB3F006F53EA /* configuration.h */,
+				561ECF6E1121EB3F006F53EA /* configuration_list.h */,
 				561ECF781121EB3F006F53EA /* configuration_manager.h */,
+				561ECF6D1121EB3F006F53EA /* configuration_map.h */,
+				561ECF751121EB3F006F53EA /* configuration_structure.h */,
 			);
 			name = configuration;
 			path = ../../src/hive_mariachi/configuration;
