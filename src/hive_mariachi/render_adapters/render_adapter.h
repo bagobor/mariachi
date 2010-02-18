@@ -56,13 +56,13 @@ namespace mariachi {
         class RenderAdapter {
             private:
                 Engine *engine;
-				inline void initLayout();
+                inline void initLayout();
 
             protected:
                 render::RenderInformation *renderInformation;
                 unsigned int frameCount;
                 time_t baseClock;
-				unsigned int layout;
+                unsigned int layout;
 
             public:
                 RenderAdapter();
@@ -71,8 +71,8 @@ namespace mariachi {
                 virtual void stop(void *arguments) { };
                 Engine *getEngine();
                 void setEngine(Engine *engine);
-				unsigned int getLayout();
-				void setLayout(unsigned int layout);
+                unsigned int getLayout();
+                void setLayout(unsigned int layout);
         };
     }
 }

@@ -386,7 +386,6 @@
 		561ED28F1121EB67006F53EA /* iphone_application_delegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED2821121EB67006F53EA /* iphone_application_delegate.mm */; };
 		561ED2901121EB67006F53EA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2881121EB67006F53EA /* MainWindow.xib */; };
 		561ED2911121EB67006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2891121EB67006F53EA /* ReadMe.txt */; };
-		561ED2921121EB67006F53EA /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561ED28A1121EB67006F53EA /* stdafx.cpp */; };
 		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
 		567A399B112C5C0C0039D0A6 /* fifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567A3999112C5C0C0039D0A6 /* fifo.cpp */; };
 		567A399C112C5C0C0039D0A6 /* fifo.h in Headers */ = {isa = PBXBuildFile; fileRef = 567A399A112C5C0C0039D0A6 /* fifo.h */; };
@@ -672,7 +671,6 @@
 		561ED01C1121EB3F006F53EA /* render_adapter.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = render_adapter.cpp; sourceTree = "<group>"; };
 		561ED01D1121EB3F006F53EA /* render_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = render_adapter.h; sourceTree = "<group>"; };
 		561ED01E1121EB3F006F53EA /* opengl_adapter.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = opengl_adapter.h; sourceTree = "<group>"; };
-		561ED0201121EB3F006F53EA /* opengl_adapter_definitions.h.orig */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; path = opengl_adapter_definitions.h.orig; sourceTree = "<group>"; };
 		561ED0211121EB3F006F53EA /* opengl_adapter_definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = opengl_adapter_definitions.h; sourceTree = "<group>"; };
 		561ED0221121EB3F006F53EA /* opengles1_adapter_definitions.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = opengles1_adapter_definitions.h; sourceTree = "<group>"; };
 		561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; path = opengles_uikit_window_view.mm; sourceTree = "<group>"; };
@@ -881,8 +879,6 @@
 		561ED2871121EB67006F53EA /* targetver.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = targetver.h; sourceTree = "<group>"; };
 		561ED2881121EB67006F53EA /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../../src/hive_mariachi_iphone/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		561ED2891121EB67006F53EA /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi_iphone/ReadMe.txt; sourceTree = SOURCE_ROOT; };
-		561ED28A1121EB67006F53EA /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../src/hive_mariachi_iphone/stdafx.cpp; sourceTree = SOURCE_ROOT; };
-		561ED28B1121EB67006F53EA /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../src/hive_mariachi_iphone/stdafx.h; sourceTree = SOURCE_ROOT; };
 		561ED28D1121EB67006F53EA /* iphone_application_util.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; path = iphone_application_util.mm; sourceTree = "<group>"; };
 		561ED28E1121EB67006F53EA /* iphone_application_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = iphone_application_util.h; sourceTree = "<group>"; };
 		567A3999112C5C0C0039D0A6 /* fifo.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = fifo.cpp; sourceTree = "<group>"; };
@@ -1007,20 +1003,21 @@
 				561ECFC71121EB3F006F53EA /* nodes */,
 				561ECFDF1121EB3F006F53EA /* patterns */,
 				561ECFE31121EB3F006F53EA /* physics */,
-				561ED00B1121EB3F006F53EA /* ReadMe.txt */,
 				561ED00C1121EB3F006F53EA /* render */,
 				561ED0101121EB3F006F53EA /* render_adapters */,
 				561ED0231121EB3F006F53EA /* render_utils */,
 				561ED0431121EB3F006F53EA /* script */,
 				561ED06B1121EB40006F53EA /* serialization */,
 				561ED0791121EB40006F53EA /* stages */,
-				561ED0881121EB40006F53EA /* stdafx.cpp */,
-				561ED0891121EB40006F53EA /* stdafx.h */,
 				561ED08A1121EB40006F53EA /* structures */,
 				561ED09E1121EB40006F53EA /* system */,
 				561ED0A31121EB40006F53EA /* tasks */,
 				561ED0A91121EB40006F53EA /* user_interface */,
 				561ED0C11121EB40006F53EA /* util */,
+				561ED0881121EB40006F53EA /* stdafx.cpp */,
+				561ECFC61121EB3F006F53EA /* mariachi.h */,
+				561ED0891121EB40006F53EA /* stdafx.h */,
+				561ED00B1121EB3F006F53EA /* ReadMe.txt */,
 			);
 			name = hive_mariachi;
 			sourceTree = "<group>";
@@ -1044,11 +1041,9 @@
 			children = (
 				561ED2801121EB67006F53EA /* delegates */,
 				561ED2831121EB67006F53EA /* global */,
-				561ED2881121EB67006F53EA /* MainWindow.xib */,
-				561ED2891121EB67006F53EA /* ReadMe.txt */,
-				561ED28A1121EB67006F53EA /* stdafx.cpp */,
-				561ED28B1121EB67006F53EA /* stdafx.h */,
 				561ED28C1121EB67006F53EA /* util */,
+				561ED2891121EB67006F53EA /* ReadMe.txt */,
+				561ED2881121EB67006F53EA /* MainWindow.xib */,
 			);
 			name = hive_mariachi_iphone;
 			sourceTree = "<group>";
@@ -1056,10 +1051,10 @@
 		561ECF551121EB3F006F53EA /* algorithms */ = {
 			isa = PBXGroup;
 			children = (
-				561ECF561121EB3F006F53EA /* algorithms.h */,
-				561ECF571121EB3F006F53EA /* path_finding */,
-				561ECF5D1121EB3F006F53EA /* hashing */,
 				561ECF651121EB3F006F53EA /* compression */,
+				561ECF5D1121EB3F006F53EA /* hashing */,
+				561ECF571121EB3F006F53EA /* path_finding */,
+				561ECF561121EB3F006F53EA /* algorithms.h */,
 			);
 			name = algorithms;
 			path = ../../src/hive_mariachi/algorithms;
@@ -1123,9 +1118,9 @@
 			isa = PBXGroup;
 			children = (
 				561ECF701121EB3F006F53EA /* configuration_parser.cpp */,
+				561ECF731121EB3F006F53EA /* json_configuration_parser.cpp */,
 				561ECF711121EB3F006F53EA /* configuration_parser.h */,
 				561ECF721121EB3F006F53EA /* json_configuration_parser.h */,
-				561ECF731121EB3F006F53EA /* json_configuration_parser.cpp */,
 				561ECF741121EB3F006F53EA /* parsers.h */,
 			);
 			path = parsers;
@@ -1146,8 +1141,8 @@
 			isa = PBXGroup;
 			children = (
 				561ECF7E1121EB3F006F53EA /* devices */,
-				561ECF841121EB3F006F53EA /* debug_engine.h */,
 				561ECF851121EB3F006F53EA /* debug_engine.cpp */,
+				561ECF841121EB3F006F53EA /* debug_engine.h */,
 				561ECF861121EB3F006F53EA /* debugging.h */,
 			);
 			name = debugging;
@@ -1169,12 +1164,12 @@
 		561ECF871121EB3F006F53EA /* devices */ = {
 			isa = PBXGroup;
 			children = (
-				561ECF881121EB3F006F53EA /* device.cpp */,
-				561ECF891121EB3F006F53EA /* input_output */,
-				561ECF951121EB3F006F53EA /* devices.h */,
-				561ECF961121EB3F006F53EA /* output */,
 				561ECF9A1121EB3F006F53EA /* input */,
+				561ECF891121EB3F006F53EA /* input_output */,
+				561ECF961121EB3F006F53EA /* output */,
+				561ECF881121EB3F006F53EA /* device.cpp */,
 				561ECFA41121EB3F006F53EA /* device.h */,
+				561ECF951121EB3F006F53EA /* devices.h */,
 			);
 			name = devices;
 			path = ../../src/hive_mariachi/devices;
@@ -1280,7 +1275,6 @@
 		561ECFBC1121EB3F006F53EA /* logging */ = {
 			isa = PBXGroup;
 			children = (
-				561ECFC61121EB3F006F53EA /* mariachi.h */,
 				561ECFBD1121EB3F006F53EA /* logger.h */,
 				561ECFBE1121EB3F006F53EA /* logging.h */,
 				561ECFBF1121EB3F006F53EA /* logger.cpp */,
@@ -1456,7 +1450,6 @@
 		561ED01F1121EB3F006F53EA /* definitions */ = {
 			isa = PBXGroup;
 			children = (
-				561ED0201121EB3F006F53EA /* opengl_adapter_definitions.h.orig */,
 				561ED0211121EB3F006F53EA /* opengl_adapter_definitions.h */,
 				561ED0221121EB3F006F53EA /* opengles1_adapter_definitions.h */,
 			);
@@ -1466,25 +1459,25 @@
 		561ED0231121EB3F006F53EA /* render_utils */ = {
 			isa = PBXGroup;
 			children = (
+				561ED03A1121EB3F006F53EA /* factories */,
 				561ED0241121EB3F006F53EA /* views */,
-				561ED02D1121EB3F006F53EA /* opengl_window.h */,
-				561ED02E1121EB3F006F53EA /* opengles_uikit_window.cpp */,
+				561ED03F1121EB3F006F53EA /* direct3d_win32_window.cpp */,
 				561ED02F1121EB3F006F53EA /* direct3d_window.cpp */,
-				561ED0301121EB3F006F53EA /* direct3d_win32_window.h */,
-				561ED0311121EB3F006F53EA /* direct3d_window.h */,
-				561ED0321121EB3F006F53EA /* opengl_glut_window.h */,
+				561ED0421121EB3F006F53EA /* opengl_cocoa_window.cpp */,
+				561ED0371121EB3F006F53EA /* opengl_glut_window.cpp */,
 				561ED0331121EB3F006F53EA /* opengl_win32_window.cpp */,
 				561ED0341121EB3F006F53EA /* opengl_window.cpp */,
-				561ED0351121EB3F006F53EA /* opengl_win32_window.h */,
-				561ED0361121EB3F006F53EA /* opengles_uikit_window.h */,
-				561ED0371121EB3F006F53EA /* opengl_glut_window.cpp */,
+				561ED02E1121EB3F006F53EA /* opengles_uikit_window.cpp */,
 				561ED0381121EB3F006F53EA /* opengles_window.cpp */,
-				561ED0391121EB3F006F53EA /* render_utils.h */,
-				561ED03A1121EB3F006F53EA /* factories */,
-				561ED03F1121EB3F006F53EA /* direct3d_win32_window.cpp */,
+				561ED0301121EB3F006F53EA /* direct3d_win32_window.h */,
+				561ED0311121EB3F006F53EA /* direct3d_window.h */,
 				561ED0401121EB3F006F53EA /* opengl_cocoa_window.h */,
+				561ED0321121EB3F006F53EA /* opengl_glut_window.h */,
+				561ED0351121EB3F006F53EA /* opengl_win32_window.h */,
+				561ED02D1121EB3F006F53EA /* opengl_window.h */,
+				561ED0361121EB3F006F53EA /* opengles_uikit_window.h */,
 				561ED0411121EB3F006F53EA /* opengles_window.h */,
-				561ED0421121EB3F006F53EA /* opengl_cocoa_window.cpp */,
+				561ED0391121EB3F006F53EA /* render_utils.h */,
 			);
 			name = render_utils;
 			path = ../../src/hive_mariachi/render_utils;
@@ -1493,11 +1486,11 @@
 		561ED0241121EB3F006F53EA /* views */ = {
 			isa = PBXGroup;
 			children = (
-				561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */,
-				561ED0261121EB3F006F53EA /* opengles_uikit_window_view.h */,
-				561ED0271121EB3F006F53EA /* opengl_cocoa_window_view.mm */,
 				561ED0281121EB3F006F53EA /* renders */,
 				561ED02C1121EB3F006F53EA /* opengl_cocoa_window_view.h */,
+				561ED0261121EB3F006F53EA /* opengles_uikit_window_view.h */,
+				561ED0271121EB3F006F53EA /* opengl_cocoa_window_view.mm */,
+				561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1592,9 +1585,9 @@
 		561ED05A1121EB40006F53EA /* structures */ = {
 			isa = PBXGroup;
 			children = (
+				561ED05D1121EB40006F53EA /* lua_script_engine_position.cpp */,
 				561ED05B1121EB40006F53EA /* lua_script_engine_position.h */,
 				561ED05C1121EB40006F53EA /* structures.h */,
-				561ED05D1121EB40006F53EA /* lua_script_engine_position.cpp */,
 			);
 			path = structures;
 			sourceTree = "<group>";
@@ -1622,19 +1615,19 @@
 		561ED06B1121EB40006F53EA /* serialization */ = {
 			isa = PBXGroup;
 			children = (
-				561ED06C1121EB40006F53EA /* json_batchallocator.h */,
-				561ED06D1121EB40006F53EA /* serialization.h */,
+				561ED0701121EB40006F53EA /* json_reader.cpp */,
+				561ED0751121EB40006F53EA /* json_value.cpp */,
+				561ED0711121EB40006F53EA /* json_writer.cpp */,
+				561ED0741121EB40006F53EA /* config.h */,
+				561ED0781121EB40006F53EA /* features.h */,
 				561ED06E1121EB40006F53EA /* forwards.h */,
 				561ED06F1121EB40006F53EA /* json.h */,
-				561ED0701121EB40006F53EA /* json_reader.cpp */,
-				561ED0711121EB40006F53EA /* json_writer.cpp */,
+				561ED06C1121EB40006F53EA /* json_batchallocator.h */,
 				561ED0721121EB40006F53EA /* reader.h */,
-				561ED0731121EB40006F53EA /* json_valueiterator.inl */,
-				561ED0741121EB40006F53EA /* config.h */,
-				561ED0751121EB40006F53EA /* json_value.cpp */,
-				561ED0761121EB40006F53EA /* writer.h */,
+				561ED06D1121EB40006F53EA /* serialization.h */,
 				561ED0771121EB40006F53EA /* value.h */,
-				561ED0781121EB40006F53EA /* features.h */,
+				561ED0761121EB40006F53EA /* writer.h */,
+				561ED0731121EB40006F53EA /* json_valueiterator.inl */,
 			);
 			name = serialization;
 			path = ../../src/hive_mariachi/serialization;
@@ -2213,7 +2206,6 @@
 			files = (
 				561ED2541121EB51006F53EA /* runner.cpp in Sources */,
 				561ED28F1121EB67006F53EA /* iphone_application_delegate.mm in Sources */,
-				561ED2921121EB67006F53EA /* stdafx.cpp in Sources */,
 				5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
