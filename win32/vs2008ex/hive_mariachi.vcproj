@@ -870,6 +870,10 @@
 			<Filter
 				Name="Sound"
 				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound\sound_information.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Sound Adapters"
@@ -1914,6 +1918,10 @@
 				>
 				<File
 					RelativePath="..\..\src\hive_mariachi\sound\sound.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound\sound_information.h"
 					>
 				</File>
 			</Filter>
