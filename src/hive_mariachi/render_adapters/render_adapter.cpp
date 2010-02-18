@@ -55,4 +55,3 @@ unsigned int RenderAdapter::getLayout() {
 void RenderAdapter::setLayout(unsigned int layout) {
     this->layout = layout;
 }
-
