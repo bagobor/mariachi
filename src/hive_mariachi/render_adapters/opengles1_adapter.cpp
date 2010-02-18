@@ -173,6 +173,12 @@ void Opengles1Adapter::display() {
             // retrieves the position
             Coordinate3d_t &position = modelNode->getPosition();
 
+            // retrieves the rotation
+            Rotation3d_t &rotation = modelNode->getRotation();
+
+            // retrieves the scale
+            Coordinate3d_t &scale = modelNode->getScale();
+
             // retrieves the mesh list size
             size_t meshListSize = meshList->size();
 
@@ -184,6 +190,12 @@ void Opengles1Adapter::display() {
 
             // puts the element in the screen
             glTranslatef(position.x, position.y, position.z);
+
+            // scales the element
+            glScalef(scale.x, scale.y, scale.z);
+
+            // rotates the element
+            glRotatef(rotation.angle, rotation.x, rotation.y, rotation.z);
 
             // enables the client states
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
