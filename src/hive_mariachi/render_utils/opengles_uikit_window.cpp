@@ -83,7 +83,7 @@ void OpenglesUikitWindow::loop(void *arguments) {
     this->engine->addTask(loopOpenglesUikitWindowFunctionCallerTask);
 
     // loops indefinitely
-    while (1) {
+    while(1) {
         // sleeps for ten seconds
         SLEEP(10000);
     }
