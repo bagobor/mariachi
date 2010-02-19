@@ -111,6 +111,8 @@ void BulletPhysicsEngine::unload(void *arguments) {
     delete this->broadPhase;
 }
 
+extern float frameRate;
+
 void BulletPhysicsEngine::update(float delta, void *arguments) {
     int maximumSubSteps = this->maximumSubSteps;
 
@@ -130,6 +132,11 @@ void BulletPhysicsEngine::update(float delta, void *arguments) {
 void BulletPhysicsEngine::update(float delta) {
     // runs a simulation step
     this->dynamicsWorld->stepSimulation(delta, this->maximumSubSteps, this->physicsRate);
+}
+
+void BulletPhysicsEngine::update() {
+    // runs a simulation step
+    this->dynamicsWorld->stepSimulation(1 / frameRate, this->maximumSubSteps, this->physicsRate);
 }
 
 std::vector<Collision3d_t> BulletPhysicsEngine::getCollisions(void *arguments) {

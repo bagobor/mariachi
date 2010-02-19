@@ -44,6 +44,8 @@ using namespace mariachi::structures;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
 
+float frameRate = 60.0f;
+
 /**
 * Constructor of the class.
 */
@@ -262,7 +264,7 @@ inline void OpenglAdapter::updateFrameRate() {
     // sampling limit
     if(deltaClock > FRAME_SAMPLING_LIMIT) {
         // calculates the frame rate
-        float frameRate = (float) frameCount / deltaClock;
+        frameRate = (float) frameCount / deltaClock;
 
         // prints the frame rate
         printf("Frame rate: %.2f\n", frameRate);
