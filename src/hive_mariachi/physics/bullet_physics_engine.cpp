@@ -147,11 +147,11 @@ void BulletPhysicsEngine::update() {
     // computes the elapsed time
     unsigned int elapsedTimeMicroseconds = currentTimeMicroseconds - this->lastUpdateTimeMicroseconds;
 
-    // computes the delta in seconds
-    float delta = elapsedTimeMicroseconds / 1000.0f;
+    // computes the elapsed time in seconds
+    float elapsedTimeSeconds = elapsedTimeMicroseconds / 1000000.0f;
 
     // runs a simulation step
-    this->dynamicsWorld->stepSimulation(delta, this->maximumSubSteps, this->physicsRate);
+    this->dynamicsWorld->stepSimulation(elapsedTimeSeconds, this->maximumSubSteps, this->physicsRate);
 
     // updates the last update time
     this->lastUpdateTimeMicroseconds = this->clock.getTimeMicroseconds();

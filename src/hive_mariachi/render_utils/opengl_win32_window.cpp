@@ -88,7 +88,10 @@ void OpenglWin32Window::loop(void *arguments) {
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
-
+#if defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
+		// waits for the fifo to become active
+        this->engine->fifo->wait();
+#endif
         // calls the display method in the opengl adapter
         this->openglAdapter->display();
 
@@ -270,7 +273,7 @@ void OpenglWin32Window::changeDisplayResolution(int width, int height, int color
 }
 
 LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM wParam, LPARAM lParam)  {
-	// the paint structure to be used
+    // the paint structure to be used
     static PAINTSTRUCT paintStructure;
 
     // the devices to be updated
@@ -278,7 +281,7 @@ LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM 
     Mouse *mouse;
     MousePosition mousePosition;
 
-	// allocates space for the mouse position
+    // allocates space for the mouse position
     unsigned int mousePositionX, mousePositionY;
 
     switch(message) {
@@ -286,10 +289,10 @@ LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM 
             return 0;
 
         case WM_PAINT:
-			// begins the paint of the window
+            // begins the paint of the window
             BeginPaint(handlerWindow, &paintStructure);
 
-			// ends the paint of the window
+            // ends the paint of the window
             EndPaint(handlerWindow, &paintStructure);
 
             return 0;

@@ -159,6 +159,9 @@ void OpenglAdapter::display() {
 
     // releases the render information mutex
     MUTEX_UNLOCK(this->renderInformation->getMutex());
+
+	// flushes the open gl buffers
+	glFlush();
 }
 
 void OpenglAdapter::resizeScene(int windowWidth, int windowHeight) {
@@ -312,9 +315,9 @@ inline void OpenglAdapter::display3d() {
     // retrieves the render children list iterator
     std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
 
-	// iterates iver all the render children nodes
+    // iterates iver all the render children nodes
     while(renderChildrenListIterator != renderChildrenList.end()) {
-		// retrieves the current node
+        // retrieves the current node
         Node *node = *renderChildrenListIterator;
 
         // in case the node is renderable
