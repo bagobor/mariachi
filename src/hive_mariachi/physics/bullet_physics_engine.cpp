@@ -36,10 +36,16 @@ using namespace mariachi::structures;
 
 BulletPhysicsEngine::BulletPhysicsEngine() : PhysicsEngine() {
     this->initPhysicsRate();
+
+    this->clock = btClock();
+    this->lastUpdateTimeMicroseconds = this->clock.getTimeMicroseconds();
 }
 
 BulletPhysicsEngine::BulletPhysicsEngine(Engine *engine) : PhysicsEngine(engine) {
     this->initPhysicsRate();
+
+    this->clock = btClock();
+    this->lastUpdateTimeMicroseconds = this->clock.getTimeMicroseconds();
 }
 
 BulletPhysicsEngine::~BulletPhysicsEngine() {
@@ -135,8 +141,20 @@ void BulletPhysicsEngine::update(float delta) {
 }
 
 void BulletPhysicsEngine::update() {
+    // retrieves the current time
+    unsigned int currentTimeMicroseconds = this->clock.getTimeMicroseconds();
+
+    // computes the elapsed time
+    unsigned int elapsedTimeMicroseconds = currentTimeMicroseconds - this->lastUpdateTimeMicroseconds;
+
+    // computes the delta in seconds
+    float delta = elapsedTimeMicroseconds / 1000.0f;
+
     // runs a simulation step
-    this->dynamicsWorld->stepSimulation(1 / frameRate, this->maximumSubSteps, this->physicsRate);
+    this->dynamicsWorld->stepSimulation(delta, this->maximumSubSteps, this->physicsRate);
+
+    // updates the last update time
+    this->lastUpdateTimeMicroseconds = this->clock.getTimeMicroseconds();
 }
 
 std::vector<Collision3d_t> BulletPhysicsEngine::getCollisions(void *arguments) {

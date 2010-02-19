@@ -81,6 +81,9 @@ namespace mariachi {
                 */
                 int maximumSubSteps;
 
+                btClock clock;
+                int lastUpdateTimeMicroseconds;
+
                 btRigidBody *getRigidBody(nodes::PhysicalNode *physicalNode, nodes::CollisionNode *collisionNode, void *arguments);
                 void setRigidBodyCollisionFlags(btRigidBody *rigidBody, nodes::CollisionNode *collisionNode);
 
