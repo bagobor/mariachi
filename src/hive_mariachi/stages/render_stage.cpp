@@ -165,4 +165,5 @@ void RenderStage::update(void *arguments) {
 void RenderStage::updateRenderInformation(RenderInformation *renderInformation) {
     renderInformation->setRender(this->engine->getRender());
     renderInformation->setRender2d(this->engine->getRender2d());
+    renderInformation->setActiveCamera(this->engine->getActiveCamera());
 }

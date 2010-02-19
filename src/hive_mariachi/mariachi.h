@@ -28,6 +28,7 @@
 #include "stdafx.h"
 
 #include "algorithms/algorithms.h"
+#include "camera/camera.h"
 #include "configuration/configuration.h"
 #include "console/console.h"
 #include "debugging/debugging.h"
@@ -44,6 +45,9 @@
 #include "render_utils/render_utils.h"
 #include "script/script.h"
 #include "serialization/serialization.h"
+#include "sound/sound.h"
+#include "sound_adapters/sound_adapters.h"
+#include "sound_utils/sound_utils.h"
 #include "stages/stages.h"
 #include "structures/structures.h"
 #include "system/system.h"

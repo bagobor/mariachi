@@ -259,6 +259,10 @@
 				Name="Stages"
 				>
 				<File
+					RelativePath="..\..\src\hive_mariachi\stages\camera_stage.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\hive_mariachi\stages\console_stage.cpp"
 					>
 				</File>
@@ -887,6 +891,26 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Sound Utils"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_utils\avcodec_importer.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_utils\vorbis_importer.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Camera"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\camera\camera_manager.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1000,6 +1024,10 @@
 			<Filter
 				Name="Stages"
 				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\stages\camera_stage.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\stages\console_stage.h"
 					>
@@ -1938,6 +1966,34 @@
 				</File>
 				<File
 					RelativePath="..\..\src\hive_mariachi\sound_adapters\sound_adapters.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Camera"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\camera\camera.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\camera\camera_manager.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sound Utils"
+				>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_utils\avcodec_importer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_utils\sound_utils.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\hive_mariachi\sound_utils\vorbis_importer.h"
 					>
 				</File>
 			</Filter>

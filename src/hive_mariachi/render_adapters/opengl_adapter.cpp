@@ -44,8 +44,6 @@ using namespace mariachi::structures;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
 
-extern CameraNode *gCameraNode;
-
 /**
 * Constructor of the class.
 */
@@ -267,7 +265,7 @@ inline void OpenglAdapter::updateFrameRate() {
         float frameRate = (float) frameCount / deltaClock;
 
         // prints the frame rate
-        //printf("Frame rate: %.2f\n", frameRate);
+        printf("Frame rate: %.2f\n", frameRate);
 
         // resets the frame count
         this->frameCount = 0;
@@ -291,10 +289,13 @@ inline void OpenglAdapter::display3d() {
     // setup the display 3d
     this->setupDisplay3d();
 
+    // retrieves the current active camera
+    CameraNode *activeCamera = this->renderInformation->getActiveCamera();
+
     // in case there is a camera node selected
-    if(gCameraNode) {
+    if(activeCamera) {
         // renders the current camera node
-        this->renderCameraNode(gCameraNode);
+        this->renderCameraNode(activeCamera);
     }
 
     // retrieves the render (node)

@@ -25,7 +25,9 @@
 
 #include "stdafx.h"
 
-#include "console_stage.h"
+#include "../camera/camera.h"
+
+#include "camera_stage.h"
 
 using namespace mariachi;
 using namespace mariachi::stages;
@@ -33,8 +35,7 @@ using namespace mariachi::stages;
 /**
 * Constructor of the class.
 */
-ConsoleStage::ConsoleStage() : Stage() {
-    this->initThread();
+CameraStage::CameraStage() : Stage() {
 }
 
 /**
@@ -42,8 +43,7 @@ ConsoleStage::ConsoleStage() : Stage() {
 *
 * @param engine The currently used engine.
 */
-ConsoleStage::ConsoleStage(Engine *engine) : Stage(engine) {
-    this->initThread();
+CameraStage::CameraStage(Engine *engine) : Stage(engine) {
 }
 
 /**
@@ -52,46 +52,32 @@ ConsoleStage::ConsoleStage(Engine *engine) : Stage(engine) {
 * @param engine The currently used engine.
 * @param name The name of the stage.
 */
-ConsoleStage::ConsoleStage(Engine *engine, const std::string &name) : Stage(engine, name) {
-    this->initThread();
+CameraStage::CameraStage(Engine *engine, const std::string &name) : Stage(engine, name) {
 }
 
 /**
 * Destructor of the class.
 */
-ConsoleStage::~ConsoleStage() {
+CameraStage::~CameraStage() {
 }
 
-inline void ConsoleStage::initThread() {
-    this->thread = true;
-}
-
-void ConsoleStage::start(void *arguments) {
+void CameraStage::start(void *arguments) {
     Stage::start(arguments);
 
-    // retrieves the console manager
-    this->consoleManager = this->engine->getConsoleManager();
+    // retrieves the camera manager
+    this->cameraManager = this->engine->getCameraManager();
 }
 
-void ConsoleStage::stop(void *arguments) {
+void CameraStage::stop(void *arguments) {
     Stage::stop(arguments);
 
-    // unsets the console manager
-    this->consoleManager = NULL;
+    // unsets the camera manager
+    this->cameraManager = NULL;
 }
 
-void ConsoleStage::update(void *arguments) {
+void CameraStage::update(void *arguments) {
     Stage::update(arguments);
 
-    // creates the string buffer
-    std::string stringBuffer;
-
-    // prints the carret
-    std::cout << this->consoleManager->getCarretValue() << " ";
-
-    // retrieves the current line from standard input
-    getline(std::cin, stringBuffer);
-
-    // processes the command line value
-    this->consoleManager->processCommandLine(stringBuffer.c_str());
+    // updates the camera manager
+    this->cameraManager->update(NULL);
 }

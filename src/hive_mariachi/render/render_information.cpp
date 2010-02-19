@@ -46,20 +46,29 @@ RenderInformation::~RenderInformation() {
     MUTEX_CLOSE(this->mutex);
 }
 
+SceneNode *RenderInformation::getRender() {
+    return this->render;
+}
+
 void RenderInformation::setRender(SceneNode *render) {
     this->render = render;
 }
 
-SceneNode *RenderInformation::getRender() {
-    return this->render;
+
+Scene2dNode *RenderInformation::getRender2d() {
+    return this->render2d;
 }
 
 void RenderInformation::setRender2d(Scene2dNode *render2d) {
     this->render2d = render2d;
 }
 
-Scene2dNode *RenderInformation::getRender2d() {
-    return this->render2d;
+CameraNode *RenderInformation::getActiveCamera() {
+    return this->activeCamera;
+}
+
+void RenderInformation::setActiveCamera(CameraNode *activeCamera) {
+    this->activeCamera = activeCamera;
 }
 
 MUTEX_HANDLE RenderInformation::getMutex() {

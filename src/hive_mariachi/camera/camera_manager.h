@@ -25,30 +25,50 @@
 
 #pragma once
 
-#include "../structures/structures.h"
-#include "../system/thread.h"
-#include "../nodes/nodes.h"
+#include "../main/engine.h"
+#include "../nodes/camera_node.h"
 
 namespace mariachi {
-    namespace render {
-        class RenderInformation {
+    namespace camera {
+        class CameraManager {
             private:
-                MUTEX_HANDLE mutex;
-                nodes::SceneNode *render;
-                nodes::Scene2dNode *render2d;
+                /**
+                * The reference to the engine.
+                */
+                Engine *engine;
+
+                /**
+                * The default camera node.
+                */
+                nodes::CameraNode *defaultCamera;
+
+                /**
+                * The current active camera node.
+                */
                 nodes::CameraNode *activeCamera;
 
+                /**
+                * The map associating the camera name with the
+                * camera reference.
+                */
+                std::map<std::string, nodes::CameraNode *> camerasMap;
+
+                inline void initEngine(Engine *engine);
+                inline void initDefaultCamera();
+
             public:
-                RenderInformation();
-                ~RenderInformation();
-                nodes::SceneNode *getRender();
-                void setRender(nodes::SceneNode *render);
-                nodes::Scene2dNode *getRender2d();
-                void setRender2d(nodes::Scene2dNode *render2d);
+                CameraManager();
+                CameraManager(Engine *engine);
+                ~CameraManager();
+                void load(void *arguments);
+                void unload(void *arguments);
+                void update(void *arguments);
+                nodes::CameraNode *getDefaultCamera();
+                void setDefaultCamera(nodes::CameraNode *defaultCamera);
                 nodes::CameraNode *getActiveCamera();
                 void setActiveCamera(nodes::CameraNode *activeCamera);
-                MUTEX_HANDLE getMutex();
-                void setMutex(MUTEX_HANDLE mutex);
+                nodes::CameraNode *getCamera(const std::string &cameraName);
+                void setCamera(const std::string &cameraName, nodes::CameraNode *camera);
         };
     }
 }

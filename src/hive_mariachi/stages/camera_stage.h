@@ -23,20 +23,31 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#define ADD_TO_STAGES_LIST(stage) stagesList->push_back(stage);
+#pragma once
 
-#ifdef MARIACHI_STAGE_RENDER
-ADD_TO_STAGES_LIST(new RenderStage(this, std::string("render")));
+#ifndef MARIACHI_STAGE_CAMERA
+#define MARIACHI_STAGE_CAMERA true
 #endif
 
-#ifdef MARIACHI_STAGE_CAMERA
-ADD_TO_STAGES_LIST(new CameraStage(this, std::string("camera")));
-#endif
+#include "stage.h"
 
-#ifdef MARIACHI_STAGE_CONSOLE
-ADD_TO_STAGES_LIST(new ConsoleStage(this, std::string("console")));
-#endif
+namespace mariachi {
+    namespace stages {
+        class CameraStage : public Stage {
+            private:
+                /**
+                * The camera manager to be used.
+                */
+                camera::CameraManager *cameraManager;
 
-#ifdef MARIACHI_STAGE_DUMMY
-ADD_TO_STAGES_LIST(new DummyStage(this, std::string("dummy")));
-#endif
+            public:
+                CameraStage();
+                CameraStage(Engine *engine);
+                CameraStage(Engine *engine, const std::string &name);
+                ~CameraStage();
+                void start(void *arguments);
+                void stop(void *arguments);
+                void update(void *arguments);
+        };
+    }
+}
