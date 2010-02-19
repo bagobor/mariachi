@@ -676,7 +676,7 @@ void Engine::startRunLoop() {
         // updates the engine state
         this->update();
 
-        SLEEP(30);
+        SLEEP(1.0f / 60.0f * 1000.0f);
 #elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
         // enters the critical section
         CRITICAL_SECTION_ENTER(this->fifo->queueCriticalSection);
