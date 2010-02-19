@@ -37,6 +37,8 @@ namespace mariachi {
                 structures::Coordinate3d_t autoFollowOffset;
                 structures::Coordinate3d_t upVector;
 
+                inline void initializeAutoTracking();
+                inline void initializeAutoFollowing();
                 void setDirection(const structures::Coordinate3d_t &direction);
                 void setDirection(float x, float y, float z);
 
@@ -48,8 +50,10 @@ namespace mariachi {
                 void lookAt(float x, float y, float z);
                 bool isAutoTracking();
                 bool isAutoFollowing();
+                void enableAutoTracking(CubeNode *targetNode);
                 void enableAutoTracking(CubeNode *targetNode, structures::Coordinate3d_t &offset);
                 void disableAutoTracking();
+                void enableAutoFollowing(CubeNode *targetNode);
                 void enableAutoFollowing(CubeNode *targetNode, structures::Coordinate3d_t &offset);
                 void disableAutoFollowing();
                 structures::Coordinate3d_t &getUpVector();

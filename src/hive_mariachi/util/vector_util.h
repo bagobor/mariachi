@@ -33,6 +33,8 @@ namespace mariachi {
             private:
 
             public:
+                static const structures::Coordinate3d_t NULL_VECTOR;
+
                 static structures::Coordinate3d_t normalize(const structures::Coordinate3d_t &vector);
                 static structures::Coordinate3d_t crossProduct(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);
                 static structures::Coordinate3d_t add(const structures::Coordinate3d_t &vector1, const structures::Coordinate3d_t &vector2);

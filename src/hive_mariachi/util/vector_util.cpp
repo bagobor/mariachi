@@ -30,6 +30,8 @@
 using namespace mariachi::util;
 using namespace mariachi::structures;
 
+const Coordinate3d_t VectorUtil::NULL_VECTOR = { 0.0f, 0.0f, 0.0f };
+
 Coordinate3d_t VectorUtil::normalize(const Coordinate3d_t &vector) {
     // the normalized vector to compute
     Coordinate3d_t normalizedVector;

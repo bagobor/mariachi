@@ -39,18 +39,34 @@ using namespace mariachi::structures;
 */
 CameraNode::CameraNode() : LensNode() {
     // initializes the auto tracking status
-    this->disableAutoTracking();
+    this->initializeAutoTracking();
 
     // initializes the auto following status
-    this->disableAutoFollowing();
+    this->initializeAutoFollowing();
 }
 
 CameraNode::CameraNode(const std::string &name) : LensNode(name) {
     // initializes the auto tracking status
-    this->disableAutoTracking();
+    this->initializeAutoTracking();
 
     // initializes the auto following status
-    this->disableAutoFollowing();
+    this->initializeAutoFollowing();
+}
+
+inline void CameraNode::initializeAutoTracking() {
+    // initializes the auto track target node
+    this->autoTrackTargetNode = NULL;
+
+    // initializes the auto track offset
+    this->autoTrackOffset = VectorUtil::NULL_VECTOR;
+}
+
+inline void CameraNode::initializeAutoFollowing() {
+    // initializes the auto track target node
+    this->autoFollowTargetNode = NULL;
+
+    // initializes the auto follow offset
+    this->autoFollowOffset = VectorUtil::NULL_VECTOR;
 }
 
 /**
@@ -87,6 +103,11 @@ inline bool CameraNode::isAutoFollowing() {
     return this->autoFollowTargetNode != NULL;
 }
 
+void CameraNode::enableAutoTracking(CubeNode *targetNode) {
+    // enables auto tracking by setting the auto track target node
+    this->autoTrackTargetNode = targetNode;
+}
+
 void CameraNode::enableAutoTracking(CubeNode *targetNode, Coordinate3d_t &offset) {
     // enables auto tracking by setting the auto track target node
     this->autoTrackTargetNode = targetNode;
@@ -98,6 +119,11 @@ void CameraNode::enableAutoTracking(CubeNode *targetNode, Coordinate3d_t &offset
 void CameraNode::disableAutoTracking() {
     // disables auto tracking by resetting the auto track target node
     this->autoTrackTargetNode = NULL;
+}
+
+void CameraNode::enableAutoFollowing(CubeNode *targetNode) {
+    // sets the follow target node
+    this->autoFollowTargetNode = targetNode;
 }
 
 void CameraNode::enableAutoFollowing(CubeNode *targetNode, Coordinate3d_t &offset) {
