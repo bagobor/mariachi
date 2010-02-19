@@ -150,8 +150,6 @@ void RenderStage::stop(void *arguments) {
 void RenderStage::update(void *arguments) {
     Stage::update(arguments);
 
-    // @TODO: tenho de ver como e que aki faco a gestao dos dirties
-
     // waits for the render information mutex
     MUTEX_LOCK(this->renderInformation->getMutex());
 
