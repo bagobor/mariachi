@@ -270,6 +270,7 @@ void OpenglWin32Window::changeDisplayResolution(int width, int height, int color
 }
 
 LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM wParam, LPARAM lParam)  {
+	// the paint structure to be used
     static PAINTSTRUCT paintStructure;
 
     // the devices to be updated
@@ -277,6 +278,7 @@ LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM 
     Mouse *mouse;
     MousePosition mousePosition;
 
+	// allocates space for the mouse position
     unsigned int mousePositionX, mousePositionY;
 
     switch(message) {
@@ -284,8 +286,12 @@ LRESULT CALLBACK OpenglWin32WindowProc(HWND handlerWindow, UINT message, WPARAM 
             return 0;
 
         case WM_PAINT:
+			// begins the paint of the window
             BeginPaint(handlerWindow, &paintStructure);
+
+			// ends the paint of the window
             EndPaint(handlerWindow, &paintStructure);
+
             return 0;
 
         case WM_SIZE:
