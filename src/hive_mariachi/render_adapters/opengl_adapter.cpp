@@ -312,7 +312,9 @@ inline void OpenglAdapter::display3d() {
     // retrieves the render children list iterator
     std::list<Node *>::iterator renderChildrenListIterator = renderChildrenList.begin();
 
+	// iterates iver all the render children nodes
     while(renderChildrenListIterator != renderChildrenList.end()) {
+		// retrieves the current node
         Node *node = *renderChildrenListIterator;
 
         // in case the node is renderable
