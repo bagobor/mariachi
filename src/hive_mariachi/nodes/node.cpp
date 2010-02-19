@@ -202,22 +202,6 @@ void Node::removeChildren(std::vector<Node *> &_childrenList) {
     MUTEX_UNLOCK(childrenListMutexHandle);
 }
 
-/**
-* Locks the node access to the children list.
-*/
-void Node::lock() {
-    // locks the children list mutex
-    MUTEX_LOCK(childrenListMutexHandle);
-}
-
-/**
-* Locks the node access to the children list.
-*/
-void Node::unlock() {
-    // unlock the children list mutex
-    MUTEX_UNLOCK(childrenListMutexHandle);
-}
-
 bool Node::isRenderable() {
     return this->renderable;
 }

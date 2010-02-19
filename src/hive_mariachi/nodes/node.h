@@ -88,14 +88,28 @@ namespace mariachi {
                 void removeChild(Node *child);
                 void _removeChild(Node *child);
                 void removeChildren(std::vector<Node *> &_childrenList);
-                void lock();
-                void unlock();
                 bool isRenderable();
                 std::list<Node *> &getChildrenList();
                 void setChildrenList(std::list<Node *> &childrenList);
                 bool getRenderable();
                 void setRenderable(bool renderable);
                 virtual inline unsigned int getNodeType() { return NODE_TYPE; };
+
+                /**
+                * Locks the node access to the children list.
+                */
+                inline void lock() {
+                    // locks the children list mutex
+                    MUTEX_LOCK(childrenListMutexHandle);
+                }
+
+                /**
+                * Unlocks the node access to the children list.
+                */
+                inline void unlock() {
+                    // unlock the children list mutex
+                    MUTEX_UNLOCK(childrenListMutexHandle);
+                }
         };
     }
 }
