@@ -41,8 +41,6 @@ using namespace mariachi::structures;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
 
-extern CameraNode *gCameraNode;
-
 /**
 * Constructor of the class.
 */
@@ -169,8 +167,11 @@ inline void Opengles1Adapter::display3d() {
     // setups the display
     this->setupDisplay3d();
 
-    if(gCameraNode) {
-        this->renderCameraNode(gCameraNode);
+    // retrieves the current active camera
+    CameraNode *activeCamera = this->renderInformation->getActiveCamera();
+
+    if(activeCamera) {
+        this->renderCameraNode(activeCamera);
     }
 
     // retrieves the render (node)

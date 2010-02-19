@@ -23,20 +23,6 @@
 // __copyright__ = Copyright (c) 2008 Hive Solutions Lda.
 // __license__   = GNU General Public License (GPL), Version 3
 
-#define ADD_TO_STAGES_LIST(stage) stagesList->push_back(stage);
+#pragma once
 
-#ifdef MARIACHI_STAGE_RENDER
-ADD_TO_STAGES_LIST(new RenderStage(this, std::string("render")));
-#endif
-
-#ifdef MARIACHI_STAGE_CAMERA
-ADD_TO_STAGES_LIST(new CameraStage(this, std::string("camera")));
-#endif
-
-#ifdef MARIACHI_STAGE_CONSOLE
-ADD_TO_STAGES_LIST(new ConsoleStage(this, std::string("console")));
-#endif
-
-#ifdef MARIACHI_STAGE_DUMMY
-ADD_TO_STAGES_LIST(new DummyStage(this, std::string("dummy")));
-#endif
+#include "camera_manager.h"

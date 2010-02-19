@@ -36,15 +36,6 @@ using namespace mariachi::devices;
 using namespace mariachi::importers;
 using namespace mariachi::structures;
 
-CameraNode *gCameraNode = NULL;
-
-CameraNode *gCameraNode1;
-CameraNode *gCameraNode2;
-CameraNode *gCameraNode3;
-
-CameraNode *gTempCameraNode;
-
-// TESTING OVERHEAD SHOOTER CAMERA
 ModelNode *gModelNode;
 float posx = -25.0;
 float posy = 0.0;
@@ -102,8 +93,6 @@ void RunnerStage::start(void *arguments) {
 
     // retrieves the model node
     ModelNode *modelNode2 = importer2->getModelNode();*/
-
-
 
 
     BmpLoader *bmpLoader = new BmpLoader();
@@ -240,48 +229,18 @@ void RunnerStage::start(void *arguments) {
     packetNetwork->start(&argumentsMap);
     packetNetwork->bindConnection("", 8989);*/
 
-
-
-
-
-
-
-
-    gCameraNode1 = new CameraNode();
-    gCameraNode2 = new CameraNode();
-    gCameraNode3 = new CameraNode();
-
-    gTempCameraNode = new CameraNode();
-
-    gCameraNode = gCameraNode3;
-
-    //modelNode->setPosition(25.0f, 0.0f, 0.0f);
-  //  modelNode2->setPosition(-25.0f, 0.0f, 0.0f);
+    // retrieves the active camera
+    nodes::CameraNode *activeCamera = this->engine->getActiveCamera();
 
     Coordinate3d zeroVector = { 0.0f, 0.0f, 0.0f };
 
-    gCameraNode1->setPosition(-10.0f, 0.0f, 0.0f);
-    gCameraNode2->setPosition(-1.0f, 0.0f, 0.0f);
-    gCameraNode3->setPosition(0.0f, 0.0f, 100.0f);
+    activeCamera->setPosition(-10.0f, 0.0f, 0.0f);
+    activeCamera->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
+    activeCamera->setUpVector(0.0, 0.0, 1.0);
 
-    gCameraNode1->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
-    gCameraNode2->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
-    gCameraNode3->setRotation(0.0f, 0.0f, 0.0f, 0.0f);
+    activeCamera->enableAutoTracking(actorNode, zeroVector);
 
-    gCameraNode1->enableAutoTracking(actorNode, zeroVector);
-    gCameraNode2->enableAutoTracking(actorNode, zeroVector);
-    gCameraNode3->enableAutoTracking(actorNode, zeroVector);
-    gTempCameraNode->enableAutoTracking(actorNode, zeroVector);
-
-    gCameraNode1->setUpVector(0.0, 0.0, 1.0);
-    gCameraNode2->setUpVector(0.0, 0.0, 1.0);
-    gCameraNode3->setUpVector(0.0, 0.0, 1.0);
-
-    // TESTING OVERHEAD SHOOTER CAMERA
     gModelNode = actorNode;
-    Coordinate3d cameraNode3Offset = { -2.0f, -8.0f, 8.0f };
-    gCameraNode3->enableAutoFollowing(actorNode, cameraNode3Offset);
-    //gCameraNode2->enableAutoFollowing(modelNode, cameraNode3Offset);
 }
 
 void RunnerStage::stop(void *arguments) {
@@ -291,24 +250,16 @@ void RunnerStage::stop(void *arguments) {
 void RunnerStage::update(void *arguments) {
     Stage::update(arguments);
 
-    // updates the frame
+    // updates the frame in the model
     ((ActorNode *)gModelNode)->updateFrame();
 
-    gCameraNode1->_autoTrack();
-    gCameraNode2->_autoTrack();
-    gCameraNode3->_autoTrack();
-
-    gCameraNode1->_autoFollow();
-   // gCameraNode2->_autoFollow();
-    gCameraNode3->_autoFollow();
-
-    gCameraNode2->setPosition(posx, posy, posz);
-
-    // TESTING OVERHEAD SHOOTER CAMERA
+    // increments the angle value
     posx += 5.0f;
 
+    // updates the model node rotation
     gModelNode->setRotation(posx, 1.0, 1.0, 1.0);
 
+    // allocates space for the input event queue
     std::list<InputDeviceEvent_t> *inputEventQueue;
 
     // retrieves the keyboard
@@ -325,27 +276,6 @@ void RunnerStage::update(void *arguments) {
 
         // prints a debug message
         std::cout << "Key pressed (keycode: " << ((KeyboardEvent_t *) inputEvent.event)->keyCode << ")\n";
-
-        if(((KeyboardEvent_t *) inputEvent.event)->keyCode == KEY_CODE_C) {
-            unsigned int value = counter % 3;
-
-            switch(value) {
-                case 0:
-                    gCameraNode = gCameraNode1;
-                    break;
-
-                case 1:
-                    gCameraNode = gCameraNode2;
-                    break;
-
-                case 2:
-                    gCameraNode = gCameraNode3;
-                    break;
-            }
-
-            // increments the coutner
-            counter++;
-        }
 
         // pops the front
         inputEventQueue->pop_front();

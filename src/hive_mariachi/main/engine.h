@@ -72,6 +72,10 @@
 #define MARIACHI_HELP_TEXT "Type \"help\" for more information."
 
 namespace mariachi {
+    namespace camera {
+        class CameraManager;
+    }
+
     namespace configuration {
         class ConfigurationManager;
     }
@@ -124,6 +128,11 @@ namespace mariachi {
             * The manager used to provide configuration options.
             */
             configuration::ConfigurationManager *configurationManager;
+
+            /**
+            * The manager used to control the camera.
+            */
+            camera::CameraManager *cameraManager;
 
             /**
             * The manager used to control the console.
@@ -230,6 +239,8 @@ namespace mariachi {
             void startPathsList();
             void startConfigurationManager();
             void stopConfigurationManager();
+            void startCameraManager();
+            void stopCameraManager();
             void startConsoleManager();
             void stopConsoleManager();
             void startLogger(int level, bool pidFile);
@@ -265,8 +276,12 @@ namespace mariachi {
             void setScriptEngine(const std::string &scriptEngineName, script::ScriptEngine *scriptEngine);
             physics::PhysicsEngine *getPhysicsEngine(const std::string &physicsEngineName);
             void setPhysicsEngine(const std::string &physicsEngineName, physics::PhysicsEngine *physicsEngine);
+            nodes::CameraNode *getCamera(const std::string &cameraName);
+            void setCamera(const std::string &cameraName, nodes::CameraNode *camera);
             configuration::ConfigurationManager *getConfigurationManager();
             void setConfigurationManager(configuration::ConfigurationManager *configurationManager);
+            camera::CameraManager *getCameraManager();
+            void setCameraManager(camera::CameraManager *cameraManager);
             console::ConsoleManager *getConsoleManager();
             void setConsoleManager(console::ConsoleManager *consoleManager);
             std::list<std::string> *getPathsList();
@@ -277,6 +292,8 @@ namespace mariachi {
             void setRender(nodes::SceneNode *render);
             nodes::Scene2dNode *getRender2d();
             void setRender2d(nodes::Scene2dNode *render2d);
+            nodes::CameraNode *getActiveCamera();
+            void setActiveCamera(nodes::CameraNode *activeCamera);
             physics::PhysicsEngine *getActivePhysicsEngine();
             void setActivePhysicsEngine(physics::PhysicsEngine *activePhysicsEngine);
             int getArgc();

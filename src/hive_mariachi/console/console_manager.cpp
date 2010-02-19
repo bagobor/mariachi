@@ -45,7 +45,7 @@ ConsoleManager::ConsoleManager() {
 /**
 * Constructor of the class.
 *
-* @param engine The cur
+* @param engine The reference to the current engine.
 */
 ConsoleManager::ConsoleManager(Engine *engine) {
     this->initProcessInformationMap();

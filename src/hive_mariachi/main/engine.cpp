@@ -30,6 +30,7 @@
 #include "../system/system.h"
 #include "../stages/stages.h"
 #include "../configuration/configuration.h"
+#include "../camera/camera.h"
 #include "../console/console.h"
 #include "../script/script.h"
 #include "../physics/physics.h"
@@ -42,6 +43,7 @@ using namespace mariachi;
 using namespace mariachi::util;
 using namespace mariachi::nodes;
 using namespace mariachi::tasks;
+using namespace mariachi::camera;
 using namespace mariachi::script;
 using namespace mariachi::stages;
 using namespace mariachi::console;
@@ -73,6 +75,9 @@ THREAD_RETURN mariachi::mainRunnerThread(THREAD_ARGUMENTS parameters) {
 
         // starts the configuration manager in the engine
         engine->startConfigurationManager();
+
+        // starts the camera manager in the engine
+        engine->startCameraManager();
 
         // starts the console manager in the engine
         engine->startConsoleManager();
@@ -380,13 +385,35 @@ void Engine::stopConfigurationManager() {
 }
 
 /**
+* Starts the camera manager in the engine.
+*/
+void Engine::startCameraManager() {
+    // creates a camera manager
+    this->cameraManager = new CameraManager(this);
+
+    // loads the camera manager
+    this->cameraManager->load(NULL);
+}
+
+/**
+* Stops the camera manager in the engine.
+*/
+void Engine::stopCameraManager() {
+    // unloads the camera manager
+    this->cameraManager->unload(NULL);
+
+    // deletes the camera manager
+    delete this->cameraManager;
+}
+
+/**
 * Starts the console manager in the engine.
 */
 void Engine::startConsoleManager() {
     // creates a console manager
     this->consoleManager = new ConsoleManager(this);
 
-    // loads the configuration manager
+    // loads the console manager
     this->consoleManager->load(NULL);
 }
 
@@ -648,6 +675,8 @@ void Engine::startRunLoop() {
 #if defined(MARIACHI_ASSYNC_PARALLEL_PROCESSING)
         // updates the engine state
         this->update();
+
+        SLEEP(30);
 #elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
         // enters the critical section
         CRITICAL_SECTION_ENTER(this->fifo->queueCriticalSection);
@@ -1050,6 +1079,26 @@ void Engine::setPhysicsEngine(const std::string &physicsEngineName, PhysicsEngin
 }
 
 /**
+* Retrieves the camera for the given camera name.
+*
+* @param cameraName The camera name to retrieve the camera.
+* @return The camera for the given camera name.
+*/
+CameraNode *Engine::getCamera(const std::string &cameraName) {
+    return this->cameraManager->getCamera(cameraName);
+}
+
+/**
+* Sets the camera with the given camera name.
+*
+* @param cameraName The name to be used to identify the camera.
+* @param camera The camera to be set.
+*/
+void Engine::setCamera(const std::string &cameraName, CameraNode *camera) {
+    this->cameraManager->setCamera(cameraName, camera);
+}
+
+/**
 * Retrieves the configuration manager.
 *
 * @return The configuration manager.
@@ -1065,6 +1114,24 @@ ConfigurationManager *Engine::getConfigurationManager() {
 */
 void Engine::setConfigurationManager(ConfigurationManager *configurationManager) {
     this->configurationManager = configurationManager;
+}
+
+/**
+* Retrieves the camera manager.
+*
+* @return The camera manager.
+*/
+CameraManager *Engine::getCameraManager() {
+    return this->cameraManager;
+}
+
+/**
+* Sets the camera manager.
+*
+* @param cameraManager The camera manager.
+*/
+void Engine::setCameraManager(CameraManager *cameraManager) {
+    this->cameraManager = cameraManager;
 }
 
 /**
@@ -1155,6 +1222,24 @@ Scene2dNode *Engine::getRender2d() {
 */
 void Engine::setRender2d(Scene2dNode *render2d) {
     this->render2d = render2d;
+}
+
+/**
+* Retrieves the current active camera.
+*
+* @return The current active camera.
+*/
+CameraNode *Engine::getActiveCamera() {
+    return this->cameraManager->getActiveCamera();
+}
+
+/**
+* Sets the current active camera.
+*
+* @param activeCamera The current active camera.
+*/
+void Engine::setActiveCamera(CameraNode *activeCamera) {
+    this->cameraManager->setActiveCamera(activeCamera);
 }
 
 /**

@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include "camera_stage.h"
 #include "console_stage.h"
 #include "dummy_stage.h"
 #include "render_stage.h"

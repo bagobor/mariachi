@@ -29,6 +29,7 @@
 #define MARIACHI_STAGE_CONSOLE true
 #endif
 
+#include "../console/console.h"
 #include "stage.h"
 
 namespace mariachi {
