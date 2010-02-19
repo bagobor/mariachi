@@ -62,6 +62,7 @@ namespace mariachi {
                 virtual void unload(void *arguments) {};
                 virtual void update(float delta, void *arguments) {};
                 virtual void update(float delta) {};
+                virtual void update() {};
                 virtual std::vector<structures::Collision3d_t> getCollisions(void *arguments) { return std::vector<structures::Collision3d_t>(); };
                 virtual void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments) {};
                 virtual void registerCollision(nodes::CollisionNode *collisionNode, void *arguments) {};

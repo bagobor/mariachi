@@ -93,6 +93,7 @@ namespace mariachi {
                 void unload(void *arguments);
                 void update(float delta, void *arguments);
                 void update(float delta);
+                void update();
                 std::vector<structures::Collision3d_t> getCollisions(void *arguments);
                 void registerPhysics(nodes::PhysicalNode *physicalNode, void *arguments);
                 void registerCollision(nodes::CollisionNode *collisionNode, void *arguments);
