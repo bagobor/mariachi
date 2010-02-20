@@ -78,6 +78,9 @@ namespace mariachi {
                 inline void renderButtonNode(ui::ButtonNode *buttonNode, nodes::SquareNode *targetNode);
                 inline structures::Coordinate2d_t getRealPosition2d(nodes::SquareNode *squareNode, nodes::SquareNode *targetNode);
                 inline structures::FloatSize2d_t getRealSize2d(nodes::SquareNode *squareNode);
+                inline void setVsync(bool vsync);
+                inline bool isExtensionSupported(const char *extensionName);
+                inline char *getExtensionsString();
 
             public:
                 OpenglAdapter();

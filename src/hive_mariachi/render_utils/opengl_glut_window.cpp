@@ -37,11 +37,17 @@ using namespace mariachi::render_adapters;
 
 OpenglGlutWindow *openglGlutWindow;
 
+/**
+* Constructor of the class.
+*/
 OpenglGlutWindow::OpenglGlutWindow() : OpenglWindow() {
     // sets the current opengl glut window
     openglGlutWindow = this;
 }
 
+/**
+* Destructor of the class.
+*/
 OpenglGlutWindow::~OpenglGlutWindow() {
 }
 
@@ -105,11 +111,39 @@ void OpenglGlutWindow::fullScreen(void *arguments) {
 }
 
 void display() {
+#if defined(MARIACHI_ASSYNC_PARALLEL_PROCESSING)
     // calls the display method in the opengl adapter
     openglGlutWindow->openglAdapter->display();
 
     // swaps the double buffering buffers
     glutSwapBuffers();
+#elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
+    // waits for the fifo to become active
+    openglGlutWindow->engine->fifo->wait();
+
+    // enters the critical section
+    CRITICAL_SECTION_ENTER(openglGlutWindow->engine->fifo->queueCriticalSection);
+
+    // iterates while the queue is empty and the stop flag is not set
+    while(openglGlutWindow->engine->fifo->queue.empty() && !openglGlutWindow->engine->fifo->stopFlag) {
+        CONDITION_WAIT(openglGlutWindow->engine->fifo->notEmptyCondition, openglGlutWindow->engine->fifo->queueCriticalSection);
+    }
+
+    // calls the display method in the opengl adapter
+    openglGlutWindow->openglAdapter->display();
+
+    // swaps the double buffering buffers
+    glutSwapBuffers();
+
+    // removes a value from the fifo
+    openglGlutWindow->engine->fifo->queue.pop_front();
+
+    // leaves the critical section
+    CRITICAL_SECTION_LEAVE(openglGlutWindow->engine->fifo->queueCriticalSection);
+
+    // sends the condition signal
+    CONDITION_SIGNAL(openglGlutWindow->engine->fifo->notFullCondition);
+#endif
 }
 
 void resizeScene(int windowWidth, int windowHeight) {
