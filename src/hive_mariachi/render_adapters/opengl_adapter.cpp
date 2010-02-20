@@ -30,6 +30,7 @@
 #include "../main/engine.h"
 #include "../system/system.h"
 #include "../render/render.h"
+#include "../exceptions/exceptions.h"
 #include "../render_utils/opengl_glut_window.h"
 #include "../render_utils/opengl_win32_window.h"
 #include "../render_utils/opengl_cocoa_window.h"
@@ -43,8 +44,6 @@ using namespace mariachi::render;
 using namespace mariachi::structures;
 using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
-
-float frameRate = 60.0f;
 
 /**
 * Constructor of the class.
@@ -267,7 +266,7 @@ inline void OpenglAdapter::updateFrameRate() {
     // sampling limit
     if(deltaClock > FRAME_SAMPLING_LIMIT) {
         // calculates the frame rate
-        frameRate = (float) frameCount / deltaClock;
+        float frameRate = (float) frameCount / deltaClock;
 
         // prints the frame rate
         printf("Frame rate: %.2f\n", frameRate);
@@ -717,6 +716,69 @@ inline FloatSize2d_t OpenglAdapter::getRealSize2d(SquareNode *squareNode) {
 
     // returns the size
     return size;
+}
+
+/**
+* Sets the vsync value in the current context.
+* This value syncronizes the current context with
+* the vblank value sent from the graphics layer.
+*
+* @param vSync The new vsync value to be set.
+*/
+inline void OpenglAdapter::setVsync(bool vsync) {
+#ifdef MARIACHI_PLATFORM_WIN32
+    // in case the vsync extension is not supported
+    if(!this->isExtensionSupported("WGL_EXT_swap_control")) {
+        // throws a runtime exception
+        throw exceptions::RuntimeException("Operation not available in the current context");
+    }
+
+    // declares the function reference
+    typedef bool (APIENTRY *PFNWGLSWAPINTERVALFARPROC) (int);
+
+    // allocates space for the function reference
+    PFNWGLSWAPINTERVALFARPROC wglSwapIntervalEXT = NULL;
+
+    // retrieves the function reference
+    wglSwapIntervalEXT = (PFNWGLSWAPINTERVALFARPROC) wglGetProcAddress("wglSwapIntervalEXT");
+
+    // calls the swap interval
+    wglSwapIntervalEXT(vsync);
+#endif
+}
+
+/**
+* Returns if the given extension is available in the
+* current context.
+*
+* @param extensionName The name of the extension to be tested.
+* @return The result of the extension test.
+*/
+inline bool OpenglAdapter::isExtensionSupported(const char *extensionName) {
+    // retrieves the extensions string
+    const char *extensionsString = this->getExtensionsString();
+
+    // in case the extensions string is invalid or the extension name is not
+    // available
+    if(!extensionsString || !strstr(extensionsString, extensionName)) {
+        // returns false
+        return false;
+    } else {
+        // returns true
+        return true;
+    }
+}
+
+/**
+* Retrieves the current available extensions
+* the return value is a string containing string describing
+* the available capacities.
+*
+* @return The string describing the available extensions.
+*/
+inline char *OpenglAdapter::getExtensionsString() {
+    // returns the extensions string
+    return (char *) glGetString(GL_EXTENSIONS);
 }
 
 #endif

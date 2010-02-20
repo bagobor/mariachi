@@ -74,7 +74,7 @@ void OpenglWin32Window::stop(void *arguments) {
 
 void OpenglWin32Window::loop(void *arguments) {
     // allocates the message
-    MSG  message;
+    MSG message;
 
     // shows the window
     ShowWindow(this->handlerWindow, SW_SHOWDEFAULT);
@@ -84,8 +84,12 @@ void OpenglWin32Window::loop(void *arguments) {
 
     // iterates while the running flag is active
     while(this->runningFlag) {
+        // retrieves the message
         while(PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
+            // translates the message
             TranslateMessage(&message);
+
+            // dispatches the message
             DispatchMessage(&message);
         }
 #if defined(MARIACHI_ASSYNC_PARALLEL_PROCESSING)
