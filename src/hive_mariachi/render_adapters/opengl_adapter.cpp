@@ -124,6 +124,10 @@ void OpenglAdapter::init() {
     // enables the support for 2d textures
     glEnable(GL_TEXTURE_2D);
 
+    // enables backface culling support
+    // @todo add support for normals (in models) to be able to use this
+    //glEnable(GL_CULL_FACE);
+
     // select clearing (background) color
     glClearColor(0.0, 0.0, 0.0, 0.0);
 
