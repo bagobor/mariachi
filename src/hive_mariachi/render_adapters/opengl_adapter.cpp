@@ -160,8 +160,8 @@ void OpenglAdapter::display() {
     // releases the render information mutex
     MUTEX_UNLOCK(this->renderInformation->getMutex());
 
-	// flushes the open gl buffers
-	glFlush();
+    // flushes the open gl buffers
+    glFlush();
 }
 
 void OpenglAdapter::resizeScene(int windowWidth, int windowHeight) {
@@ -366,7 +366,7 @@ inline void OpenglAdapter::setupDisplay3d() {
     glLoadIdentity();
 
     // recalculates the glu perspective
-    gluPerspective(45.0, this->windowAspectRatio, 0.3, 1000.0);
+    gluPerspective(45.0, this->windowAspectRatio, 0.3f, 1000.0f);
 
     // sets the matrix mode to model view
     glMatrixMode(GL_MODELVIEW);

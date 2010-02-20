@@ -88,15 +88,39 @@ void OpenglWin32Window::loop(void *arguments) {
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
-#if defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
-		// waits for the fifo to become active
-        this->engine->fifo->wait();
-#endif
+#if defined(MARIACHI_ASSYNC_PARALLEL_PROCESSING)
         // calls the display method in the opengl adapter
         this->openglAdapter->display();
 
         // swaps the buffers
         SwapBuffers(openglWin32Window->handlerDeviceContext);
+#elif defined(MARIACHI_SYNC_PARALLEL_PROCESSING)
+        // waits for the fifo to become active
+        this->engine->fifo->wait();
+
+        // enters the critical section
+        CRITICAL_SECTION_ENTER(this->engine->fifo->queueCriticalSection);
+
+        // iterates while the queue is empty and the stop flag is not set
+        while(this->engine->fifo->queue.empty() && !this->engine->fifo->stopFlag) {
+            CONDITION_WAIT(this->engine->fifo->notEmptyCondition, this->engine->fifo->queueCriticalSection);
+        }
+
+        // calls the display method in the opengl adapter
+        this->openglAdapter->display();
+
+        // swaps the buffers
+        SwapBuffers(openglWin32Window->handlerDeviceContext);
+
+        // removes a value from the fifo
+        this->engine->fifo->queue.pop_front();
+
+        // leaves the critical section
+        CRITICAL_SECTION_LEAVE(this->engine->fifo->queueCriticalSection);
+
+        // sends the condition signal
+        CONDITION_SIGNAL(this->engine->fifo->notFullCondition);
+#endif
     }
 
     wglMakeCurrent(NULL, NULL);
@@ -125,7 +149,7 @@ void OpenglWin32Window::createWindow(char* title, int x, int y, int width, int h
         ZeroMemory(&windowClassEx, sizeof(WNDCLASSEX));
 
         windowClassEx.cbSize = sizeof(WNDCLASSEX);
-        windowClassEx.style =  CS_HREDRAW | CS_VREDRAW;;
+        windowClassEx.style =  CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
         windowClassEx.lpfnWndProc = OpenglWin32WindowProc;
         windowClassEx.cbClsExtra = 0;
         windowClassEx.cbWndExtra = 0;

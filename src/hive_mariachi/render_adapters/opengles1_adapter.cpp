@@ -152,8 +152,8 @@ void Opengles1Adapter::display() {
     // releases the render information mutex
     MUTEX_UNLOCK(this->renderInformation->getMutex());
 
-	// flushes the open gl buffers
-	glFlush();
+    // flushes the open gl buffers
+    glFlush();
 }
 
 inline void Opengles1Adapter::display2d() {
