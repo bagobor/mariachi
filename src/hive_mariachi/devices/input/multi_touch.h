@@ -31,8 +31,6 @@
 
 #define DEFAULT_MULTI_TOUCH_TOUCHES_MOVED_CAPTURE true
 
-#define MAX_EVENT_TOUCHES 256
-
 namespace mariachi {
     namespace devices {
         typedef enum TouchType_t {
