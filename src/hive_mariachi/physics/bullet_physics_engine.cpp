@@ -117,8 +117,6 @@ void BulletPhysicsEngine::unload(void *arguments) {
     delete this->broadPhase;
 }
 
-extern float frameRate;
-
 void BulletPhysicsEngine::update(float delta, void *arguments) {
     int maximumSubSteps = this->maximumSubSteps;
 
