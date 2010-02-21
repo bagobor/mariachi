@@ -342,15 +342,10 @@
 		561ED2521121EB51006F53EA /* hive_mariachi_runner.exe.manifest in Resources */ = {isa = PBXBuildFile; fileRef = 561ED21F1121EB51006F53EA /* hive_mariachi_runner.exe.manifest */; };
 		561ED2531121EB51006F53EA /* hive_mariachi_runner.rc in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2201121EB51006F53EA /* hive_mariachi_runner.rc */; };
 		561ED2541121EB51006F53EA /* runner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561ED2221121EB51006F53EA /* runner.cpp */; };
-		561ED2551121EB51006F53EA /* man.bmp in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED2241121EB51006F53EA /* man.bmp */; };
-		561ED2561121EB51006F53EA /* light6.bmp in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED2251121EB51006F53EA /* light6.bmp */; };
-		561ED2571121EB51006F53EA /* man_animated_10_frames.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED2261121EB51006F53EA /* man_animated_10_frames.md2 */; };
 		561ED2581121EB51006F53EA /* windmill.bmp in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED2271121EB51006F53EA /* windmill.bmp */; };
 		561ED2591121EB51006F53EA /* windmill.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED2281121EB51006F53EA /* windmill.md2 */; };
 		561ED25A1121EB51006F53EA /* pallette.bmp in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED2291121EB51006F53EA /* pallette.bmp */; };
-		561ED25B1121EB51006F53EA /* light6.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED22A1121EB51006F53EA /* light6.md2 */; };
 		561ED25C1121EB51006F53EA /* pallette.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED22B1121EB51006F53EA /* pallette.md2 */; };
-		561ED25D1121EB51006F53EA /* man_animated.md2 in Copy Model Files */ = {isa = PBXBuildFile; fileRef = 561ED22C1121EB51006F53EA /* man_animated.md2 */; };
 		561ED25E1121EB51006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ED22D1121EB51006F53EA /* ReadMe.txt */; };
 		561ED2611121EB51006F53EA /* highscores_hover.png in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 561ED2321121EB51006F53EA /* highscores_hover.png */; };
 		561ED2621121EB51006F53EA /* resume_game_hover.png in Copy Ui Files */ = {isa = PBXBuildFile; fileRef = 561ED2331121EB51006F53EA /* resume_game_hover.png */; };
@@ -386,6 +381,12 @@
 		561ED28F1121EB67006F53EA /* iphone_application_delegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED2821121EB67006F53EA /* iphone_application_delegate.mm */; };
 		561ED2901121EB67006F53EA /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2881121EB67006F53EA /* MainWindow.xib */; };
 		561ED2911121EB67006F53EA /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 561ED2891121EB67006F53EA /* ReadMe.txt */; };
+		563B281B113182A200A38467 /* camera_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563B2818113182A200A38467 /* camera_manager.cpp */; };
+		563B281C113182A200A38467 /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 563B2819113182A200A38467 /* camera.h */; };
+		563B281D113182A200A38467 /* camera_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 563B281A113182A200A38467 /* camera_manager.h */; };
+		563B2828113182DC00A38467 /* camera_stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563B2826113182DC00A38467 /* camera_stage.cpp */; };
+		563B2829113182DC00A38467 /* camera_stage.h in Headers */ = {isa = PBXBuildFile; fileRef = 563B2827113182DC00A38467 /* camera_stage.h */; };
+		563B28301131832C00A38467 /* runner_stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 563B282D1131832C00A38467 /* runner_stage.cpp */; };
 		5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 561ED0251121EB3F006F53EA /* opengles_uikit_window_view.mm */; };
 		567A399B112C5C0C0039D0A6 /* fifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567A3999112C5C0C0039D0A6 /* fifo.cpp */; };
 		567A399C112C5C0C0039D0A6 /* fifo.h in Headers */ = {isa = PBXBuildFile; fileRef = 567A399A112C5C0C0039D0A6 /* fifo.h */; };
@@ -475,15 +476,10 @@
 			dstPath = models;
 			dstSubfolderSpec = 7;
 			files = (
-				561ED2551121EB51006F53EA /* man.bmp in Copy Model Files */,
-				561ED2561121EB51006F53EA /* light6.bmp in Copy Model Files */,
-				561ED2571121EB51006F53EA /* man_animated_10_frames.md2 in Copy Model Files */,
 				561ED2581121EB51006F53EA /* windmill.bmp in Copy Model Files */,
 				561ED2591121EB51006F53EA /* windmill.md2 in Copy Model Files */,
 				561ED25A1121EB51006F53EA /* pallette.bmp in Copy Model Files */,
-				561ED25B1121EB51006F53EA /* light6.md2 in Copy Model Files */,
 				561ED25C1121EB51006F53EA /* pallette.md2 in Copy Model Files */,
-				561ED25D1121EB51006F53EA /* man_animated.md2 in Copy Model Files */,
 			);
 			name = "Copy Model Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -830,15 +826,10 @@
 		561ED21F1121EB51006F53EA /* hive_mariachi_runner.exe.manifest */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text.xml; name = hive_mariachi_runner.exe.manifest; path = ../../src/hive_mariachi_runner/hive_mariachi_runner.exe.manifest; sourceTree = SOURCE_ROOT; };
 		561ED2201121EB51006F53EA /* hive_mariachi_runner.rc */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = hive_mariachi_runner.rc; path = ../../src/hive_mariachi_runner/hive_mariachi_runner.rc; sourceTree = SOURCE_ROOT; };
 		561ED2221121EB51006F53EA /* runner.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = runner.cpp; sourceTree = "<group>"; };
-		561ED2241121EB51006F53EA /* man.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = man.bmp; sourceTree = "<group>"; };
-		561ED2251121EB51006F53EA /* light6.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = light6.bmp; sourceTree = "<group>"; };
-		561ED2261121EB51006F53EA /* man_animated_10_frames.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = man_animated_10_frames.md2; sourceTree = "<group>"; };
 		561ED2271121EB51006F53EA /* windmill.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = windmill.bmp; sourceTree = "<group>"; };
 		561ED2281121EB51006F53EA /* windmill.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = windmill.md2; sourceTree = "<group>"; };
 		561ED2291121EB51006F53EA /* pallette.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = pallette.bmp; sourceTree = "<group>"; };
-		561ED22A1121EB51006F53EA /* light6.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = light6.md2; sourceTree = "<group>"; };
 		561ED22B1121EB51006F53EA /* pallette.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = pallette.md2; sourceTree = "<group>"; };
-		561ED22C1121EB51006F53EA /* man_animated.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = man_animated.md2; sourceTree = "<group>"; };
 		561ED22D1121EB51006F53EA /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi_runner/ReadMe.txt; sourceTree = SOURCE_ROOT; };
 		561ED2321121EB51006F53EA /* highscores_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscores_hover.png; sourceTree = "<group>"; };
 		561ED2331121EB51006F53EA /* resume_game_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resume_game_hover.png; sourceTree = "<group>"; };
@@ -881,6 +872,14 @@
 		561ED2891121EB67006F53EA /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = text; name = ReadMe.txt; path = ../../src/hive_mariachi_iphone/ReadMe.txt; sourceTree = SOURCE_ROOT; };
 		561ED28D1121EB67006F53EA /* iphone_application_util.mm */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.objcpp; path = iphone_application_util.mm; sourceTree = "<group>"; };
 		561ED28E1121EB67006F53EA /* iphone_application_util.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = iphone_application_util.h; sourceTree = "<group>"; };
+		563B2818113182A200A38467 /* camera_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = camera_manager.cpp; sourceTree = "<group>"; };
+		563B2819113182A200A38467 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		563B281A113182A200A38467 /* camera_manager.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = camera_manager.h; sourceTree = "<group>"; };
+		563B2826113182DC00A38467 /* camera_stage.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = camera_stage.cpp; sourceTree = "<group>"; };
+		563B2827113182DC00A38467 /* camera_stage.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = camera_stage.h; sourceTree = "<group>"; };
+		563B282D1131832C00A38467 /* runner_stage.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = runner_stage.cpp; path = ../../src/hive_mariachi_runner/stages/runner_stage.cpp; sourceTree = SOURCE_ROOT; };
+		563B282E1131832C00A38467 /* runner_stage.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = runner_stage.h; path = ../../src/hive_mariachi_runner/stages/runner_stage.h; sourceTree = SOURCE_ROOT; };
+		563B282F1131832C00A38467 /* stages.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; name = stages.h; path = ../../src/hive_mariachi_runner/stages/stages.h; sourceTree = SOURCE_ROOT; };
 		567A3999112C5C0C0039D0A6 /* fifo.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; path = fifo.cpp; sourceTree = "<group>"; };
 		567A399A112C5C0C0039D0A6 /* fifo.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = fifo.h; sourceTree = "<group>"; };
 		569F8EC411233DCE0046739E /* libbullet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbullet.a; sourceTree = "<absolute>"; };
@@ -991,6 +990,7 @@
 			isa = PBXGroup;
 			children = (
 				561ECF551121EB3F006F53EA /* algorithms */,
+				563B2817113182A200A38467 /* camera */,
 				561ECF691121EB3F006F53EA /* configuration */,
 				561ECF791121EB3F006F53EA /* console */,
 				561ECF7D1121EB3F006F53EA /* debugging */,
@@ -1026,12 +1026,13 @@
 			isa = PBXGroup;
 			children = (
 				561ED2181121EB51006F53EA /* configuration */,
-				561ED21F1121EB51006F53EA /* hive_mariachi_runner.exe.manifest */,
-				561ED2201121EB51006F53EA /* hive_mariachi_runner.rc */,
 				561ED2211121EB51006F53EA /* main */,
 				561ED2231121EB51006F53EA /* models */,
-				561ED22D1121EB51006F53EA /* ReadMe.txt */,
+				563B282C1131831800A38467 /* stages */,
 				561ED2311121EB51006F53EA /* ui */,
+				561ED21F1121EB51006F53EA /* hive_mariachi_runner.exe.manifest */,
+				561ED2201121EB51006F53EA /* hive_mariachi_runner.rc */,
+				561ED22D1121EB51006F53EA /* ReadMe.txt */,
 			);
 			name = hive_mariachi_runner;
 			sourceTree = "<group>";
@@ -1636,6 +1637,8 @@
 		561ED0791121EB40006F53EA /* stages */ = {
 			isa = PBXGroup;
 			children = (
+				563B2826113182DC00A38467 /* camera_stage.cpp */,
+				563B2827113182DC00A38467 /* camera_stage.h */,
 				561ED07A1121EB40006F53EA /* console_stage.cpp */,
 				561ED07B1121EB40006F53EA /* render_stage.h */,
 				561ED07C1121EB40006F53EA /* dummy_stage.cpp */,
@@ -1798,15 +1801,10 @@
 		561ED2231121EB51006F53EA /* models */ = {
 			isa = PBXGroup;
 			children = (
-				561ED2241121EB51006F53EA /* man.bmp */,
-				561ED2251121EB51006F53EA /* light6.bmp */,
-				561ED2261121EB51006F53EA /* man_animated_10_frames.md2 */,
 				561ED2271121EB51006F53EA /* windmill.bmp */,
 				561ED2281121EB51006F53EA /* windmill.md2 */,
 				561ED2291121EB51006F53EA /* pallette.bmp */,
-				561ED22A1121EB51006F53EA /* light6.md2 */,
 				561ED22B1121EB51006F53EA /* pallette.md2 */,
-				561ED22C1121EB51006F53EA /* man_animated.md2 */,
 			);
 			name = models;
 			path = ../../src/hive_mariachi_runner/models;
@@ -1882,6 +1880,27 @@
 			name = util;
 			path = ../../src/hive_mariachi_iphone/util;
 			sourceTree = SOURCE_ROOT;
+		};
+		563B2817113182A200A38467 /* camera */ = {
+			isa = PBXGroup;
+			children = (
+				563B2818113182A200A38467 /* camera_manager.cpp */,
+				563B2819113182A200A38467 /* camera.h */,
+				563B281A113182A200A38467 /* camera_manager.h */,
+			);
+			name = camera;
+			path = ../../src/hive_mariachi/camera;
+			sourceTree = SOURCE_ROOT;
+		};
+		563B282C1131831800A38467 /* stages */ = {
+			isa = PBXGroup;
+			children = (
+				563B282D1131832C00A38467 /* runner_stage.cpp */,
+				563B282E1131832C00A38467 /* runner_stage.h */,
+				563B282F1131832C00A38467 /* stages.h */,
+			);
+			name = stages;
+			sourceTree = "<group>";
 		};
 		C219A272110628F700F7A348 /* Classes */ = {
 			isa = PBXGroup;
@@ -2118,6 +2137,9 @@
 				561ED2171121EB40006F53EA /* byte_util.h in Headers */,
 				56AEED89112B33C200DFD01F /* multi_touch.h in Headers */,
 				567A399C112C5C0C0039D0A6 /* fifo.h in Headers */,
+				563B281C113182A200A38467 /* camera.h in Headers */,
+				563B281D113182A200A38467 /* camera_manager.h in Headers */,
+				563B2829113182DC00A38467 /* camera_stage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2207,6 +2229,7 @@
 				561ED2541121EB51006F53EA /* runner.cpp in Sources */,
 				561ED28F1121EB67006F53EA /* iphone_application_delegate.mm in Sources */,
 				5656AE281122C30D004DFAB0 /* opengles_uikit_window_view.mm in Sources */,
+				563B28301131832C00A38467 /* runner_stage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2343,6 +2366,8 @@
 				56E18D8011247B4400FA5148 /* iphone_application_util.mm in Sources */,
 				56AEED88112B33C200DFD01F /* multi_touch.cpp in Sources */,
 				567A399B112C5C0C0039D0A6 /* fifo.cpp in Sources */,
+				563B281B113182A200A38467 /* camera_manager.cpp in Sources */,
+				563B2828113182DC00A38467 /* camera_stage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
