@@ -31,9 +31,9 @@
 
 #include "physics_engine.h"
 
-#define BULLET_DEFAULT_PHYSICS_RATE 1.0f / 60.0f
+#define BULLET_DEFAULT_PHYSICS_RATE 1.0f / 15.0f
 
-#define BULLET_DEFAULT_MAXIMUM_SUB_STEPS 1
+#define BULLET_DEFAULT_MAXIMUM_SUB_STEPS 4
 
 namespace mariachi {
     namespace physics {
