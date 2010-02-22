@@ -59,6 +59,17 @@ void RunnerStage::start(void *arguments) {
     Stage::start(arguments);
 
     // creates the importer
+    Md3Importer *importer3 = new Md3Importer();
+
+    // generates the model
+    importer3->generateModel(engine->getAbsolutePath("models/mariachi_animated.md3"));
+
+
+
+
+
+
+    // creates the importer
     Md2Importer *importer = new Md2Importer();
 
     // generates the model

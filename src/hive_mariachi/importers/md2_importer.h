@@ -98,7 +98,7 @@ namespace mariachi {
         } Md2Header;
 
         /**
-        * The md2 header information structure.
+        * The md2 frame header information structure.
         *
         * @param scale The scaling information for each of the
         * coordinates.
