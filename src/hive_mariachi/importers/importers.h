@@ -27,5 +27,6 @@
 
 #include "bmp_loader.h"
 #include "md2_importer.h"
+#include "md3_importer.h"
 #include "model_importer.h"
 #include "texture_importer.h"

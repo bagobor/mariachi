@@ -25,76 +25,136 @@
 
 #pragma once
 
+#include "../structures/position.h"
 #include "model_importer.h"
+
+/**
+* The md3 header size.
+*/
+#define MD3_HEADER_SIZE 112
+
+/**
+* The md3 frame header size.
+*/
+#define MD3_FRAME_HEADER_SIZE 56
 
 namespace mariachi {
     namespace importers {
         /**
-        * The md2 header structure, containing information about
-        * md2 metadata.
+        * The md3 header structure, containing information about
+        * md3 metadata.
         *
-        * @param magicNumber The md2 magic number (IDP2).
-        * @param md2Version The version of the md2 implementation.
-        * @param textureWidth The width of the texture.
-        * @param textureHeight The height of the texture.
-        * @param frameSize The size of a frame (in bytes).
-        * @param numberTextures The number of textures.
-        * @param numberVertices The number of vertices.
-        * @param numberTextureCordinates The number of texture coordinates.
-        * @param numberTriangles The number of triangles.
-        * @param numberGlCommands The number of gl commands.
-        * @param numberFrames The number of frames included in the model.
-        * @param offsetSkins The offset address to the skins.
-        * @param offsetSt The offset address to the texture coordinates.
-        * @param offsetTriangles The offset address to the trinagles.
+        * @param magicNumber The md3 magic number (IDP3).
+        * @param md3Version The version of the md3 implementation.
+		* @param name The name of the model.
+        * @param flags The flags that control the behaviour of the model.
+        * @param numberFrames The number of frames in the model.
+        * @param numberTags The number of tags of the model.
+		* @param numberSurfaces The number of surfaces.
+		* @param numberSkins The number of skins of the model.
         * @param offsetFrames The offset address to the frames.
-        * @param offsetGlCommands The offset address to the gl commands.
-        * @param offsetEnd The offset address to the end.
+		* @param offsetTags The offset address to the tags.
+		* @param offsetSurfaces The offset address to the frames.
+		* @param offsetEnd The offset address to the end.
         */
         typedef struct Md3Header_t {
             char magicNumber[4];
             int md3Version;
             char name[64];
             int flags;
-            int numberFrames;
-            int numberTags;
-            int numberSurfaces;
-            int numberSkins;
-
-
-
-          /*  int textureWidth;
-            int textureHeight;
-            int frameSize;
-            int numberTextures;
-            int numberVertices;
-            int numberTextureCordinates;
-            int numberTriangles;
-            int numberGlCommands;
-            int numberFrames;
-            int offsetSkins;
-            int offsetSt;
-            int offsetTriangles;
-            int offsetFrames;
-            int offsetGlCommands;
-            int offsetEnd;*/
+			int numberFrames;
+			int numberTags;
+			int numberSurfaces;
+			int numberSkins;
+			int offsetFrames;
+			int offsetTags;
+			int offsetSurfaces;
+			int offsetEnd;
         } Md3Header;
 
-/*
-S32    NUM_FRAMES    Number of Frame objects, with a maximum of MD3_MAX_FRAMES. Current value of MD3_MAX_FRAMES is 1024.
-S32    NUM_TAGS    Number of Tag objects, with a maximum of MD3_MAX_TAGS. Current value of MD3_MAX_TAGS is 16. There is one set of tags per frame so the total number of tags to read is (NUM_TAGS * NUM_FRAMES).
-S32    NUM_SURFACES    Number of Surface objects, with a maximum of MD3_MAX_SURFACES. Current value of MD3_MAX_SURFACES is 32.
-S32    NUM_SKINS    Number of Skin objects. I should note that I have not seen an MD3 using this particular field for anything; this appears to be an artifact from the Quake 2 MD2 format. Surface objects have their own Shader field.
-S32    OFS_FRAMES    Relative offset from start of MD3 object where Frame objects start. The Frame objects are written sequentially, that is, when you read one Frame object, you do not need to seek() for the next object.
-S32    OFS_TAGS    Relative offset from start of MD3 where Tag objects start. Similarly written sequentially.
-S32    OFS_SURFACES    Relative offset from start of MD3 where Surface objects start. Again, written sequentially.
-S32    OFS_EOF    Relative offset from start of MD3 to the end of the MD3 object. Note there is no offset for Skin objects.
- !    (Frame)    The array of Frame objects usually starts immediately afterwards, but OFS_FRAMES should be used.
- !    (Tag)    The array of Tag objects usually starts immediately after FRAMES, but OFS_TAGS should be used.
- !    (Surface)    The array of Surface objects usually start after TAGS, but OFS_SURFACES should be used.
--    MD3_END    End of MD3 object. Should match MD3_START.
-*/
+        /**
+        * The md3 frame header information structure.
+		*
+		* @param minimumBounds The first corner of the bounding box.
+        * @param maximumBounds The second corner of the bounding box.
+        * @param localOrigin The position to be used as the origin
+		* position for the model (usually 0.0, 0.0, 0.0).
+        * @param radius The radius of the frame.
+        * @param name The name used to identify the frame.
+        */
+        typedef struct Md3FrameHeader_t {
+			structures::Coordinate3d_t minimumBounds;
+			structures::Coordinate3d_t maximumBounds;
+			structures::Coordinate3d_t localOrigin;
+            float radius;
+            char name[16];
+        } Md3FrameHeader;
 
+        /**
+        * The md3 tag header information structure.
+		*
+		* @param name The name used to identify the tag.
+		* @param origin The coordinates of tag object.
+        * @param axis The 3x3 rotation matrix associated with the tag.
+        */
+        typedef struct Md3TagHeader_t {
+			char name[64];
+			structures::Coordinate3d_t origin;
+			structures::Coordinate3d_t axis[3];
+        } Md3TagHeader;
+
+		/*
+		-	SURFACE_START	Offset relative to start of MD3 object.
+		S32	IDENT	Magic number. As a string of 4 octets, reads "IDP3"; as unsigned little-endian 860898377 (0x33504449); as unsigned big-endian 1229213747 (0x49445033).
+		U8 * 64	NAME	Name of Surface object. ASCII character string, NUL-terminated (C-style).
+		S32	FLAGS	 ???
+		S32	NUM_FRAMES	Number of animation frames. This should match NUM_FRAMES in the MD3 header.
+		S32	NUM_SHADERS	Number of Shader objects defined in this Surface, with a limit of MD3_MAX_SHADERS. Current value of MD3_MAX_SHADERS is 256.
+		S32	NUM_VERTS	Number of Vertex objects defined in this Surface, up to MD3_MAX_VERTS. Current value of MD3_MAX_VERTS is 4096.
+		S32	NUM_TRIANGLES	Number of Triangle objects defined in this Surface, maximum of MD3_MAX_TRIANGLES. Current value of MD3_MAX_TRIANGLES is 8192.
+		S32	OFS_TRIANGLES	Relative offset from SURFACE_START where the list of Triangle objects starts.
+		S32	OFS_SHADERS	Relative offset from SURFACE_START where the list of Shader objects starts.
+		S32	OFS_ST	Relative offset from SURFACE_START where the list of ST objects (s-t texture coordinates) starts.
+		S32	OFS_XYZNORMAL	Relative offset from SURFACE_START where the list of Vertex objects (X-Y-Z-N vertices) starts.
+		S32	OFS_END	Relative offset from SURFACE_START to where the Surface object ends.
+		 !	(Shader)	List of Shader objects usually starts immediate after the Surface header, but use OFS_SHADERS (or rather, OFS_SHADERS+OFS_SURFACES for files).
+		 !	(Triangle)	List of Triangle objects usually starts immediately after the list of Shader objects, but use OFS_TRIANGLES (+ OFS_SURFACES).
+		 !	(ST)	List of ST objects usually starts immediately after the list of Triangle objects, but use OFS_ST (+ OFS_SURFACES).
+		 !	(XYZNormal)	List of Vertex objects usually starts immediate after the list of St objects, but use OFS_XYZNORMALS (+ OFS_SURFACES). The total number of objects is (NUM_FRAMES * NUM_VERTS). One set of NUM_VERTS Vertex objects describes the Surface in one frame of animation; the first NUM_VERTS Vertex objects describes the Surface in the first frame of animation, the second NUM_VERTEX Vertex objects describes the Surface in the second frame of animation, and so forth.
+		-	SURFACE_END	End of Surface object. Should match OFS_END.
+		*/
+
+		typedef struct Md3Shader_t {
+			char name[64];
+			int shaderIndex;
+		} Md3Shader;
+
+        typedef struct Md3SurfaceHeader_t {
+			int indentation;
+			char name[64];
+			int flags;
+			int numberFrames;
+			int numberShaders;
+			int numberVertices;
+			int numberTriangles;
+			int offsetShaders;
+			int offsetStart;
+			int offsetXYZNormal;
+			int offsetEnd;
+        } Md3SurfaceHeader;
+
+        /**
+        * Class that represents an md3 (quake 3) frame.
+        *
+        * @see wikipedia -http://en.wikipedia.org/wiki/MD3_(file_format)
+        */
+        class Md3Frame {
+            private:
+
+            public:
+                Md3Frame();
+                ~Md3Frame();
+        };
 
         /**
         * Class that represents an md3 (quake 3) frame, the contents
@@ -104,10 +164,19 @@ S32    OFS_EOF    Relative offset from start of MD3 to the end of the MD3 object
         */
         class Md3Importer : public ModelImporter {
             private:
+				std::vector<Md3Frame *> md3FramesList;
+				int frameCount;
+				int tagCount;
+				int surfaceCount;
+
+				inline void generateFramesList(Md3Header_t *md3Header, char *md3Contents);
+				inline void generateTagsList(Md3Header_t *md3Header, char *md3Contents);
+				inline void generateSurfacesList(Md3Header_t *md3Header, char *md3Contents);
 
             public:
                 Md3Importer();
                 ~Md3Importer();
+				void generateModel(const std::string &filePath);
         };
     }
 }
