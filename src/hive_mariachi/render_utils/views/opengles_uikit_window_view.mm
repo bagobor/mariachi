@@ -89,11 +89,25 @@ extern Engine *engine;
  * @param sender The sender object id.
  **/
 - (void) drawView: (id) sender {
-    // waits for work available
-    _engine->fifo->wait();
+    // enters the critical section
+    CRITICAL_SECTION_ENTER(_engine->fifo->queueCriticalSection);
+
+    // iterates while the queue is empty and the stop flag is not set
+    while(_engine->fifo->queue.empty() && !_engine->fifo->stopFlag) {
+        CONDITION_WAIT(_engine->fifo->notEmptyCondition, _engine->fifo->queueCriticalSection);
+    }
 
     // renders the frame
     [renderer render];
+
+    // removes a value from the fifo
+    _engine->fifo->queue.pop_front();
+
+    // leaves the critical section
+    CRITICAL_SECTION_LEAVE(_engine->fifo->queueCriticalSection);
+
+    // sends the condition signal
+    CONDITION_SIGNAL(_engine->fifo->notFullCondition);
 }
 
 /**
