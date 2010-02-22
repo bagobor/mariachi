@@ -129,6 +129,9 @@ void Md2Importer::generateModel(const std::string &filePath) {
 /**
 * Generates the coordinates list for each of the frames contained in
 * the md2 model.
+*
+* @param md2Header The md2 model header to be used.
+* @param md2Contents The contents of the md2 model file.
 */
 inline void Md2Importer::generateCoordinatesList(Md2Header_t *md2Header, char *md2Contents) {
     // starts the frame contents pointer
