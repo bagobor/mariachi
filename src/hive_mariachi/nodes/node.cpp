@@ -221,3 +221,11 @@ bool Node::getRenderable() {
 void Node::setRenderable(bool renderable) {
     this->renderable = renderable;
 }
+
+Node *Node::duplicate() {
+	// creates the new reference node
+	Node *referenceNode = new Node();
+
+	// returns the reference node
+	return referenceNode;
+}
