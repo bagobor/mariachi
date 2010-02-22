@@ -952,9 +952,9 @@ void Engine::removeTask(Task *task) {
 /**
 * Starts a camera transition using the camera manager.
 * @param cameraName The name of the camera where the transition should end.
-* @param duration The duration of the transition.
+* @param duration The duration of the transition in steps.
 */
-void Engine::startCameraTransition(const std::string &cameraName, float duration) {
+void Engine::startCameraTransition(const std::string &cameraName, int duration) {
     this->cameraManager->startTransition(cameraName, duration);
 }
 
