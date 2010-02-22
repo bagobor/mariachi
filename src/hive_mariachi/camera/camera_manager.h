@@ -69,14 +69,14 @@ namespace mariachi {
                 nodes::CameraNode *transitionEndCamera;
 
                 /**
-                * The duration in seconds, for the current transition.
+                * The duration, in steps, for the current transition.
                 */
                 float transitionDuration;
 
                 /**
-                * The time already elapsed in the current transition.
+                * The steps already elapsed in the current transition.
                 */
-                float transitionElapsedTime;
+                float transitionElapsedSteps;
 
                 inline void initEngine(Engine *engine);
                 inline void initDefaultCamera();
@@ -95,8 +95,8 @@ namespace mariachi {
                 void setActiveCamera(nodes::CameraNode *activeCamera);
                 nodes::CameraNode *getCamera(const std::string &cameraName);
                 void setCamera(const std::string &cameraName, nodes::CameraNode *camera);
-                void startTransition(const std::string &cameraName, float duration);
-                void updateTransition(float elapsedTime);
+                void startTransition(const std::string &cameraName, int duration);
+                void updateTransition(float elapsedSteps);
                 void cancelTransition();
                 bool isTransitioning();
         };

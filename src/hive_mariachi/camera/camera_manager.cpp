@@ -84,8 +84,8 @@ inline void CameraManager::initTransitionCamera() {
     // resets the transition duration
     this->transitionDuration = NULL;
 
-    // resets the elapsed transition time
-    this->transitionElapsedTime = NULL;
+    // resets the elapsed transition steps
+    this->transitionElapsedSteps = NULL;
 }
 
 inline void CameraManager::initEngine(Engine *engine) {
@@ -102,13 +102,10 @@ void CameraManager::update(void *arguments) {
     this->activeCamera->_autoFollow();
     this->activeCamera->_autoTrack();
 
-    // @todo: replace this with a timed value
-    float elapsedTime = 1.0f / 60.0f;
-
     // in case a transition is in progress
     if(this->isTransitioning()) {
         // updates the transition
-        this->updateTransition(elapsedTime);
+        this->updateTransition(1);
     }
 }
 
@@ -173,9 +170,9 @@ void CameraManager::setCamera(const std::string &cameraName, CameraNode *camera)
 * the given camera.
 * @param cameraName The camera name to retrieve the camera to which
 * the transition is to be made.
-* @param duration The duration, in seconds, of the transition animation.
+* @param duration The duration, in steps, of the transition animation.
 */
-void CameraManager::startTransition(const std::string &cameraName, float duration) {
+void CameraManager::startTransition(const std::string &cameraName, int duration) {
     // cancels existing transitions
     this->cancelTransition();
 
@@ -195,12 +192,12 @@ void CameraManager::startTransition(const std::string &cameraName, float duratio
 /**
 * Updates the ongoing transition between cameras.
 */
-void CameraManager::updateTransition(float elapsedTime) {
-    // updates the elapsed time
-    this->transitionElapsedTime += elapsedTime;
+void CameraManager::updateTransition(float elapsedSteps) {
+    // updates the elapsed steps
+    this->transitionElapsedSteps += elapsedSteps;
 
     // in case the transition is complete
-    if(this->transitionElapsedTime >= this->transitionDuration) {
+    if(this->transitionElapsedSteps >= this->transitionDuration) {
         // sets the end camera as the active camera
         this->activeCamera = this->transitionEndCamera;
 
@@ -213,15 +210,15 @@ void CameraManager::updateTransition(float elapsedTime) {
         // resets the transition duration
         this->transitionDuration = NULL;
 
-        // resets the transition elapsed time
-        this->transitionElapsedTime = NULL;
+        // resets the transition elapsed steps
+        this->transitionElapsedSteps = NULL;
 
         // skips the transition update
         return;
     }
 
     // computes the transition progress
-    float transitionProgress = this->transitionElapsedTime / this->transitionDuration;
+    float transitionProgress = this->transitionElapsedSteps / this->transitionDuration;
 
     // updates the start camera
     this->transitionStartCamera->_autoTrack();
@@ -297,8 +294,8 @@ void CameraManager::cancelTransition() {
     // resets the transition duration
     this->transitionDuration = NULL;
 
-    // resets the transition elapsed time
-    this->transitionElapsedTime = NULL;
+    // resets the transition elapsed steps
+    this->transitionElapsedSteps = NULL;
 }
 
 /**
