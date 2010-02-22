@@ -30,16 +30,19 @@
 using namespace mariachi;
 using namespace mariachi::nodes;
 using namespace mariachi::camera;
+using namespace mariachi::structures;
 
 /**
 * Constructor of the class.
 */
 CameraManager::CameraManager() {
     this->initDefaultCamera();
+    this->initTransitionCamera();
 }
 
 CameraManager::CameraManager(Engine *engine) {
     this->initDefaultCamera();
+    this->initTransitionCamera();
     this->initEngine(engine);
 }
 
@@ -47,6 +50,11 @@ CameraManager::CameraManager(Engine *engine) {
 * Destructor of the class.
 */
 CameraManager::~CameraManager() {
+    // destroys the default camera
+    delete this->defaultCamera;
+
+    // destroy the active camera
+    delete this->activeCamera;
 }
 
 /**
@@ -58,6 +66,26 @@ inline void CameraManager::initDefaultCamera() {
 
     // sets the default camera as the current active camera
     this->activeCamera = this->defaultCamera;
+}
+
+/**
+ * Initializes the transition camera.
+ */
+inline void CameraManager::initTransitionCamera() {
+    // creates the transition camera
+    this->transitionCamera = new CameraNode(std::string("transition_camera"));
+
+    // resets the start camera
+    this->transitionStartCamera = NULL;
+
+    // resets the end camera
+    this->transitionEndCamera = NULL;
+
+    // resets the transition duration
+    this->transitionDuration = NULL;
+
+    // resets the elapsed transition time
+    this->transitionElapsedTime = NULL;
 }
 
 inline void CameraManager::initEngine(Engine *engine) {
@@ -73,6 +101,15 @@ void CameraManager::unload(void *arguments) {
 void CameraManager::update(void *arguments) {
     this->activeCamera->_autoFollow();
     this->activeCamera->_autoTrack();
+
+    // @todo: replace this with a timed value
+    float elapsedTime = 1.0f / 60.0f;
+
+    // in case a transition is in progress
+    if(this->isTransitioning()) {
+        // updates the transition
+        this->updateTransition(elapsedTime);
+    }
 }
 
 /**
@@ -129,4 +166,146 @@ CameraNode *CameraManager::getCamera(const std::string &cameraName) {
 */
 void CameraManager::setCamera(const std::string &cameraName, CameraNode *camera) {
     this->camerasMap[cameraName] = camera;
+}
+
+/**
+* Sets up a transition between the current active camera and
+* the given camera.
+* @param cameraName The camera name to retrieve the camera to which
+* the transition is to be made.
+* @param duration The duration, in seconds, of the transition animation.
+*/
+void CameraManager::startTransition(const std::string &cameraName, float duration) {
+    // cancels existing transitions
+    this->cancelTransition();
+
+    // stores a reference to the start camera
+    this->transitionStartCamera = this->activeCamera;
+
+    // stores a reference to the end camera
+    this->transitionEndCamera = this->getCamera(cameraName);
+
+    // sets the transition camera as the current active camera
+    this->activeCamera = this->transitionCamera;
+
+    // starts the transition counter
+    this->transitionDuration = duration;
+}
+
+/**
+* Updates the ongoing transition between cameras.
+*/
+void CameraManager::updateTransition(float elapsedTime) {
+    // updates the elapsed time
+    this->transitionElapsedTime += elapsedTime;
+
+    // in case the transition is complete
+    if(this->transitionElapsedTime >= this->transitionDuration) {
+        // sets the end camera as the active camera
+        this->activeCamera = this->transitionEndCamera;
+
+        // resets the start camera
+        this->transitionStartCamera = NULL;
+
+        // resets the end camera
+        this->transitionEndCamera = NULL;
+
+        // resets the transition duration
+        this->transitionDuration = NULL;
+
+        // resets the transition elapsed time
+        this->transitionElapsedTime = NULL;
+
+        // skips the transition update
+        return;
+    }
+
+    // computes the transition progress
+    float transitionProgress = this->transitionElapsedTime / this->transitionDuration;
+
+    // updates the start camera
+    this->transitionStartCamera->_autoTrack();
+    this->transitionStartCamera->_autoFollow();
+
+    // updates the end camera
+    this->transitionEndCamera->_autoTrack();
+    this->transitionEndCamera->_autoFollow();
+
+    // retrieves the start camera's position
+    const Coordinate3d_t &transitionStartCameraPosition = this->transitionStartCamera->getPosition();
+
+    // retrieves the start camera's rotation
+    const Rotation3d_t &transitionStartCameraRotation = this->transitionStartCamera->getRotation();
+
+    // retrieves the start camera's up vector
+    const Coordinate3d_t &transitionStartCameraUpVector = this->transitionStartCamera->getUpVector();
+
+    // retrieves the end camera's position
+    const Coordinate3d_t &transitionEndCameraPosition = this->transitionEndCamera->getPosition();
+
+    // retrieves the end camera's rotation
+    const Rotation3d_t &transitionEndCameraRotation = this->transitionEndCamera->getRotation();
+
+    // retrieves the end camera's up vector
+    const Coordinate3d_t &transitionEndCameraUpVector = this->transitionEndCamera->getUpVector();
+
+    // determines the transition camera's position by interpolation
+    float transitionCameraPositionX = transitionStartCameraPosition.x + (transitionEndCameraPosition.x - transitionStartCameraPosition.x) * transitionProgress;
+    float transitionCameraPositionY = transitionStartCameraPosition.y + (transitionEndCameraPosition.y - transitionStartCameraPosition.y) * transitionProgress;
+    float transitionCameraPositionZ = transitionStartCameraPosition.z + (transitionEndCameraPosition.z - transitionStartCameraPosition.z) * transitionProgress;
+
+    // determines the transition camera's rotation by interpolation
+    float transitionCameraRotationAngle = transitionStartCameraRotation.angle + (transitionEndCameraRotation.angle - transitionStartCameraRotation.angle) * transitionProgress;
+    float transitionCameraRotationX = transitionStartCameraRotation.x + (transitionEndCameraRotation.x - transitionStartCameraRotation.x) * transitionProgress;
+    float transitionCameraRotationY = transitionStartCameraRotation.y + (transitionEndCameraRotation.y - transitionStartCameraRotation.y) * transitionProgress;
+    float transitionCameraRotationZ = transitionStartCameraRotation.z + (transitionEndCameraRotation.z - transitionStartCameraRotation.z) * transitionProgress;
+
+    // determines the transition camera's up vector by interpolation
+    float transitionCameraUpVectorX = transitionStartCameraUpVector.x + (transitionEndCameraUpVector.x - transitionStartCameraUpVector.x) * transitionProgress;
+    float transitionCameraUpVectorY = transitionStartCameraUpVector.y + (transitionEndCameraUpVector.y - transitionStartCameraUpVector.y) * transitionProgress;
+    float transitionCameraUpVectorZ = transitionStartCameraUpVector.z + (transitionEndCameraUpVector.z - transitionStartCameraUpVector.z) * transitionProgress;
+
+    // updates the transition camera's position
+    this->transitionCamera->setPosition(transitionCameraPositionX, transitionCameraPositionY, transitionCameraPositionZ);
+
+    // updates the transition camera's rotation
+    this->transitionCamera->setRotation(transitionCameraRotationAngle, transitionCameraRotationX, transitionCameraRotationY, transitionCameraRotationZ);
+
+    // updates the transition camera's up vector
+    this->transitionCamera->setUpVector(transitionCameraUpVectorX, transitionCameraUpVectorY, transitionCameraUpVectorZ);
+}
+
+/**
+* Cancels the currently active transition.
+*/
+void CameraManager::cancelTransition() {
+    // in case a transition is not in progress
+    if(!this->isTransitioning()) {
+        // skips the cancel
+        return;
+    }
+
+    // sets the start camera as the active one
+    this->activeCamera = this->transitionStartCamera;
+
+    // resets the start camera
+    this->transitionStartCamera = NULL;
+
+    // resets the end camera
+    this->transitionEndCamera = NULL;
+
+    // resets the transition duration
+    this->transitionDuration = NULL;
+
+    // resets the transition elapsed time
+    this->transitionElapsedTime = NULL;
+}
+
+/**
+* Indicates if the manager is currently transitioning
+* between cameras.
+*/
+bool CameraManager::isTransitioning() {
+    // indicates if a valid transition duration exists
+    return this->transitionDuration != NULL;
 }

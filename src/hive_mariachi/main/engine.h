@@ -265,6 +265,8 @@ namespace mariachi {
             void removeMainThreadStage(stages::Stage *stage);
             void addTask(tasks::Task *task);
             void removeTask(tasks::Task *task);
+            void startCameraTransition(const std::string &cameraName, float duration);
+            void cancelCameraTransition();
             void getCurrentProcessIdString(std::string &currentProcessIdString);
             stages::StageRunner *getStageRunner(stages::Stage *stage);
             void setStageRunner(stages::Stage *stage, stages::StageRunner *stageRunner);

@@ -53,8 +53,34 @@ namespace mariachi {
                 */
                 std::map<std::string, nodes::CameraNode *> camerasMap;
 
+                /**
+                * The intermediate camera used during the transition.
+                */
+                nodes::CameraNode *transitionCamera;
+
+                /**
+                * The camera with which the current transition started.
+                */
+                nodes::CameraNode *transitionStartCamera;
+
+                /**
+                * The camera with which the current transition will end.
+                */
+                nodes::CameraNode *transitionEndCamera;
+
+                /**
+                * The duration in seconds, for the current transition.
+                */
+                float transitionDuration;
+
+                /**
+                * The time already elapsed in the current transition.
+                */
+                float transitionElapsedTime;
+
                 inline void initEngine(Engine *engine);
                 inline void initDefaultCamera();
+                inline void initTransitionCamera();
 
             public:
                 CameraManager();
@@ -69,6 +95,10 @@ namespace mariachi {
                 void setActiveCamera(nodes::CameraNode *activeCamera);
                 nodes::CameraNode *getCamera(const std::string &cameraName);
                 void setCamera(const std::string &cameraName, nodes::CameraNode *camera);
+                void startTransition(const std::string &cameraName, float duration);
+                void updateTransition(float elapsedTime);
+                void cancelTransition();
+                bool isTransitioning();
         };
     }
 }

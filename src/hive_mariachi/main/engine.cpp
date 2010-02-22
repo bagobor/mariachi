@@ -950,6 +950,22 @@ void Engine::removeTask(Task *task) {
 }
 
 /**
+* Starts a camera transition using the camera manager.
+* @param cameraName The name of the camera where the transition should end.
+* @param duration The duration of the transition.
+*/
+void Engine::startCameraTransition(const std::string &cameraName, float duration) {
+    this->cameraManager->startTransition(cameraName, duration);
+}
+
+/**
+* Cancels the current camera transition in the camera manager.
+*/
+void Engine::cancelCameraTransition() {
+    this->cameraManager->cancelTransition();
+}
+
+/**
 * Retrieves the current process id string and puts it into the given string.
 *
 * @param currentProcessIdString The string to be updated with the process id string.
