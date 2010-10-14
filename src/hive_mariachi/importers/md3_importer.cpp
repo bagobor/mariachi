@@ -102,16 +102,16 @@ void Md3Importer::generateModel(const std::string &filePath) {
 
     // sets the frame count as the value of the number of frames
     // in the md3 header
-	this->frameCount = md3Header->numberFrames;
+    this->frameCount = md3Header->numberFrames;
 
-	// sets the tag count as the value of the number of tags
+    // sets the tag count as the value of the number of tags
     // in the md3 header
-	this->tagCount = md3Header->numberTags;
+    this->tagCount = md3Header->numberTags;
 
 
-	// sets the surface count as the value of the number of surfaces
+    // sets the surface count as the value of the number of surfaces
     // in the md3 header
-	this->surfaceCount = md3Header->numberSurfaces;
+    this->surfaceCount = md3Header->numberSurfaces;
 
 
 
@@ -126,14 +126,14 @@ void Md3Importer::generateModel(const std::string &filePath) {
     //this->generateGlCommandsList(md2Header, md2Contents);
 
 
-	// generates the frames list
-	this->generateFramesList(md3Header, md3Contents);
+    // generates the frames list
+    this->generateFramesList(md3Header, md3Contents);
 
-	// generates the tags list
-	this->generateTagsList(md3Header, md3Contents);
+    // generates the tags list
+    this->generateTagsList(md3Header, md3Contents);
 
-	// generates the surfaces list
-	this->generateSurfacesList(md3Header, md3Contents);
+    // generates the surfaces list
+    this->generateSurfacesList(md3Header, md3Contents);
 
 
     // releases the md3 header buffer
@@ -146,7 +146,7 @@ void Md3Importer::generateModel(const std::string &filePath) {
 /**
 * Generates the frames list for each of the frames contained in
 * the md3 model.
-* 
+*
 * @param md3Header The md3 model header to be used.
 * @param md3Contents The contents of the md3 model file.
 */
@@ -192,7 +192,7 @@ inline void Md3Importer::generateFramesList(Md3Header_t *md3Header, char *md3Con
 /**
 * Generates the tags list for each of the frames contained in
 * the md3 model.
-* 
+*
 * @param md3Header The md3 model header to be used.
 * @param md3Contents The contents of the md3 model file.
 */
@@ -206,7 +206,7 @@ inline void Md3Importer::generateTagsList(Md3Header_t *md3Header, char *md3Conte
         Md3TagHeader_t *tagHeader = (Md3TagHeader_t *) &md3Contents[tagContentsPointer];
 
 
-	}
+    }
 }
 
 
@@ -220,7 +220,7 @@ inline void Md3Importer::generateSurfacesList(Md3Header_t *md3Header, char *md3C
         Md3SurfaceHeader_t *surfaceHeader = (Md3SurfaceHeader_t *) &md3Contents[surfaceContentsPointer];
 
 
-	}
+    }
 }
 
 

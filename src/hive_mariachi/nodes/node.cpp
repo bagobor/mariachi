@@ -223,9 +223,9 @@ void Node::setRenderable(bool renderable) {
 }
 
 Node *Node::duplicate() {
-	// creates the new reference node
-	Node *referenceNode = new Node();
+    // creates the new reference node
+    Node *referenceNode = new Node();
 
-	// returns the reference node
-	return referenceNode;
+    // returns the reference node
+    return referenceNode;
 }

@@ -79,7 +79,7 @@ namespace mariachi {
                 Node();
                 Node(const std::string &name);
                 ~Node();
-				
+
                 Node *getParent();
                 void setParent(Node *parent);
                 void reparentTo(Node *parent);
@@ -94,7 +94,7 @@ namespace mariachi {
                 void setChildrenList(std::list<Node *> &childrenList);
                 bool getRenderable();
                 void setRenderable(bool renderable);
-				virtual Node *duplicate();
+                virtual Node *duplicate();
                 virtual inline unsigned int getNodeType() { return NODE_TYPE; };
 
                 /**
