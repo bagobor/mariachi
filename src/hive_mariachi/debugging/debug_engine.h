@@ -30,8 +30,8 @@
 namespace mariachi {
     namespace debugging {
         /**
-        * Controls the engine for debugging.
-        */
+         * Controls the engine for debugging.
+         */
         class DebugEngine {
             private:
                 std::map<std::string, DebugDevice *> debugDevicesMap;

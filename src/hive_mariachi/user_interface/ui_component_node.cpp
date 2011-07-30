@@ -31,8 +31,8 @@ using namespace mariachi::ui;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ComponentNode::ComponentNode() : UiNode() {
     this->initRenderable();
 }
@@ -42,8 +42,8 @@ ComponentNode::ComponentNode(const std::string &name) : UiNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ComponentNode::~ComponentNode() {
 }
 
@@ -52,37 +52,37 @@ inline void ComponentNode::initRenderable() {
 }
 
 /**
-* Retrieves the color.
-*
-* @return The color.
-*/
+ * Retrieves the color.
+ *
+ * @return The color.
+ */
 FloatColor_t &ComponentNode::getColor() {
     return this->color;
 }
 
 /**
-* Sets the color.
-*
-* @param color The color.
-*/
+ * Sets the color.
+ *
+ * @param color The color.
+ */
 void ComponentNode::setColor(const FloatColor_t &color) {
     this->color = color;
 }
 
 /**
-* Retrieves the texture.
-*
-* @return The texture.
-*/
+ * Retrieves the texture.
+ *
+ * @return The texture.
+ */
 Texture *ComponentNode::getTexture() {
     return this->texture;
 }
 
 /**
-* Sets the texture.
-*
-* @param texture The texture.
-*/
+ * Sets the texture.
+ *
+ * @param texture The texture.
+ */
 void ComponentNode::setTexture(Texture *texture) {
     this->texture = texture;
 }

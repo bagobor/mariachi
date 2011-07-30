@@ -64,13 +64,13 @@ namespace mariachi {
                 unsigned int mouseEventBufferPosition;
 
                 /**
-                * The current mouse position.
-                */
+                 * The current mouse position.
+                 */
                 MousePosition_t currentPosition;
 
                 /**
-                * Flag that controls the capture of the mouse move event.
-                */
+                 * Flag that controls the capture of the mouse move event.
+                 */
                 bool mouseMoveCapture;
 
             public:

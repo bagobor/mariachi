@@ -33,23 +33,23 @@ using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConfigurationMap::ConfigurationMap() : ConfigurationStructure() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConfigurationMap::~ConfigurationMap() {
     // cleans the map
     this->cleanMap();
 }
 
 /**
-* Cleans the internal map removing all the memory references
-* in the internal structure.
-*/
+ * Cleans the internal map removing all the memory references
+ * in the internal structure.
+ */
 inline void ConfigurationMap::cleanMap() {
     // retrieves the configuration map iterator
     std::map<std::string, ConfigurationValue_t *>::iterator configurationMapIterator = this->configurationMap.begin();
@@ -65,21 +65,21 @@ inline void ConfigurationMap::cleanMap() {
 }
 
 /**
-* Retrieves a property from configuration.
-*
-* @param key The key used to identify the property.
-* @return The property value for the given key.
-*/
+ * Retrieves a property from configuration.
+ *
+ * @param key The key used to identify the property.
+ * @return The property value for the given key.
+ */
 ConfigurationValue_t *ConfigurationMap::_getProperty(const std::string &key) {
     return this->configurationMap[key];
 }
 
 /**
-* Retrieves a property from configuration using the full qualified name.
-*
-* @param key The key used to identify the property.
-* @return The property value for the given key.
-*/
+ * Retrieves a property from configuration using the full qualified name.
+ *
+ * @param key The key used to identify the property.
+ * @return The property value for the given key.
+ */
 ConfigurationValue_t *ConfigurationMap::getProperty(const std::string &key) {
     // allocates the tokens vector
     std::vector<std::string> tokens;
@@ -136,11 +136,11 @@ ConfigurationValue_t *ConfigurationMap::getProperty(const std::string &key) {
 }
 
 /**
-* Sets the propery with the given key.
-*
-* @param key The key used to identify the property.
-* @param value The property value to be used.
-*/
+ * Sets the propery with the given key.
+ *
+ * @param key The key used to identify the property.
+ * @param value The property value to be used.
+ */
 void ConfigurationMap::setProperty(const std::string &key, ConfigurationValue_t *value) {
     this->configurationList.push_back(value);
     this->configurationMap[key] = value;

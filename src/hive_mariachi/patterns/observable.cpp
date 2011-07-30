@@ -30,27 +30,27 @@
 using namespace mariachi::patterns;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Observable::Observable() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Observable::~Observable() {
     //@todo destroy all the created lists in the eventHandlersMap
 }
 
 /**
-* Registers a callback function (with the given arguments) for the given event.
-*
-* @param eventName The name of the event to "listen".
-* @param callbackFunction The callback function to be called when a event is fired.
-* @param callbackArguments The arguments to be used in the callback function call.
-* @return The event registration handle, that can be used to identifie univocally
-* the event registration. It can be used to unregister for the event, etc.
-*/
+ * Registers a callback function (with the given arguments) for the given event.
+ *
+ * @param eventName The name of the event to "listen".
+ * @param callbackFunction The callback function to be called when a event is fired.
+ * @param callbackArguments The arguments to be used in the callback function call.
+ * @return The event registration handle, that can be used to identifie univocally
+ * the event registration. It can be used to unregister for the event, etc.
+ */
 void Observable::registerForEvent(const std::string &eventName, void (*callbackFunction)(void *), void *callbackArguments) {
     // creates the event callback information list
     std::list<CallbackInformation_t> *eventCallbackInformationList;
@@ -79,16 +79,16 @@ void Observable::registerForEvent(const std::string &eventName, void (*callbackF
 }
 
 /**
-* Registers a callback function (with the given arguments) for
-* the given event (with properties).
-*
-* @param eventName The name of the event to "listen".
-* @param properties The properties of the event registration.
-* @param callbackFunction The callback function to be called when a event is fired.
-* @param callbackArguments The arguments to be used in the callback function call.
-* @return The event registration handle, that can be used to identifie univocally
-* the event registration. It can be used to unregister for the event, etc.
-*/
+ * Registers a callback function (with the given arguments) for
+ * the given event (with properties).
+ *
+ * @param eventName The name of the event to "listen".
+ * @param properties The properties of the event registration.
+ * @param callbackFunction The callback function to be called when a event is fired.
+ * @param callbackArguments The arguments to be used in the callback function call.
+ * @return The event registration handle, that can be used to identifie univocally
+ * the event registration. It can be used to unregister for the event, etc.
+ */
 void Observable::registerForEventProperties(const std::string &eventName, void *properties, void (*callbackFunction)(void *), void *callbackArguments) {
     // creates the event callback information list
     std::list<CallbackInformation_t> *eventCallbackInformationList;
@@ -121,11 +121,11 @@ void Observable::unregisterForEvent(const std::string &eventName, unsigned int e
 }
 
 /**
-* Fires the given event, triggering the call of all the callback functions
-* for the given event.
-*
-* @param eventName The name of the event to be fired.
-*/
+ * Fires the given event, triggering the call of all the callback functions
+ * for the given event.
+ *
+ * @param eventName The name of the event to be fired.
+ */
 void Observable::fireEvent(const std::string &eventName) {
     // creates the event callback information list
     std::list<CallbackInformation_t> *eventCallbackInformationList;
@@ -150,11 +150,11 @@ void Observable::fireEvent(const std::string &eventName) {
 }
 
 /**
-* Notifies the callback (about the event), calling the callback function with the defined
-* callback arguments.
-*
-* @param callbackInformation The callback information to be used in the notofication.
-*/
+ * Notifies the callback (about the event), calling the callback function with the defined
+ * callback arguments.
+ *
+ * @param callbackInformation The callback information to be used in the notofication.
+ */
 inline void Observable::notifyCallback(CallbackInformation_t callbackInformation) {
     callbackInformation.callbackFunction(callbackInformation.callbackArguments);
 }

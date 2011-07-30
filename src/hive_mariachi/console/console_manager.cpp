@@ -34,8 +34,8 @@ using namespace mariachi::console;
 using namespace mariachi::util;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConsoleManager::ConsoleManager() {
     this->initProcessInformationMap();
     this->initCurrentScriptEngine();
@@ -43,10 +43,10 @@ ConsoleManager::ConsoleManager() {
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The reference to the current engine.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The reference to the current engine.
+ */
 ConsoleManager::ConsoleManager(Engine *engine) {
     this->initProcessInformationMap();
     this->initCurrentScriptEngine();
@@ -55,14 +55,14 @@ ConsoleManager::ConsoleManager(Engine *engine) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConsoleManager::~ConsoleManager() {
 }
 
 /**
-* Initializes the process information map.
-*/
+ * Initializes the process information map.
+ */
 inline void ConsoleManager::initProcessInformationMap() {
     // iterates over the process information list
     for(unsigned int index = 0; ; index++) {
@@ -80,22 +80,22 @@ inline void ConsoleManager::initProcessInformationMap() {
 }
 
 /**
-* Initializes the current script engine.
-*/
+ * Initializes the current script engine.
+ */
 inline void ConsoleManager::initCurrentScriptEngine() {
     this->currentScriptEngine = NULL;
 }
 
 /**
-* Initializes the extra carret.
-*/
+ * Initializes the extra carret.
+ */
 inline void ConsoleManager::initExtraCarret() {
     this->extraCarret = false;
 }
 
 /**
-* Initializes the engine.
-*/
+ * Initializes the engine.
+ */
 inline void ConsoleManager::initEngine(Engine *engine) {
     this->engine = engine;
 }
@@ -107,12 +107,12 @@ void ConsoleManager::unload(void *arguments) {
 }
 
 /**
-* Processes the given command line, sending the output to the
-* write function or to the standard output in case none is given.
-*
-* @param commandLine The command line to be processed.
-* @param outputFunction The write function to receive the processing result.
-*/
+ * Processes the given command line, sending the output to the
+ * write function or to the standard output in case none is given.
+ *
+ * @param commandLine The command line to be processed.
+ * @param outputFunction The write function to receive the processing result.
+ */
 void ConsoleManager::processCommandLine(const char *commandLine, WriteOuputFunction_t outputFunction) {
     // checks if the output function is null to change it to the default standard output
     outputFunction == NULL ? outputFunction = ConsoleManager::write : outputFunction = outputFunction;
@@ -207,10 +207,10 @@ void ConsoleManager::processCommandLineScript(const char *commandLine, WriteOupu
 }
 
 /**
-* Retrieves the current carret value.
-*
-* @return The current carret value.
-*/
+ * Retrieves the current carret value.
+ *
+ * @return The current carret value.
+ */
 std::string ConsoleManager::getCarretValue() {
     // allocates space for the carret
     std::string carret;
@@ -235,19 +235,19 @@ std::string ConsoleManager::getCarretValue() {
 }
 
 /**
-* Retrieves the engine.
-*
-* @return The engine.
-*/
+ * Retrieves the engine.
+ *
+ * @return The engine.
+ */
 Engine *ConsoleManager::getEngine() {
     return this->engine;
 }
 
 /**
-* Sets the engine.
-*
-* @param engine The engine.
-*/
+ * Sets the engine.
+ *
+ * @param engine The engine.
+ */
 void ConsoleManager::setEngine(Engine *engine) {
     this->engine = engine;
 }

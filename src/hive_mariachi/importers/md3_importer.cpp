@@ -33,24 +33,24 @@ using namespace mariachi::importers;
 using namespace mariachi::exceptions;
 
 /**
-* Constructor fo the class.
-*/
+ * Constructor fo the class.
+ */
 Md3Importer::Md3Importer() : ModelImporter() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Md3Importer::~Md3Importer() {
 }
 
 /**
-* Generates the model information from the model file in the
-* given file path.
-*
-* @param filePath The file path to the file to be used to generate
-* the model.
-*/
+ * Generates the model information from the model file in the
+ * given file path.
+ *
+ * @param filePath The file path to the file to be used to generate
+ * the model.
+ */
 void Md3Importer::generateModel(const std::string &filePath) {
     // cleans the previous model information (in case there is one)
     //this->cleanModel();
@@ -144,12 +144,12 @@ void Md3Importer::generateModel(const std::string &filePath) {
 }
 
 /**
-* Generates the frames list for each of the frames contained in
-* the md3 model.
-*
-* @param md3Header The md3 model header to be used.
-* @param md3Contents The contents of the md3 model file.
-*/
+ * Generates the frames list for each of the frames contained in
+ * the md3 model.
+ *
+ * @param md3Header The md3 model header to be used.
+ * @param md3Contents The contents of the md3 model file.
+ */
 inline void Md3Importer::generateFramesList(Md3Header_t *md3Header, char *md3Contents) {
     // starts the frame contents pointer
     unsigned int frameContentsPointer = md3Header->offsetFrames - MD3_HEADER_SIZE;
@@ -190,12 +190,12 @@ inline void Md3Importer::generateFramesList(Md3Header_t *md3Header, char *md3Con
 }
 
 /**
-* Generates the tags list for each of the frames contained in
-* the md3 model.
-*
-* @param md3Header The md3 model header to be used.
-* @param md3Contents The contents of the md3 model file.
-*/
+ * Generates the tags list for each of the frames contained in
+ * the md3 model.
+ *
+ * @param md3Header The md3 model header to be used.
+ * @param md3Contents The contents of the md3 model file.
+ */
 inline void Md3Importer::generateTagsList(Md3Header_t *md3Header, char *md3Contents) {
     // starts the tag contents pointer
     unsigned int tagContentsPointer = md3Header->offsetTags - MD3_HEADER_SIZE;
@@ -227,13 +227,13 @@ inline void Md3Importer::generateSurfacesList(Md3Header_t *md3Header, char *md3C
 
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Md3Frame::Md3Frame() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Md3Frame::~Md3Frame() {
 }

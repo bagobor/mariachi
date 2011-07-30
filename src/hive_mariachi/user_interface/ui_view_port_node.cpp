@@ -30,8 +30,8 @@
 using namespace mariachi::ui;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ViewPortNode::ViewPortNode() : ComponentNode() {
 }
 
@@ -39,7 +39,7 @@ ViewPortNode::ViewPortNode(const std::string &name) : ComponentNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ViewPortNode::~ViewPortNode() {
 }

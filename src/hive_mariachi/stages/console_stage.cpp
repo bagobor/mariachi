@@ -31,34 +31,34 @@ using namespace mariachi;
 using namespace mariachi::stages;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConsoleStage::ConsoleStage() : Stage() {
     this->initThread();
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ */
 ConsoleStage::ConsoleStage(Engine *engine) : Stage(engine) {
     this->initThread();
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-* @param name The name of the stage.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ * @param name The name of the stage.
+ */
 ConsoleStage::ConsoleStage(Engine *engine, const std::string &name) : Stage(engine, name) {
     this->initThread();
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConsoleStage::~ConsoleStage() {
 }
 

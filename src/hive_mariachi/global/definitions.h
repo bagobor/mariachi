@@ -28,14 +28,14 @@
 #include "platforms.h"
 
 /**
-* The name of the environment variable used to build
-* the mariachi path.
-*/
+ * The name of the environment variable used to build
+ * the mariachi path.
+ */
 #define HIVE_MARIACHI_ENVIRONMENT_PATH "MARIACHI_PATH"
 
 /**
-* The root path being used.
-*/
+ * The root path being used.
+ */
 #define HIVE_MARIACHI_ROOT_PATH "."
 
 #ifdef MARIACHI_PLATFORM_WIN32

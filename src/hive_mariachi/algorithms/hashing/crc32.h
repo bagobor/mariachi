@@ -46,25 +46,25 @@ namespace mariachi {
         class Crc32 : public HashFunction {
             private:
                 /**
-                * The table containing the crc polynomial values.
-                * This table is used in the interanl computation
-                * of the crc value.
-                */
+                 * The table containing the crc polynomial values.
+                 * This table is used in the interanl computation
+                 * of the crc value.
+                 */
                 static const unsigned int crcTable[256];
 
                 /**
-                * The size of the digest.
-                */
+                 * The size of the digest.
+                 */
                 static const int DIGEST_SIZE = CRC32_DIGEST_SIZE;
 
                 /**
-                * The result of the digest.
-                */
+                 * The result of the digest.
+                 */
                 unsigned char digest[DIGEST_SIZE];
 
                 /**
-                * The current crc value.
-                */
+                 * The current crc value.
+                 */
                 unsigned int crcValue;
 
                 inline const char getByte(unsigned int index);

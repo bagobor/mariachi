@@ -30,8 +30,8 @@
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Mouse::Mouse() : InputDevice() {
     // sets the mouse event buffer size as the default one
     this->mouseEventBufferSize = DEFAULT_MOUSE_EVENT_BUFFER_SIZE;

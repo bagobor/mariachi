@@ -28,9 +28,9 @@
 namespace mariachi {
     namespace importers {
         /**
-        * The abstract importer class.
-        * Creates the basic abstraction for the importing classes.
-        */
+         * The abstract importer class.
+         * Creates the basic abstraction for the importing classes.
+         */
         class Importer {
             private:
 

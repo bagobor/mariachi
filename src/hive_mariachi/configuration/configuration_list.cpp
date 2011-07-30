@@ -31,23 +31,23 @@ using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConfigurationList::ConfigurationList() : ConfigurationStructure() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConfigurationList::~ConfigurationList() {
     // cleans the list
     this->cleanList();
 }
 
 /**
-* Cleans the internal list removing all the memory references
-* in the internal structure.
-*/
+ * Cleans the internal list removing all the memory references
+ * in the internal structure.
+ */
 inline void ConfigurationList::cleanList() {
     // retrieves the configuration list size
     unsigned int configurationListSize = this->configurationList.size();
@@ -60,11 +60,11 @@ inline void ConfigurationList::cleanList() {
 }
 
 /**
-* Retrieves a property from configuration.
-*
-* @param index The index of the property to be retrieved.
-* @return The property value in the given index.
-*/
+ * Retrieves a property from configuration.
+ *
+ * @param index The index of the property to be retrieved.
+ * @return The property value in the given index.
+ */
 ConfigurationValue_t *ConfigurationList::getProperty(unsigned int index) {
     return this->configurationList[index];
 }

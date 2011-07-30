@@ -29,8 +29,8 @@
 
 namespace Json {
    /**
-   * Type of the value held by a Value object.
-   */
+    * Type of the value held by a Value object.
+    */
     enum ValueType {
         // 'null' value
         nullValue = 0,
@@ -58,9 +58,9 @@ namespace Json {
     };
 
     /**
-    * The comment placement enumeration, defines the place of the comment
-    * relative to the code position.
-    */
+     * The comment placement enumeration, defines the place of the comment
+     * relative to the code position.
+     */
     enum CommentPlacement {
         // a comment placed on the line before a value
         commentBefore = 0,
@@ -68,27 +68,27 @@ namespace Json {
         // a comment just after a value on the same line
         commentAfterOnSameLine,
 
-        //  a comment on the line after a value (only make sense for root value)
+        // a comment on the line after a value (only make sense for root value)
         commentAfter,
 
         numberOfCommentPlacement
     };
 
     /**
-    * \brief Lightweight wrapper to tag static string.
-    *
-    * Value constructor and objectValue member assignement takes advantage of the
-    * StaticString and avoid the cost of string duplication when storing the
-    * string or the member name.
-    *
-    * Example of usage:
-    * \code
-    * Json::Value aValue( StaticString("some text") );
-    * Json::Value object;
-    * static const StaticString code("code");
-    * object[code] = 1234;
-    * \endcode
-    */
+     * \brief Lightweight wrapper to tag static string.
+     *
+     * Value constructor and objectValue member assignement takes advantage of the
+     * StaticString and avoid the cost of string duplication when storing the
+     * string or the member name.
+     *
+     * Example of usage:
+     * \code
+     * Json::Value aValue( StaticString("some text") );
+     * Json::Value object;
+     * static const StaticString code("code");
+     * object[code] = 1234;
+     * \endcode
+     */
     class StaticString
     {
         public:
@@ -195,7 +195,7 @@ namespace Json {
     Json::Value arr_value(Json::arrayValue); // []
     Json::Value obj_value(Json::objectValue); // {}
     \endcode
-      */
+       */
       Value( ValueType type = nullValue );
       Value( Int value );
       Value( UInt value );
@@ -722,16 +722,16 @@ namespace Json {
    };
 
    /** \brief A simplified deque implementation used internally by Value.
-   * \internal
-   * It is based on a list of fixed "page", each page contains a fixed number of items.
-   * Instead of using a linked-list, a array of pointer is used for fast item look-up.
-   * Look-up for an element is as follow:
-   * - compute page index: pageIndex = itemIndex / itemsPerPage
-   * - look-up item in page: pages_[pageIndex][itemIndex % itemsPerPage]
-   *
-   * Insertion is amortized constant time (only the array containing the index of pointers
-   * need to be reallocated when items are appended).
-   */
+    * \internal
+    * It is based on a list of fixed "page", each page contains a fixed number of items.
+    * Instead of using a linked-list, a array of pointer is used for fast item look-up.
+    * Look-up for an element is as follow:
+    * - compute page index: pageIndex = itemIndex / itemsPerPage
+    * - look-up item in page: pages_[pageIndex][itemIndex % itemsPerPage]
+    *
+    * Insertion is amortized constant time (only the array containing the index of pointers
+    * need to be reallocated when items are appended).
+    */
    class  ValueInternalArray
    {
       friend class Value;
@@ -951,8 +951,8 @@ public: // overridden from ValueArrayAllocator
    };
 
    /**
-   * \brief Experimental and untested: const iterator for object and array value.
-   */
+    * \brief Experimental and untested: const iterator for object and array value.
+    */
    class ValueConstIterator : public ValueIteratorBase
    {
       friend class Value;

@@ -35,16 +35,16 @@ using namespace mariachi::exceptions;
 using namespace mariachi::structures;
 
 /**
-* Constructor fo the class.
-*/
+ * Constructor fo the class.
+ */
 Md2Importer::Md2Importer() : ModelImporter() {
     // invalidates the frame count
     this->frameCount = -1;
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Md2Importer::~Md2Importer() {
     // cleans the model
     this->cleanModel();
@@ -54,12 +54,12 @@ Md2Importer::~Md2Importer() {
 }
 
 /**
-* Generates the model information from the model file in the
-* given file path.
-*
-* @param filePath The file path to the file to be used to generate
-* the model.
-*/
+ * Generates the model information from the model file in the
+ * given file path.
+ *
+ * @param filePath The file path to the file to be used to generate
+ * the model.
+ */
 void Md2Importer::generateModel(const std::string &filePath) {
     // cleans the previous model information (in case there is one)
     this->cleanModel();
@@ -127,12 +127,12 @@ void Md2Importer::generateModel(const std::string &filePath) {
 }
 
 /**
-* Generates the coordinates list for each of the frames contained in
-* the md2 model.
-*
-* @param md2Header The md2 model header to be used.
-* @param md2Contents The contents of the md2 model file.
-*/
+ * Generates the coordinates list for each of the frames contained in
+ * the md2 model.
+ *
+ * @param md2Header The md2 model header to be used.
+ * @param md2Contents The contents of the md2 model file.
+ */
 inline void Md2Importer::generateCoordinatesList(Md2Header_t *md2Header, char *md2Contents) {
     // starts the frame contents pointer
     unsigned int frameContentsPointer = md2Header->offsetFrames - MD2_HEADER_SIZE;
@@ -228,18 +228,18 @@ inline void Md2Importer::generateGlCommandsList(Md2Header_t *md2Header, char *md
 }
 
 /**
-* Retrieves the main md2 frame.
-*
-* @return The main md2 frame for the md2 importer.
-*/
+ * Retrieves the main md2 frame.
+ *
+ * @return The main md2 frame for the md2 importer.
+ */
 Md2Frame *Md2Importer::getMainMd2Frame() {
     // returns the first md2 frame as the main frame
     return this->md2FramesList[0];
 }
 
 /**
-* Generates the vertex list from the list of coordinates.
-*/
+ * Generates the vertex list from the list of coordinates.
+ */
 void Md2Importer::generateVertexList() {
     // retrieves the md2 frames list iterator
     std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
@@ -258,9 +258,9 @@ void Md2Importer::generateVertexList() {
 }
 
 /**
-* Generates the mesh list for the current vertex information
-* in the importer.
-*/
+ * Generates the mesh list for the current vertex information
+ * in the importer.
+ */
 void Md2Importer::generateMeshList() {
     // retrieves the md2 frames list iterator
     std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
@@ -279,9 +279,9 @@ void Md2Importer::generateMeshList() {
 }
 
 /**
-* Generates the frames list from the list of meshes
-* available.
-*/
+ * Generates the frames list from the list of meshes
+ * available.
+ */
 void Md2Importer::generateFrameList() {
     // retrieves the md2 frames list iterator
     std::vector<Md2Frame *>::iterator md2FramesListIterator = this->md2FramesList.begin();
@@ -398,16 +398,16 @@ void Md2Importer::cleanMd2FrameList() {
 }
 
 /**
-* Constructor of the class
-*/
+ * Constructor of the class
+ */
 Md2Frame::Md2Frame() {
     // invalidates the mesh count
     this->meshCount = -1;
 }
 
 /**
-* Destructor of the class
-*/
+ * Destructor of the class
+ */
 Md2Frame::~Md2Frame() {
     // cleans the vertex list
     this->cleanVertextList();
@@ -417,10 +417,10 @@ Md2Frame::~Md2Frame() {
 }
 
 /**
-* Generates the vertex list from the list of coordinates.
-*
-* @return The number of generated vertex.
-*/
+ * Generates the vertex list from the list of coordinates.
+ *
+ * @return The number of generated vertex.
+ */
 void Md2Frame::generateVertexList() {
     // cleans the previous vertex list information (in case there is one)
     this->cleanVertextList();
@@ -464,9 +464,9 @@ void Md2Frame::generateVertexList() {
 }
 
 /**
-* Generates the mesh list for the current vertex information
-* in the importer.
-*/
+ * Generates the mesh list for the current vertex information
+ * in the importer.
+ */
 void Md2Frame::generateMeshList(const std::vector<void *> &glCommandsList) {
     // cleans the previous mesh list information (in case there is one)
     this->cleanMeshList();

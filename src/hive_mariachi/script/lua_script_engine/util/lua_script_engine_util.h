@@ -30,9 +30,9 @@ extern "C" {
 }
 
 /**
-* The name for the self variable used to address the
-* object reference.
-*/
+ * The name for the self variable used to address the
+ * object reference.
+ */
 #define LUA_SCRIPT_ENGINE_SELF_VARIABLE "_self"
 
 namespace mariachi {

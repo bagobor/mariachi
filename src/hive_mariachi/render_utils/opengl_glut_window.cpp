@@ -38,16 +38,16 @@ using namespace mariachi::render_adapters;
 OpenglGlutWindow *openglGlutWindow;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OpenglGlutWindow::OpenglGlutWindow() : OpenglWindow() {
     // sets the current opengl glut window
     openglGlutWindow = this;
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OpenglGlutWindow::~OpenglGlutWindow() {
 }
 

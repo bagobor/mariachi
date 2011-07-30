@@ -32,8 +32,8 @@
 using namespace mariachi::stages;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 StageRunner::StageRunner() {
 }
 
@@ -42,8 +42,8 @@ StageRunner::StageRunner(Stage *stage) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 StageRunner::~StageRunner() {
 }
 

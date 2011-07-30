@@ -32,14 +32,14 @@
 using namespace mariachi::debugging;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 DebugEngine::DebugEngine() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 DebugEngine::~DebugEngine() {
 }
 
@@ -52,10 +52,10 @@ void DebugEngine::stop(void *arguments) {
 }
 
 /**
-* Starts the debug devices in the debug engine.
-* Starting the debug devices implies starting the drivers and start listning
-* to them.
-*/
+ * Starts the debug devices in the debug engine.
+ * Starting the debug devices implies starting the drivers and start listning
+ * to them.
+ */
 void DebugEngine::startDebugDevices() {
     // creates a new network keyboard
     NetworkKeyboard *networkKeyboard = new NetworkKeyboard();
@@ -68,21 +68,21 @@ void DebugEngine::startDebugDevices() {
 }
 
 /**
-* Retrieves the debug device for the given debug device name.
-*
-* @param debugDeviceName The debug device name to retrieve the debug device.
-* @return The debug device for the given debug device name.
-*/
+ * Retrieves the debug device for the given debug device name.
+ *
+ * @param debugDeviceName The debug device name to retrieve the debug device.
+ * @return The debug device for the given debug device name.
+ */
 DebugDevice *DebugEngine::getDebugDevice(const std::string &debugDeviceName) {
     return this->debugDevicesMap[debugDeviceName];
 }
 
 /**
-* Sets the debug device with the given debug device name.
-*
-* @param debugDeviceName The name to be used to identify the debug device.
-* @param debugDevice The debug device to be set.
-*/
+ * Sets the debug device with the given debug device name.
+ *
+ * @param debugDeviceName The name to be used to identify the debug device.
+ * @param debugDevice The debug device to be set.
+ */
 void DebugEngine::setDebugDevice(const std::string &debugDeviceName, DebugDevice *debugDevice) {
     // sets the debug device in the debug devices map with
     // the given debug device name

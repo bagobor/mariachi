@@ -28,23 +28,23 @@
 #include "texture_importer.h"
 
 /**
-* The bmp magic number size.
-*/
+ * The bmp magic number size.
+ */
 #define BMP_MAGIC_SIZE 2
 
 /**
-* The bmp header size.
-*/
+ * The bmp header size.
+ */
 #define BMP_HEADER_SIZE 12
 
 /**
-* The bmp dib v3 header size.
-*/
+ * The bmp dib v3 header size.
+ */
 #define BMP_DIB_V3_HEADER_SIZE 40
 
 /**
-* The bmp maximum alpha value.
-*/
+ * The bmp maximum alpha value.
+ */
 #define BMP_MAXIMUM_ALPHA_VALUE 255
 
 namespace mariachi {

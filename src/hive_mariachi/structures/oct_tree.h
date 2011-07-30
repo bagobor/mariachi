@@ -33,16 +33,16 @@ namespace mariachi {
         class OctTreeNode;
 
         /**
-        * Represents an oct tree in 3d space.
-        * Used for partioning a 3d environment into octants for faster spatial queries.
-        */
+         * Represents an oct tree in 3d space.
+         * Used for partioning a 3d environment into octants for faster spatial queries.
+         */
         class OctTree {
             private:
 
             public:
                 /**
-                * The tree's root node.
-                */
+                 * The tree's root node.
+                 */
                 OctTreeNode *rootNode;
 
                 OctTree();

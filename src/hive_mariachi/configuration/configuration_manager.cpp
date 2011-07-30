@@ -37,23 +37,23 @@ using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConfigurationManager::ConfigurationManager() : ConfigurationMap() {
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The engine that contains the reference to the configuration manager.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The engine that contains the reference to the configuration manager.
+ */
 ConfigurationManager::ConfigurationManager(Engine *engine) : ConfigurationMap() {
     this->initEngine(engine);
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConfigurationManager::~ConfigurationManager() {
 }
 
@@ -62,10 +62,10 @@ inline void ConfigurationManager::initEngine(Engine *engine) {
 }
 
 /**
-* Loads the configuration manager with the given arguments.
-*
-* @param arguments The arguments to the load of the configuration manager.
-*/
+ * Loads the configuration manager with the given arguments.
+ *
+ * @param arguments The arguments to the load of the configuration manager.
+ */
 void ConfigurationManager::load(void *arguments) {
     // retrieves the configuration arguments
     ConfigurationArguments_t *configurationArguments = (ConfigurationArguments_t *) arguments;
@@ -108,10 +108,10 @@ void ConfigurationManager::load(void *arguments) {
 }
 
 /**
-* Unloads the configuration manager with the given arguments.
-*
-* @param arguments The arguments to the unload of the configuration manager.
-*/
+ * Unloads the configuration manager with the given arguments.
+ *
+ * @param arguments The arguments to the unload of the configuration manager.
+ */
 void ConfigurationManager::unload(void *arguments) {
     // deletes the configuration file
     delete this->configurationFile;

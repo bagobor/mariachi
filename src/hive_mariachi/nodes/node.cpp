@@ -30,8 +30,8 @@
 using namespace mariachi::nodes;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Node::Node() {
     this->initChildrenListMutex();
     this->initRenderable();
@@ -44,8 +44,8 @@ Node::Node(const std::string &name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Node::~Node() {
     // closes the children list mutex
     MUTEX_CLOSE(this->childrenListMutexHandle);
@@ -73,10 +73,10 @@ void Node::reparentTo(Node *parent) {
 }
 
 /**
-* Adds a child node to the current node.
-*
-* @param child The child node to be added.
-*/
+ * Adds a child node to the current node.
+ *
+ * @param child The child node to be added.
+ */
 void Node::addChild(Node *child) {
     // locks the children list mutex
     MUTEX_LOCK(childrenListMutexHandle);
@@ -92,12 +92,12 @@ void Node::addChild(Node *child) {
 }
 
 /**
-* Adds a child node to the current node.
-* This operation is unsafe as it does not use the access
-* mutex to write the list. Use this method carrefully.
-*
-* @param child The child node to be added.
-*/
+ * Adds a child node to the current node.
+ * This operation is unsafe as it does not use the access
+ * mutex to write the list. Use this method carrefully.
+ *
+ * @param child The child node to be added.
+ */
 void Node::_addChild(Node *child) {
     // adds the child node to the children list
     this->childrenList.push_back(child);
@@ -107,10 +107,10 @@ void Node::_addChild(Node *child) {
 }
 
 /**
-* Adds a vector of child nodes to the current node.
-*
-* @param _childrenList The list of children nodes to be added.
-*/
+ * Adds a vector of child nodes to the current node.
+ *
+ * @param _childrenList The list of children nodes to be added.
+ */
 void Node::addChildren(std::vector<Node *> &_childrenList) {
     // locks the children list mutex
     MUTEX_LOCK(childrenListMutexHandle);
@@ -138,12 +138,12 @@ void Node::addChildren(std::vector<Node *> &_childrenList) {
 }
 
 /**
-* Removes a child node from the current node.
-* This operation is unsafe as it does not use the access
-* mutex to write the list. Use this method carrefully.
-*
-* @param child The child node to be removed.
-*/
+ * Removes a child node from the current node.
+ * This operation is unsafe as it does not use the access
+ * mutex to write the list. Use this method carrefully.
+ *
+ * @param child The child node to be removed.
+ */
 void Node::removeChild(Node *child) {
     // locks the children list mutex
     MUTEX_LOCK(childrenListMutexHandle);
@@ -159,10 +159,10 @@ void Node::removeChild(Node *child) {
 }
 
 /**
-* Removes a child node from the current node.
-*
-* @param child The child node to be removed.
-*/
+ * Removes a child node from the current node.
+ *
+ * @param child The child node to be removed.
+ */
 void Node::_removeChild(Node *child) {
     // removes the child node from the children list
     this->childrenList.remove(child);
@@ -172,10 +172,10 @@ void Node::_removeChild(Node *child) {
 }
 
 /**
-* Removes a vector of child nodes from the current node.
-*
-* @param _childrenList The list of children nodes to be removed.
-*/
+ * Removes a vector of child nodes from the current node.
+ *
+ * @param _childrenList The list of children nodes to be removed.
+ */
 void Node::removeChildren(std::vector<Node *> &_childrenList) {
     // locks the children list mutex
     MUTEX_LOCK(childrenListMutexHandle);

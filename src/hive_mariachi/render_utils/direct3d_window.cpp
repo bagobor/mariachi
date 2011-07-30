@@ -32,14 +32,14 @@
 using namespace mariachi::render_utils;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Direct3dWindow::Direct3dWindow() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Direct3dWindow::~Direct3dWindow() {
 }
 

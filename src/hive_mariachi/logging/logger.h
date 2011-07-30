@@ -36,13 +36,13 @@
 #define CRITICAL 5
 
 /**
-* The default file stream open mode.
-*/
+ * The default file stream open mode.
+ */
 #define DEFAULT_FILE_STREAM_OPEN_MODE std::ios_base::app
 
 /**
-* The default logger name.
-*/
+ * The default logger name.
+ */
 #define DEFAULT_LOGGER_NAME "default"
 
 namespace mariachi {
@@ -61,9 +61,9 @@ namespace mariachi {
         typedef std::map<std::string, Logger *> loggersMapType;
 
         /**
-        * The class responsible for the loging of event.
-        * This class control the logging event and the verbosity of them.
-        */
+         * The class responsible for the loging of event.
+         * This class control the logging event and the verbosity of them.
+         */
         class Logger {
             private:
                 unsigned int logLevel;

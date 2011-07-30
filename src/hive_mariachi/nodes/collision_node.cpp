@@ -32,8 +32,8 @@ using namespace mariachi::nodes;
 using namespace mariachi::physics;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 CollisionNode::CollisionNode() : CubeNode() {
 }
 
@@ -41,28 +41,28 @@ CollisionNode::CollisionNode(const std::string &name) : CubeNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 CollisionNode::~CollisionNode() {
 }
 
 /**
-* Starts the collision capture system, with the given
-* arguments.
-*
-* @param arguments The arguments to start the collision capture system.
-*/
+ * Starts the collision capture system, with the given
+ * arguments.
+ *
+ * @param arguments The arguments to start the collision capture system.
+ */
 void CollisionNode::startCollision(void *arguments) {
     // precisamos de por a flag activa
     // precisamos de chamar o adapter para bullet para registar la as coisa
 }
 
 /**
-* Stops the collision capture system, with the given
-* arguments.
-*
-* @param arguments The arguments to stop the collision capture system.
-*/
+ * Stops the collision capture system, with the given
+ * arguments.
+ *
+ * @param arguments The arguments to stop the collision capture system.
+ */
 void CollisionNode::stopCollision(void *arguments) {
 }
 

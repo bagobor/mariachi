@@ -42,33 +42,33 @@
 #endif
 
 /**
-* The branding text value.
-*/
+ * The branding text value.
+ */
 #define MARIACHI_BRANDING_TEXT "Hive Mariachi Engine"
 
 /**
-* The version value.
-*/
+ * The version value.
+ */
 #define MARIACHI_VERSION "1.0.0"
 
 /**
-* The date value.
-*/
+ * The date value.
+ */
 #define MARIACHI_DATE __DATE__
 
 /**
-* The time value.
-*/
+ * The time value.
+ */
 #define MARIACHI_TIME __TIME__
 
 /**
-* The realse information value.
-*/
+ * The realse information value.
+ */
 #define MARIACHI_RELEASE_INFO "Hive Solutions Lda. r1: "
 
 /**
-* The help text value.
-*/
+ * The help text value.
+ */
 #define MARIACHI_HELP_TEXT "Type \"help\" for more information."
 
 namespace mariachi {
@@ -100,123 +100,123 @@ namespace mariachi {
     class Engine {
         private:
             /**
-            * The number of arguments sent to the program.
-            */
+             * The number of arguments sent to the program.
+             */
             int argc;
 
             /**
-            * The value of the arguments sent to the program.
-            */
+             * The value of the arguments sent to the program.
+             */
             char **argv;
 
             /**
-            * The flag that controls the running of the engine.
-            */
+             * The flag that controls the running of the engine.
+             */
             bool runningFlag;
 
             /**
-            * The list of paths to be used in file localization.
-            */
+             * The list of paths to be used in file localization.
+             */
             std::list<std::string> pathsList;
 
             /**
-            * The logger used in the message logging.
-            */
+             * The logger used in the message logging.
+             */
             logging::Logger *logger;
 
             /**
-            * The manager used to provide configuration options.
-            */
+             * The manager used to provide configuration options.
+             */
             configuration::ConfigurationManager *configurationManager;
 
             /**
-            * The manager used to control the camera.
-            */
+             * The manager used to control the camera.
+             */
             camera::CameraManager *cameraManager;
 
             /**
-            * The manager used to control the console.
-            */
+             * The manager used to control the console.
+             */
             console::ConsoleManager *consoleManager;
 
             /**
-            * The top level 3d scene render node.
-            */
+             * The top level 3d scene render node.
+             */
             nodes::SceneNode *render;
 
             /**
-            * The top level 2d scene render node.
-            */
+             * The top level 2d scene render node.
+             */
             nodes::Scene2dNode *render2d;
 
             /**
-            * The engine used for debuging provisioning.
-            */
+             * The engine used for debuging provisioning.
+             */
             debugging::DebugEngine *debugEngine;
 
             /**
-            * The mutex that controls the task list access.
-            */
+             * The mutex that controls the task list access.
+             */
             MUTEX_HANDLE taskListMutex;
 
             /**
-            * The task list ready event.
-            */
+             * The task list ready event.
+             */
             EVENT_HANDLE taskListReadyEvent;
 
             /**
-            * The map associating the stage with the
-            * stage runner.
-            */
+             * The map associating the stage with the
+             * stage runner.
+             */
             std::map<stages::Stage *, stages::StageRunner *> stageRunnersMap;
 
             /**
-            * The list containing all the stages to be used.
-            */
+             * The list containing all the stages to be used.
+             */
             std::list<stages::Stage *> stagesList;
 
             /**
-            * The map associating the stage name with the
-            * stage reference.
-            */
+             * The map associating the stage name with the
+             * stage reference.
+             */
             std::map<std::string, stages::Stage *> stagesMap;
 
             /**
-            * The map associating the device name with the
-            * device reference.
-            */
+             * The map associating the device name with the
+             * device reference.
+             */
             std::map<std::string, devices::Device *> devicesMap;
 
             /**
-            * The map associating the script engine name with the
-            * script engine reference.
-            */
+             * The map associating the script engine name with the
+             * script engine reference.
+             */
             std::map<std::string, script::ScriptEngine *> scriptEnginesMap;
 
             /**
-            * The map associating the physics engine name with the
-            * physics engine reference.
-            */
+             * The map associating the physics engine name with the
+             * physics engine reference.
+             */
             std::map<std::string, physics::PhysicsEngine *> physicsEnginesMap;
 
             /**
-            * The list of currently available tasks.
-            */
+             * The list of currently available tasks.
+             */
             std::list<tasks::Task *> taskList;
 
             /**
-            * The list of stages to be run in the main thread.
-            */
+             * The list of stages to be run in the main thread.
+             */
             std::list<stages::Stage *> mainThreadStagesList;
 
             /**
-            * The map associating the thread handle with the associated stage.
-            */
+             * The map associating the thread handle with the associated stage.
+             */
             std::map<THREAD_REFERENCE, stages::Stage *> threadHandleStageMap;
 
             /**
-            * The currently active physics engine, to be used in physics operations.
-            */
+             * The currently active physics engine, to be used in physics operations.
+             */
             physics::PhysicsEngine *activePhysicsEngine;
 
             inline void initRunningFlag();

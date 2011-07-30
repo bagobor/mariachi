@@ -37,8 +37,8 @@ namespace mariachi {
         class ConsoleStage : public Stage {
             private:
                 /**
-                * The console manager to be used.
-                */
+                 * The console manager to be used.
+                 */
                 console::ConsoleManager *consoleManager;
 
                 inline void initThread();

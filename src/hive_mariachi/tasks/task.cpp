@@ -30,8 +30,8 @@
 using namespace mariachi::tasks;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Task::Task() {
 }
 
@@ -40,8 +40,8 @@ Task::Task(const std::string &name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Task::~Task() {
 }
 

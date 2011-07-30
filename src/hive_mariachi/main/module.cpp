@@ -30,14 +30,14 @@
 using namespace mariachi;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Module::Module() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Module::~Module() {
 }
 

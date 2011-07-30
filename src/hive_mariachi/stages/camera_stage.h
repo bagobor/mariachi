@@ -36,8 +36,8 @@ namespace mariachi {
         class CameraStage : public Stage {
             private:
                 /**
-                * The camera manager to be used.
-                */
+                 * The camera manager to be used.
+                 */
                 camera::CameraManager *cameraManager;
 
             public:

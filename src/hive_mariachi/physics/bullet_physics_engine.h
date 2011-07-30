@@ -40,45 +40,45 @@ namespace mariachi {
         class BulletPhysicsEngine : public PhysicsEngine {
             private:
                 /**
-                * The bullet engine collision configuration.
-                */
+                 * The bullet engine collision configuration.
+                 */
                 btDefaultCollisionConfiguration *collisionConfiguration;
 
                 /**
-                * The bullet engine dispatcher.
-                */
+                 * The bullet engine dispatcher.
+                 */
                 btCollisionDispatcher *dispatcher;
 
                 /**
-                * The bullet engine broad phase.
-                */
+                 * The bullet engine broad phase.
+                 */
                 btBroadphaseInterface *broadPhase;
 
                 /**
-                * The bullet engine impulse constraint solver.
-                */
+                 * The bullet engine impulse constraint solver.
+                 */
                 btSequentialImpulseConstraintSolver *solver;
 
                 /**
-                * The bullet engine world representation object.
-                */
+                 * The bullet engine world representation object.
+                 */
                 btDiscreteDynamicsWorld *dynamicsWorld;
 
                 /**
-                * The map associating the physical nodes with the bullet engine
-                * rigid body structures.
-                */
+                 * The map associating the physical nodes with the bullet engine
+                 * rigid body structures.
+                 */
                 std::map<nodes::PhysicalNode *, btRigidBody *> physicalNodeRigidBodyMap;
 
                 /**
-                * The map associating the bullet engine rigid body structures with
-                * the physical nodes.
-                */
+                 * The map associating the bullet engine rigid body structures with
+                 * the physical nodes.
+                 */
                 std::map<btRigidBody *, nodes::PhysicalNode *> rigidBodyPhysicalNodeMap;
 
                 /**
-                * The maximum sub steps allowed until full physics calculation, regulates interpolation in the bullet engine.
-                */
+                 * The maximum sub steps allowed until full physics calculation, regulates interpolation in the bullet engine.
+                 */
                 int maximumSubSteps;
 
                 btClock clock;

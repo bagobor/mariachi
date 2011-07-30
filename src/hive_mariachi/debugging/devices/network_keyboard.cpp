@@ -30,26 +30,26 @@
 using namespace mariachi::debugging;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 NetworkKeyboard::NetworkKeyboard() : DebugDevice() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 NetworkKeyboard::~NetworkKeyboard() {
 }
 
 /**
-* Starts the network keyboard, the starting is defined by the arguments.
-* in case the server setting is set a new socket is created an put into listening
-* mode. In case a client is set a new socket is created and connects to the defined
-* server.
-* In both cases a new stage is created to process the network keyboard operations.
-*
-* @param arguments The arguments for the newtork keyboard start.
-*/
+ * Starts the network keyboard, the starting is defined by the arguments.
+ * in case the server setting is set a new socket is created an put into listening
+ * mode. In case a client is set a new socket is created and connects to the defined
+ * server.
+ * In both cases a new stage is created to process the network keyboard operations.
+ *
+ * @param arguments The arguments for the newtork keyboard start.
+ */
 void NetworkKeyboard::start(void *arguments) {
     // tenho de ver aki se se trata de client ou de servidor
     // tenho de depois começar a conexao
@@ -63,9 +63,9 @@ void NetworkKeyboard::start(void *arguments) {
 }
 
 /**
-* Stops the network keyboard, stops the stages and closes the created sockets.
-*
-* @param arguments The arguments for the newtork keyboard stop.
-*/
+ * Stops the network keyboard, stops the stages and closes the created sockets.
+ *
+ * @param arguments The arguments for the newtork keyboard stop.
+ */
 void NetworkKeyboard::stop(void *arguments) {
 }

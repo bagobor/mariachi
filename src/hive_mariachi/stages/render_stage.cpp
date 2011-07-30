@@ -47,41 +47,41 @@ THREAD_RETURN mariachi::stages::renderRunnerThread(THREAD_ARGUMENTS parameters) 
 }
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 RenderStage::RenderStage() : Stage() {
     this->initThread();
     this->initRenderInformation();
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ */
 RenderStage::RenderStage(Engine *engine) : Stage(engine) {
     this->initThread();
     this->initRenderInformation();
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-* @param name The name of the stage.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ * @param name The name of the stage.
+ */
 RenderStage::RenderStage(Engine *engine, const std::string &name) : Stage(engine, name) {
     this->initThread();
     this->initRenderInformation();
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-* @param name The name of the stage.
-* @param renderSystem The render system to be used.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ * @param name The name of the stage.
+ * @param renderSystem The render system to be used.
+ */
 RenderStage::RenderStage(Engine *engine, const std::string &name, RenderSystem renderSystem) : Stage(engine, name) {
     this->initThread();
     this->initRenderInformation();
@@ -89,8 +89,8 @@ RenderStage::RenderStage(Engine *engine, const std::string &name, RenderSystem r
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 RenderStage::~RenderStage() {
     delete this->renderInformation;
 }

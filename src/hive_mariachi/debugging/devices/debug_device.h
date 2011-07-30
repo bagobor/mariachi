@@ -30,8 +30,8 @@
 namespace mariachi {
     namespace debugging {
         /**
-        * Represents the abstract class for the debug devices.
-        */
+         * Represents the abstract class for the debug devices.
+         */
         class DebugDevice : public devices::Device {
             private:
 

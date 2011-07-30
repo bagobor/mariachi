@@ -145,27 +145,27 @@ const unsigned int Crc32::crcTable[] = {
 };
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Crc32::Crc32() {
     // resets the crc 32 value
     this->reset();
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Crc32::~Crc32() {
 }
 
 /**
-* Updates the hash function to a new value using the
-* buffer with the given size.
-*
-* @param buffer The buffer to be used to update the hash.
-* @param size The size of the buffer used to update
-* the hash.
-*/
+ * Updates the hash function to a new value using the
+ * buffer with the given size.
+ *
+ * @param buffer The buffer to be used to update the hash.
+ * @param size The size of the buffer used to update
+ * the hash.
+ */
 void Crc32::update(const unsigned char *buffer, unsigned int size) {
     // calls the super
     HashFunction::update(buffer, size);
@@ -231,11 +231,11 @@ void Crc32::reset() {
 }
 
 /**
-* Returns an hexadecimal representation of the
-* code.
-*
-* @return The hexadecimal representation of the code.
-*/
+ * Returns an hexadecimal representation of the
+ * code.
+ *
+ * @return The hexadecimal representation of the code.
+ */
 std::string Crc32::hexdigest() const {
     // in case the hash computation is not finalized
     if(!this->finalized) {

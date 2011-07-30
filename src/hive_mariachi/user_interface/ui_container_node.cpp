@@ -30,8 +30,8 @@
 using namespace mariachi::ui;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ContainerNode::ContainerNode() : BoxComponentNode() {
 }
 
@@ -39,7 +39,7 @@ ContainerNode::ContainerNode(const std::string &name) : BoxComponentNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ContainerNode::~ContainerNode() {
 }

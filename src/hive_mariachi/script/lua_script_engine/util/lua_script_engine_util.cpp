@@ -90,12 +90,12 @@ void mariachi::script::lua::lua_settype(lua_State *luaState, const char *type) {
 }
 
 /**
-* Sets a mapping name for a string value given as argument.
-*
-* @param luaState The current lua state reference.
-* @param name The mapping name to be used.
-* @param value The string value to be used.
-*/
+ * Sets a mapping name for a string value given as argument.
+ *
+ * @param luaState The current lua state reference.
+ * @param name The mapping name to be used.
+ * @param value The string value to be used.
+ */
 void mariachi::script::lua::lua_setnamestring(lua_State *luaState, const char *name, const char *value) {
     lua_pushstring(luaState, name);
     lua_pushstring(luaState, value);
@@ -103,12 +103,12 @@ void mariachi::script::lua::lua_setnamestring(lua_State *luaState, const char *n
 }
 
 /**
-* Sets a mapping name for a float value given as argument.
-*
-* @param luaState The current lua state reference.
-* @param name The mapping name to be used.
-* @param value The float value to be used.
-*/
+ * Sets a mapping name for a float value given as argument.
+ *
+ * @param luaState The current lua state reference.
+ * @param name The mapping name to be used.
+ * @param value The float value to be used.
+ */
 void mariachi::script::lua::lua_setnamefloat(lua_State *luaState, const char *name, float value) {
     lua_pushstring(luaState, name);
     lua_pushnumber(luaState, value);
@@ -116,12 +116,12 @@ void mariachi::script::lua::lua_setnamefloat(lua_State *luaState, const char *na
 }
 
 /**
-* Sets a mapping name for a function value given as argument.
-*
-* @param luaState The current lua state reference.
-* @param name The mapping name to be used.
-* @param value The function value to be used.
-*/
+ * Sets a mapping name for a function value given as argument.
+ *
+ * @param luaState The current lua state reference.
+ * @param name The mapping name to be used.
+ * @param value The function value to be used.
+ */
 void mariachi::script::lua::lua_setnamefunction(lua_State *luaState, const char *name, lua_CFunction value) {
     lua_pushstring(luaState, name);
     lua_pushcfunction(luaState, value);

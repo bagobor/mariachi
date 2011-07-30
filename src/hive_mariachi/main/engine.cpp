@@ -56,12 +56,12 @@ using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
-* Thread that handles the main engine workload.
-* Initializes the script engines and the stages.
-*
-* @param parameters The thread parameters.
-* @return The thread result.
-*/
+ * Thread that handles the main engine workload.
+ * Initializes the script engines and the stages.
+ *
+ * @param parameters The thread parameters.
+ * @return The thread result.
+ */
 THREAD_RETURN mariachi::mainRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the engine from the parameters
     Engine *engine = (Engine *) parameters;
@@ -115,12 +115,12 @@ THREAD_RETURN mariachi::mainRunnerThread(THREAD_ARGUMENTS parameters) {
 }
 
 /**
-* Thread than runs a new stage. It controls the frequency of the loading
-* and manages it.
-*
-* @param parameters The thread parameters.
-* @return The thread result.
-*/
+ * Thread than runs a new stage. It controls the frequency of the loading
+ * and manages it.
+ *
+ * @param parameters The thread parameters.
+ * @return The thread result.
+ */
 THREAD_RETURN mariachi::stageRunnerThread(THREAD_ARGUMENTS parameters) {
     // retrieves the stage from the parameters
     Stage *stage = (Stage *) parameters;
@@ -150,19 +150,19 @@ THREAD_RETURN mariachi::stageRunnerThread(THREAD_ARGUMENTS parameters) {
 }
 
 /**
-* Contructor of the class.
-*/
+ * Contructor of the class.
+ */
 Engine::Engine() {
     this->initRunningFlag();
     this->initRenders();
 }
 
 /**
-* Contructor of the class.
-*
-* @param argc The number of arguments sent to the program.
-* @param argv The value of the arguments sent to the program.
-*/
+ * Contructor of the class.
+ *
+ * @param argc The number of arguments sent to the program.
+ * @param argv The value of the arguments sent to the program.
+ */
 Engine::Engine(int argc, char** argv) {
     this->initRunningFlag();
     this->initLogger();
@@ -171,29 +171,29 @@ Engine::Engine(int argc, char** argv) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Engine::~Engine() {
 }
 
 /**
-* Initializes the running flag.
-*/
+ * Initializes the running flag.
+ */
 inline void Engine::initRunningFlag() {
     // sets the running flag
     this->runningFlag = true;
 }
 
 /**
-* Initializes the logger.
-*/
+ * Initializes the logger.
+ */
 inline void Engine::initLogger() {
     this->logger = NULL;
 }
 
 /**
-* Initializes the renders.
-*/
+ * Initializes the renders.
+ */
 inline void Engine::initRenders() {
     // creates the render node
     this->render = new SceneNode(std::string("render"));
@@ -203,18 +203,18 @@ inline void Engine::initRenders() {
 }
 
 /**
-* Initializes the command line arguments.
-*/
+ * Initializes the command line arguments.
+ */
 inline void Engine::initArgs(int argc, char** argv) {
     this->argc = argc;
     this->argv = argv;
 }
 
 /**
-* Starts the engine running all the required bootstrap operations.
-*
-* @param arguments The arguments for the engine start.
-*/
+ * Starts the engine running all the required bootstrap operations.
+ *
+ * @param arguments The arguments for the engine start.
+ */
 void Engine::start(void *arguments) {
     // prints the information
     this->printInformation();
@@ -258,10 +258,10 @@ void Engine::start(void *arguments) {
 }
 
 /**
-* Stops the engine running all the required unloading operations.
-*
-* @param arguments The arguments for the engine stop.
-*/
+ * Stops the engine running all the required unloading operations.
+ *
+ * @param arguments The arguments for the engine stop.
+ */
 void Engine::stop(void *arguments) {
     // unsets the running flag
     this->runningFlag = false;
@@ -271,9 +271,9 @@ void Engine::stop(void *arguments) {
 }
 
 /**
-* Updates the engine state, running the main thread stages and any other
-* recursive engine operations.
-*/
+ * Updates the engine state, running the main thread stages and any other
+ * recursive engine operations.
+ */
 void Engine::update() {
     // retrieves the main thread stages list iterator
     std::list<Stage *>::iterator mainThreadStagesListIterator = this->mainThreadStagesList.begin();
@@ -298,8 +298,8 @@ void Engine::update() {
 }
 
 /**
-* Prints the branding information into the standard output.
-*/
+ * Prints the branding information into the standard output.
+ */
 void Engine::printInformation() {
     // prints the branding information
     std::cout << MARIACHI_BRANDING_TEXT << " " MARIACHI_VERSION << " (" << MARIACHI_RELEASE_INFO << MARIACHI_DATE << " " << MARIACHI_TIME << ")" << std::endl;
@@ -309,11 +309,11 @@ void Engine::printInformation() {
 }
 
 /**
-* Handles the given exception, taking the necessary measures to
-* minimize damage.
-*
-* @param exception The exception to be handled.
-*/
+ * Handles the given exception, taking the necessary measures to
+ * minimize damage.
+ *
+ * @param exception The exception to be handled.
+ */
 void Engine::handleException(Exception *exception) {
     // in case there is a logger defined
     if(this->logger) {
@@ -338,9 +338,9 @@ void Engine::startFifos() {
 
 
 /**
-* Starts the paths list manager in the engine.
-* The paths list is used to locate file in relative positions to the engine.
-*/
+ * Starts the paths list manager in the engine.
+ * The paths list is used to locate file in relative positions to the engine.
+ */
 void Engine::startPathsList() {
     // adds the root path
     this->addPath(HIVE_MARIACHI_ROOT_PATH);
@@ -354,10 +354,10 @@ void Engine::startPathsList() {
 }
 
 /**
-* Starts the configuration manager in the engine.
-* Starting the configuration manager implies booting the necessary
-* structures for data serialization.
-*/
+ * Starts the configuration manager in the engine.
+ * Starting the configuration manager implies booting the necessary
+ * structures for data serialization.
+ */
 void Engine::startConfigurationManager() {
     // creates a configuration manager
     this->configurationManager = new ConfigurationManager(this);
@@ -374,8 +374,8 @@ void Engine::startConfigurationManager() {
 }
 
 /**
-* Stops the configuration manager in the engine.
-*/
+ * Stops the configuration manager in the engine.
+ */
 void Engine::stopConfigurationManager() {
     // loads the configuration manager
     this->configurationManager->unload(NULL);
@@ -385,8 +385,8 @@ void Engine::stopConfigurationManager() {
 }
 
 /**
-* Starts the camera manager in the engine.
-*/
+ * Starts the camera manager in the engine.
+ */
 void Engine::startCameraManager() {
     // creates a camera manager
     this->cameraManager = new CameraManager(this);
@@ -396,8 +396,8 @@ void Engine::startCameraManager() {
 }
 
 /**
-* Stops the camera manager in the engine.
-*/
+ * Stops the camera manager in the engine.
+ */
 void Engine::stopCameraManager() {
     // unloads the camera manager
     this->cameraManager->unload(NULL);
@@ -407,8 +407,8 @@ void Engine::stopCameraManager() {
 }
 
 /**
-* Starts the console manager in the engine.
-*/
+ * Starts the console manager in the engine.
+ */
 void Engine::startConsoleManager() {
     // creates a console manager
     this->consoleManager = new ConsoleManager(this);
@@ -418,8 +418,8 @@ void Engine::startConsoleManager() {
 }
 
 /**
-* Stops the console manager in the engine.
-*/
+ * Stops the console manager in the engine.
+ */
 void Engine::stopConsoleManager() {
     // unloads the console manager
     this->consoleManager->unload(NULL);
@@ -429,11 +429,11 @@ void Engine::stopConsoleManager() {
 }
 
 /**
-* Starts the logging system, creating a file and a console handler.
-*
-* @param level The level of debugging to be used in the logging.
-* @param pidFile If the process id information should be used for the file.
-*/
+ * Starts the logging system, creating a file and a console handler.
+ *
+ * @param level The level of debugging to be used in the logging.
+ * @param pidFile If the process id information should be used for the file.
+ */
 void Engine::startLogger(int level, bool pidFile) {
     // allocates a new string for the current process id string
     std::string currentProcessIdString;
@@ -473,10 +473,10 @@ void Engine::startLogger(int level, bool pidFile) {
 }
 
 /**
-* Starts the input devices in the engine.
-* Starting the input devices implies starting the drivers and start listning
-* to them.
-*/
+ * Starts the input devices in the engine.
+ * Starting the input devices implies starting the drivers and start listning
+ * to them.
+ */
 void Engine::startInputDevices() {
     // creates a new keyboard
     Keyboard *keyboard = new Keyboard();
@@ -498,10 +498,10 @@ void Engine::startInputDevices() {
 }
 
 /**
-* Starts the script engines in the engine.
-* Starting the script engines implies loading them and running
-* the initial script files.
-*/
+ * Starts the script engines in the engine.
+ * Starting the script engines implies loading them and running
+ * the initial script files.
+ */
 void Engine::startScriptEngines() {
     // creates a new lua script engine
     LuaScriptEngine *luaScriptEngine = new LuaScriptEngine(this);
@@ -527,9 +527,9 @@ void Engine::startScriptEngines() {
 }
 
 /**
-* Starts the physics engines in the engine.
-* Starting the physics engines implies loading them.
-*/
+ * Starts the physics engines in the engine.
+ * Starting the physics engines implies loading them.
+ */
 void Engine::startPhysicsEngines() {
     // creates a new bullet physics engine
     BulletPhysicsEngine *bulletPhysicsEngine = new BulletPhysicsEngine(this);
@@ -542,10 +542,10 @@ void Engine::startPhysicsEngines() {
 }
 
 /**
-* Starts the stages in the engine.
-* Starting the stages implies loading them and creating new threads
-* for the ones than require a new thread to be created.
-*/
+ * Starts the stages in the engine.
+ * Starting the stages implies loading them and creating new threads
+ * for the ones than require a new thread to be created.
+ */
 void Engine::startStages() {
     // retrieves the stages list
     std::list<Stage *> *stagesList = &this->stagesList;
@@ -591,9 +591,9 @@ void Engine::startStages() {
 }
 
 /**
-* Stops the stages in the engine.
-* Starting the stages implies unloading them and joining their threads.
-*/
+ * Stops the stages in the engine.
+ * Starting the stages implies unloading them and joining their threads.
+ */
 void Engine::stopStages() {
     // retrieves the thread handle stage map iterator
     std::map<THREAD_REFERENCE, Stage *>::iterator threadHandleStageMapIterator = this->threadHandleStageMap.begin();
@@ -645,8 +645,8 @@ void Engine::stopStages() {
 }
 
 /**
-* Starts the debug engine, instantiating it and loading.
-*/
+ * Starts the debug engine, instantiating it and loading.
+ */
 void Engine::startDebugEngine() {
     // creates a new debug engine
     this->debugEngine = new DebugEngine();
@@ -656,8 +656,8 @@ void Engine::startDebugEngine() {
 }
 
 /**
-* Stops the debug engine, unloading it.
-*/
+ * Stops the debug engine, unloading it.
+ */
 void Engine::stopDebugEngine() {
     // stops the debug engine
     this->debugEngine->stop(NULL);
@@ -667,8 +667,8 @@ void Engine::stopDebugEngine() {
 }
 
 /**
-* Starts the engine run loop (where it runs the main stages).
-*/
+ * Starts the engine run loop (where it runs the main stages).
+ */
 void Engine::startRunLoop() {
     // iterates while the running flag is active
     while(this->runningFlag) {
@@ -703,9 +703,9 @@ void Engine::startRunLoop() {
 }
 
 /**
-* Updates the paths list using the information in the
-* environment variable.
-*/
+ * Updates the paths list using the information in the
+ * environment variable.
+ */
 void Engine::updatePathsListEnvironment() {
     // allocates the mariachi path environment size
     size_t mariachiPathEnvironmentSize;
@@ -746,9 +746,9 @@ void Engine::updatePathsListEnvironment() {
 }
 
 /**
-* Updates the paths list using the information in the
-* configuration manager.
-*/
+ * Updates the paths list using the information in the
+ * configuration manager.
+ */
 void Engine::updatePathsListConfiguration() {
     // retrieves the extra paths value from the configuration
     ConfigurationValue_t *extraPaths = this->configurationManager->getProperty("extra_paths");
@@ -767,31 +767,31 @@ void Engine::updatePathsListConfiguration() {
 }
 
 /**
-* Adds a path to the paths list.
-*
-* @param path The path to be added to the paths list.
-*/
+ * Adds a path to the paths list.
+ *
+ * @param path The path to be added to the paths list.
+ */
 void Engine::addPath(const std::string &path) {
     // adds the path to the paths list
     this->pathsList.push_back(path);
 }
 
 /**
-* Removes a path from the paths list.
-*
-* @param pathThe path to be removed from the paths list.
-*/
+ * Removes a path from the paths list.
+ *
+ * @param pathThe path to be removed from the paths list.
+ */
 void Engine::removePath(const std::string &path) {
     // removes the path from the paths list
     this->pathsList.push_back(path);
 }
 
 /**
-* Adds a list of paths to the paths list.
-*
-* @param pathsList The list of paths to be added to
-* the paths list.
-*/
+ * Adds a list of paths to the paths list.
+ *
+ * @param pathsList The list of paths to be added to
+ * the paths list.
+ */
 void Engine::addPaths(std::vector<std::string *> &pathsList) {
     // retrieves the paths list iterator
     std::vector<std::string *>::iterator pathsListIterator = pathsList.begin();
@@ -810,11 +810,11 @@ void Engine::addPaths(std::vector<std::string *> &pathsList) {
 }
 
 /**
-* Removes a list of paths from the paths list.
-*
-* @param pathsList The list of paths to be removed from
-* the paths list.
-*/
+ * Removes a list of paths from the paths list.
+ *
+ * @param pathsList The list of paths to be removed from
+ * the paths list.
+ */
 void Engine::removePaths(std::vector<std::string *> &pathsList) {
     // retrieves the paths list iterator
     std::vector<std::string *>::iterator pathsListIterator = pathsList.begin();
@@ -833,15 +833,15 @@ void Engine::removePaths(std::vector<std::string *> &pathsList) {
 }
 
 /**
-* Retrieves the absolute path to the file in the given relative
-* path.
-* This method uses the system path to locate the files in a relative
-* path to any of the paths in the system path.
-*
-* @param relativePath The relative path to be converted to absolute path.
-* @return The absolute path to the given relative path, in case of error
-* and empty string is returned.
-*/
+ * Retrieves the absolute path to the file in the given relative
+ * path.
+ * This method uses the system path to locate the files in a relative
+ * path to any of the paths in the system path.
+ *
+ * @param relativePath The relative path to be converted to absolute path.
+ * @return The absolute path to the given relative path, in case of error
+ * and empty string is returned.
+ */
 std::string Engine::getAbsolutePath(const std::string &relativePath) {
     // retrieves the paths list iterator
     std::list<std::string>::iterator pathsListIterator = this->pathsList.begin();
@@ -871,54 +871,54 @@ std::string Engine::getAbsolutePath(const std::string &relativePath) {
     throw RuntimeException("Absolute path not found for relative path: " + relativePath);
 }
 /**
-* Adds a main thread stage to the stages list.
-*
-* @param stage The stage to be added to stages list.
-*/
+ * Adds a main thread stage to the stages list.
+ *
+ * @param stage The stage to be added to stages list.
+ */
 void Engine::addStage(Stage *stage) {
     // adds the stage to the stages list
     this->stagesList.push_back(stage);
 }
 
 /**
-* Removes a main thread stage from the stages list.
-*
-* @param stage The stage to be removed from stages list.
-*/
+ * Removes a main thread stage from the stages list.
+ *
+ * @param stage The stage to be removed from stages list.
+ */
 void Engine::removeStage(Stage *stage) {
     // removes the stage from the stages list
     this->stagesList.remove(stage);
 }
 
 /**
-* Adds a main thread stage to the main
-* thread stages list.
-*
-* @param stage The stage to be added to the main thread
-* stages list.
-*/
+ * Adds a main thread stage to the main
+ * thread stages list.
+ *
+ * @param stage The stage to be added to the main thread
+ * stages list.
+ */
 void Engine::addMainThreadStage(Stage *stage) {
     // adds the stage to the main thread stages list
     this->mainThreadStagesList.push_back(stage);
 }
 
 /**
-* Removes a main thread stage from the main
-* thread stages list.
-*
-* @param stage The stage to be removed from main thread
-* stages list.
-*/
+ * Removes a main thread stage from the main
+ * thread stages list.
+ *
+ * @param stage The stage to be removed from main thread
+ * stages list.
+ */
 void Engine::removeMainThreadStage(Stage *stage) {
     // removes the stage from the main thread stages list
     this->mainThreadStagesList.remove(stage);
 }
 
 /**
-* Adds the given task to the task list.
-*
-* @param task The task to be added to the task list.
-*/
+ * Adds the given task to the task list.
+ *
+ * @param task The task to be added to the task list.
+ */
 void Engine::addTask(Task *task) {
     // locks the list mutex
     MUTEX_LOCK(this->taskListMutex);
@@ -934,10 +934,10 @@ void Engine::addTask(Task *task) {
 }
 
 /**
-* Adds the given task from the task list.
-*
-* @param task The task to be removed from the task list.
-*/
+ * Adds the given task from the task list.
+ *
+ * @param task The task to be removed from the task list.
+ */
 void Engine::removeTask(Task *task) {
     // locks the task list mutex
     MUTEX_LOCK(this->taskListMutex);
@@ -950,26 +950,26 @@ void Engine::removeTask(Task *task) {
 }
 
 /**
-* Starts a camera transition using the camera manager.
-* @param cameraName The name of the camera where the transition should end.
-* @param duration The duration of the transition in steps.
-*/
+ * Starts a camera transition using the camera manager.
+ * @param cameraName The name of the camera where the transition should end.
+ * @param duration The duration of the transition in steps.
+ */
 void Engine::startCameraTransition(const std::string &cameraName, int duration) {
     this->cameraManager->startTransition(cameraName, duration);
 }
 
 /**
-* Cancels the current camera transition in the camera manager.
-*/
+ * Cancels the current camera transition in the camera manager.
+ */
 void Engine::cancelCameraTransition() {
     this->cameraManager->cancelTransition();
 }
 
 /**
-* Retrieves the current process id string and puts it into the given string.
-*
-* @param currentProcessIdString The string to be updated with the process id string.
-*/
+ * Retrieves the current process id string and puts it into the given string.
+ *
+ * @param currentProcessIdString The string to be updated with the process id string.
+ */
 void Engine::getCurrentProcessIdString(std::string &currentProcessIdString) {
     // retrieves the current process id
     PID_TYPE currentProcessId = GET_PID();
@@ -985,21 +985,21 @@ void Engine::getCurrentProcessIdString(std::string &currentProcessIdString) {
 }
 
 /**
-* Retrieves the stage runner for the given stage.
-*
-* @param stage The stage to retrieve the stage runner.
-* @return The stage runner for the given stage.
-*/
+ * Retrieves the stage runner for the given stage.
+ *
+ * @param stage The stage to retrieve the stage runner.
+ * @return The stage runner for the given stage.
+ */
 StageRunner *Engine::getStageRunner(Stage *stage) {
     return this->stageRunnersMap[stage];
 }
 
 /**
-* Sets the stage runner with the given stage.
-*
-* @param stage The stage to be used to identify the stage runner.
-* @param stageRunner The stage runner to be set.
-*/
+ * Sets the stage runner with the given stage.
+ *
+ * @param stage The stage to be used to identify the stage runner.
+ * @param stageRunner The stage runner to be set.
+ */
 void Engine::setStageRunner(Stage *stage, StageRunner *stageRunner) {
     // sets the stage runner in the stage runners map with
     // the given stage
@@ -1007,21 +1007,21 @@ void Engine::setStageRunner(Stage *stage, StageRunner *stageRunner) {
 }
 
 /**
-* Retrieves the stage for the given stage name.
-*
-* @param stageName The stage name to retrieve the stage.
-* @return The stage for the given stage name.
-*/
+ * Retrieves the stage for the given stage name.
+ *
+ * @param stageName The stage name to retrieve the stage.
+ * @return The stage for the given stage name.
+ */
 Stage *Engine::getStage(const std::string &stageName) {
     return this->stagesMap[stageName];
 }
 
 /**
-* Sets the stage with the given stage name.
-*
-* @param stageName The name to be used to identify the stage.
-* @param stage The stage to be set.
-*/
+ * Sets the stage with the given stage name.
+ *
+ * @param stageName The name to be used to identify the stage.
+ * @param stage The stage to be set.
+ */
 void Engine::setStage(const std::string &stageName, Stage *stage) {
     // sets the stage in the stages map with
     // the given stage name
@@ -1029,21 +1029,21 @@ void Engine::setStage(const std::string &stageName, Stage *stage) {
 }
 
 /**
-* Retrieves the device for the given device name.
-*
-* @param deviceName The device name to retrieve the device.
-* @return The device for the given device name.
-*/
+ * Retrieves the device for the given device name.
+ *
+ * @param deviceName The device name to retrieve the device.
+ * @return The device for the given device name.
+ */
 Device *Engine::getDevice(const std::string &deviceName) {
     return this->devicesMap[deviceName];
 }
 
 /**
-* Sets the device with the given device name.
-*
-* @param deviceName The name to be used to identify the device.
-* @param device The device to be set.
-*/
+ * Sets the device with the given device name.
+ *
+ * @param deviceName The name to be used to identify the device.
+ * @param device The device to be set.
+ */
 void Engine::setDevice(const std::string &deviceName, Device *device) {
     // sets the device in the devices map with
     // the given device name
@@ -1051,21 +1051,21 @@ void Engine::setDevice(const std::string &deviceName, Device *device) {
 }
 
 /**
-* Retrieves the script engine for the given script engine name.
-*
-* @param scriptEngineName The script engine name to retrieve the script engine.
-* @return The script engine for the given script engine name.
-*/
+ * Retrieves the script engine for the given script engine name.
+ *
+ * @param scriptEngineName The script engine name to retrieve the script engine.
+ * @return The script engine for the given script engine name.
+ */
 ScriptEngine *Engine::getScriptEngine(const std::string &scriptEngineName) {
     return this->scriptEnginesMap[scriptEngineName];
 }
 
 /**
-* Sets the script engine with the given script engine name.
-*
-* @param scriptEngineName The name to be used to identify the script engine.
-* @param scriptEngine The script engine to be set.
-*/
+ * Sets the script engine with the given script engine name.
+ *
+ * @param scriptEngineName The name to be used to identify the script engine.
+ * @param scriptEngine The script engine to be set.
+ */
 void Engine::setScriptEngine(const std::string &scriptEngineName, ScriptEngine *scriptEngine) {
     // sets the script engine in the script engines map with
     // the given script engine name
@@ -1073,21 +1073,21 @@ void Engine::setScriptEngine(const std::string &scriptEngineName, ScriptEngine *
 }
 
 /**
-* Retrieves the physics engine for the given physics engine name.
-*
-* @param physicsEngineName The physics engine name to retrieve the physics engine.
-* @return The physics engine for the given physics engine name.
-*/
+ * Retrieves the physics engine for the given physics engine name.
+ *
+ * @param physicsEngineName The physics engine name to retrieve the physics engine.
+ * @return The physics engine for the given physics engine name.
+ */
 PhysicsEngine *Engine::getPhysicsEngine(const std::string &physicsEngineName) {
     return this->physicsEnginesMap[physicsEngineName];
 }
 
 /**
-* Sets the physics engine with the given physics engine name.
-*
-* @param physicsEngineName The name to be used to identify the physics engine.
-* @param physicsEngine The physics engine to be set.
-*/
+ * Sets the physics engine with the given physics engine name.
+ *
+ * @param physicsEngineName The name to be used to identify the physics engine.
+ * @param physicsEngine The physics engine to be set.
+ */
 void Engine::setPhysicsEngine(const std::string &physicsEngineName, PhysicsEngine *physicsEngine) {
     // sets the physics engine in the physics engines map with
     // the given physics engine name
@@ -1095,183 +1095,183 @@ void Engine::setPhysicsEngine(const std::string &physicsEngineName, PhysicsEngin
 }
 
 /**
-* Retrieves the camera for the given camera name.
-*
-* @param cameraName The camera name to retrieve the camera.
-* @return The camera for the given camera name.
-*/
+ * Retrieves the camera for the given camera name.
+ *
+ * @param cameraName The camera name to retrieve the camera.
+ * @return The camera for the given camera name.
+ */
 CameraNode *Engine::getCamera(const std::string &cameraName) {
     return this->cameraManager->getCamera(cameraName);
 }
 
 /**
-* Sets the camera with the given camera name.
-*
-* @param cameraName The name to be used to identify the camera.
-* @param camera The camera to be set.
-*/
+ * Sets the camera with the given camera name.
+ *
+ * @param cameraName The name to be used to identify the camera.
+ * @param camera The camera to be set.
+ */
 void Engine::setCamera(const std::string &cameraName, CameraNode *camera) {
     this->cameraManager->setCamera(cameraName, camera);
 }
 
 /**
-* Retrieves the configuration manager.
-*
-* @return The configuration manager.
-*/
+ * Retrieves the configuration manager.
+ *
+ * @return The configuration manager.
+ */
 ConfigurationManager *Engine::getConfigurationManager() {
     return this->configurationManager;
 }
 
 /**
-* Sets the configuration manager.
-*
-* @param configurationManager The configuration manager.
-*/
+ * Sets the configuration manager.
+ *
+ * @param configurationManager The configuration manager.
+ */
 void Engine::setConfigurationManager(ConfigurationManager *configurationManager) {
     this->configurationManager = configurationManager;
 }
 
 /**
-* Retrieves the camera manager.
-*
-* @return The camera manager.
-*/
+ * Retrieves the camera manager.
+ *
+ * @return The camera manager.
+ */
 CameraManager *Engine::getCameraManager() {
     return this->cameraManager;
 }
 
 /**
-* Sets the camera manager.
-*
-* @param cameraManager The camera manager.
-*/
+ * Sets the camera manager.
+ *
+ * @param cameraManager The camera manager.
+ */
 void Engine::setCameraManager(CameraManager *cameraManager) {
     this->cameraManager = cameraManager;
 }
 
 /**
-* Retrieves the console manager.
-*
-* @return The console manager.
-*/
+ * Retrieves the console manager.
+ *
+ * @return The console manager.
+ */
 ConsoleManager *Engine::getConsoleManager() {
     return this->consoleManager;
 }
 
 /**
-* Sets the console manager.
-*
-* @param consoleManager The console manager.
-*/
+ * Sets the console manager.
+ *
+ * @param consoleManager The console manager.
+ */
 void Engine::setConsoleManager(ConsoleManager *consoleManager) {
     this->consoleManager = consoleManager;
 }
 
 /**
-* Retrieves the paths list.
-*
-* @return The paths list.
-*/
+ * Retrieves the paths list.
+ *
+ * @return The paths list.
+ */
 std::list<std::string> *Engine::getPathsList() {
     return &this->pathsList;
 }
 
 /**
-* Sets the paths list.
-*
-* @param pathsList The paths list.
-*/
+ * Sets the paths list.
+ *
+ * @param pathsList The paths list.
+ */
 void Engine::setPathsList(std::list<std::string> *pathsList) {
     this->pathsList = *pathsList;
 }
 
 /**
-* Retrieves the logger.
-*
-* @return The logger.
-*/
+ * Retrieves the logger.
+ *
+ * @return The logger.
+ */
 Logger *Engine::getLogger() {
     return this->logger;
 }
 
 /**
-* Sets the logger.
-*
-* @param logger The logger.
-*/
+ * Sets the logger.
+ *
+ * @param logger The logger.
+ */
 void Engine::setLogger(Logger *logger) {
     this->logger = logger;
 }
 
 /**
-* Retrieves the render.
-*
-* @return The render.
-*/
+ * Retrieves the render.
+ *
+ * @return The render.
+ */
 SceneNode *Engine::getRender() {
     return this->render;
 }
 
 /**
-* Sets the render.
-*
-* @param render The render.
-*/
+ * Sets the render.
+ *
+ * @param render The render.
+ */
 void Engine::setRender(SceneNode *render) {
     this->render = render;
 }
 
 /**
-* Retrieves the render 2d.
-*
-* @return The render 2d.
-*/
+ * Retrieves the render 2d.
+ *
+ * @return The render 2d.
+ */
 Scene2dNode *Engine::getRender2d() {
     return this->render2d;
 }
 
 /**
-* Sets the render 2d.
-*
-* @param render2d The render 2d.
-*/
+ * Sets the render 2d.
+ *
+ * @param render2d The render 2d.
+ */
 void Engine::setRender2d(Scene2dNode *render2d) {
     this->render2d = render2d;
 }
 
 /**
-* Retrieves the current active camera.
-*
-* @return The current active camera.
-*/
+ * Retrieves the current active camera.
+ *
+ * @return The current active camera.
+ */
 CameraNode *Engine::getActiveCamera() {
     return this->cameraManager->getActiveCamera();
 }
 
 /**
-* Sets the current active camera.
-*
-* @param activeCamera The current active camera.
-*/
+ * Sets the current active camera.
+ *
+ * @param activeCamera The current active camera.
+ */
 void Engine::setActiveCamera(CameraNode *activeCamera) {
     this->cameraManager->setActiveCamera(activeCamera);
 }
 
 /**
-* Retrieves the active physics engine.
-*
-* @return The active physics engine.
-*/
+ * Retrieves the active physics engine.
+ *
+ * @return The active physics engine.
+ */
 PhysicsEngine *Engine::getActivePhysicsEngine() {
     return this->activePhysicsEngine;
 }
 
 /**
-* Sets the active physics engine.
-*
-* @param activePhysicsEngine The active physics engine.
-*/
+ * Sets the active physics engine.
+ *
+ * @param activePhysicsEngine The active physics engine.
+ */
 void Engine::setActivePhysicsEngine(PhysicsEngine *activePhysicsEngine) {
     this->activePhysicsEngine = activePhysicsEngine;
 }

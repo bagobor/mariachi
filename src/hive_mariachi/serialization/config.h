@@ -26,9 +26,9 @@
 #pragma once
 
 /**
-* Indicates if json should use the
-* exception support.
-*/
+ * Indicates if json should use the
+ * exception support.
+ */
 # define JSON_USE_EXCEPTION 1
 
 #define JSON_API

@@ -30,13 +30,13 @@
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 NetworkDevice::NetworkDevice() : InputOutputDevice() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 NetworkDevice::~NetworkDevice() {
 }

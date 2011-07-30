@@ -30,8 +30,8 @@
 using namespace mariachi::tasks;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 FunctionCallerTask::FunctionCallerTask() : Task() {
     this->initCallerArguments();
 }
@@ -41,8 +41,8 @@ FunctionCallerTask::FunctionCallerTask(const std::string &name) : Task(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 FunctionCallerTask::~FunctionCallerTask() {
 }
 

@@ -31,20 +31,20 @@ using namespace mariachi::script;
 using namespace mariachi::script::lua;
 
 /**
-* The lua type information map used to map a string type
-* with the lua type information of the type.
-*/
+ * The lua type information map used to map a string type
+ * with the lua type information of the type.
+ */
 std::map<std::string, LuaTypeInformation_t> lua_typeinformationmap;
 
 /**
-* Base object creation or retrieval function. It allocates a new object (table) reference
-* for the c++ object in case none exists. In case one reeference exists returns
-* it.
-*
-* @param luaState The current lua state reference.
-* @param value The pointer to the c++ object.
-* @return If a new reference was created.
-*/
+ * Base object creation or retrieval function. It allocates a new object (table) reference
+ * for the c++ object in case none exists. In case one reeference exists returns
+ * it.
+ *
+ * @param luaState The current lua state reference.
+ * @param value The pointer to the c++ object.
+ * @return If a new reference was created.
+ */
 bool LuaMapping::getReference(lua_State *luaState, void *value) {
     // retrieves the lua script engine
     LuaScriptEngine *luaScriptEngine = LuaMapping::getScriptEngine(luaState);
@@ -93,11 +93,11 @@ int LuaMapping::getEngine(lua_State *luaState) {
 }
 
 /**
-* Retrieves the lua script engine for the current lua interpreter.
-*
-* @param luaState The current lua state reference.
-* @return The lua script engine for the current lua interpreter.
-*/
+ * Retrieves the lua script engine for the current lua interpreter.
+ *
+ * @param luaState The current lua state reference.
+ * @return The lua script engine for the current lua interpreter.
+ */
 LuaScriptEngine *LuaMapping::getScriptEngine(lua_State *luaState) {
     // loads the global variable
     lua_getglobal(luaState, LUA_SCRIPT_ENGINE_GLOBAL_VARIABLE);
@@ -113,11 +113,11 @@ LuaScriptEngine *LuaMapping::getScriptEngine(lua_State *luaState) {
 }
 
 /**
-* Generates the constructors for all the classes in lua.
-* The constructors are registered in the mariachi global namespace.
-*
-* @param luaState The current lua state reference.
-*/
+ * Generates the constructors for all the classes in lua.
+ * The constructors are registered in the mariachi global namespace.
+ *
+ * @param luaState The current lua state reference.
+ */
 void LuaMapping::generateConstructors(lua_State *luaState) {
     // in case the type information map is empty
     if(lua_typeinformationmap.size() == 0) {
@@ -155,13 +155,13 @@ void LuaMapping::generateConstructors(lua_State *luaState) {
 }
 
 /**
-* Retrieves the int type value for the given type in
-* character value.
-*
-* @param charType The type in character value to retrieve the
-* int type.
-* @return The int type for the given character type.
-*/
+ * Retrieves the int type value for the given type in
+ * character value.
+ *
+ * @param charType The type in character value to retrieve the
+ * int type.
+ * @return The int type for the given character type.
+ */
 unsigned int LuaMapping::getIntType(const char *charType) {
     // in case the type information map is empty
     if(lua_typeinformationmap.size() == 0) {
@@ -173,13 +173,13 @@ unsigned int LuaMapping::getIntType(const char *charType) {
 }
 
 /**
-* Retrieves the constructor function for the given type in
-* character value.
-*
-* @param charType The type in character value to retrieve the
-* constructor.
-* @return The constructor for the given character type.
-*/
+ * Retrieves the constructor function for the given type in
+ * character value.
+ *
+ * @param charType The type in character value to retrieve the
+ * constructor.
+ * @return The constructor for the given character type.
+ */
 LuaConstructor_t LuaMapping::getConstructor(const char *charType) {
     // in case the type information map is empty
     if(lua_typeinformationmap.size() == 0) {
@@ -192,9 +192,9 @@ LuaConstructor_t LuaMapping::getConstructor(const char *charType) {
 }
 
 /**
-* Constructs the type information map for all the lua type values
-* the constructed map, includes information about the type.
-*/
+ * Constructs the type information map for all the lua type values
+ * the constructed map, includes information about the type.
+ */
 void LuaMapping::constructTypeInformationMap() {
     LuaTypeInformation_t listTypeInformation = { LUA_SCRIPT_ENGINE_LIST_TYPE_INT, NULL, NULL };
     LuaTypeInformation_t mapTypeInformation = { LUA_SCRIPT_ENGINE_MAP_TYPE_INT, NULL, NULL };
@@ -228,13 +228,13 @@ bool LuaObject::allocate(lua_State *luaState, void *value) {
 }
 
 /**
-* Lua method to cast an object as a different object.
-* This method is a convenience to allow conversion and
-* type casting between types.
-*
-* @param luaState The current lua state reference.
-* @return The number of returning values.
-*/
+ * Lua method to cast an object as a different object.
+ * This method is a convenience to allow conversion and
+ * type casting between types.
+ *
+ * @param luaState The current lua state reference.
+ * @return The number of returning values.
+ */
 int LuaObject::castAs(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 1);
@@ -256,12 +256,12 @@ int LuaObject::castAs(lua_State *luaState) {
 }
 
 /**
-* Lua method to retrieve the c++ type of the current object.
-* Use this method carefully as it is dangerous.
-*
-* @param luaState The current lua state reference.
-* @return The number of returning values.
-*/
+ * Lua method to retrieve the c++ type of the current object.
+ * Use this method carefully as it is dangerous.
+ *
+ * @param luaState The current lua state reference.
+ * @return The number of returning values.
+ */
 int LuaObject::typeId(lua_State *luaState) {
     // validates the number of arguments
     lua_assertargsmethod(luaState, 0);

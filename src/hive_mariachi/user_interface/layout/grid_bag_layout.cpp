@@ -30,13 +30,13 @@
 using namespace mariachi::ui;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 GridBagLayout::GridBagLayout() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 GridBagLayout::~GridBagLayout() {
 }

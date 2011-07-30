@@ -30,8 +30,8 @@
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Keyboard::Keyboard() : InputDevice() {
     // sets the keyboard event buffer size as the default one
     this->keyboardEventBufferSize = DEFAULT_KEYBOARD_EVENT_BUFFER_SIZE;
@@ -49,8 +49,8 @@ Keyboard::Keyboard(unsigned int keyboardEventBufferSize) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Keyboard::~Keyboard() {
     // releases the keybord event buffer
     free(this->keyboardEventBuffer);

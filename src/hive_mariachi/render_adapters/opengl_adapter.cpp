@@ -46,14 +46,14 @@ using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OpenglAdapter::OpenglAdapter() : RenderAdapter() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OpenglAdapter::~OpenglAdapter() {
 }
 
@@ -486,13 +486,13 @@ inline void OpenglAdapter::renderNode2d(Node *node) {
 }
 
 /**
-* Renders a square with the default mapping coordinates.
-*
-* @param x1 The initial x position.
-* @param y1 The initial y position.
-* @param x2 The final x position.
-* @param y2 The final y position.
-*/
+ * Renders a square with the default mapping coordinates.
+ *
+ * @param x1 The initial x position.
+ * @param y1 The initial y position.
+ * @param x2 The final x position.
+ * @param y2 The final y position.
+ */
 inline void OpenglAdapter::renderSquare(float x1, float y1, float x2, float y2) {
     glBegin(GL_QUADS);
         glTexCoord2f(0.0, 1.0);
@@ -723,12 +723,12 @@ inline FloatSize2d_t OpenglAdapter::getRealSize2d(SquareNode *squareNode) {
 }
 
 /**
-* Sets the vsync value in the current context.
-* This value syncronizes the current context with
-* the vblank value sent from the graphics layer.
-*
-* @param vSync The new vsync value to be set.
-*/
+ * Sets the vsync value in the current context.
+ * This value syncronizes the current context with
+ * the vblank value sent from the graphics layer.
+ *
+ * @param vSync The new vsync value to be set.
+ */
 inline void OpenglAdapter::setVsync(bool vsync) {
 #ifdef MARIACHI_PLATFORM_WIN32
     // in case the vsync extension is not supported
@@ -752,12 +752,12 @@ inline void OpenglAdapter::setVsync(bool vsync) {
 }
 
 /**
-* Returns if the given extension is available in the
-* current context.
-*
-* @param extensionName The name of the extension to be tested.
-* @return The result of the extension test.
-*/
+ * Returns if the given extension is available in the
+ * current context.
+ *
+ * @param extensionName The name of the extension to be tested.
+ * @return The result of the extension test.
+ */
 inline bool OpenglAdapter::isExtensionSupported(const char *extensionName) {
     // retrieves the extensions string
     const char *extensionsString = this->getExtensionsString();
@@ -774,12 +774,12 @@ inline bool OpenglAdapter::isExtensionSupported(const char *extensionName) {
 }
 
 /**
-* Retrieves the current available extensions
-* the return value is a string containing string describing
-* the available capacities.
-*
-* @return The string describing the available extensions.
-*/
+ * Retrieves the current available extensions
+ * the return value is a string containing string describing
+ * the available capacities.
+ *
+ * @return The string describing the available extensions.
+ */
 inline char *OpenglAdapter::getExtensionsString() {
     // returns the extensions string
     return (char *) glGetString(GL_EXTENSIONS);

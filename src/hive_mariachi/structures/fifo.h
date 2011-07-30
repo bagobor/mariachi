@@ -28,8 +28,8 @@
 #include "../system/thread.h"
 
 /**
-* The default fifo size.
-*/
+ * The default fifo size.
+ */
 #define DEFAULT_FIFO_SIZE 1
 
 namespace mariachi {
@@ -66,8 +66,8 @@ namespace mariachi {
 #endif
 #ifdef MARIACHI_SYNC_PARALLEL_PROCESSING
                 /**
-                * Constructor of the class.
-                */
+                 * Constructor of the class.
+                 */
                 Fifo() {
                     CRITICAL_SECTION_CREATE(this->queueCriticalSection);
                     CONDITION_CREATE(this->notEmptyCondition);
@@ -84,8 +84,8 @@ namespace mariachi {
                 }
 
                 /**
-                * Destructor of the class.
-                */
+                 * Destructor of the class.
+                 */
                 ~Fifo() {
                     CRITICAL_SECTION_CLOSE(this->queueCriticalSection);
                     CONDITION_CLOSE(this->notEmptyCondition);

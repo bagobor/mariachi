@@ -32,53 +32,53 @@ using namespace mariachi::util;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OctTree::OctTree() {
 }
 
 /**
-* Constructor of the class with bounding box.
-*/
+ * Constructor of the class with bounding box.
+ */
 OctTree::OctTree(Box3d_t boundingBox) {
     // creates the root node using the provided bounding box
     this->rootNode = new OctTreeNode(boundingBox);
 }
 
 /**
-* Constructor of the class with bounding box extents.
-*/
+ * Constructor of the class with bounding box extents.
+ */
 OctTree::OctTree(float boxWidth, float boxHeight, float boxDepth) {
     // creates the root node using the provided dimensions
     this->rootNode = new OctTreeNode(boxWidth, boxHeight, boxDepth);
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OctTree::~OctTree() {
     // destroys the root node
     delete this->rootNode;
 }
 
 /**
-* Inserts an element into the oct tree.
-* Delegates the insertion process to the root node.
-*
-* @param element The element to insert in the oct tree.
-* @param elementBoundingBox The box bounding the inserted element.
-*/
+ * Inserts an element into the oct tree.
+ * Delegates the insertion process to the root node.
+ *
+ * @param element The element to insert in the oct tree.
+ * @param elementBoundingBox The box bounding the inserted element.
+ */
 void OctTree::insertElementBox(void *element, Box3d_t *elementBoundingBox) {
     this->rootNode->insertElementBox(element, elementBoundingBox);
 }
 
 /**
-* Retrieves the elements bounded by the provided query box.
-* Delegates the retrieval process to the root node.
-*
-* @param queryBox The box for which contained elements are retrieved.
-* @return The elements bounded by the provided box.
-*/
+ * Retrieves the elements bounded by the provided query box.
+ * Delegates the retrieval process to the root node.
+ *
+ * @param queryBox The box for which contained elements are retrieved.
+ * @return The elements bounded by the provided box.
+ */
 std::vector<void *> OctTree::getBoxElements(Box3d_t *queryBox) {
     std::vector<void *> elements = this->rootNode->getBoxElements(queryBox);
     return elements;

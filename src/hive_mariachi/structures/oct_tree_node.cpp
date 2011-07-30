@@ -32,22 +32,22 @@ using namespace mariachi::util;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OctTreeNode::OctTreeNode() {
 }
 
 /**
-* Constructor of the class with bounding box.
-*/
+ * Constructor of the class with bounding box.
+ */
 OctTreeNode::OctTreeNode(Box3d_t boundingBox) {
     // copies the provided bounding box
     this->boundingBox = boundingBox;
 }
 
 /**
-* Constructor of the class with bounding box extents.
-*/
+ * Constructor of the class with bounding box extents.
+ */
 OctTreeNode::OctTreeNode(float boxWidth, float boxHeight, float boxDepth) {
     // updates the bounding box limits
     this->boundingBox.x1 = 0.0;
@@ -59,8 +59,8 @@ OctTreeNode::OctTreeNode(float boxWidth, float boxHeight, float boxDepth) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OctTreeNode::~OctTreeNode() {
     // caches the child nodes vector size
     unsigned int childNodesSize = this->childNodes.size();
@@ -73,14 +73,14 @@ OctTreeNode::~OctTreeNode() {
 }
 
 /**
-* Inserts an element into the oct tree.
-* Inserts into the element list in case of overlapping (black boxes),
-* recursively tries to insert the element inside the element list of the containing tree nodes
-* (discards white boxes and subdivides grey boxes).
-*
-* @param element The element to insert in the oct tree node.
-* @param elementBoundingBox The box bounding the inserted element.
-*/
+ * Inserts an element into the oct tree.
+ * Inserts into the element list in case of overlapping (black boxes),
+ * recursively tries to insert the element inside the element list of the containing tree nodes
+ * (discards white boxes and subdivides grey boxes).
+ *
+ * @param element The element to insert in the oct tree node.
+ * @param elementBoundingBox The box bounding the inserted element.
+ */
 void OctTreeNode::insertElementBox(void *element, Box3d_t *elementBoundingBox) {
     // initializes the stack of nodes to process
     std::vector<OctTreeNodeBox3d_t> nodesStack;
@@ -518,11 +518,11 @@ void OctTreeNode::insertElementBox(void *element, Box3d_t *elementBoundingBox) {
 }
 
 /**
-* Retrieves the elements bounded by the provided query box.
-*
-* @param queryBox The box for which contained elements are retrieved.
-* @return The elements bounded by the provided box.
-*/
+ * Retrieves the elements bounded by the provided query box.
+ *
+ * @param queryBox The box for which contained elements are retrieved.
+ * @return The elements bounded by the provided box.
+ */
 std::vector<void *> OctTreeNode::getBoxElements(Box3d_t *queryBox) {
     std::map<void *, bool> elementsMap;
     std::vector<void *> elements;
@@ -969,17 +969,17 @@ std::vector<void *> OctTreeNode::getBoxElements(Box3d_t *queryBox) {
 }
 
 /**
-* Allocates and returns a new child node for the provided bounding box.
-*
-* @param boundingBox The bounding box for the child node.
-*/
+ * Allocates and returns a new child node for the provided bounding box.
+ *
+ * @param boundingBox The bounding box for the child node.
+ */
 inline OctTreeNode *OctTreeNode::createChildNode(Box3d_t &boundingBox) {
     return new OctTreeNode(boundingBox);
 }
 
 /**
-* Initializes the octant nodes by building eight sub-partitions for the node's partitioned space.
-*/
+ * Initializes the octant nodes by building eight sub-partitions for the node's partitioned space.
+ */
 inline void OctTreeNode::generateChildNodes() {
     float x1 = this->boundingBox.x1;
     float y1 = this->boundingBox.y1;
@@ -1028,11 +1028,11 @@ inline void OctTreeNode::generateChildNodes() {
 }
 
 /**
-* Determines in which octant is the given point contained.
-*
-* @param point The point to determine the octant.
-* @return The octant node index which contains the specified point.
-*/
+ * Determines in which octant is the given point contained.
+ *
+ * @param point The point to determine the octant.
+ * @return The octant node index which contains the specified point.
+ */
 inline int OctTreeNode::getPointOctant(const Coordinate3d_t &point) {
     int octantIndex = -1;
 
@@ -1057,8 +1057,8 @@ inline int OctTreeNode::getPointOctant(const Coordinate3d_t &point) {
 }
 
 /**
-* Wraps an arbitrary number of nodes and their boxes into the composite stack element.
-*/
+ * Wraps an arbitrary number of nodes and their boxes into the composite stack element.
+ */
 inline void OctTreeNode::pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3d_t *boxes, OctTreeNodeBox3d_t *nodeBoxes, std::vector<OctTreeNodeBox3d_t> &nodesStack) {
     for(int i = 0; i < node_count; i++) {
         // wraps the node and box
@@ -1071,8 +1071,8 @@ inline void OctTreeNode::pushNodeBoxes(int node_count, OctTreeNode **nodes, Box3
 }
 
 /**
-* Indicates if the oct tree node is big enough to be sub-divided.
-*/
+ * Indicates if the oct tree node is big enough to be sub-divided.
+ */
 inline bool OctTreeNode::isSubdividable() {
     // retrieves the node's bounding box's extends
     float width = this->boundingBox.x2 - this->boundingBox.x1;

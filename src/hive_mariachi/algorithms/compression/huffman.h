@@ -90,52 +90,52 @@ namespace mariachi {
         class Huffman {
             private:
                 /**
-                * The occurrence count list, to count the number of
-                * occurrences of each symbol.
-                */
+                 * The occurrence count list, to count the number of
+                 * occurrences of each symbol.
+                 */
                 unsigned int occurrenceCountList[HUFFMAN_SYMBOL_TABLE_SIZE];
 
                 /**
-                * The file stream tath holds the reference to the file.
-                */
+                 * The file stream tath holds the reference to the file.
+                 */
                 std::fstream *fileStream;
 
                 /**
-                * The huffman table mapping the symbol with the code
-                * represented as a string.
-                */
+                 * The huffman table mapping the symbol with the code
+                 * represented as a string.
+                 */
                 std::string huffmanTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
 
                 /**
-                * The huffman table mapping the symbol with the code
-                * represented as a vector of partial byte values.
-                */
+                 * The huffman table mapping the symbol with the code
+                 * represented as a vector of partial byte values.
+                 */
                 std::vector<HuffmanPartialByte_t> huffmanComputedTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
 
                 /**
-                * The huffman table mapping the symbol with the code
-                * represented as an huffman codes.
-                */
+                 * The huffman table mapping the symbol with the code
+                 * represented as an huffman codes.
+                 */
                 HuffmanCode_t huffmanCodeTable[HUFFMAN_SYMBOL_TABLE_EXTRA_SIZE];
 
                 /**
-                * The current type of coding/decoding being used.
-                */
+                 * The current type of coding/decoding being used.
+                 */
                 HuffmanType_t type;
 
                 /**
-                * The size of the longest code value.
-                */
+                 * The size of the longest code value.
+                 */
                 unsigned int longestCodeSize;
 
                 /**
-                * The original file size.
-                */
+                 * The original file size.
+                 */
                 unsigned long long originalFileSize;
 
                 /**
-                * The lookup table structure value.
-                */
+                 * The lookup table structure value.
+                 */
                 HuffmanLookupTable_t lookupTable;
 
                 inline void initType();

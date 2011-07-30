@@ -35,8 +35,8 @@ using namespace mariachi::nodes;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 CameraNode::CameraNode() : LensNode() {
     // initializes the auto tracking status
     this->initializeAutoTracking();
@@ -70,8 +70,8 @@ inline void CameraNode::initializeAutoFollowing() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 CameraNode::~CameraNode() {
 }
 

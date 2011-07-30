@@ -30,13 +30,13 @@
 using namespace mariachi::physics;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 PointToPointConstraint::PointToPointConstraint() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 PointToPointConstraint::~PointToPointConstraint() {
 }

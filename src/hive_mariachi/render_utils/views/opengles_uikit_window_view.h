@@ -36,48 +36,48 @@
 #define DEFAULT_TOUCH_LIST_SIZE 1000
 
 /**
-* Wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
-* The view content is basically an EAGL surface you render your OpenGL scene into.
-* Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
-*/
+ * Wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
+ * The view content is basically an EAGL surface you render your OpenGL scene into.
+ * Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
+ */
 @interface OpenglesUikitWindowView : UIView {
 @private
     /**
-    * The used opengles uikit renderer.
-    **/
+     * The used opengles uikit renderer.
+     */
     id <OpenglesUikitRenderer> renderer;
 
     /**
-    * Flag to control animation.
-    **/
+     * Flag to control animation.
+     */
     BOOL animating;
 
     /**
-    * Flag indicating the availability of the display link.
-    **/
+     * Flag indicating the availability of the display link.
+     */
     BOOL displayLinkSupported;
 
     /**
-    * The interval in the animation frame (frame rate).
-    */
+     * The interval in the animation frame (frame rate).
+     */
     NSInteger animationFrameInterval;
 
     /**
-    * Use of the CADisplayLink class is the preferred method for controlling your animation timing.
-    * CADisplayLink will link to the main display and fire every vsync when added to a given run-loop.
-    * The NSTimer class is used only as fallback when running on a pre 3.1 device where CADisplayLink
-    * isn't available.
-    **/
+     * Use of the CADisplayLink class is the preferred method for controlling your animation timing.
+     * CADisplayLink will link to the main display and fire every vsync when added to a given run-loop.
+     * The NSTimer class is used only as fallback when running on a pre 3.1 device where CADisplayLink
+     * isn't available.
+     */
     id displayLink;
 
     /**
-    * Timer used to control animation whenever there's no display link available.
-    **/
+     * Timer used to control animation whenever there's no display link available.
+     */
     NSTimer *animationTimer;
 
     /**
-    * The reference to the mariachi engine.
-    */
+     * The reference to the mariachi engine.
+     */
     mariachi::Engine *_engine;
 }
 

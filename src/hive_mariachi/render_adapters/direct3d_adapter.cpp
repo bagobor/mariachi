@@ -32,14 +32,14 @@
 using namespace mariachi::render_adapters;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Direct3dAdapter::Direct3dAdapter() : RenderAdapter() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Direct3dAdapter::~Direct3dAdapter() {
 }
 

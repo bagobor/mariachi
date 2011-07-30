@@ -30,23 +30,23 @@
 using namespace mariachi::configuration;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConfigurationParser::ConfigurationParser() {
 }
 
 /**
-* Constructor of the class.
-*
-* @param configurationManager The configuration manager that contains the reference to the configuration parser.
-*/
+ * Constructor of the class.
+ *
+ * @param configurationManager The configuration manager that contains the reference to the configuration parser.
+ */
 ConfigurationParser::ConfigurationParser(ConfigurationManager *configurationManager) {
     this->initConfigurationManager(configurationManager);
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConfigurationParser::~ConfigurationParser() {
 }
 

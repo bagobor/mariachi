@@ -33,8 +33,8 @@ using namespace mariachi::util;
 using namespace mariachi::exceptions;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 BitStream::BitStream() {
     this->initBufferPointer();
     this->initBufferSize();
@@ -44,10 +44,10 @@ BitStream::BitStream() {
 }
 
 /**
-* Constructor of the class.
-*
-* @param stream The base stream to be used to do operations.
-*/
+ * Constructor of the class.
+ *
+ * @param stream The base stream to be used to do operations.
+ */
 BitStream::BitStream(std::iostream *stream) {
     this->initBufferPointer();
     this->initBufferSize();
@@ -58,8 +58,8 @@ BitStream::BitStream(std::iostream *stream) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 BitStream::~BitStream() {
 }
 
@@ -425,10 +425,10 @@ void BitStream::seekRead(int relativePosition) {
 }
 
 /**
-* Tests if the end of file has been reached.
-*
-* @return If the end of file has been reached.
-*/
+ * Tests if the end of file has been reached.
+ *
+ * @return If the end of file has been reached.
+ */
 bool BitStream::eof() {
     return this->endOfFile;
 }
