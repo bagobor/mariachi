@@ -30,30 +30,30 @@
 using namespace mariachi::algorithms;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 HashFunction::HashFunction() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 HashFunction::~HashFunction() {
 }
 
 /**
-* Initializes the hash function.
-*/
+ * Initializes the hash function.
+ */
 void HashFunction::init() {
     // resets the current hash value
     this->reset();
 }
 
 /**
-* Initializes the hash function, with a text value.
-*
-* @param text The text value to be used for computation.
-*/
+ * Initializes the hash function, with a text value.
+ *
+ * @param text The text value to be used for computation.
+ */
 void HashFunction::init(const std::string &text) {
     // resets the current hash value
     this->reset();
@@ -66,10 +66,10 @@ void HashFunction::init(const std::string &text) {
 }
 
 /**
-* Initializes the hash function, with a stream value.
-*
-* @param stream The stream value to be used for computation.
-*/
+ * Initializes the hash function, with a stream value.
+ *
+ * @param stream The stream value to be used for computation.
+ */
 void HashFunction::init(std::istream &stream) {
     // resets the current hash value
     this->reset();
@@ -113,12 +113,12 @@ void HashFunction::init(std::istream &stream) {
 }
 
 /**
-* Initializes the hash function, with a file stream value.
-*
-* @param fileStream The stream value to be used for computation.
-* @param closeStream If the file stream should be closed at end, if false
-* the file stream is positioned at the initial position.
-*/
+ * Initializes the hash function, with a file stream value.
+ *
+ * @param fileStream The stream value to be used for computation.
+ * @param closeStream If the file stream should be closed at end, if false
+ * the file stream is positioned at the initial position.
+ */
 void HashFunction::init(std::fstream &fileStream, bool closeStream) {
     // calls the stream init method
     this->init((std::istream &) fileStream);

@@ -26,13 +26,13 @@
 #pragma once
 
 /**
-* The size of the symbol used in the bit stream.
-*/
+ * The size of the symbol used in the bit stream.
+ */
 #define BIT_STREAM_SYMBOL_SIZE 8
 
 /**
-* The size of the bit stream internal buffer.
-*/
+ * The size of the bit stream internal buffer.
+ */
 #define BIT_STREAM_BUFFER_SIZE 1024
 
 namespace mariachi {

@@ -31,16 +31,16 @@ using namespace mariachi::nodes;
 using namespace mariachi::render;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 RenderInformation::RenderInformation() {
     // creates the mutex
     MUTEX_CREATE(this->mutex);
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 RenderInformation::~RenderInformation() {
     // closes the mutex handle
     MUTEX_CLOSE(this->mutex);

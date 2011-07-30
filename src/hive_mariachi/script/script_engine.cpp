@@ -31,8 +31,8 @@ using namespace mariachi;
 using namespace mariachi::script;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ScriptEngine::ScriptEngine() {
 }
 
@@ -41,8 +41,8 @@ ScriptEngine::ScriptEngine(Engine *engine) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ScriptEngine::~ScriptEngine() {
 }
 

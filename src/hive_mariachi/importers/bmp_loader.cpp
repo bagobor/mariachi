@@ -34,15 +34,15 @@ using namespace mariachi::exceptions;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 BmpLoader::BmpLoader() : TextureImporter() {
     this->bitmapData = NULL;
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 BmpLoader::~BmpLoader() {
     if(this->bitmapData) {
         free(this->bitmapData);

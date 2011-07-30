@@ -30,8 +30,8 @@
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 MultiTouch::MultiTouch() : InputDevice() {
     // sets the multi touch event buffer size as the default one
     this->multiTouchEventBufferSize = DEFAULT_MULTI_TOUCH_EVENT_BUFFER_SIZE;

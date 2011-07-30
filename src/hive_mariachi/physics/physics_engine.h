@@ -40,18 +40,18 @@ namespace mariachi {
 
             protected:
                 /**
-                The current game engine.
-                */
+                 * The current game engine.
+                 */
                 Engine *engine;
 
                 /**
-                * The current gravity in the simulated physics world.
-                */
+                 * The current gravity in the simulated physics world.
+                 */
                 structures::Coordinate3d_t gravity;
 
                 /**
-                The configured physics rate.
-                */
+                 * The configured physics rate.
+                 */
                 float physicsRate;
 
             public:

@@ -30,21 +30,21 @@
 #include "../render/render.h"
 
 /**
-* The frame sampling limit, used in
-* the frame rate counting.
-*/
+ * The frame sampling limit, used in
+ * the frame rate counting.
+ */
 #define FRAME_SAMPLING_LIMIT 3.0
 
 /**
-* The reference width to be used in the
-* 2d orthogonal plane.
-*/
+ * The reference width to be used in the
+ * 2d orthogonal plane.
+ */
 #define REFERENCE_WIDTH_2D 100.0
 
 /**
-* The reference height to be used in the
-* 2d orthogonal plane.
-*/
+ * The reference height to be used in the
+ * 2d orthogonal plane.
+ */
 #define REFERENCE_HEIGHT_2D 100.0
 
 #define NORMAL_LAYOUT 1

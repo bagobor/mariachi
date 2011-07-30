@@ -30,14 +30,14 @@
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Texture::Texture() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Texture::~Texture() {
 }
 

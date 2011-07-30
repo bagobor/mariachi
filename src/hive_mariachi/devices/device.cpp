@@ -30,13 +30,13 @@
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Device::Device() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Device::~Device() {
 }

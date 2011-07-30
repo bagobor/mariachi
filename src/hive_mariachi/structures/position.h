@@ -28,23 +28,23 @@
 namespace mariachi {
     namespace structures {
         /**
-        * Represents a coordinate in a 2d space.
-        *
-        * @param x The x value of the coordinate.
-        * @param y The y value of the coordinate.
-        */
+         * Represents a coordinate in a 2d space.
+         *
+         * @param x The x value of the coordinate.
+         * @param y The y value of the coordinate.
+         */
         typedef struct Coordinate2d_t {
             float x;
             float y;
         } Coordinate2d;
 
         /**
-        * Represents a coordinate in a 3d space.
-        *
-        * @param x The x value of the coordinate.
-        * @param y The y value of the coordinate.
-        * @param z The z value of the coordinate.
-        */
+         * Represents a coordinate in a 3d space.
+         *
+         * @param x The x value of the coordinate.
+         * @param y The y value of the coordinate.
+         * @param z The z value of the coordinate.
+         */
         typedef struct Coordinate3d_t {
             float x;
             float y;

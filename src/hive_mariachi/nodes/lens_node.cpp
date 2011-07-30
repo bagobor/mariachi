@@ -30,8 +30,8 @@
 using namespace mariachi::nodes;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 LensNode::LensNode() : CubeNode() {
 }
 
@@ -39,7 +39,7 @@ LensNode::LensNode(const std::string &name) : CubeNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 LensNode::~LensNode() {
 }

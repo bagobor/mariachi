@@ -33,41 +33,41 @@ namespace mariachi {
     namespace script {
         namespace lua {
             /**
-            * Structural class used to be passed as argument to create
-            * a new list in lua.
-            */
+             * Structural class used to be passed as argument to create
+             * a new list in lua.
+             */
             template<typename T> class LuaListStructure {
                 public:
                     /**
-                    * The stl list value to be encapsulated.
-                    */
+                     * The stl list value to be encapsulated.
+                     */
                     std::list<T> *listValue;
 
                     /**
-                    * The constructor function to be used to construct the list elements.
-                    */
+                     * The constructor function to be used to construct the list elements.
+                     */
                     bool (*constructor)(lua_State *luaState, void *value);
 
                     /**
-                    * Constructor of the class.
-                    */
+                     * Constructor of the class.
+                     */
                     LuaListStructure() { };
 
                     /**
-                    * Constructor of the class.
-                    *
-                    * @param listValue The stl list value to be encapsulated.
-                    * @param constructor The constructor function to be used to construct
-                    * the list elements.
-                    */
+                     * Constructor of the class.
+                     *
+                     * @param listValue The stl list value to be encapsulated.
+                     * @param constructor The constructor function to be used to construct
+                     * the list elements.
+                     */
                     LuaListStructure(std::list<T> *listValue, LuaConstructor_t constructor) {
                         this->listValue = listValue;
                         this->constructor = constructor;
                     }
 
                     /**
-                    * The destructor of the class.
-                    */
+                     * The destructor of the class.
+                     */
                     ~LuaListStructure() { };
             };
 

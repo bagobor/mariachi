@@ -30,8 +30,8 @@
 using namespace mariachi::nodes;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Scene2dNode::Scene2dNode() : SquareNode() {
 }
 
@@ -39,7 +39,7 @@ Scene2dNode::Scene2dNode(const std::string &name) : SquareNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Scene2dNode::~Scene2dNode() {
 }

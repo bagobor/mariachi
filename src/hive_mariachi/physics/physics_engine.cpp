@@ -31,8 +31,8 @@ using namespace mariachi;
 using namespace mariachi::physics;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 PhysicsEngine::PhysicsEngine() {
 }
 
@@ -41,7 +41,7 @@ PhysicsEngine::PhysicsEngine(Engine *engine) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 PhysicsEngine::~PhysicsEngine() {
 }

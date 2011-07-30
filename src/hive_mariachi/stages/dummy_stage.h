@@ -34,10 +34,10 @@
 namespace mariachi {
     namespace stages {
         /**
-        * Just a dummy stage for testing purposes.
-        * This stage should be used carefully. It may affect the stability
-        * of the program or system.
-        */
+         * Just a dummy stage for testing purposes.
+         * This stage should be used carefully. It may affect the stability
+         * of the program or system.
+         */
         class DummyStage : public Stage {
             private:
 

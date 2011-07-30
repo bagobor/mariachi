@@ -33,49 +33,49 @@ namespace mariachi {
         class CameraManager {
             private:
                 /**
-                * The reference to the engine.
-                */
+                 * The reference to the engine.
+                 */
                 Engine *engine;
 
                 /**
-                * The default camera node.
-                */
+                 * The default camera node.
+                 */
                 nodes::CameraNode *defaultCamera;
 
                 /**
-                * The current active camera node.
-                */
+                 * The current active camera node.
+                 */
                 nodes::CameraNode *activeCamera;
 
                 /**
-                * The map associating the camera name with the
-                * camera reference.
-                */
+                 * The map associating the camera name with the
+                 * camera reference.
+                 */
                 std::map<std::string, nodes::CameraNode *> camerasMap;
 
                 /**
-                * The intermediate camera used during the transition.
-                */
+                 * The intermediate camera used during the transition.
+                 */
                 nodes::CameraNode *transitionCamera;
 
                 /**
-                * The camera with which the current transition started.
-                */
+                 * The camera with which the current transition started.
+                 */
                 nodes::CameraNode *transitionStartCamera;
 
                 /**
-                * The camera with which the current transition will end.
-                */
+                 * The camera with which the current transition will end.
+                 */
                 nodes::CameraNode *transitionEndCamera;
 
                 /**
-                * The duration, in steps, for the current transition.
-                */
+                 * The duration, in steps, for the current transition.
+                 */
                 float transitionDuration;
 
                 /**
-                * The steps already elapsed in the current transition.
-                */
+                 * The steps already elapsed in the current transition.
+                 */
                 float transitionElapsedSteps;
 
                 inline void initEngine(Engine *engine);

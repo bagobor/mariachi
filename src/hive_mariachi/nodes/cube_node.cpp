@@ -31,8 +31,8 @@ using namespace mariachi::nodes;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 CubeNode::CubeNode() : Node() {
     // initialize the cube node's transforms (translation, scale and rotation)
     this->initTransforms();
@@ -44,8 +44,8 @@ CubeNode::CubeNode(const std::string &name) : Node(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 CubeNode::~CubeNode() {
 }
 
@@ -98,11 +98,11 @@ void CubeNode::setRotation(float angle, float x, float y, float z) {
 }
 
 /**
-* Defines the rotation in terms of euler angles, i.e.,
-* a sequence of rotations across the three axis.
-* @see wikipedia - http://en.wikipedia.org/wiki/Euler_angles
-* @see EuclideanSpace - http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToAngle/index.htm
-*/
+ * Defines the rotation in terms of euler angles, i.e.,
+ * a sequence of rotations across the three axis.
+ * @see wikipedia - http://en.wikipedia.org/wiki/Euler_angles
+ * @see EuclideanSpace - http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToAngle/index.htm
+ */
 void CubeNode::setRotation(float xAxisDegrees, float yAxisDegrees, float zAxisDegrees) {
     // converts the angles to radians
     float xAxisRadians = xAxisDegrees / 180.0f * (float) M_PI;

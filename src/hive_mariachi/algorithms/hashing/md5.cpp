@@ -40,27 +40,27 @@ const unsigned char Md5::md5Padding[] = {
 };
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Md5::Md5() : HashFunction() {
     // resets the md5 value
     this->reset();
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Md5::~Md5() {
 }
 
 /**
-* Updates the hash function to a new value using the
-* buffer with the given size.
-*
-* @param buffer The buffer to be used to update the hash.
-* @param size The size of the buffer used to update
-* the hash.
-*/
+ * Updates the hash function to a new value using the
+ * buffer with the given size.
+ *
+ * @param buffer The buffer to be used to update the hash.
+ * @param size The size of the buffer used to update
+ * the hash.
+ */
 void Md5::update(const unsigned char *buffer, unsigned int size) {
     // calls the super
     HashFunction::update(buffer, size);
@@ -103,8 +103,8 @@ void Md5::update(const unsigned char *buffer, unsigned int size) {
 }
 
 /**
-* Finalizes the hash calculation, closing the calculation.
-*/
+ * Finalizes the hash calculation, closing the calculation.
+ */
 void Md5::finalize() {
     // saves the number of bits
     unsigned char bits[8];
@@ -242,11 +242,11 @@ void Md5::transform(const unsigned char *block, unsigned int blocksize) {
 }
 
 /**
-* Returns an hexadecimal representation of the
-* code.
-*
-* @return The hexadecimal representation of the code.
-*/
+ * Returns an hexadecimal representation of the
+ * code.
+ *
+ * @return The hexadecimal representation of the code.
+ */
 std::string Md5::hexdigest() const {
     // in case the hash computation is not finalized
     if(!this->finalized) {
@@ -270,105 +270,105 @@ std::string Md5::hexdigest() const {
 }
 
 /**
-* The md5 f computation function.
-*
-* @param x The x value for computation.
-* @param y The y value for computation.
-* @param z The z value for computation.
-*/
+ * The md5 f computation function.
+ *
+ * @param x The x value for computation.
+ * @param y The y value for computation.
+ * @param z The z value for computation.
+ */
 inline unsigned int Md5::F(unsigned int x, unsigned int y, unsigned int z) {
     return (x & y) | (~x & z);
 }
 
 /**
-* The md5 g computation function.
-*
-* @param x The x value for computation.
-* @param y The y value for computation.
-* @param z The z value for computation.
-*/
+ * The md5 g computation function.
+ *
+ * @param x The x value for computation.
+ * @param y The y value for computation.
+ * @param z The z value for computation.
+ */
 inline unsigned int Md5::G(unsigned int x, unsigned int y, unsigned int z) {
     return (x & z) | (y & ~z);
 }
 
 /**
-* The md5 h computation function.
-*
-* @param x The x value for computation.
-* @param y The y value for computation.
-* @param z The z value for computation.
-*/
+ * The md5 h computation function.
+ *
+ * @param x The x value for computation.
+ * @param y The y value for computation.
+ * @param z The z value for computation.
+ */
 inline unsigned int Md5::H(unsigned int x, unsigned int y, unsigned int z) {
     return x ^ y ^ z;
 }
 
 /**
-* The md5 i computation function.
-*
-* @param x The x value for computation.
-* @param y The y value for computation.
-* @param z The z value for computation.
-*/
+ * The md5 i computation function.
+ *
+ * @param x The x value for computation.
+ * @param y The y value for computation.
+ * @param z The z value for computation.
+ */
 inline unsigned int Md5::I(unsigned int x, unsigned int y, unsigned int z) {
     return y ^ (x | ~z);
 }
 
 /**
-* The md5 ff transofrmation fuction.
-*
-* @param a The a value for transformation.
-* @param b The b value for transformation.
-* @param c The c value for transformation.
-* @param d The d value for transformation.
-* @param x The x value for transformation.
-* @param s The s value for transformation.
-* @param ac The ac value for transformation.
-*/
+ * The md5 ff transofrmation fuction.
+ *
+ * @param a The a value for transformation.
+ * @param b The b value for transformation.
+ * @param c The c value for transformation.
+ * @param d The d value for transformation.
+ * @param x The x value for transformation.
+ * @param s The s value for transformation.
+ * @param ac The ac value for transformation.
+ */
 inline void Md5::FF(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
     a = CpuUtil::rotateLeft(a + F(b, c, d) + x + ac, s) + b;
 }
 
 /**
-* The md5 gg transofrmation fuction.
-*
-* @param a The a value for transformation.
-* @param b The b value for transformation.
-* @param c The c value for transformation.
-* @param d The d value for transformation.
-* @param x The x value for transformation.
-* @param s The s value for transformation.
-* @param ac The ac value for transformation.
-*/
+ * The md5 gg transofrmation fuction.
+ *
+ * @param a The a value for transformation.
+ * @param b The b value for transformation.
+ * @param c The c value for transformation.
+ * @param d The d value for transformation.
+ * @param x The x value for transformation.
+ * @param s The s value for transformation.
+ * @param ac The ac value for transformation.
+ */
 inline void Md5::GG(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
     a = CpuUtil::rotateLeft(a + G(b, c, d) + x + ac, s) + b;
 }
 
 /**
-* The md5 hh transofrmation fuction.
-*
-* @param a The a value for transformation.
-* @param b The b value for transformation.
-* @param c The c value for transformation.
-* @param d The d value for transformation.
-* @param x The x value for transformation.
-* @param s The s value for transformation.
-* @param ac The ac value for transformation.
-*/
+ * The md5 hh transofrmation fuction.
+ *
+ * @param a The a value for transformation.
+ * @param b The b value for transformation.
+ * @param c The c value for transformation.
+ * @param d The d value for transformation.
+ * @param x The x value for transformation.
+ * @param s The s value for transformation.
+ * @param ac The ac value for transformation.
+ */
 inline void Md5::HH(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
     a = CpuUtil::rotateLeft(a + H(b, c, d) + x + ac, s) + b;
 }
 
 /**
-* The md5 ii transofrmation fuction.
-*
-* @param a The a value for transformation.
-* @param b The b value for transformation.
-* @param c The c value for transformation.
-* @param d The d value for transformation.
-* @param x The x value for transformation.
-* @param s The s value for transformation.
-* @param ac The ac value for transformation.
-*/
+ * The md5 ii transofrmation fuction.
+ *
+ * @param a The a value for transformation.
+ * @param b The b value for transformation.
+ * @param c The c value for transformation.
+ * @param d The d value for transformation.
+ * @param x The x value for transformation.
+ * @param s The s value for transformation.
+ * @param ac The ac value for transformation.
+ */
 inline void Md5::II(unsigned int &a, unsigned int b, unsigned int c, unsigned int d, unsigned int x, unsigned int s, unsigned int ac) {
     a = CpuUtil::rotateLeft(a + I(b, c, d) + x + ac, s) + b;
 }

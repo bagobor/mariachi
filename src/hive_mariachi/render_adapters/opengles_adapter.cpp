@@ -32,14 +32,14 @@
 using namespace mariachi::render_adapters;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OpenglesAdapter::OpenglesAdapter() : RenderAdapter() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OpenglesAdapter::~OpenglesAdapter() {
 }
 

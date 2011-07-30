@@ -34,8 +34,8 @@ using namespace mariachi::exceptions;
 using namespace mariachi::algorithms;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Huffman::Huffman() {
     this->initType();
     this->initFileStream();
@@ -45,8 +45,8 @@ Huffman::Huffman() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Huffman::~Huffman() {
     // cleans the file stream
     this->cleanFileStream();
@@ -365,9 +365,9 @@ void Huffman::generateTable(std::fstream *fileStream) {
 }
 
 /**
-* Generates the lookup table for the current huffman
-* table values.
-*/
+ * Generates the lookup table for the current huffman
+ * table values.
+ */
 void Huffman::generateLookupTable() {
     // in case the longest code size exceeds the limit
     if(this->longestCodeSize > HUFFMAN_LOOKUP_TABLE_MAXIMUM_CODE_SIZE) {
@@ -439,10 +439,10 @@ void Huffman::generateLookupTable() {
 }
 
 /**
-* Prints the huffman table information to the standard output.
-* The information contained is pretty printed with the symbol and
-* the associated code information.
-*/
+ * Prints the huffman table information to the standard output.
+ * The information contained is pretty printed with the symbol and
+ * the associated code information.
+ */
 void Huffman::printTable() {
     // iterates over all the symbols
     for(unsigned int index = 0; index < HUFFMAN_SYMBOL_TABLE_SIZE; index++) {
@@ -458,12 +458,12 @@ void Huffman::printTable() {
 }
 
 /**
-* Updates the occurrence values, using the values in the given
-* buffer with the given size.
-*
-* @param buffer The buffer to calculate the occurrence values.
-* @param size The size of the buffer to calculate the occurrence values.
-*/
+ * Updates the occurrence values, using the values in the given
+ * buffer with the given size.
+ *
+ * @param buffer The buffer to calculate the occurrence values.
+ * @param size The size of the buffer to calculate the occurrence values.
+ */
 inline void Huffman::updateOccurrenceValues(char *buffer, unsigned int size) {
     // allocates the current byte value
     unsigned char currentByte;

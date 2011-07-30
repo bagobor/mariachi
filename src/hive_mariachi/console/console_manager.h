@@ -29,8 +29,8 @@
 #include "../script/script_engine.h"
 
 /**
-* The console help text.
-*/
+ * The console help text.
+ */
 #define CONSOLE_MANAGER_HELP_TEXT "### MARIACHI ENGINE HELP ###\n\
 help [extension-id]  - shows this message or the referred console extension help message\n\
 helpall              - shows the help message of all the loaded console extensions\n\
@@ -47,23 +47,23 @@ script <engine-name> - enters in script execution with the given engine name\n\
 exit                 - exits the system"
 
 /**
-* The invalid command message.
-*/
+ * The invalid command message.
+ */
 #define CONSOLE_MANAGER_INVALID_COMMAND_MESSAGE "invalid command"
 
 /**
-* The invalid number arguments message.
-*/
+ * The invalid number arguments message.
+ */
 #define CONSOLE_INVALID_NUMBER_ARGUMENTS_MESSAGE "invalid number of arguments"
 
 /**
-* The carret identifier.
-*/
+ * The carret identifier.
+ */
 #define CONSOLE_MANAGER_CARRET ">>"
 
 /**
-* The commands list, mapping the
-*/
+ * The commands list, mapping the
+ */
 #define COMMANDS_LIST { { "help", ConsoleManager::processHelp }, { "script", ConsoleManager::processScript }, { "exit", ConsoleManager::processExit }, { NULL, NULL } }
 
 namespace mariachi {

@@ -30,9 +30,9 @@
 namespace mariachi {
     namespace debugging {
         /**
-        * Manages a network keyboard that allows remote
-        * control of device standard input.
-        */
+         * Manages a network keyboard that allows remote
+         * control of device standard input.
+         */
         class NetworkKeyboard : public DebugDevice {
             private:
 

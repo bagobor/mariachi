@@ -35,8 +35,8 @@
 namespace Json {
 
    /**
-   * \brief Unserialize a <a HREF="http://www.json.org">JSON</a> document into a Value.
-   */
+    * \brief Unserialize a <a HREF="http://www.json.org">JSON</a> document into a Value.
+    */
    class Reader {
    public:
       typedef char Char;

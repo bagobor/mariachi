@@ -31,28 +31,28 @@ using namespace mariachi;
 using namespace mariachi::stages;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 Stage::Stage() : Module() {
     this->initThread();
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The engine that contains the reference to the stage.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The engine that contains the reference to the stage.
+ */
 Stage::Stage(Engine *engine) {
     this->initThread();
     this->initEngine(engine);
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The engine that contains the reference to the stage.
-* @param name The name to be used to reference the stage.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The engine that contains the reference to the stage.
+ * @param name The name to be used to reference the stage.
+ */
 Stage::Stage(Engine *engine, const std::string &name) {
     this->initThread();
     this->initEngine(engine);
@@ -60,8 +60,8 @@ Stage::Stage(Engine *engine, const std::string &name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Stage::~Stage() {
 }
 
@@ -78,38 +78,38 @@ inline void Stage::initName(std::string name) {
 }
 
 /**
-* Starts the stage.
-*
-* @param arguments The arguments for the stage start.
-*/
+ * Starts the stage.
+ *
+ * @param arguments The arguments for the stage start.
+ */
 void Stage::start(void *arguments) {
     Module::start(arguments);
 }
 
 /**
-* Stops the stage.
-*
-* @param arguments The arguments for the stage stop.
-*/
+ * Stops the stage.
+ *
+ * @param arguments The arguments for the stage stop.
+ */
 void Stage::stop(void *arguments) {
     Module::stop(arguments);
 }
 
 /**
-* Updates the stage.
-*
-* @param arguments The arguments for the stage update.
-*/
+ * Updates the stage.
+ *
+ * @param arguments The arguments for the stage update.
+ */
 void Stage::update(void *arguments) {
 }
 
 /**
-* Formats the logger value to include extra information related
-* with the current stage.
-*
-* @param value The base value to be formatted.
-* @return The final formatted value.
-*/
+ * Formats the logger value to include extra information related
+ * with the current stage.
+ *
+ * @param value The base value to be formatted.
+ * @return The final formatted value.
+ */
 std::string Stage::formatLoggerValue(const std::string &value) {
     // allocates the formatted value string
     std::string formattedValue;
@@ -131,46 +131,46 @@ std::string Stage::formatLoggerValue(const std::string &value) {
 }
 
 /**
-* Retrieves if the stage requires a thread of it's own.
-*
-* @return If the stage requires a thread of it's own.
-*/
+ * Retrieves if the stage requires a thread of it's own.
+ *
+ * @return If the stage requires a thread of it's own.
+ */
 bool Stage::requiresThread() {
     return this->thread;
 }
 
 /**
-* Retrieves the name.
-*
-* @return The name.
-*/
+ * Retrieves the name.
+ *
+ * @return The name.
+ */
 std::string &Stage::getName() {
     return this->name;
 }
 
 /**
-* Sets the name.
-*
-* @param name The name.
-*/
+ * Sets the name.
+ *
+ * @param name The name.
+ */
 void Stage::setName(std::string &name) {
     this->name = name;
 }
 
 /**
-* Retrieves the engine.
-*
-* @return The engine.
-*/
+ * Retrieves the engine.
+ *
+ * @return The engine.
+ */
 Engine *Stage::getEngine() {
     return this->engine;
 }
 
 /**
-* Sets the engine.
-*
-* @param engine The engine.
-*/
+ * Sets the engine.
+ *
+ * @param engine The engine.
+ */
 void Stage::setEngine(Engine *engine) {
     this->engine = engine;
 }

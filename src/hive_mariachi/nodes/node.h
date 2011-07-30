@@ -46,20 +46,20 @@ namespace mariachi {
         class Node {
             private:
                 /**
-                * The parent node (owner) of the node.
-                */
+                 * The parent node (owner) of the node.
+                 */
                 Node *parent;
 
                 /**
-                * The list containing the children elements
-                * of the node.
-                */
+                 * The list containing the children elements
+                 * of the node.
+                 */
                 std::list<Node *> childrenList;
 
                 /**
-                * The handle to the  mutex used in the
-                * access to the children list.
-                */
+                 * The handle to the  mutex used in the
+                 * access to the children list.
+                 */
                 MUTEX_HANDLE childrenListMutexHandle;
 
                 inline void initChildrenListMutex();
@@ -67,13 +67,13 @@ namespace mariachi {
 
             public:
                 /**
-                * The name of the node.
-                */
+                 * The name of the node.
+                 */
                 std::string name;
 
                 /**
-                * Flag to control if the node is renderable.
-                */
+                 * Flag to control if the node is renderable.
+                 */
                 bool renderable;
 
                 Node();
@@ -98,16 +98,16 @@ namespace mariachi {
                 virtual inline unsigned int getNodeType() { return NODE_TYPE; };
 
                 /**
-                * Locks the node access to the children list.
-                */
+                 * Locks the node access to the children list.
+                 */
                 inline void lock() {
                     // locks the children list mutex
                     MUTEX_LOCK(childrenListMutexHandle);
                 }
 
                 /**
-                * Unlocks the node access to the children list.
-                */
+                 * Unlocks the node access to the children list.
+                 */
                 inline void unlock() {
                     // unlock the children list mutex
                     MUTEX_UNLOCK(childrenListMutexHandle);

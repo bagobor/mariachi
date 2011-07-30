@@ -33,24 +33,24 @@ namespace mariachi {
         } CallbackInformation;
 
         /**
-        * Abstract class that implements the observable pattern.
-        * It is used in event driven programming, where a client (user), registers
-        * for a given event and is notified about any changes.
-        */
+         * Abstract class that implements the observable pattern.
+         * It is used in event driven programming, where a client (user), registers
+         * for a given event and is notified about any changes.
+         */
         class Observable {
             private:
                 /**
-                * The event registration handle event handler map, that associates
-                * a given event registration handle (a single number that identifies a registration)
-                * with the pointer to the callback information.
-                */
+                 * The event registration handle event handler map, that associates
+                 * a given event registration handle (a single number that identifies a registration)
+                 * with the pointer to the callback information.
+                 */
                 std::map<unsigned int, CallbackInformation_t> eventRegistrationHandleEventHandlersMap;
 
                 /**
-                * The event handlers map that associates the event name with
-                * a list containing pointers to the callback informations for the given
-                * event name.
-                */
+                 * The event handlers map that associates the event name with
+                 * a list containing pointers to the callback informations for the given
+                 * event name.
+                 */
                 std::map<std::string, std::list<CallbackInformation_t> *> eventHandlersMap;
 
             public:

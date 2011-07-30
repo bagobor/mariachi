@@ -34,9 +34,9 @@ namespace mariachi {
 
             protected:
                 /**
-                * Flag to control the finalization of the hash value
-                * computation.
-                */
+                 * Flag to control the finalization of the hash value
+                 * computation.
+                 */
                 bool finalized;
 
             public:

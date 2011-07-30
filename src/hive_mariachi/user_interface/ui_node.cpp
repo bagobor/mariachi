@@ -30,8 +30,8 @@
 using namespace mariachi::ui;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 UiNode::UiNode() : SquareNode() {
 }
 
@@ -39,7 +39,7 @@ UiNode::UiNode(const std::string &name) : SquareNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 UiNode::~UiNode() {
 }

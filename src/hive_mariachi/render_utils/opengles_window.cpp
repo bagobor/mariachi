@@ -32,14 +32,14 @@
 using namespace mariachi::render_utils;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OpenglesWindow::OpenglesWindow() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OpenglesWindow::~OpenglesWindow() {
 }
 

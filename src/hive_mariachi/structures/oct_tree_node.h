@@ -41,24 +41,24 @@ namespace mariachi {
         struct OctTreeNodeBox3d_t;
 
         /**
-        * Represents a node of an oct tree in 3d space.
-        * Used to implement the underlying behaviour of the tree.
-        */
+         * Represents a node of an oct tree in 3d space.
+         * Used to implement the underlying behaviour of the tree.
+         */
         class OctTreeNode {
             private:
                 /**
-                * The node's children.
-                */
+                 * The node's children.
+                 */
                 std::vector<OctTreeNode *> childNodes;
 
                 /**
-                * The elements's contained by the space delimited by the node
-                */
+                 * The elements's contained by the space delimited by the node
+                 */
                 std::vector<void *> elements;
 
                 /**
-                * The node's bounding box.
-                */
+                 * The node's bounding box.
+                 */
                 Box3d_t boundingBox;
 
                 inline OctTreeNode *createChildNode(Box3d_t &boundingBox);
@@ -78,12 +78,12 @@ namespace mariachi {
         };
 
         /**
-        * A structure for internal use containing an oct tree node, and a box.
-        * Used as the elements for the stack based traversal of the oct tree.
-        *
-        * @param node The oct tree node at which the iteration is currently at.
-        * @param box The box that is currently being processed.
-        */
+         * A structure for internal use containing an oct tree node, and a box.
+         * Used as the elements for the stack based traversal of the oct tree.
+         *
+         * @param node The oct tree node at which the iteration is currently at.
+         * @param box The box that is currently being processed.
+         */
         typedef struct OctTreeNodeBox3d_t {
             OctTreeNode *node;
             Box3d_t box;

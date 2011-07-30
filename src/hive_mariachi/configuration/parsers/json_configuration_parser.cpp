@@ -35,30 +35,30 @@ using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 JsonConfigurationParser::JsonConfigurationParser() : ConfigurationParser() {
 }
 
 /**
-* Constructor of the class.
-*
-* @param configurationManager The configuration manager that contains the reference to the configuration parser.
-*/
+ * Constructor of the class.
+ *
+ * @param configurationManager The configuration manager that contains the reference to the configuration parser.
+ */
 JsonConfigurationParser::JsonConfigurationParser(ConfigurationManager *configurationManager) : ConfigurationParser(configurationManager) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 JsonConfigurationParser::~JsonConfigurationParser() {
 }
 
 /**
-* Parses the given configuration generating the internal structure.
-*
-* @param configuration The configuration to be parsed.
-*/
+ * Parses the given configuration generating the internal structure.
+ *
+ * @param configuration The configuration to be parsed.
+ */
 void JsonConfigurationParser::parseConfiguration(void *configuration) {
     // root json node
     Json::Value rootNode;
@@ -94,19 +94,19 @@ void JsonConfigurationParser::parseConfiguration(void *configuration) {
 }
 
 /**
-* Parses the given resource generating the internal structure.
-*
-* @param resource The resource to be parsed.
-*/
+ * Parses the given resource generating the internal structure.
+ *
+ * @param resource The resource to be parsed.
+ */
 void JsonConfigurationParser::parseResource(void *resource) {
 }
 
 /**
-* Updates a configuration map with the given json node.
-*
-* @param configurationMap The configuration map to be updated.
-* @param currentNode The node to be used to update the configuration map.
-*/
+ * Updates a configuration map with the given json node.
+ *
+ * @param configurationMap The configuration map to be updated.
+ * @param currentNode The node to be used to update the configuration map.
+ */
 void JsonConfigurationParser::updateConfigurationMap(ConfigurationMap *configurationMap, const Json::Value &currentNode) {
     // retrieves the menber names
     Json::Value::Members currentNodeMembers = currentNode.getMemberNames();
@@ -134,11 +134,11 @@ void JsonConfigurationParser::updateConfigurationMap(ConfigurationMap *configura
 }
 
 /**
-* Updates a configuration list with the given json node.
-*
-* @param configurationList The configuration list to be updated.
-* @param currentNode The node to be used to update the configuration list.
-*/
+ * Updates a configuration list with the given json node.
+ *
+ * @param configurationList The configuration list to be updated.
+ * @param currentNode The node to be used to update the configuration list.
+ */
 void JsonConfigurationParser::updateConfigurationList(ConfigurationList *configurationList, const Json::Value &currentNode) {
     // retrieves the current node size
     unsigned int currentNodeSize = currentNode.size();

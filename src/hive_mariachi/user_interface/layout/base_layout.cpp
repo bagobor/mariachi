@@ -30,13 +30,13 @@
 using namespace mariachi::ui;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 BaseLayout::BaseLayout() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 BaseLayout::~BaseLayout() {
 }

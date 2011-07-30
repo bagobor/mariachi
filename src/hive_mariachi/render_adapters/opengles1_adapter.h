@@ -38,8 +38,8 @@
 #include "opengles_adapter.h"
 
 /**
-* The default zoom level value.
-*/
+ * The default zoom level value.
+ */
 #define DEFAULT_ZOOM_LEVEL 40.0
 
 namespace mariachi {

@@ -30,13 +30,13 @@
 using namespace mariachi::debugging;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 DebugDevice::DebugDevice() : Device() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 DebugDevice::~DebugDevice() {
 }

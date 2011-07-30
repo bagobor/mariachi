@@ -43,8 +43,8 @@
 #include "render_adapter.h"
 
 /**
-* The default zoom level value.
-*/
+ * The default zoom level value.
+ */
 #define DEFAULT_ZOOM_LEVEL 100.0
 
 namespace mariachi {

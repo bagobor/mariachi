@@ -31,31 +31,31 @@ using namespace mariachi::physics;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 CubeSolid::CubeSolid() : CollisionSolid() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 CubeSolid::~CubeSolid() {
 }
 
 /**
-* Retrieves the bounding box.
-*
-* @return The bounding box.
-*/
+ * Retrieves the bounding box.
+ *
+ * @return The bounding box.
+ */
 Box3d_t &CubeSolid::getBoundingBox() {
     return this->boundingBox;
 }
 
 /**
-* Sets the bounding box.
-*
-* @param boundingBox The bounding box.
-*/
+ * Sets the bounding box.
+ *
+ * @param boundingBox The bounding box.
+ */
 void CubeSolid::setBoundingBox(const Box3d_t &boundingBox) {
     this->boundingBox = boundingBox;
 }

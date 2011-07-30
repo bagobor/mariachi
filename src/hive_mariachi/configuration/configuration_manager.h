@@ -29,8 +29,8 @@
 #include "configuration_map.h"
 
 /**
-* The default configuration file path.
-*/
+ * The default configuration file path.
+ */
 #define DEFAULT_CONFIGURATION_FILE "config.json"
 
 namespace mariachi {

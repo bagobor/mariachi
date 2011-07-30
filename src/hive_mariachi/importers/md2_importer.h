@@ -29,54 +29,54 @@
 #include "model_importer.h"
 
 /**
-* The md2 header size.
-*/
+ * The md2 header size.
+ */
 #define MD2_HEADER_SIZE 68
 
 /**
-* The md2 frame header size.
-*/
+ * The md2 frame header size.
+ */
 #define MD2_FRAME_HEADER_SIZE 40
 
 /**
-* The md2 float size size.
-*/
+ * The md2 float size size.
+ */
 #define MD2_FLOAT_SIZE 4
 
 /**
-* The md2 vertex value size.
-*/
+ * The md2 vertex value size.
+ */
 #define MD2_VERTEX_VALUE_SIZE 4
 
 /**
-* The md2 coordinate number.
-*/
+ * The md2 coordinate number.
+ */
 #define MD2_COORDINATE_NUMBER 3
 
 namespace mariachi {
     namespace importers {
         /**
-        * The md2 header structure, containing information about
-        * md2 metadata.
-        *
-        * @param magicNumber The md2 magic number (IDP2).
-        * @param md2Version The version of the md2 implementation.
-        * @param textureWidth The width of the texture.
-        * @param textureHeight The height of the texture.
-        * @param frameSize The size of a frame (in bytes).
-        * @param numberTextures The number of textures.
-        * @param numberVertices The number of vertices.
-        * @param numberTextureCordinates The number of texture coordinates.
-        * @param numberTriangles The number of triangles.
-        * @param numberGlCommands The number of gl commands.
-        * @param numberFrames The number of frames included in the model.
-        * @param offsetSkins The offset address to the skins.
-        * @param offsetSt The offset address to the texture coordinates.
-        * @param offsetTriangles The offset address to the trinagles.
-        * @param offsetFrames The offset address to the frames.
-        * @param offsetGlCommands The offset address to the gl commands.
-        * @param offsetEnd The offset address to the end.
-        */
+         * The md2 header structure, containing information about
+         * md2 metadata.
+         *
+         * @param magicNumber The md2 magic number (IDP2).
+         * @param md2Version The version of the md2 implementation.
+         * @param textureWidth The width of the texture.
+         * @param textureHeight The height of the texture.
+         * @param frameSize The size of a frame (in bytes).
+         * @param numberTextures The number of textures.
+         * @param numberVertices The number of vertices.
+         * @param numberTextureCordinates The number of texture coordinates.
+         * @param numberTriangles The number of triangles.
+         * @param numberGlCommands The number of gl commands.
+         * @param numberFrames The number of frames included in the model.
+         * @param offsetSkins The offset address to the skins.
+         * @param offsetSt The offset address to the texture coordinates.
+         * @param offsetTriangles The offset address to the trinagles.
+         * @param offsetFrames The offset address to the frames.
+         * @param offsetGlCommands The offset address to the gl commands.
+         * @param offsetEnd The offset address to the end.
+         */
         typedef struct Md2Header_t {
             char magicNumber[4];
             int md2Version;
@@ -98,13 +98,13 @@ namespace mariachi {
         } Md2Header;
 
         /**
-        * The md2 frame header information structure.
-        *
-        * @param scale The scaling information for each of the
-        * coordinates.
-        * @param translate The translation value for each of the coordinates.
-        * @param name The name used to identify the frame.
-        */
+         * The md2 frame header information structure.
+         *
+         * @param scale The scaling information for each of the
+         * coordinates.
+         * @param translate The translation value for each of the coordinates.
+         * @param name The name used to identify the frame.
+         */
         typedef struct Md2FrameHeader_t {
             float scale[3];
             float translate[3];
@@ -112,24 +112,24 @@ namespace mariachi {
         } Md2FrameHeader;
 
         /**
-        * The md2 vertex contents used for operation in the vertex.
-        *
-        * @param vertex The vertex information.
-        * @param lightNormalIndex The index for normal vector calculation.
-        */
+         * The md2 vertex contents used for operation in the vertex.
+         *
+         * @param vertex The vertex information.
+         * @param lightNormalIndex The index for normal vector calculation.
+         */
         typedef struct Md2VertexContents_t {
             unsigned char vertex[3];
             unsigned char lightNormalIndex;
         } Md2VertexContents;
 
         /**
-        * The md2 texture information that contains
-        * mapping information for the texture.
-        *
-        * @param vertexTextureX The x coordinate texture value.
-        * @param vertexTextureY The y coordinate texture value.
-        * @parma vertexIndex The index for the vertex.
-        */
+         * The md2 texture information that contains
+         * mapping information for the texture.
+         *
+         * @param vertexTextureX The x coordinate texture value.
+         * @param vertexTextureY The y coordinate texture value.
+         * @parma vertexIndex The index for the vertex.
+         */
         typedef struct Md2VertexTextureInformation_t {
             float vertexTextureX;
             float vertexTextureY;
@@ -137,11 +137,11 @@ namespace mariachi {
         } Md2VertexTextureInformation;
 
         /**
-        * Class that represents an md2 (quake 2) frame, the contents
-        * include coordinates list, vertex list, gl commands and mesh list.
-        *
-        * @see wikipedia - http://en.wikipedia.org/wiki/MD2_(file_format)
-        */
+         * Class that represents an md2 (quake 2) frame, the contents
+         * include coordinates list, vertex list, gl commands and mesh list.
+         *
+         * @see wikipedia - http://en.wikipedia.org/wiki/MD2_(file_format)
+         */
         class Md2Frame {
             private:
 
@@ -165,11 +165,11 @@ namespace mariachi {
         };
 
         /**
-        * The md2 importer class.
-        * Allows the importing to the mariachi engine of the quake 2 models.
-        *
-        * @see wikipedia - http://en.wikipedia.org/wiki/MD2_(file_format)
-        */
+         * The md2 importer class.
+         * Allows the importing to the mariachi engine of the quake 2 models.
+         *
+         * @see wikipedia - http://en.wikipedia.org/wiki/MD2_(file_format)
+         */
         class Md2Importer : public ModelImporter {
             private:
                 std::vector<structures::Frame_t *> framesList;

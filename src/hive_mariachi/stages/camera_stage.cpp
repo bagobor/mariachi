@@ -33,31 +33,31 @@ using namespace mariachi;
 using namespace mariachi::stages;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 CameraStage::CameraStage() : Stage() {
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ */
 CameraStage::CameraStage(Engine *engine) : Stage(engine) {
 }
 
 /**
-* Constructor of the class.
-*
-* @param engine The currently used engine.
-* @param name The name of the stage.
-*/
+ * Constructor of the class.
+ *
+ * @param engine The currently used engine.
+ * @param name The name of the stage.
+ */
 CameraStage::CameraStage(Engine *engine, const std::string &name) : Stage(engine, name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 CameraStage::~CameraStage() {
 }
 

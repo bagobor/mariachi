@@ -31,8 +31,8 @@ using namespace mariachi::nodes;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 PhysicalNode::PhysicalNode() : CubeNode() {
     this->initMass();
     this->initTransforms();
@@ -44,8 +44,8 @@ PhysicalNode::PhysicalNode(const std::string &name) : CubeNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 PhysicalNode::~PhysicalNode() {
 }
 

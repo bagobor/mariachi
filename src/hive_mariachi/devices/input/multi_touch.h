@@ -59,23 +59,23 @@ namespace mariachi {
         class MultiTouch : public InputDevice {
             private:
                 /**
-                * The buffer of multi touch events.
-                */
+                 * The buffer of multi touch events.
+                 */
                 MultiTouchEvent_t *multiTouchEventBuffer;
 
                 /**
-                * The size of the events buffer.
-                */
+                 * The size of the events buffer.
+                 */
                 unsigned int multiTouchEventBufferSize;
 
                 /**
-                * The current position in the event buffer.
-                */
+                 * The current position in the event buffer.
+                 */
                 unsigned int multiTouchEventBufferPosition;
 
                 /**
-                * Flag that controls the capture of the touches moved event.
-                */
+                 * Flag that controls the capture of the touches moved event.
+                 */
                 bool touchesMovedCapture;
 
             public:

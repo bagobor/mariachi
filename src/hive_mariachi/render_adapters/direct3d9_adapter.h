@@ -39,23 +39,23 @@ namespace mariachi {
         class Direct3d9Adapter : public Direct3dAdapter {
             private:
                 /**
-                * The main direct3d window.
-                */
+                 * The main direct3d window.
+                 */
                 render_utils::Direct3dWindow *window;
 
                 /**
-                * The pointer to the direct3d interface.
-                */
+                 * The pointer to the direct3d interface.
+                 */
                 LPDIRECT3D9 direct3d;
 
-                /*
-                * The pointer to the device class.
-                */
+                /**
+                 * The pointer to the device class.
+                 */
                 LPDIRECT3DDEVICE9 direct3dDevice;
 
-                /*
-                * The pointer to the triangle vertex buffer.
-                */
+                /**
+                 * The pointer to the triangle vertex buffer.
+                 */
                 LPDIRECT3DVERTEXBUFFER9 triangleVertexBuffer;
 
                 inline time_t clockSeconds();

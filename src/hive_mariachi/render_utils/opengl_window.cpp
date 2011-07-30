@@ -32,21 +32,21 @@
 using namespace mariachi::render_utils;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OpenglWindow::OpenglWindow() {
     this->initRunningFlag();
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OpenglWindow::~OpenglWindow() {
 }
 
 /**
-* Initializes the running flag.
-*/
+ * Initializes the running flag.
+ */
 inline void OpenglWindow::initRunningFlag() {
     // sets the running flag
     this->runningFlag = true;

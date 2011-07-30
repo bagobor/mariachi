@@ -34,8 +34,8 @@ using namespace mariachi::script;
 using namespace mariachi::script::lua;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 LuaScriptEngine::LuaScriptEngine() : ScriptEngine() {
 }
 
@@ -43,8 +43,8 @@ LuaScriptEngine::LuaScriptEngine(Engine *engine) : ScriptEngine(engine) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 LuaScriptEngine::~LuaScriptEngine() {
 }
 

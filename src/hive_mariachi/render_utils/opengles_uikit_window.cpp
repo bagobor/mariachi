@@ -37,14 +37,14 @@ using namespace mariachi::render_utils;
 using namespace mariachi::render_adapters;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 OpenglesUikitWindow::OpenglesUikitWindow() : OpenglesWindow() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 OpenglesUikitWindow::~OpenglesUikitWindow() {
 }
 

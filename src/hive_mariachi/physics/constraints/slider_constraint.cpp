@@ -30,13 +30,13 @@
 using namespace mariachi::physics;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 SliderConstraint::SliderConstraint() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 SliderConstraint::~SliderConstraint() {
 }

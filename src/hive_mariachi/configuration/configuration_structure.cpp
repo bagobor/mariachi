@@ -31,14 +31,14 @@ using namespace mariachi::structures;
 using namespace mariachi::configuration;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ConfigurationStructure::ConfigurationStructure() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ConfigurationStructure::~ConfigurationStructure() {
 }
 

@@ -31,8 +31,8 @@ using namespace mariachi::nodes;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ActorNode::ActorNode() : ModelNode() {
     this->initRenderable();
     this->initCurrentFrame();
@@ -44,8 +44,8 @@ ActorNode::ActorNode(const std::string &name) : ModelNode(name) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ActorNode::~ActorNode() {
 }
 

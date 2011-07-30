@@ -33,22 +33,22 @@ using namespace mariachi::exceptions;
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 PacketNetwork::PacketNetwork() : NetworkDevice() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 PacketNetwork::~PacketNetwork() {
 }
 
 /**
-* Starts the network subsystem setting up the socket.
-*
-* @param arguments The arguments for the starting of the network.
-*/
+ * Starts the network subsystem setting up the socket.
+ *
+ * @param arguments The arguments for the starting of the network.
+ */
 void PacketNetwork::start(void *arguments) {
     // retrieves the arguments map from the arguments
     std::map<std::string, void *> argumentsMap = *(std::map<std::string, void *> *) arguments;
@@ -76,23 +76,23 @@ void PacketNetwork::start(void *arguments) {
 }
 
 /**
-* Stops the network subsystem closing the socket.
-*
-* @param arguments The arguments for the stopping of the network.
-*/
+ * Stops the network subsystem closing the socket.
+ *
+ * @param arguments The arguments for the stopping of the network.
+ */
 void PacketNetwork::stop(void *arguments) {
     // finishes the socket system
     SOCKET_FINISH();
 }
 
 /**
-* Binds a connection to the given ip address and port.
-* After the binding the connection is in a state of listening to client connections.
-*
-* @param ipAddress The ip address to bind. If empty string the binding is done to all the available ip
-* addresses.
-* @param port The port to be used in the binding.
-*/
+ * Binds a connection to the given ip address and port.
+ * After the binding the connection is in a state of listening to client connections.
+ *
+ * @param ipAddress The ip address to bind. If empty string the binding is done to all the available ip
+ * addresses.
+ * @param port The port to be used in the binding.
+ */
 void PacketNetwork::bindConnection(const std::string &ipAddress, unsigned int port) {
     // allocates the socket address structure
     SOCKET_ADDRESS socketAddress;

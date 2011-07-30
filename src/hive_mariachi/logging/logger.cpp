@@ -32,8 +32,8 @@
 using namespace mariachi::logging;
 
 /**
-* Constuctor of the class.
-*/
+ * Constuctor of the class.
+ */
 Logger::Logger() {
     LoggerHandler *defaultLoggerHandler = new DEFAULT_HANDLER();
     LoggerFormatter *defaultLoggerFormatter = new DEFAULT_FORMATTER();
@@ -43,8 +43,8 @@ Logger::Logger() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 Logger::~Logger() {
 
 }
@@ -111,10 +111,10 @@ void Logger::handle(LoggerRecord *record) {
 }
 
 /**
-* Sets the log level.
-*
-* @param level The log level.
-*/
+ * Sets the log level.
+ *
+ * @param level The log level.
+ */
 void Logger::setLevel(unsigned int level) {
     this->logLevel = level;
 }
@@ -328,8 +328,8 @@ void LoggerStringFormatter::setFormatString(const std::string &formatString) {
 }
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 LoggerRecord::LoggerRecord() {
 }
 
@@ -339,8 +339,8 @@ LoggerRecord::LoggerRecord(const std::string &value, unsigned int level) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 LoggerRecord::~LoggerRecord() {
 }
 

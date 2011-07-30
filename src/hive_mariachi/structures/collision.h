@@ -28,19 +28,19 @@
 #include "../nodes/physical_node.h"
 
 /**
-* The size of the collision point list.
-*/
+ * The size of the collision point list.
+ */
 #define COLLISION_POINT_LIST_SIZE 4
 
 namespace mariachi {
     namespace structures {
         /**
-        * Represents a collision point in 3d space.
-        *
-        * @param positionFirstPhysicalNode The collision position on the first physical node.
-        * @param positionSecondPhysicalNode The collision position on the second physical node.
-        * @param normalSecondPhysicalNode The normal on the second physical node.
-        */
+         * Represents a collision point in 3d space.
+         *
+         * @param positionFirstPhysicalNode The collision position on the first physical node.
+         * @param positionSecondPhysicalNode The collision position on the second physical node.
+         * @param normalSecondPhysicalNode The normal on the second physical node.
+         */
         typedef struct CollisionPoint3d_t {
             Coordinate3d_t positionFirstPhysicalNode;
             Coordinate3d_t positionSecondPhysicalNode;
@@ -48,12 +48,12 @@ namespace mariachi {
         } CollisionPoint3d;
 
         /**
-        * Represents a collision in 3d space.
-        *
-        * @param collisionPointList The list of collision points in this collision.
-        * @param firstPhysicalNode The first physical node which collided.
-        * @param secondPhysicalNode The second physical node which collided.
-        */
+         * Represents a collision in 3d space.
+         *
+         * @param collisionPointList The list of collision points in this collision.
+         * @param firstPhysicalNode The first physical node which collided.
+         * @param secondPhysicalNode The second physical node which collided.
+         */
         typedef struct Collision3d_t {
             CollisionPoint3d collisionPointList[COLLISION_POINT_LIST_SIZE];
             nodes::PhysicalNode *firstPhysicalNode;

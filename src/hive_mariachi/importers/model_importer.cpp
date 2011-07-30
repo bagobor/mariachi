@@ -30,13 +30,13 @@
 using namespace mariachi::importers;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 ModelImporter::ModelImporter() : Importer() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 ModelImporter::~ModelImporter() {
 }

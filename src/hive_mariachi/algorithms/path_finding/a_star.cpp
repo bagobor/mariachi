@@ -31,8 +31,8 @@ using namespace mariachi::algorithms;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 AStar::AStar() : PathFinder() {
     this->initDistanceFunction();
 }
@@ -42,8 +42,8 @@ AStar::AStar(PathNodesGraph *nodesGraph) : PathFinder(nodesGraph) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 AStar::~AStar() {
 }
 

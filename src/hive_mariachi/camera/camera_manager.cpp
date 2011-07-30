@@ -33,8 +33,8 @@ using namespace mariachi::camera;
 using namespace mariachi::structures;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 CameraManager::CameraManager() {
     this->initDefaultCamera();
     this->initTransitionCamera();
@@ -47,8 +47,8 @@ CameraManager::CameraManager(Engine *engine) {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 CameraManager::~CameraManager() {
     // destroys the default camera
     delete this->defaultCamera;
@@ -58,8 +58,8 @@ CameraManager::~CameraManager() {
 }
 
 /**
-* Initializes the default camera.
-*/
+ * Initializes the default camera.
+ */
 inline void CameraManager::initDefaultCamera() {
     // creates the default camera
     this->defaultCamera = new CameraNode(std::string("default_camera"));
@@ -110,68 +110,68 @@ void CameraManager::update(void *arguments) {
 }
 
 /**
-* Retrieves the default camera.
-*
-* @return The default camera.
-*/
+ * Retrieves the default camera.
+ *
+ * @return The default camera.
+ */
 CameraNode *CameraManager::getDefaultCamera() {
     return this->defaultCamera;
 }
 
 /**
-* Sets the default camera.
-*
-* @param defaultCamera The default camera.
-*/
+ * Sets the default camera.
+ *
+ * @param defaultCamera The default camera.
+ */
 void CameraManager::setDefaultCamera(CameraNode *defaultCamera) {
     this->defaultCamera = defaultCamera;
 }
 
 /**
-* Retrieves the current active camera.
-*
-* @return The current active camera.
-*/
+ * Retrieves the current active camera.
+ *
+ * @return The current active camera.
+ */
 CameraNode *CameraManager::getActiveCamera() {
     return this->activeCamera;
 }
 
 /**
-* Sets the current active camera.
-*
-* @param activeCamera The current active camera.
-*/
+ * Sets the current active camera.
+ *
+ * @param activeCamera The current active camera.
+ */
 void CameraManager::setActiveCamera(CameraNode *activeCamera) {
     this->activeCamera = activeCamera;
 }
 
 /**
-* Retrieves the camera for the given camera name.
-*
-* @param cameraName The camera name to retrieve the camera.
-* @return The camera for the given camera name.
-*/
+ * Retrieves the camera for the given camera name.
+ *
+ * @param cameraName The camera name to retrieve the camera.
+ * @return The camera for the given camera name.
+ */
 CameraNode *CameraManager::getCamera(const std::string &cameraName) {
     return this->camerasMap[cameraName];
 }
 
 /**
-* Sets the camera with the given camera name.
-*
-* @param cameraName The name to be used to identify the camera.
-* @param camera The camera to be set.
-*/
+ * Sets the camera with the given camera name.
+ *
+ * @param cameraName The name to be used to identify the camera.
+ * @param camera The camera to be set.
+ */
 void CameraManager::setCamera(const std::string &cameraName, CameraNode *camera) {
     this->camerasMap[cameraName] = camera;
 }
 
 /**
-* Sets up a transition between the current active camera and
-* the given camera.
-* @param cameraName The camera name to retrieve the camera to which
-* the transition is to be made.
-* @param duration The duration, in steps, of the transition animation.
-*/
+ * Sets up a transition between the current active camera and
+ * the given camera.
+ * @param cameraName The camera name to retrieve the camera to which
+ * the transition is to be made.
+ * @param duration The duration, in steps, of the transition animation.
+ */
 void CameraManager::startTransition(const std::string &cameraName, int duration) {
     // cancels existing transitions
     this->cancelTransition();
@@ -190,8 +190,8 @@ void CameraManager::startTransition(const std::string &cameraName, int duration)
 }
 
 /**
-* Updates the ongoing transition between cameras.
-*/
+ * Updates the ongoing transition between cameras.
+ */
 void CameraManager::updateTransition(float elapsedSteps) {
     // updates the elapsed steps
     this->transitionElapsedSteps += elapsedSteps;
@@ -273,8 +273,8 @@ void CameraManager::updateTransition(float elapsedSteps) {
 }
 
 /**
-* Cancels the currently active transition.
-*/
+ * Cancels the currently active transition.
+ */
 void CameraManager::cancelTransition() {
     // in case a transition is not in progress
     if(!this->isTransitioning()) {
@@ -299,9 +299,9 @@ void CameraManager::cancelTransition() {
 }
 
 /**
-* Indicates if the manager is currently transitioning
-* between cameras.
-*/
+ * Indicates if the manager is currently transitioning
+ * between cameras.
+ */
 bool CameraManager::isTransitioning() {
     // indicates if a valid transition duration exists
     return this->transitionDuration != NULL;

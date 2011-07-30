@@ -30,31 +30,31 @@
 using namespace mariachi::physics;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 SphereSolid::SphereSolid() : CollisionSolid() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 SphereSolid::~SphereSolid() {
 }
 
 /**
-* Retrieves the radius.
-*
-* @return The radius.
-*/
+ * Retrieves the radius.
+ *
+ * @return The radius.
+ */
 float SphereSolid::getRadius() {
     return this->radius;
 }
 
 /**
-* Sets the radius.
-*
-* @param radius The radius.
-*/
+ * Sets the radius.
+ *
+ * @param radius The radius.
+ */
 void SphereSolid::setRadius(float radius) {
     this->radius = radius;
 }

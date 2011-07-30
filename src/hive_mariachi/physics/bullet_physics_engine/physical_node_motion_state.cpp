@@ -97,8 +97,8 @@ void PhysicalNodeMotionState::setWorldTransform(const btTransform &worldTransfor
 }
 
 /**
-* Updates bullet's world transform to reflect the new position. Useful for kinematic bodies.
-*/
+ * Updates bullet's world transform to reflect the new position. Useful for kinematic bodies.
+ */
 void PhysicalNodeMotionState::setPosition(const Coordinate3d_t &position) {
     // creates the position vector for the specified position
     btVector3 positionVector(position.x, position.y, position.z);

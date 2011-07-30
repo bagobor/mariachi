@@ -30,13 +30,13 @@
 using namespace mariachi::devices;
 
 /**
-* Constructor of the class.
-*/
+ * Constructor of the class.
+ */
 DatagramNetwork::DatagramNetwork() : NetworkDevice() {
 }
 
 /**
-* Destructor of the class.
-*/
+ * Destructor of the class.
+ */
 DatagramNetwork::~DatagramNetwork() {
 }
